@@ -1,10 +1,45 @@
+import os
+import datetime
+
+# Get the current directory
+current_dir = "/home/u210367/Work/zipper"
+
+# Get the current date and time
+current_time = datetime.datetime.now()
+print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
+
+# Iterate over all sub-directories
+for dirpath, dirnames, filenames in os.walk(current_dir):
+    # Get the creation time of the latest file in each sub-directory
+    latest_file_creation_time = 0
+    for filename in filenames:
+        file_path = os.path.join(dirpath, filename)
+        file_creation_time = os.path.getctime(file_path)
+        if file_creation_time > latest_file_creation_time:
+            latest_file_creation_time = file_creation_time
+
+    # Calculate the time difference
+    if latest_file_creation_time > 0:
+        time_difference = current_time - datetime.datetime.fromtimestamp(latest_file_creation_time)
+        # Print the time difference in a human-readable format
+        print(f"Directory: {dirpath}, Updated {time_difference} ago")
+
+        # Delete files that are 3 days old or older (except in current_dir)
+        for filename in filenames:
+            file_path = os.path.join(dirpath, filename)
+            file_creation_time = os.path.getctime(file_path)
+            
+            # Skip deletion for files in current_dir
+            if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3 and dirpath != current_dir:
+                os.remove(file_path)
+                print(f"Deleted file: {file_path}")
+
+
 import cryptg
 import requests
-import datetime
 import asyncio
 import subprocess
 import shutil
-import os
 import time
 
 from telethon import events, Button, utils
