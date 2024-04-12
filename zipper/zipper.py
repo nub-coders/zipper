@@ -28,7 +28,7 @@ def check_status(user_id):
         return "User not found or session expired. Please start the bot."
 
 # Get the current directory
-current_dir = "/home/u210367/Work/zipper"
+current_dir = "zipper"
 
 # Get the current date and time
 current_time = datetime.datetime.now()
@@ -80,7 +80,7 @@ api_hash = '73f10cf0979637857170f03d4c86f251'
 token = '6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
 admin = 6476862483 # Replace with the actual admin user ID
 time.sleep(2)
-dex="/home/u210367/Work/zipper/duo"
+dex="zipper/duo"
 client = TelegramClient(None, api_id, api_hash)
 
 @client.on(events.NewMessage(pattern='^!skip$'))
@@ -92,7 +92,7 @@ async def skip_handler(event):
     global zipping_in_progress
 
     # Check if the user is an admin by comparing their user ID with the ones in /home/u210367/Work/Work/Work/zipper//home/u210367/Work/zipper/admin.txt
-    admin_file ="/home/u210367/Work/zipper/admin.txt"
+    admin_file ="zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -136,7 +136,7 @@ def read_chat_ids_from_file(file_path):
         return []
 
 # Path to your /home/u210367/Work/Work/Work/zipper//home/u210367/Work/Work/zipper/user.txt file
-file_path = '/home/u210367/Work/zipper/user.txt'
+file_path = 'zipper/user.txt'
 
 # Define event handler for /loud command
 @client.on(events.NewMessage(pattern='/loud'))
@@ -173,7 +173,7 @@ async def reboot_handler(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in /home/u210367/Work/Work/Work/zipper//home/u210367/Work/zipper/admin.txt
-    admin_file = "/home/u210367/Work/zipper/admin.txt"
+    admin_file = "zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -386,7 +386,7 @@ async def callback_queue(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.t$
-    admin_file = "/home/u210367/Work/zipper/admin.txt"
+    admin_file = "zipper/admin.txt"
     if 2==2:
                 user_task_counts = {}
 
@@ -427,7 +427,7 @@ async def callback_help(event):
 
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/start'))
 async def start(event):
-    user_file_path = '/home/u210367/Work/zipper/user.txt'  # Update with your file path
+    user_file_path = 'zipper/user.txt'  # Update with your file path
     user_exists = False
     user_chat_id=str(event.chat_id)
     if os.path.exists(user_file_path):
@@ -517,8 +517,8 @@ async def list_files(event):
 
 
     user_id = str(event.sender_id)
-    user_dir = f"/Work/zipper/{user_id}"
-    user_dir = f"/home/u210367/Work/zipper/{user_id}"
+    user_dir = f"zipper/{user_id}"
+    user_dir = f"zipper/{user_id}"
 
     if os.path.exists(user_dir):
         files = os.listdir(user_dir)
@@ -549,7 +549,7 @@ async def list_files(event):
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text.startswith('/del ')))
 async def delete_file(event):
     user_id = str(event.sender_id)
-    user_dir = f"/home/u210367/Work/zipper/{user_id}"
+    user_dir = f"zipper/{user_id}"
 
     # Extract the file number from the message
     try:
@@ -573,7 +573,7 @@ async def delete_file(event):
 
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/clear'))
 async def clear(event):
-    user_directory ="/home/u210367/Work/zipper"
+    user_directory ="zipper"
     user_id = str(event.sender_id)
     user_path = os.path.join(user_directory, user_id)
 
@@ -670,7 +670,7 @@ async def download(event):
          return await link_send(event)
     else:
         return await link_send(event)
-    user_dir = f"/home/u210367/Work/zipper/{user_id}"
+    user_dir = f"zipper/{user_id}"
     #user_path = os.path.join(user_directory, user_id)
     os.makedirs(user_dir, exist_ok=True)
     # Calculate the remaining storage space
@@ -866,7 +866,7 @@ async def create_zip(event):
             for line in output.stdout:
                 line = line.strip()
                 if line:
-                    line=line.replace(f"home/u201853/zipper/{user_id}/","")
+                    line=line.replace(f"zipper/{user_id}/","")
                     try:
                         await message.edit(line)
                     except Exception as e:
@@ -1143,8 +1143,8 @@ async def link_download(event):
          return await link_send(event)
     else:
         return await link_send(event)
-    user_dir = f"/Work/zipper/{user_id}"
-    user_dir = f"/home/u210367/Work/zipper/{user_id}"
+    user_dir = f"zipper/{user_id}"
+    user_dir = f"zipper/{user_id}"
     download_directory = user_dir
     os.makedirs(user_dir, exist_ok=True)
 
