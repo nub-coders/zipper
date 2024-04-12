@@ -144,7 +144,7 @@ async def loud_message(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = "/home/u210367/Work/zipper/admin.txt"
+    admin_file = "zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
