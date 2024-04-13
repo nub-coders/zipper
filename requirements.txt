@@ -1,4 +1,3 @@
-pyaesni
 telethon
 tgcrypto
 cryptg
