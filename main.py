@@ -898,7 +898,7 @@ async def create_zip(event):
                 msg = await event.respond("uploading started")
 
          
-                await bot.send_file(
+                await client.send_file(
              event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress_callback=progress_bar)
                     
 
