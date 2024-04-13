@@ -1,4 +1,5 @@
 import os
+ggg=os.getcwd()
 import datetime
 import pymongo
 import time
@@ -27,7 +28,7 @@ def check_status(user_id):
         return "User not found or session expired. Please start the bot."
 
 # Get the current directory
-current_dir = "zipper"
+current_dir = f"{ggg}/zipper"
 
 # Get the current date and time
 current_time = datetime.datetime.now()
@@ -91,7 +92,7 @@ async def skip_handler(event):
     global zipping_in_progress
 
     # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
-    admin_file ="zipper/admin.txt"
+    admin_file =f"{ggg}/zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -135,7 +136,7 @@ def read_chat_ids_from_file(file_path):
         return []
 
 # Path to your /home/u219967/Work/Work/Work/zipper//home/u219967/Work/Work/zipper/user.txt file
-file_path = 'zipper/user.txt'
+file_path = f'{ggg}/zipper/user.txt'
 
 # Define event handler for /loud command
 @client.on(events.NewMessage(pattern='/loud'))
@@ -143,7 +144,7 @@ async def loud_message(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = "zipper/admin.txt"
+    admin_file = f"{ggg}/zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -172,7 +173,7 @@ async def reboot_handler(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
-    admin_file = "zipper/admin.txt"
+    admin_file = f"{ggg}/zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -385,7 +386,7 @@ async def callback_queue(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.t$
-    admin_file = "zipper/admin.txt"
+    admin_file = f"{ggg}/zipper/admin.txt"
     if 2==2:
                 user_task_counts = {}
 
@@ -544,7 +545,7 @@ async def list_files(event):
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text.startswith('/del ')))
 async def delete_file(event):
     user_id = str(event.sender_id)
-    user_dir = f"zipper/{user_id}"
+    user_dir = f"{ggg}/zipper/{user_id}"
 
     # Extract the file number from the message
     try:
@@ -585,21 +586,6 @@ async def clear(event):
         except:
             await event.respond(f"Your directory does not exist.", buttons=back_buttons)
 
-@client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/clean'))
-async def clean(event):
-    if event.sender_id == 6476862483:
-        user_path = "./"  # Specify the correct directory path
-        if os.path.exists(user_path):
-            items = os.listdir(user_path)
-            for item in items:
-                item_path = os.path.join(user_path, item)
-                if os.path.isdir(item_path):
-                    shutil.rmtree(item_path)
-                else:
-                    os.remove(item_path)
-            await event.edit(f"All directories and files inside {user_path} deleted successfully.", buttons=clear_buttons)
-        else:
-            await event.edit(f"The specified directory {user_path} does not exist.", buttons=clear_buttons)
 client.flood_sleep_threshold = 24*60*60
 client.start(bot_token=token)
 
@@ -665,7 +651,7 @@ async def download(event):
          return await link_send(event)
     else:
         return await link_send(event)
-    user_dir = f"zipper/{user_id}"
+    user_dir = f"{ggg}/zipper/{user_id}"
     #user_path = os.path.join(user_directory, user_id)
     os.makedirs(user_dir, exist_ok=True)
     # Calculate the remaining storage space
@@ -818,7 +804,7 @@ async def create_zip(event):
         return await event.respond("You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
-    user_dir = f"/home/u219967/Work/zipper/{user_id}"
+    user_dir =f"{ggg}/zipper/{user_id}"
     if not os.path.exists(user_dir):
         return await event.reply("Your directory doesn't exist.", buttons=back_buttons)
 
@@ -1139,7 +1125,7 @@ async def link_download(event):
     else:
         return await link_send(event)
     user_dir = f"zipper/{user_id}"
-    user_dir = f"zipper/{user_id}"
+    user_dir = f"{ggg}/zipper/{user_id}"
     download_directory = user_dir
     os.makedirs(user_dir, exist_ok=True)
 
