@@ -1,1 +1,1 @@
-worker: python3 zipper/zipper.py
+worker: python3 zipper.py

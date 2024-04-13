@@ -16,7 +16,7 @@ sed -i "s|/home/[^/]*/Work|$current_dir|g" zipper/zipper.py
 # Replace all occurrences of /home/u209464 with the current directory in the file
 # Replace all occurrences of /home/u209464/Work with opt/render in the 
 # Define an array of process names and their corresponding commands
-python -m venv myenv
+python3 -m venv myenv
 source myenv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt

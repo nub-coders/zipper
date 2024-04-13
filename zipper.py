@@ -91,7 +91,7 @@ async def skip_handler(event):
     global download_in_progress
     global zipping_in_progress
 
-    # Check if the user is an admin by comparing their user ID with the ones in /home/u210367/Work/Work/Work/zipper//home/u210367/Work/zipper/admin.txt
+    # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
     admin_file ="zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
@@ -135,7 +135,7 @@ def read_chat_ids_from_file(file_path):
         print(f"Error reading file: {e}")
         return []
 
-# Path to your /home/u210367/Work/Work/Work/zipper//home/u210367/Work/Work/zipper/user.txt file
+# Path to your /home/u219967/Work/Work/Work/zipper//home/u219967/Work/Work/zipper/user.txt file
 file_path = 'zipper/user.txt'
 
 # Define event handler for /loud command
@@ -172,7 +172,7 @@ async def loud_message(event):
 async def reboot_handler(event):
     user_id = event.sender_id
 
-    # Check if the user is an admin by comparing their user ID with the ones in /home/u210367/Work/Work/Work/zipper//home/u210367/Work/zipper/admin.txt
+    # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
     admin_file = "zipper/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
@@ -823,7 +823,7 @@ async def create_zip(event):
         return await event.respond("You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
-    user_dir = f"/home/u210367/Work/zipper/{user_id}"
+    user_dir = f"/home/u219967/Work/zipper/{user_id}"
     if not os.path.exists(user_dir):
         return await event.reply("Your directory doesn't exist.", buttons=back_buttons)
 

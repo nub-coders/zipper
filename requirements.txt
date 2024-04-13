@@ -1,5 +1,7 @@
+pyaesni
 telethon
 tgcrypto
 cryptg
 requests
 pymongo
+pymongo[srv]
