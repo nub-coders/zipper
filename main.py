@@ -1197,5 +1197,23 @@ async def link_download(event):
         link_download_queue.put(event)
 
 # ... (previous code remains the same)
+@client.on(events.NewMessage(pattern='/users'))
+async def list_users(event):
+    user_id = event.sender_id
+
+    # Check if the user is an admin by comparing their user ID with the ones in admin.txt
+    admin_file = f"{ggg}/zipper/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
+    user_ids = [str(user["user_id"]) for user in collection.find()]
+    if user_ids:
+        user_list = "\n".join(user_ids)
+        await event.respond(f"List of users:\n{user_list}")
+    else:
+        await event.respond("No users found.")
+
 
 client.run_until_disconnected()
