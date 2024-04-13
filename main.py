@@ -34,7 +34,7 @@ current_time = datetime.datetime.now()
 print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 # Iterate over all sub-directories
-for dirpath, dirnames, filenames in os.walk(current_dir):
+'''for dirpath, dirnames, filenames in os.walk(current_dir):
     # Get the creation time of the latest file in each sub-directory
     latest_file_creation_time = 0
     for filename in filenames:
@@ -57,7 +57,7 @@ for dirpath, dirnames, filenames in os.walk(current_dir):
             # Skip deletion for files in current_dir
             if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3 and dirpath != current_dir:
                 os.remove(file_path)
-                print(f"Deleted file: {file_path}")
+                print(f"Deleted file: {file_path}")'''
 
 
 import cryptg
