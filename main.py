@@ -426,19 +426,15 @@ async def callback_help(event):
 
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/start'))
 async def start(event):
-    user_file_path = 'zipper/user.txt'  # Update with your file path
-    user_exists = False
-    user_chat_id=str(event.chat_id)
-    if os.path.exists(user_file_path):
-        with open(user_file_path, 'r') as user_file:
-            user_ids = user_file.read().splitlines()
-            if user_chat_id in user_ids:
-                user_exists = True
-
-    # If the user's chat_id is not present, append it to the file
-    if not user_exists:
-        with open(user_file_path, 'a+') as user_file:
-            user_file.write(user_chat_id + '\n')
+    user_id = event.sender_id
+    current_time = int(time.time())
+    user_data = collection.find_one({"user_id": user_id})
+    if not user_data:
+     timestamp = int(time.time())
+     timestamp=timestamp-21600
+     user_data = {"user_id": user_id, "timestamp": timestamp}
+     collection.replace_one({"user_id": user_id}, user_data, upsert=True)
+    # Check
     await event.respond(
             "Hello! Send me any files or direct download link  and I will compress them to a zip",
             buttons=home_buttons)
