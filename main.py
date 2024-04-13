@@ -701,7 +701,7 @@ async def download(event):
         os.makedirs(user_dir, exist_ok=True)
         os.chdir(user_dir)
 
-        if not download_in_progress and not link_downloading and not zipping_in_progress:
+        if not download_in_progress:
             user_ids[user_id] = True
             download_in_progress = True  #
             active_user_id=user_id
@@ -897,19 +897,14 @@ async def create_zip(event):
                 type_of = f"Uploading Compressed file\nProgress:"
                 msg = await event.respond("uploading started")
 
-                with open(zip_filename, "rb") as out:
-                    res = await upload_file(client, out, progress_callback=progress_bar)
-                    attributes, mime_type = utils.get_attributes(zip_filename)
-                    media = types.InputMediaUploadedDocument(
-                        file=res,
-                        mime_type=mime_type,
-                        attributes=attributes,
-                        force_file=False
-                    )
+         
+                await bot.send_file(
+             event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress_callback=progress_bar)
+                    
 
-                    await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
-                    await event.respond(file=media)
-                    if os.path.exists(user_dir):
+                await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
+                    
+                if os.path.exists(user_dir):
                         shutil.rmtree(user_dir, ignore_errors=True)  # Recursivel$
                         os.makedirs(user_dir, exist_ok=True)
             elif file_size <= 4000000000 and not video_sent:
