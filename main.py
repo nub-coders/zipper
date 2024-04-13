@@ -514,7 +514,7 @@ async def list_files(event):
 
     user_id = str(event.sender_id)
     user_dir = f"zipper/{user_id}"
-    user_dir = f"zipper/{user_id}"
+    user_dir = f"{ggg}/zipper/{user_id}"
 
     if os.path.exists(user_dir):
         files = os.listdir(user_dir)
