@@ -1,1 +1,1 @@
-worker: main.sh
+worker: python3 main.py
