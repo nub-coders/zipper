@@ -1,1 +1,1 @@
-worker: python3 zipper.py
+worker: main.sh
