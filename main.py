@@ -689,7 +689,7 @@ async def download(event):
           progress_message += f"Time left: {time_left:.2f} seconds\n"
 
           # Display current size and total size
-          progress_message += f"Size: {current / (1024 * 1024):.2f} MB / {total / (1024 *>
+          progress_message += f"Size: {current / (1024 * 1024):.2f} MB / {total / (1024 * 1024):.2f} MB"
 
           # Combine progress bar and message
           progress_message += f"\n[{progress_bar_text}]"
