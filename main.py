@@ -613,7 +613,7 @@ user_ids = {}
 link_download_queue = queue.Queue()
 link_downloading = False  # Flag to track if a link download is in progress
 # ... (previous code remains the same)
-
+fi_encoded="file"
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
 async def main(event):
     if event.raw_text.startswith("http"):
@@ -625,6 +625,7 @@ async def download(event):
     global active_user_id
     global download_in_progress  # Use a global flag to track download process
     global dd
+    global fi_encoded
     global user1
     global user2
     global user3
