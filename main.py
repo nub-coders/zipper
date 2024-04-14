@@ -669,34 +669,37 @@ async def download(event):
         msg = None
 
         timer = Timer()
-        async def progress_bar(current, total,start_time=time.time()):
-            global download_in_progress
-            global time_left
-            if timer.can_send():
-                download_in_progress = True  #
-                progress_percent = current * 100 / total
-                progress_message = f"Downloading: {progress_percent:.2f}%\n"
+        async def progress_bar(current, total, start_time, msg, filename=fi_encoded  if fi_encoded else "Photo/video):
+         if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
+          progress_percent = current * 100 / total
+          progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
 
-        # Calculate speed in MB/s
-                elapsed_time = time.time() - start_time
-                speed = current / (elapsed_time * 1024 * 1024)
-                progress_message += f"Speed: {speed:.2f} MB/s\n"
+          # Calculate progress bar length
+          progress_bar_length = 30
+          num_ticks = int(progress_percent / (100 / progress_bar_length))
+          progress_bar_text = '█' * num_ticks + '░' * (progress_bar_length - num_ticks)
 
-        # Calculate estimated time left to complete
-                time_left = (total - current) / (speed * 1024 * 1024)
-                progress_message += f"Time left: {time_left:.2f} seconds"
+          # Calculate speed in MB/s
+          elapsed_time = time.time() - start_time
+          speed = current / (elapsed_time * 1024 * 1024)
+          progress_message += f"Speed: {speed:.2f} MB/s\n"
 
-                progress_bar_length = int(progress_percent / 5)
-                progress_bar_text = "█" * progress_bar_length + "░" * (20 - progress_bar_length)
+          # Calculate estimated time left to complete
+          time_left = (total - current) / (speed * 1024 * 1024) if speed != 0 else 0  # C>
+          progress_message += f"Time left: {time_left:.2f} seconds\n"
 
-                progress_message += f"\n[{progress_bar_text}]"
-        # Create a message with HTML formatting for better appearance
-                message_text = f"<b>{type_of}</b>\n{progress_message}"
-                try:
-                    await asyncio.sleep(1)
-                    await msg.edit(message_text, parse_mode='html')
-                except Exception as e:
-                    print(e)
+          # Display current size and total size
+          progress_message += f"Size: {current / (1024 * 1024):.2f} MB / {total / (1024 *>
+
+          # Combine progress bar and message
+          progress_message += f"\n[{progress_bar_text}]"
+                                                                                                  # Create a message with HTML formatting for better appearance
+          message_text = f"{progress_message}"
+          try:
+            await asyncio.sleep(1)
+            await msg.edit(message_text, parse_mode='html')
+          except Exception as e:
+            print(e)
         os.makedirs(user_dir, exist_ok=True)
         os.chdir(user_dir)
 
