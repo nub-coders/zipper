@@ -669,7 +669,7 @@ async def download(event):
         msg = None
 
         timer = Timer()
-        async def progress_bar(current, total, start_time, msg, filename=fi_encoded  if fi_encoded else "Photo/video):
+        async def progress_bar(current, total, start_time, msg, filename=fi_encoded  if fi_encoded else "Photo/video"):
          if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
           progress_percent = current * 100 / total
           progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
