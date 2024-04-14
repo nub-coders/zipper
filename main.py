@@ -613,7 +613,6 @@ user_ids = {}
 link_download_queue = queue.Queue()
 link_downloading = False  # Flag to track if a link download is in progress
 # ... (previous code remains the same)
-fi_encoded="file"
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
 async def main(event):
     if event.raw_text.startswith("http"):
@@ -625,7 +624,6 @@ async def download(event):
     global active_user_id
     global download_in_progress  # Use a global flag to track download process
     global dd
-    global fi_encoded
     global user1
     global user2
     global user3
@@ -670,9 +668,10 @@ async def download(event):
         msg = None
 
         timer = Timer()
-        async def progress_bar(current, total, start_time, msg, filename=fi_encoded  if fi_encoded else "Photo/video"):
+        async def progress_bar(current, total,start_time=time.time()):
          if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
           progress_percent = current * 100 / total
+          filename=fi_encoded if fi_encoded else None
           progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
 
           # Calculate progress bar length
