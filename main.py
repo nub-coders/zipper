@@ -631,6 +631,7 @@ async def download(event):
     global edit
     global max_retry
     global pinky
+    fi_encoded=None
     pinky+=1
     if pinky % 6==0:
         download_in_progress=False
@@ -671,7 +672,7 @@ async def download(event):
         async def progress_bar(current, total,start_time=time.time()):
          if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
           progress_percent = current * 100 / total
-          filename=fi_encoded if fi_encoded else None
+          filename=fi_encoded 
           progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
 
           # Calculate progress bar length
