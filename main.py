@@ -3,6 +3,7 @@ ggg=os.getcwd()
 import datetime
 import pymongo
 import time
+from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client["telegram_bot"]
 collection = db["users"]
