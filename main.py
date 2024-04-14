@@ -619,7 +619,7 @@ async def main(event):
         await link_download(event)
     elif event.media or event.document:
         await download(event)
-
+pinky=1
 async def download(event):
     global active_user_id
     global download_in_progress  # Use a global flag to track download process
@@ -630,7 +630,9 @@ async def download(event):
     global message
     global edit
     global max_retry
-    if dd / 6==0:
+    global pinky
+    pinky+=1
+    if pinky % 6==0:
         download_in_progress=False
     size=0
     if event.document:
