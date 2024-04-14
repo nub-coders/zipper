@@ -1096,94 +1096,89 @@ async def update_progress(event, message, link):
         await asyncio.sleep(3)  # Update progress every 5 seconds
 
 async def link_download(event):
-    global link_downloading
-    global dd
-    global user2
-    global edit
-    link=event.raw_text
-    global zipping_in_progress
     link = event.raw_text
     user_id = event.sender_id
     current_time = int(time.time())
+    
     user_data = collection.find_one({"user_id": user_id})
     if user_data:
         stored_time = user_data["timestamp"]
         time_difference = current_time - stored_time
         if not time_difference < 21600:  # 6 hours in seconds
-         return await link_send(event)
+            return await link_send(event)
     else:
         return await link_send(event)
+    
     user_dir = f"zipper/{user_id}"
     user_dir = f"{ggg}/zipper/{user_id}"
     download_directory = user_dir
     os.makedirs(user_dir, exist_ok=True)
-
+    
     max_file_size_bytes = 4 * 1024 * 1024 * 1024  # 4 GB in bytes
     total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
     remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 3GB in bytes
-    if not link_downloading and not download_in_progress and not zipping_in_progress:
+    timer = Timer()
+    async def progress_bar(current, total, start_time, msg, filename):
+     if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
+        progress_percent = current * 100 / total
+        progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
+
+        # Calculate progress bar length
+        progress_bar_length = 30
+        num_ticks = int(progress_percent / (100 / progress_bar_length))
+        progress_bar_text = '█' * num_ticks + '░' * (progress_bar_length - num_ticks)
+
+        # Calculate speed in MB/s
+        elapsed_time = time.time() - start_time
+        speed = current / (elapsed_time * 1024 * 1024)
+        progress_message += f"Speed: {speed:.2f} MB/s\n"
+
+        # Calculate estimated time left to complete
+        time_left = (total - current) / (speed * 1024 * 1024) if speed != 0 else 0  # Check for zero speed
+        progress_message += f"Time left: {time_left:.2f} seconds\n"
+
+        # Display current size and total size
+        progress_message += f"Size: {current / (1024 * 1024):.2f} MB / {total / (1024 * 1024):.2f} MB"
+
+        # Combine progress bar and message
+        progress_message += f"\n[{progress_bar_text}]"
+
+        # Create a message with HTML formatting for better appearance
+        message_text = f"{progress_message}"
         try:
+            await asyncio.sleep(1)
+            await msg.edit(message_text, parse_mode='html')
+        except Exception as e:
+            print(e)
+    try:
         # Send a HEAD request to fetch only headers and check file size
-            response = requests.head(link)
-            if "content-length" in response.headers:
-                content_length = int(response.headers["content-length"])
-                if content_length <= remaining_storage:
-                    link_downloading = True
-                    message = await event.reply(f"File size: {content_length} bytes\nStarting download")
-                    progress_task = asyncio.create_task(update_progress(event, message, link))
-
-                    command = ["wget", link, "--progress=bar:force", "-P", download_directory]
-
-                    process = subprocess.Popen(
-                    command,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    text=True,
-                    bufsize=1,
-                    universal_newlines=True,
-                )
-
-                    last_progress_update_time = time.time()
-
-                    for line in process.stdout:
-                        line = line.strip()
-
-                        if line and line.endswith("s") and edit % 8 ==0:
-                            await message.edit(line)
-                        edit+=1
-                    process.wait()  # Wait for the process to finish
-                    progress_task.cancel()
-                    if process.returncode == 0:
-                        await message.edit("File downloaded successfully\n/my_files to check all your files")
-                    else:
-                        await event.reply("Download failed. Please check the URL.")
-
-                    link_downloading = False
-                    if not link_download_queue.empty():
-                        next_link = link_download_queue.get()
-                        user_ids.clear()
-                        dd=dd-1
-                        await link_download(next_link)
-
-                    elif not download_queue.empty():
-                        next_file = download_queue.get()
-                        user_ids.clear()
-                        dd=dd-1
-                        await download(next_file)
-                    else:
-                        await event.reply("File size exceeds available storage. Aborting download.")
-            else:
-                await event.reply("Content length not found in headers. Cannot determine file size.")
-        except Exceptionas as e:
-            await event.reply(e)
-    else:
-        dd+=1
-        que=f'I have added your file in queue to download\n\nCurrent position: {dd}'
-        if user_id not in user_ids:
-            user_ids[user_id] = True
-            user2=await event.reply(que,buttons=Button.inline("check your queue",b"bhad"))
-
-        link_download_queue.put(event)
+        response = requests.head(link)
+        if "content-length" in response.headers:
+            content_length = int(response.headers["content-length"])
+            if content_length <= remaining_storage:
+                filename = link.split('/')[-1]  # Extract filename from URL
+                message = await event.reply(f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download")
+                progress_task = asyncio.create_task(update_progress(event, message, link))
+                
+                start_time = time.time()
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(link) as resp:
+                        if resp.status == 200:
+                            with open(os.path.join(download_directory, filename), "wb") as f:
+                                while True:
+                                    chunk = await resp.content.read(1024)
+                                    if not chunk:
+                                        break
+                                    f.write(chunk)
+                                    current_size = os.path.getsize(os.path.join(download_directory, filename))
+                                    await progress_bar(current_size, content_length, start_time, message, filename)
+                                await message.edit(f"File {filename} downloaded successfully\n/my_files to check all your files")
+                        else:
+                            await event.reply("Download failed. Please check the URL.")
+        else:
+            await event.reply("Content length not found in headers. Cannot determine file size.")
+    except Exception as e:
+        await event.reply(str(e))
 
 # ... (previous code remains the same)
 @client.on(events.NewMessage(pattern='/users'))
