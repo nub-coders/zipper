@@ -497,18 +497,11 @@ async def handle_message(event):
 async def list_files(event):
     user = await event.get_sender()
     user_id = user.id
-    group = await client.get_entity("@nub_coder_s")
+    check_if = await is_user_on_chat(bot, "@nub_coder_s_updates", event.peer_id)
+    if not check_if:
+        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
+        return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
 
-    global group_user_ids
-
-    # Fetch all user IDs in the group and store them in the dictionary
-    async for member in client.iter_participants(group):
-        group_user_ids[member.id] = True
-
-    # Check if the user is in the group by looking up their ID in the dictionary
-    if user_id not in group_user_ids:
-        button = Button.url("Join", "https://t.me/nub_coder_s")
-        return await event.respond("You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
 
 
@@ -788,7 +781,6 @@ async def create_zip(event):
     global zipping_in_progress
     user = await event.get_sender()
     user_iid = user.id
-    group = await client.get_entity("@nub_coder_s")
     global group_user_ids
     global zipping_in_progress
     global file_name
@@ -797,13 +789,10 @@ async def create_zip(event):
     if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
         return
     # Fetch all user IDs in the group and store them in the dictionary
-    async for member in client.iter_participants(group):
-        group_user_ids[member.id] = True
-
-    # Check if the user is in the group by looking up their ID in the dictionary
-    if user_iid not in group_user_ids:
-        button = Button.url("Join", "https://t.me/nub_coder_s")
-        return await event.respond("You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", buttons=button)
+    check_if = await is_user_on_chat(bot, "@nub_coder_s_updates", event.peer_id)
+    if not check_if:
+        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
+        return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
     user_dir =f"{ggg}/zipper/{user_id}"
