@@ -636,6 +636,8 @@ async def download(event):
     global message
     global edit
     global max_retry
+    if dd % 6==0:
+        download_in_progress=False
     size=0
     if event.document:
         if event.document.size > 2500000000:
