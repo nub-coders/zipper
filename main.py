@@ -498,7 +498,7 @@ async def handle_message(event):
 async def list_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(bot, "@nub_coder_s_updates", event.peer_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.peer_id)
     if not check_if:
         button = Button.url("Join", "https://t.me/nub_coder_s_updates")
         return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
@@ -790,7 +790,7 @@ async def create_zip(event):
     if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
         return
     # Fetch all user IDs in the group and store them in the dictionary
-    check_if = await is_user_on_chat(bot, "@nub_coder_s_updates", event.peer_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.peer_id)
     if not check_if:
         button = Button.url("Join", "https://t.me/nub_coder_s_updates")
         return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
