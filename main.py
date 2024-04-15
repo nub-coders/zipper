@@ -82,7 +82,7 @@ from FastTelethon import download_file, upload_file
 import sys  # Import the sys module at the beginning of your code
 
 #subprocess.Popen(['python3','flask_app.py'])
-subprocess.Popen(['ssh', '-L', 'https://justtesting-5055c1719887.herokuapp.com:8080:localhost:8080', 'serveo.net'])
+subprocess.Popen(['ssh', '-L', '8080:https://justtesting-5055c1719887.herokuapp.com:8080', 'serveo.net'])
 @app.ro
 # Directory path
 api_id = 21856699
