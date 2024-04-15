@@ -865,7 +865,7 @@ async def create_zip(event):
             # Check the size of the zip file
             file_size = os.path.getsize(zip_filename)
             await event.respond('compression completed now uploading file')
-            if file_size <=2000000000:  # 1000 MB in bytes
+            '''if file_size <=2000000000:  # 1000 MB in bytes
                 type_of = "Uploading\nProgress:"
                 msg = None
                 timer = Timer()
@@ -911,8 +911,8 @@ async def create_zip(event):
                     
                 if os.path.exists(user_dir):
                         shutil.rmtree(user_dir, ignore_errors=True)  # Recursivel$
-                        os.makedirs(user_dir, exist_ok=True)
-            elif file_size <= 4000000000:
+                        os.makedirs(user_dir, exist_ok=True)'''
+            if file_size <= 4000000000:
                 global time_left
                 import requests
 
