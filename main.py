@@ -924,7 +924,7 @@ async def create_zip(event):
 
 # Extract the server from the JSON response
                 server = data["data"]["server"]
-                if not  server:
+                if server:
         # Handle the scenario where the server variable is not available
         # Move the zip file to a specific directory based on an environmental value
                  #if os.getenv("HEROKU"):
