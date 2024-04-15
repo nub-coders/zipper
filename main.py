@@ -81,8 +81,6 @@ from telethon.tl import types
 from FastTelethon import download_file, upload_file
 import sys  # Import the sys module at the beginning of your code
 
-#subprocess.Popen(['python3','flask_app.py'])
-subprocess.Popen(['ssh', '-L', '8080:https://justtesting-5055c1719887.herokuapp.com:8080', 'serveo.net'])
 # Directory path
 api_id = 21856699
 api_hash = '73f10cf0979637857170f03d4c86f251'
@@ -867,7 +865,7 @@ async def create_zip(event):
             # Check the size of the zip file
             file_size = os.path.getsize(zip_filename)
             await event.respond('compression completed now uploading file')
-            '''if file_size <=2000000000:  # 1000 MB in bytes
+            if file_size <=2000000000:  # 1000 MB in bytes
                 type_of = "Uploading\nProgress:"
                 msg = None
                 timer = Timer()
@@ -913,7 +911,7 @@ async def create_zip(event):
                     
                 if os.path.exists(user_dir):
                         shutil.rmtree(user_dir, ignore_errors=True)  # Recursivel$
-                        os.makedirs(user_dir, exist_ok=True)'''
+                        os.makedirs(user_dir, exist_ok=True)
             if file_size <= 4000000000:
                 global time_left
                 import requests
@@ -926,32 +924,12 @@ async def create_zip(event):
 
 # Extract the server from the JSON response
                 server = data["data"]["server"]
-                if server:
+                if not server:
         # Handle the scenario where the server variable is not available
         # Move the zip file to a specific directory based on an environmental value
-                 #if os.getenv("HEROKU"):
-                 try:
-                  heroku_url = os.getenv('HEROKU',"")
-                  destination_dir = os.path.join(ggg, "userspace")
-                 
-                  if not os.path.exists(destination_dir):
-                   os.makedirs(destination_dir, exist_ok=True)
-                  shutil.move(zip_filename, destination_dir)
+                 #
+                   return await event.reply("No storage available in gofile.io please try again later:", buttons=Button.url("Download File", download_url))
 
-            # Generate hash for the file
-                  with open(os.path.join(destination_dir, zip_filename), "rb") as f:
-                    file_hash = hashlib.sha256(f.read()).hexdigest()
-
-            # Set up a Flask application
-
-
-            # Run the Flask application
-
-            # Provide the user with a URL button to access the zip file through Heroku
-                    download_url = f"{heroku_url}/{file_hash}"
-                    return await event.reply("You can download the file from the following link:", buttons=Button.url("Download File", download_url))
-                 except Exception as e:
-                    return await event.reply(e)
     # Your existing code...
 
 
