@@ -1,3 +1,4 @@
+flask
 aiohttp
 telethon
 tgcrypto
