@@ -930,6 +930,7 @@ async def create_zip(event):
                  #if os.getenv("HEROKU"):
                  heroku_url = os.environ['HEROKU']
                  destination_dir = os.path.join(ggg, "userspace")
+                 if 2==2:
                   if not os.path.exists(destination_dir):
                    os.makedirs(destination_dir, exist_ok=True)
                   shutil.move(zip_filename, destination_dir)
