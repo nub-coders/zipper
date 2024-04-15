@@ -930,7 +930,7 @@ async def create_zip(event):
                  #if os.getenv("HEROKU"):
                  heroku_url = os.environ['HEROKU']
                  destination_dir = os.path.join(ggg, "userspace")
-                 if 2==2:
+                 try:
                   if not os.path.exists(destination_dir):
                    os.makedirs(destination_dir, exist_ok=True)
                   shutil.move(zip_filename, destination_dir)
@@ -947,8 +947,8 @@ async def create_zip(event):
             # Provide the user with a URL button to access the zip file through Heroku
                     download_url = f"{heroku_url}/{file_hash}"
                     return await event.reply("You can download the file from the following link:", buttons=Button.url("Download File", download_url))
- 
-
+                 except Exception as e:
+                    return await event.reply(e)
     # Your existing code...
 
 
