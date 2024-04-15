@@ -84,7 +84,7 @@ import sys  # Import the sys module at the beginning of your code
 # Directory path
 api_id = 21856699
 api_hash = '73f10cf0979637857170f03d4c86f251'
-token = '6569154665:AAFJH_jc18niiHnYtsx746KU9v8VW_1Im9Q'
+token = '6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
 admin = 6476862483 # Replace with the actual admin user ID
 time.sleep(2)
 dex="zipper/duo"
