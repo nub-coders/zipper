@@ -7,7 +7,9 @@ from flask import Flask, send_file
 ggg=os.getcwd()
 app = Flask(__name__)
 
-
+@app.route("/")
+def home():
+    return "nothing here"
 @app.route("/<file_hash>")
 def download_zip(file_hash):
     # Check file hash of all files in f"{ggg}/data directory
