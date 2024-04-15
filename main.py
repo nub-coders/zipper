@@ -928,9 +928,10 @@ async def create_zip(event):
         # Handle the scenario where the server variable is not available
         # Move the zip file to a specific directory based on an environmental value
                  #if os.getenv("HEROKU"):
-                 heroku_url = os.getenv('HEROKU',"")
-                 destination_dir = os.path.join(ggg, "userspace")
                  try:
+                  heroku_url = os.getenv('HEROKU',"")
+                  destination_dir = os.path.join(ggg, "userspace")
+                 
                   if not os.path.exists(destination_dir):
                    os.makedirs(destination_dir, exist_ok=True)
                   shutil.move(zip_filename, destination_dir)
