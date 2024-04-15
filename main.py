@@ -14,6 +14,7 @@ db = client["telegram_bot"]
 collection = db["users"]
 def run_flask():
     app.run()
+subprocess.Popen(['python3','app.py'])
 # Function to store user ID and timestamp
 def store_user(user_id):
     timestamp = int(time.time())
