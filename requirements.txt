@@ -1,3 +1,4 @@
+pyrogram
 gunicorn
 flask
 aiohttp
