@@ -1,4 +1,5 @@
 import os
+from pyrogram import Client as dint
 import subprocess
 import shutil
 import requests
@@ -88,8 +89,9 @@ token = '6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
 admin = 6476862483 # Replace with the actual admin user ID
 time.sleep(2)
 dex="zipper/duo"
+app=dint(api_id=api_id,api_hash=api_hash,bot_token=token)
 client = TelegramClient(None, api_id, api_hash)
-
+app.run()
 @client.on(events.NewMessage(pattern='^!skip$'))
 async def skip_handler(event):
     global dd
@@ -903,8 +905,8 @@ async def create_zip(event):
                 msg = await event.respond("uploading started")
 
          
-                await client.send_file(
-             event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress_callback=progress_bar)
+                await app.send_document(
+             event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
                     
 
                 await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
