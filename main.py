@@ -89,9 +89,8 @@ token = '6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
 admin = 6476862483 # Replace with the actual admin user ID
 time.sleep(2)
 dex="zipper/duo"
-app=dint(api_id=api_id,api_hash=api_hash,bot_token=token)
+app=dint('name',api_id=api_id,api_hash=api_hash,bot_token=token)
 client = TelegramClient(None, api_id, api_hash)
-app.run()
 @client.on(events.NewMessage(pattern='^!skip$'))
 async def skip_handler(event):
     global dd
@@ -1170,5 +1169,6 @@ async def list_users(event):
         await event.respond(f"List of users:\n{user_list}")
     else:
         await event.respond("No users found.")
-
+        
+app.run()
 client.run_until_disconnected()
