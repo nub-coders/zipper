@@ -426,6 +426,19 @@ async def callback_queue(event):
                     await event.answer(response_text, alert=True)
                 except Exception as e:
                     await event.answer(f"your current queue {dd}", alert=True)
+                start_time = time.time()
+                last_time_left = time_left 
+                while time.time() - start_time < 60:  # Check for 1 minute
+                 if time_left == last_time_left:
+                    if time.time() - start_time >= 30:  # 30 seconds without change
+                       global downloading
+                       downloading = False
+                       print("time_left unchanged for 30 seconds. Setting downloading to False.")
+                       break  # Exit the loop
+                    else:
+                       last_time_left = time_left  # Update last known time_left
+
+                 await asyncio.sleep(1)  # Check every second
 
 @client.on(events.CallbackQuery(data=b'help'))
 async def callback_help(event):
@@ -637,9 +650,6 @@ async def download(event):
     global max_retry
     global pinky
     fi_encoded=None
-    pinky+=1
-    if pinky % 6==0:
-        download_in_progress=False
     size=0
     if event.document:
         if event.document.size > 2500000000:
@@ -722,7 +732,8 @@ async def download(event):
                 await msg.edit("Finished downloading\n/my_files to see your files")
             if fi is not None:
                 extension = os.path.splitext(fi)[1]  # Get
-                fi_encoded = fi.encode('utf-8')
+                encoded = fi.encode('utf-8')
+                fi_encoded = encoded.decode('utf-8')
                 with open(fi_encoded, "wb") as out:
                     try:
                      await asyncio.wait_for(download_file(event.client, docs, out, progress_callback=progress_bar), timeout=1800)
