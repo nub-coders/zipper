@@ -6,7 +6,7 @@ import requests
 from telethon import TelegramClient
 
 
-def check_url_patterns(url: str) -> bool:
+'''def check_url_patterns(url: str) -> bool:
     """
     Check if the given URL matches any of the known URL patterns for code hosting services.
 
@@ -152,7 +152,7 @@ def convert_seconds(seconds: int) -> str:
     elif minutes > 0:
         return f"{minutes}m:{remaining_seconds_final}s"
     else:
-        return f"{remaining_seconds_final}s"
+        return f"{remaining_seconds_final}s"'''
 
 
 async def is_user_on_chat(bot: TelegramClient, chat_id: int, user_id: int) -> bool:
@@ -174,7 +174,7 @@ async def is_user_on_chat(bot: TelegramClient, chat_id: int, user_id: int) -> bo
         return False
 
 
-async def download_file(
+'''async def download_file(
     url: str,
     filename: str,
     callback=None,
@@ -237,4 +237,4 @@ def download_image_to_bytesio(url: str, filename: str) -> BytesIO | None:
         else:
             return None
     except:
-        return None
+        return None'''

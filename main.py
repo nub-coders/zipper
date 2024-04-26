@@ -13,9 +13,6 @@ from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db = client["telegram_bot"]
 collection = db["users"]
-def run_flask():
-    app.run()
-subprocess.Popen(['python3','app.py'])
 # Function to store user ID and timestamp
 def store_user(user_id):
     timestamp = int(time.time())
