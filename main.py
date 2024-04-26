@@ -717,7 +717,7 @@ async def download(event):
           except Exception as e:
             print(e)
         os.makedirs(user_dir, exist_ok=True)
-        os.chdir(user_dir)
+        #os.chdir(user_dir)
 
         if not download_in_progress:
             user_ids[user_id] = True
@@ -734,7 +734,7 @@ async def download(event):
                 extension = os.path.splitext(fi)[1]  # Get
                 encoded = fi.encode('utf-8')
                 fi_encoded = encoded.decode('utf-8')
-                with open(fi_encoded, "wb") as out:
+                with open(f"{user_dir}/{fi_encoded}", "wb") as out:
                     try:
                      await asyncio.wait_for(download_file(event.client, docs, out, progress_callback=progress_bar), timeout=1800)
                      await msg.edit("Finished downloading\n/my_files to see your files")
