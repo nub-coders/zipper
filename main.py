@@ -920,7 +920,7 @@ async def create_zip(event):
                 if os.path.exists(user_dir):
                         shutil.rmtree(user_dir, ignore_errors=True)  # Recursivel$
                         os.makedirs(user_dir, exist_ok=True)
-            if file_size <= 4000000000:
+            elif file_size <= 5000000000:
                 global time_left
                 import requests
 
