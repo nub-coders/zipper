@@ -1159,6 +1159,13 @@ async def link_download(event):
         await event.reply(str(e))
 
 # ... (previous code remains the same)
+import os
+
+# Function to chunk the list into smaller lists that fit within the character limit
+def chunk_list(lst, chunk_size):
+    for i in range(0, len(lst), chunk_size):
+        yield lst[i:i + chunk_size]
+
 @client.on(events.NewMessage(pattern='/users'))
 async def list_users(event):
     user_id = event.sender_id
@@ -1170,12 +1177,17 @@ async def list_users(event):
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id not in admin_ids:
                 return
+    
     user_ids = [str(user["user_id"]) for user in collection.find()]
     if user_ids:
-        user_list = "\n".join(user_ids)
-        await event.respond(f"List of users:\n{user_list}")
+        chunk_size = 4000  # Maximum character limit per message
+        user_chunks = chunk_list(user_ids, chunk_size)
+        for chunk in user_chunks:
+            user_list = "\n".join(chunk)
+            await event.respond(f"List of users:\n{user_list}")
     else:
         await event.respond("No users found.")
+
         
 app.run()
 client.run_until_disconnected()
