@@ -1,3 +1,4 @@
+certifi
 pyrogram
 gunicorn
 flask

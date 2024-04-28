@@ -1,4 +1,5 @@
 import os
+import certifi
 from pyrogram import Client as dint
 import subprocess
 import shutil
@@ -10,7 +11,7 @@ import datetime
 import pymongo
 import time
 from tools import is_user_on_chat
-client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",tlsCAFile=certifi.where())
 db = client["telegram_bot"]
 collection = db["users"]
 # Function to store user ID and timestamp
