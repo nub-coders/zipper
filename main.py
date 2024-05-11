@@ -654,6 +654,7 @@ async def download_replied_media(ddint, message):
                 start_time = time.time()
 
                 async def progress_bar(current, total):
+                    global time_left
                     if timer.can_send() and total != 0:
                         progress_percent = current * 100 / total
                         progress_message = f"Downloading {message.reply_to_message.media.name}: {progress_percent:.2f}%\n"
@@ -771,7 +772,7 @@ async def download(event):
         async def progress_bar(current, total,start_time=time.time()):
          if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
           progress_percent = current * 100 / total
-          filename=fi_encoded 
+          filename=fi_encoded
           progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
 
           # Calculate progress bar length
