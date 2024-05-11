@@ -12,6 +12,7 @@ ggg=os.getcwd()
 import datetime
 import pymongo
 import time
+from config import *
 from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",tlsCAFile=certifi.where())
 db = client["telegram_bot"]
@@ -83,13 +84,13 @@ from FastTelethon import download_file, upload_file
 import sys  # Import the sys module at the beginning of your code
 
 # Directory path
-api_id = 21856699
-api_hash = '73f10cf0979637857170f03d4c86f251'
-token = '6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
+api_id = API_ID
+api_hash = API_HASH
+token = BOT_TOKEN
 admin = 6476862483 # Replace with the actual admin user ID
 time.sleep(2)
 dex="zipper/duo"
-app=dint('name',api_id=api_id,api_hash=api_hash,bot_token=token)
+app=dint('name',api_id=API_ID,api_hash=API_HASH,bot_token=BOT_TOKEN)
 client = TelegramClient(None, api_id, api_hash)
 @client.on(events.NewMessage(pattern='^!skip$'))
 async def skip_handler(event):
