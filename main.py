@@ -710,7 +710,6 @@ async def download(event):
                                                                                                   # Create a message with HTML formatting for better appearance
           message_text = f"{progress_message}"
           try:
-            await asyncio.sleep(1)
             await msg.edit(message_text, parse_mode='html')
           except Exception as e:
             print(e)
@@ -722,7 +721,6 @@ async def download(event):
             download_in_progress = True  #
             active_user_id=user_id
             msg = await event.reply("Downloading started")
-            time.sleep(2)
             fi = event.file.name
 
             if fi is None:
@@ -853,7 +851,6 @@ async def create_zip(event):
         zipping_in_progress=True
         for filename in os.listdir(user_dir):
             if count % 8 == 0 and count != 0:
-                time.sleep(2)  # Wait for 5 seconds
 
             command=['zip', zip_filename, os.path.join(user_dir, filename)]
             output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
