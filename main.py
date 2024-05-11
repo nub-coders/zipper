@@ -850,8 +850,6 @@ async def create_zip(event):
         count = 0
         zipping_in_progress=True
         for filename in os.listdir(user_dir):
-            if count % 8 == 0 and count != 0:
-
             command=['zip', zip_filename, os.path.join(user_dir, filename)]
             output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
             for line in output.stdout:
