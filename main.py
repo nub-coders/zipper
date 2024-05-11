@@ -645,8 +645,8 @@ async def download_replied_media(ddint, message):
     if message.reply_to_message:
         if message.reply_to_message.media:
             await message.edit_text("Starting download...")
-            user_id = message.from_user.id
-            file_name = f"{ggg}/zipper/{user_id}/" 
+            user_id = message.reply_to_message.from_user.id
+            file_name = f"{ggg}/zipper/{user_id}/"
 
             try:
                 start_time = time.time()
