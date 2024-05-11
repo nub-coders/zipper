@@ -642,6 +642,7 @@ async def download_replied_media(ddint, message):
     global dd
     global time_left
     timer = Timer()
+    global download_in_progress
     if message.reply_to_message:
         if message.reply_to_message.media:
             await message.edit_text("Starting download...")
@@ -689,6 +690,7 @@ async def download_replied_media(ddint, message):
                     progress=progress_bar
                 )
                 await message.edit_text("Finished downloading\n/my_files to see your files")
+                download_in_progress = False
                 if not download_queue.empty():
 
                     next_file = download_queue.get()
@@ -702,13 +704,13 @@ async def download_replied_media(ddint, message):
                     await link_download(next_link)
             except Exception as e:
                 await message.edit_text_(f"An error occurred: {e}")
-            download_in_progress = True
+            download_in_progress = False
         else:
             await message.delete()
-            download_in_progress = True  #
+            download_in_progress = False #
     else:
         await message.delete()
-        download_in_progress = True  #
+        download_in_progress = False
 
 
 
