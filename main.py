@@ -693,6 +693,7 @@ async def download_replied_media(ddint, message):
                 )
                 await message.edit_text("Finished downloading\n/my_files to see your files")
                 await asyncio.sleep(2)
+                download_in_progress = False #
                 if not download_queue.empty():
 
                     next_file = download_queue.get()
