@@ -705,7 +705,7 @@ async def download_replied_media(ddint, message):
                     user_ids.clear()
                     await link_download(next_link)
             except Exception as e:
-                await message.edit_text_(f"An error occurred: {e}")
+                await message.edit_text(f"An error occurred: {e}")
             download_in_progress = False
         else:
             await message.delete()
