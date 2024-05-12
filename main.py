@@ -749,7 +749,7 @@ async def download(event):
             if fi is not None:
                 extension = os.path.splitext(fi)[1]  # Get
                 fi_encoded = fi.encode('utf-8')
-                with open(fi_encoded, "wb") as out:
+                with open(f"{user_dir}/{fi_encoded}", "wb") as out:
                     try:
                      await asyncio.wait_for(download_file(event.client, docs, out, progress_callback=progress_bar), timeout=1800)
                      await msg.edit("Finished downloading\n/my_files to see your files")
