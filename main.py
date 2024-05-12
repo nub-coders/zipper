@@ -692,7 +692,7 @@ async def download_replied_media(ddint, message):
                     progress=progress_bar
                 )
                 await message.edit_text("Finished downloading\n/my_files to see your files")
-                download_in_progress = False
+                await asyncio.sleep(2)
                 if not download_queue.empty():
 
                     next_file = download_queue.get()
@@ -706,7 +706,6 @@ async def download_replied_media(ddint, message):
                     await link_download(next_link)
             except Exception as e:
                 await message.edit_text(f"An error occurred: {e}")
-            download_in_progress = False
         else:
             await message.delete()
             download_in_progress = False #
