@@ -341,7 +341,7 @@ async def link_send(event):
 # Combine the day name and phase
     output = f'{day_name}_{phases[phase_index]}'
 # Print the result
-    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user\nUse /premium to get details about premium features",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
 @client.on(events.NewMessage(incoming=True, pattern='/start',func=lambda e: e.is_private))
 async def lstart(event):
     if event.raw_text=="/start":
@@ -536,8 +536,16 @@ async def list_files(event):
         button = Button.url("Join", "https://t.me/nub_coder_s_updates")
         return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
 
-    group_user_ids.clear()
-
+    current_time = int(time.time())
+    user_data = collection.find_one({"user_id": user_id})
+    user_dir = f"{ggg}/zipper/{user_id}"
+    #user_path = os.path.join(user_directory, user_id)
+    os.makedirs(user_dir, exist_ok=True)
+    # Calculate the remaining storage space
+    total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
+    remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 3GB in bytes
+    stored_time = user_data["timestamp"]
+    time_difference = current_time - stored_time
 
     user_id = str(event.sender_id)
     user_dir = f"zipper/{user_id}"
@@ -549,6 +557,8 @@ async def list_files(event):
             total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in files)
             total_size2 = round((total_size / (1024 * 1024)), 3)
             remaining_storage = (4.5 * 1024 * 1024 * 1024) - total_size  # 4GB in bytes
+            if time_difference < 0:
+            remaining_storage = (10 * 1024 * 1024 * 1024) - total_size  # 4GB in b
 
             file_list = "\n".join([f"{i+1}. {file} - {os.path.getsize(os.path.join(user_dir, file)) / (1024 * 1024):.2f} MB" for i, file in enumerate(files)])
             response_message = f"List of files in your directory:\n\n{file_list}\n\nTotal storage used: {total_size2} MB\nRemaining Storage: {remaining_storage / (1024 * 1024 * 1024):.2f} GB"
@@ -669,9 +679,6 @@ async def download(event):
     global pinky
     fi_encoded=None
     size=0
-    if event.document:
-        if event.document.size > 2500000000:
-            return await event.reply("Please send a file smaller than 2GB.\n/my_files to show your files",buttons=common_buttons)
 
     user_id = event.sender_id
     current_time = int(time.time())
@@ -689,8 +696,15 @@ async def download(event):
     # Calculate the remaining storage space
     total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
     remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 3GB in bytes
-
+    stored_time = user_data["timestamp"]
+    time_difference = current_time - stored_time
+    if time_difference < 0:
+        remaining_storage = 10 * 1024 * 1024 * 1024 - total_size  # 10GB in bytes
     if event.document:
+        if event.document.size > 2500000000 and not time_difference < 0:
+            return await event.reply("Please send a file smaller than 2GB.\n/my_files to show your files",buttons=common_buttons)
+        elif event.document.size > 3500000000:
+            return await event.reply("Please send a file smaller than 3GB.\n/my_files to show your files",buttons=common_buttons)
         docs=event.document
         size=event.document.size
     if event.photo:
@@ -1067,7 +1081,8 @@ async def help_handler(event):
         "/my_files - List your files\n"
         "/clear - Clear your files\n"
         "/fzip - Compress files into a zip archive\n"
-        "/help - Show this help message\n\n"
+        "/help - Show this help message\n"
+        "/premium - Show premium features\n\n"
         "🚧 Limitations:\n"
         "- Maximum file size for compression: 2GB\n"
         "- Maximum storage per user: 4GB\n\n"
@@ -1173,6 +1188,105 @@ async def link_download(event):
         await event.reply(str(e))
 
 # ... (previous code remains the same)
+from telethon import Button
+
+@client.on(events.NewMessage(pattern='/premium'))
+async def premium_info(event):
+    premium_benefits = """
+    Premium Benefits:
+    - Per file size limit increased to 3GB.
+    - Storage limit increased to 10GB.
+    - No ads for 30 days.
+    
+    Get Premium for just ₹50 (approximately $0.6).
+    
+    Contact any admin to get premium.
+    """
+    contact_button = Button.url("Contact Admin", "https://t.me/nub_coder_s")
+    await event.respond(premium_benefits, buttons=[[contact_button]])
+
+
+@client.on(events.NewMessage(pattern='/status'))
+async def user_status(event):
+    user_id = event.sender_id
+    current_time = int(time.time())
+    user_data = collection.find_one({"user_id": user_id})
+
+    if user_data:
+        stored_time = user_data["timestamp"]
+        time_difference = stored_time - current_time
+        
+        if time_difference < 0:
+            status = "Premium"
+            # Calculate time left when time difference is negative
+            time_left_seconds = abs(time_difference)
+            days = time_left_seconds // (24 * 3600)
+            time_left_seconds %= (24 * 3600)
+            hours = time_left_seconds // 3600
+            time_left_seconds %= 3600
+            minutes = time_left_seconds // 60
+        elif time_difference <= 21600:  # 6 hours in seconds
+            status = "Elite"
+            # Calculate time left when time difference is within 6 hours
+            time_left_seconds = abs(time_difference)
+            days = time_left_seconds // (24 * 3600)
+            time_left_seconds %= (24 * 3600)
+            hours = time_left_seconds // 3600
+            time_left_seconds %= 3600
+            minutes = time_left_seconds // 60
+        else:
+            status = "Not Verified"
+            days = hours = minutes = 0
+
+        status_message = f"Time left: {days} days, {hours} hours, {minutes} minutes\nStatus: {status}"
+    else:
+        status_message = f"You are Not Verified"
+
+    await event.respond(status_message)
+
+@client.on(events.NewMessage(pattern='/authorize'))
+async def authorize_user(event):
+    user_id = event.sender_id
+    
+    # Check if the user is an admin by comparing their user ID with the ones in admin.txt
+    admin_file = f"{ggg}/zipper/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
+    
+    # Check if the command is replying to a message
+    if event.is_reply:
+        replied_msg = await event.get_reply_message()
+        if replied_msg.sender_id is not None:
+            user_id = replied_msg.sender_id
+        else:
+            return await event.reply("Cannot authorize user: Unknown user ID.")
+    
+    # Extract user_id from the command argument
+    command_args = event.raw_text.split()
+    if len(command_args) > 1:
+        arg = command_args[1]
+        if arg.isdigit():
+            user_id = int(arg)
+        else:
+            try:
+                # Resolve username to user_id
+                user_id = (await client.get_entity(arg)).id
+            except ValueError:
+                return await event.reply("Cannot find user with the provided username.")
+    
+    # Store the user with a timestamp 30 days from now
+    timestamp = int(time.time()) + (30 * 24 * 60 * 60)
+    storre_user(user_id, timestamp)
+    await event.reply("User authorized successfully.")
+
+def storre_user(user_id, timestamp):
+    user_data = {"user_id": user_id, "timestamp": timestamp}
+    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
+
+
 
 @client.on(events.NewMessage(pattern='/users'))
 async def list_users(event):
