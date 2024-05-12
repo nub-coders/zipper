@@ -3,6 +3,7 @@ import certifi
 from pyrogram import Client as dint
 from pyrogram import filters
 from pyrogram.types import Message
+from pyrogram.errors import FloodWait
 import subprocess
 import shutil
 import requests
@@ -697,12 +698,16 @@ async def download_replied_media(ddint, message):
                         except Exception as e:
                             print(e)
                 os.makedirs(file_name, exist_ok=True)  # Create directories if they don't exist
-
-                await message.reply_to_message.download(
+                try:
+                    await message.reply_to_message.download(
                     file_name=file_name,
                     progress=progress_bar
                 )
-                await message.edit_text("Finished downloading\n/my_files to see your files")
+                    await message.edit_text("Finished downloading\n/my_files to see your files")
+                except FloodWait as e:
+                    await message.edit_text(f"Sleeping for {e.value} seconds")
+                    await asyncio.sleep(e.value)
+                    await download_replied_media(ddint, message)
                 await asyncio.sleep(2)
                 download_in_progress = False #
                 if not download_queue.empty():
