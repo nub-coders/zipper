@@ -646,89 +646,6 @@ link_download_queue = queue.Queue()
 link_downloading = False  # Flag to track if a link download is in progress
 
 
-from pyrogram.types import Message
-
-# Timer class to control progress bar updates
-
-@app.on_message(filters.me & filters.text & filters.regex("^DOWNLOAD$"))
-async def download_replied_media(ddint, message):
-    global dd
-    global time_left
-    timer = Timer()
-    global download_in_progress
-    if message.reply_to_message:
-        if message.reply_to_message.media:
-            await message.edit_text("Starting download...")
-            user_id = message.reply_to_message.from_user.id
-            file_name = f"{ggg}/zipper/{user_id}/"
-
-            try:
-                start_time = time.time()
-
-                async def progress_bar(current, total):
-                    global time_left
-                    if timer.can_send() and total != 0:
-                        progress_percent = current * 100 / total
-                        progress_message = f"Downloading {message.reply_to_message.media.name}: {progress_percent:.2f}%\n"
-
-                        # Calculate progress bar length
-                        progress_bar_length = 30
-                        num_ticks = int(progress_percent / (100 / progress_bar_length))
-                        progress_bar_text = '█' * num_ticks + '░' * (progress_bar_length - num_ticks)
-
-                        # Calculate speed in MB/s
-                        elapsed_time = time.time() - start_time
-                        speed = current / (elapsed_time * 1024 * 1024)
-                        progress_message += f"Speed: {speed:.2f} MB/s\n"
-
-                        # Calculate estimated time left to complete
-                        time_left = (total - current) / (speed * 1024 * 1024) if speed != 0 else 0
-                        progress_message += f"Time left: {time_left:.2f} seconds\n"
-
-                        # Display current size and total size
-                        progress_message += f"Size: {current / (1024 * 1024):.2f} MB / {total / (1024 * 1024):.2f} MB"
-
-                        # Combine progress bar and message
-                        progress_message += f"\n[{progress_bar_text}]"
-
-                        # Create a message with HTML formatting for better appearance
-                        message_text = f"{progress_message}"
-                        try:
-                            await message.edit_text(message_text)
-                        except Exception as e:
-                            print(e)
-                os.makedirs(file_name, exist_ok=True)  # Create directories if they don't exist
-                try:
-                    await message.reply_to_message.download(
-                    file_name=file_name,
-                    progress=progress_bar
-                )
-                    await message.edit_text("Finished downloading\n/my_files to see your files")
-                except FloodWait as e:
-                    await message.edit_text(f"Sleeping for {e.value} seconds")
-                    await asyncio.sleep(e.value)
-                    await download_replied_media(ddint, message)
-                await asyncio.sleep(2)
-                download_in_progress = False #
-                if not download_queue.empty():
-
-                    next_file = download_queue.get()
-                    dd=dd-1
-                    user_ids.clear()
-                    await download(next_file)
-                elif not link_download_queue.empty():
-                    next_link = link_download_queue.get()
-                    dd=dd-1
-                    user_ids.clear()
-                    await link_download(next_link)
-            except Exception as e:
-                await message.edit_text(f"An error occurred: {e}")
-        else:
-            await message.delete()
-            download_in_progress = False #
-    else:
-        await message.delete()
-        download_in_progress = False
 
 
 
@@ -789,7 +706,7 @@ async def download(event):
          if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
           progress_percent = current * 100 / total
           filename=fi_encoded
-          progress_message = f"Downloading photo: {progress_percent:.2f}%\n"
+          progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
 
           # Calculate progress bar length
           progress_bar_length = 30
@@ -822,27 +739,50 @@ async def download(event):
             user_ids[user_id] = True
             download_in_progress = True  #
             active_user_id=user_id
-            if event.photo:
-              msg = await event.reply("downloading please wait.....")
-              await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
-              await msg.edit("Finished downloading\n/my_files to see your files")
-              download_in_progress = False
-              if not download_queue.empty():
+            msg = await event.reply("Downloading started")
+            time.sleep(2)
+            fi = event.file.name
 
-                    next_file = download_queue.get()
-                    dd=dd-1
-                    user_ids.clear()
-                    await download(next_file)
-              elif not link_download_queue.empty():
-                    next_link = link_download_queue.get()
-                    dd=dd-1
-                    user_ids.clear()
-                    await link_download(next_link)
-            else:
-             await asyncio.sleep(2)
-             msg = await event.reply("DOWNLOAD")
-             await asyncio.sleep(2)
+            if fi is None:
+                await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
+                await msg.edit("Finished downloading\n/my_files to see your files")
+            if fi is not None:
+                extension = os.path.splitext(fi)[1]  # Get
+                fi_encoded = fi.encode('utf-8')
+                with open(fi_encoded, "wb") as out:
+                    try:
+                     await asyncio.wait_for(download_file(event.client, docs, out, progress_callback=progress_bar), timeout=1800)
+                     await msg.edit("Finished downloading\n/my_files to see your files")
+                    except asyncio.TimeoutError:
+                     if max_retry < 6:
+                      download_in_progress = False
+                      await msg.delete()
+                      await download_file(event.client, docs, out, progress_callback=progress_bar)
 
+                     else:
+                      await timeout(event)
+                    except Exception as e:
+    # Handle other exceptions
+                     max_retry += 1
+                     if max_retry < 6:
+                      download_in_progress = False
+                      await msg.delete()
+                      await download_file(event.client, docs, out, progress_callback=progress_bar)
+                     else:
+                      await timeout(event)
+            max_retry=0
+            download_in_progress = False
+            if not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+            elif not link_download_queue.empty():
+                next_link = link_download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await link_download(next_link)
         else:
             dd+=1
             que=f'I have added your file in queue to download'
