@@ -391,7 +391,7 @@ active_user_id =None
 async def callback_queue(event):
     global dd
     global active_user_id
-    global downloading
+    global download_in_progress
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.t$
@@ -433,8 +433,8 @@ async def callback_queue(event):
                 while time.time() - start_time < 60:  # Check for 1 minute
                  if time_left == last_time_left:
                     if time.time() - start_time >= 30:  # 30 seconds without change
-                       global downloading
-                       downloading = False
+                       global download_in_progress
+                       download_in_progress = False
                        print("time_left unchanged for 30 seconds. Setting downloading to False.")
                        break  # Exit the loop
                     else:
