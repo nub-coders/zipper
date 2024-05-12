@@ -558,7 +558,7 @@ async def list_files(event):
             total_size2 = round((total_size / (1024 * 1024)), 3)
             remaining_storage = (4.5 * 1024 * 1024 * 1024) - total_size  # 4GB in bytes
             if time_difference < 0:
-            remaining_storage = (10 * 1024 * 1024 * 1024) - total_size  # 4GB in b
+              remaining_storage = (10 * 1024 * 1024 * 1024) - total_size  # 4GB in b
 
             file_list = "\n".join([f"{i+1}. {file} - {os.path.getsize(os.path.join(user_dir, file)) / (1024 * 1024):.2f} MB" for i, file in enumerate(files)])
             response_message = f"List of files in your directory:\n\n{file_list}\n\nTotal storage used: {total_size2} MB\nRemaining Storage: {remaining_storage / (1024 * 1024 * 1024):.2f} GB"
