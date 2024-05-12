@@ -839,6 +839,7 @@ async def download(event):
                     user_ids.clear()
                     await link_download(next_link)
             else:
+             await asyncio.sleep(2)
              msg = await event.reply("DOWNLOAD")
              await asyncio.sleep(2)
 
