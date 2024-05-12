@@ -821,6 +821,7 @@ async def download(event):
               msg = await event.reply("downloading please wait.....")
               await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
               await msg.edit("Finished downloading\n/my_files to see your files")
+              download_in_progress = False
               if not download_queue.empty():
 
                     next_file = download_queue.get()
