@@ -773,7 +773,7 @@ async def download(event):
          if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
           progress_percent = current * 100 / total
           filename=fi_encoded
-          progress_message = f"Downloading {filename}: {progress_percent:.2f}%\n"
+          progress_message = f"Downloading photo: {progress_percent:.2f}%\n"
 
           # Calculate progress bar length
           progress_bar_length = 30
@@ -806,8 +806,13 @@ async def download(event):
             user_ids[user_id] = True
             download_in_progress = True  #
             active_user_id=user_id
-            msg = await event.reply("DOWNLOAD")
-            await asyncio.sleep(2)
+            if event.photo:
+              msg = await event.reply("downloading please wait.....")
+              await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
+              await msg.edit("Finished downloading\n/my_files to see your files")
+            else:
+             msg = await event.reply("DOWNLOAD")
+             await asyncio.sleep(2)
 
         else:
             dd+=1
