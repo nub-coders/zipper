@@ -1222,6 +1222,5 @@ async def list_users(event):
         await event.respond("No users found.")
 
 
-        
-app.run()
+app.start()
 client.run_until_disconnected()
