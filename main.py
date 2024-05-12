@@ -90,7 +90,7 @@ token = BOT_TOKEN
 admin = 6476862483 # Replace with the actual admin user ID
 time.sleep(2)
 dex="zipper/duo"
-app=dint('name',api_id=API_ID,api_hash=API_HASH,bot_token=BOT_TOKEN)
+app=dint('name',api_id=API_ID,api_hash=API_HASH,bot_token=BOT_TOKEN,in_memory=True)
 client = TelegramClient(None, api_id, api_hash)
 @client.on(events.NewMessage(pattern='^!skip$'))
 async def skip_handler(event):
