@@ -1,3 +1,4 @@
+import random
 import os
 import certifi
 from pyrogram import Client as dint
@@ -431,9 +432,9 @@ async def callback_queue(event):
                     await event.answer(f"your current queue {dd}", alert=True)
                 start_time = time.time()
                 last_time_left = time_left 
-                while time.time() - start_time < 60:  # Check for 1 minute
+                while time.time() - start_time < 600:  # Check for 1 minute
                  if time_left == last_time_left:
-                    if time.time() - start_time >= 30:  # 30 seconds without change
+                    if time.time() - start_time >= 180:  # 30 seconds without change
                        global download_in_progress
                        download_in_progress = False
                        print("time_left unchanged for 30 seconds. Setting downloading to False.")
@@ -625,6 +626,15 @@ async def clear(event):
 
 client.flood_sleep_threshold = 24*60*60
 client.start(bot_token=token)
+
+config = client(functions.help.GetConfigRequest())
+for option in config.dc_options:
+    if option.ip_address == client.session.server_address:
+        if client.session.dc_id != option.id:
+            log.warning(f"Fixed DC ID in session from {client.session.dc_id} to {option.id}")
+        client.session.set_dc(option.id, option.ip_address, option.port)
+        client.session.save()
+        break
 
 class Timer:
     def __init__(self, time_between=2):
