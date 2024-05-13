@@ -81,7 +81,7 @@ import shutil
 
 from telethon import events, Button, utils
 from telethon.sync import TelegramClient
-from telethon.tl import types
+from telethon.tl import types, functions
 from FastTelethon import download_file, upload_file
 import sys  # Import the sys module at the beginning of your code
 
