@@ -664,6 +664,8 @@ async def main(event):
     if event.raw_text.startswith("http"):
         await link_download(event)
     elif event.media or event.document:
+        if not download_queue.empty():
+           await asyncio.sleep(5)
         await download(event)
 pinky=1
 async def download(event):
@@ -1194,6 +1196,11 @@ async def premium_info(event):
     await event.respond(premium_benefits, buttons=[[contact_button]])
 
 
+from telethon import TelegramClient, events
+import time
+
+# ... your client and collection setup ...
+
 @client.on(events.NewMessage(pattern='/status'))
 async def user_status(event):
     user_id = event.sender_id
@@ -1201,34 +1208,52 @@ async def user_status(event):
     user_data = collection.find_one({"user_id": user_id})
 
     if user_data:
-        stored_time = user_data["timestamp"]
-        time_difference = stored_time - current_time
-        
-        if time_difference < 0:
-            status = "Premium"
-            # Calculate time left when time difference is negative
-            time_left_seconds = time_difference
-            days = time_left_seconds // (24 * 3600)
-            time_left_seconds %= (24 * 3600)
-            hours = time_left_seconds // 3600
-            time_left_seconds %= 3600
-            minutes = time_left_seconds // 60
-        elif time_difference <= 21600:  # 6 hours in seconds
-            status = "Elite"
-            # Calculate time left when time difference is within 6 hours
-            time_left_seconds = abstime_difference
-            days = time_left_seconds // (24 * 3600)
-            time_left_seconds %= (24 * 3600)
-            hours = time_left_seconds // 3600
-            time_left_seconds %= 3600
-            minutes = time_left_seconds // 60
+        stored_time = user_data.get("timestamp", 0)
+        time_difference =  stored_time - current_time
+
+        if time_difference > 0:
+            status = "💎 Premium 💎"
+            total_storage = "10 GB"
+            file_size = "3.2 GB"
+            ads = "✨ No ads! ✨"
+        elif time_difference >= -21600:
+            status = "🌟 Elite 🌟"
+            total_storage = "4.5 GB"
+            file_size = "2 GB"
+            ads = "Some ads"
+            time_difference *= -1
         else:
             status = "Not Verified"
-            days = hours = minutes = 0
+            total_storage = "4.5 GB"
+            file_size = "2 GB"
+            ads = "Some ads"
 
-        status_message = f"Time left: {days} days, {hours} hours, {minutes} minutes\nStatus: {status}"
+        if status in ("💎 Premium 💎", "🌟 Elite 🌟"):
+            days = time_difference // (24 * 3600)
+            time_difference %= (24 * 3600)
+            hours = time_difference // 3600
+            time_difference %= 3600
+            minutes = time_difference // 60
+            status_message = f"""
+            *✨ Your Status ✨*
+
+            ⏳ Time left: {days} days, {hours} hours, {minutes} minutes
+            👑 Status: {status}
+            📦 Total Storage: {total_storage}
+            📄 File Size Limit: {file_size}
+            🚫 Ads: {ads}
+            """
+        else:
+            status_message = f"""
+            * 😔 Your Status 😔*
+
+            👑 Status: {status}
+            📦 Total Storage: {total_storage}
+            📄 File Size Limit: {file_size}
+            🚫 Ads: {ads}
+            """
     else:
-        status_message = f"You are Not Verified"
+        status_message = "You are Not Verified"
 
     await event.respond(status_message)
 
