@@ -753,38 +753,24 @@ async def download(event):
             user_ids[user_id] = True
             download_in_progress = True  #
             active_user_id=user_id
-            msg = await event.reply("Downloading started")
             time.sleep(2)
             fi = event.file.name
 
             if fi is None:
+                msg = await event.reply("Downloading started")
                 await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
                 await msg.edit("Finished downloading\n/my_files to see your files")
-            if fi is not None:
-                extension = os.path.splitext(fi)[1]  # Get
+            elif fi is not None:
+                msg = await event.reply("Downloading started")
+                extension = os.path.splitext(fi)[1]
                 fi_encoded = fi.encode('utf-8').decode('utf-8')
                 with open(f"{user_dir}/{fi_encoded}", "wb") as out:
                     try:
                      await asyncio.wait_for(download_file(event.client, docs, out, progress_callback=progress_bar), timeout=1800)
                      await msg.edit("Finished downloading\n/my_files to see your files")
                     except asyncio.TimeoutError:
-                     if max_retry < 6:
+                      await msg.edit("Download failed please resend this file")
                       download_in_progress = False
-                      await msg.delete()
-                      await download_file(event.client, docs, out, progress_callback=progress_bar)
-
-                     else:
-                      await timeout(event)
-                    except Exception as e:
-    # Handle other exceptions
-                     max_retry += 1
-                     if max_retry < 6:
-                      download_in_progress = False
-                      await msg.delete()
-                      await download_file(event.client, docs, out, progress_callback=progress_bar)
-                     else:
-                      await timeout(event)
-            max_retry=0
             download_in_progress = False
             if not download_queue.empty():
 
