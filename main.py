@@ -438,17 +438,6 @@ async def callback_queue(event):
                        global download_in_progress
                        download_in_progress = False
                        print("time_left unchanged for 30 seconds. Setting downloading to False.")
-                       if not download_queue.empty():
-
-                          next_file = download_queue.get()
-                          dd=dd-1
-                          user_ids.clear()
-                          await download(next_file)
-                       elif not link_download_queue.empty():
-                          next_link = link_download_queue.get()
-                          dd=dd-1
-                          user_ids.clear()
-                          await link_download(next_link)
                        break  # Exit the loop
                     else:
                        last_time_left = time_left  # Update last known time_left
