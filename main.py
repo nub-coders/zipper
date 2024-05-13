@@ -768,10 +768,10 @@ async def download(event):
                 fi_encoded = fi.encode('utf-8').decode('utf-8')
                 with open(f"{user_dir}/{fi_encoded}", "wb") as out:
                     try:
-                     await asyncio.wait_for(download_file(event.client, docs, out, progress_callback=progress_bar), timeout=1800)
+                     await download_file(event.client, docs, out, progress_callback=progress_bar)
                      await msg.edit("Finished downloading\n/my_files to see your files")
-                    except asyncio.TimeoutError:
-                      await msg.edit("Download failed please resend this file")
+                    except Exception as e:
+                      await msg.edit(f"Download failed: {e}\nPlease resend this file")
                       download_in_progress = False
             download_in_progress = False
             if not download_queue.empty():
