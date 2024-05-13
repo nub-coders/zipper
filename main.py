@@ -1219,7 +1219,7 @@ async def user_status(event):
         if time_difference < 0:
             status = "Premium"
             # Calculate time left when time difference is negative
-            time_left_seconds = abs(time_difference)
+            time_left_seconds = time_difference
             days = time_left_seconds // (24 * 3600)
             time_left_seconds %= (24 * 3600)
             hours = time_left_seconds // 3600
@@ -1228,7 +1228,7 @@ async def user_status(event):
         elif time_difference <= 21600:  # 6 hours in seconds
             status = "Elite"
             # Calculate time left when time difference is within 6 hours
-            time_left_seconds = abs(time_difference)
+            time_left_seconds = abstime_difference
             days = time_left_seconds // (24 * 3600)
             time_left_seconds %= (24 * 3600)
             hours = time_left_seconds // 3600
