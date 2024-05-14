@@ -664,7 +664,7 @@ async def main(event):
     if event.raw_text.startswith("http"):
         await link_download(event)
     elif event.media or event.document:
-        if not download_queue.empty():
+        if not download_queue.empty() or not premium_queue.empty():
            await asyncio.sleep(5)
         await download(event)
 pinky=1
