@@ -343,6 +343,18 @@ async def link_send(event):
     output = f'{day_name}_{phases[phase_index]}'
 # Print the result
     await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user\nUse /premium to get details about premium features",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+    elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
 @client.on(events.NewMessage(incoming=True, pattern='/start',func=lambda e: e.is_private))
 async def lstart(event):
     if event.raw_text=="/start":
@@ -690,6 +702,7 @@ async def download(event):
         time_difference = current_time - stored_time
         if not time_difference < 21600:  # 6 hours in seconds
          return await link_send(event)
+         
     else:
         return await link_send(event)
     user_dir = f"{ggg}/zipper/{user_id}"
