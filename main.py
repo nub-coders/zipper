@@ -325,7 +325,7 @@ async def cancel_download(event):
 
 
 async def link_send(event):
-
+    global dd
 # Get the current date and time
 # Define the phases for each day
     phases = ['phase1', 'phase2', 'phase3', 'phase4']
@@ -773,11 +773,11 @@ async def download(event):
             time.sleep(5)
             fi = event.file.name
 
-            if fi is None:
+            if fi is None or not time_difference < 0:
                 msg = await event.reply("Downloading started")
                 await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
                 await msg.edit("Finished downloading\n/my_files to see your files")
-            elif fi is not None:
+            elif fi is not None and time_difference < 0:
                 msg = await event.reply("Downloading started")
                 extension = os.path.splitext(fi)[1]
                 fi_encoded = fi.encode('utf-8').decode('utf-8')
