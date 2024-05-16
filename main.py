@@ -529,8 +529,83 @@ async def handle_message(event):
         pass
 
 
+
+
+
+
+
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/my_files'))
 async def list_files(event):
+    user = await event.get_sender()
+    user_id = user.id
+    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", user_id)
+    
+    if not check_if:
+        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
+        return await event.respond(
+            "You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", 
+            buttons=button
+        )
+
+    current_time = int(time.time())
+    user_data = collection.find_one({"user_id": user_id})
+    user_dir = f"{ggg}/zipper/{user_id}"
+    os.makedirs(user_dir, exist_ok=True)
+
+    total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
+    remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 4.5GB in bytes
+
+    stored_time = user_data.get("timestamp", current_time)
+    time_difference = current_time - stored_time
+
+    if time_difference < 0:
+        remaining_storage = 10 * 1024 * 1024 * 1024 - total_size  # 10GB in bytes
+
+    files = os.listdir(user_dir)
+    if files:
+        file_entries = [
+            f"{i+1}. {file} - {os.path.getsize(os.path.join(user_dir, file)) / (1024 * 1024):.2f} MB" 
+            for i, file in enumerate(files)
+        ]
+        
+        total_size_mb = total_size / (1024 * 1024)
+        remaining_storage_gb = remaining_storage / (1024 * 1024 * 1024)
+
+        header = (
+            f"Total storage used: {total_size_mb:.2f} MB\n"
+            f"Remaining Storage: {remaining_storage_gb:.2f} GB\n\n"
+            f"List of files in your directory:\n\n"
+        )
+
+        messages = []
+        current_message = header
+        for entry in file_entries:
+            if len(current_message) + len(entry) + 1 > 4096:  # +1 for newline
+                messages.append(current_message)
+                current_message = entry + "\n"
+            else:
+                current_message += entry + "\n"
+
+        messages.append(current_message)  # Add the last accumulated message
+
+        for i, msg in enumerate(messages):
+            try:
+                if i == len(messages) - 1:
+                    await event.respond(msg, buttons=file_buttons)
+                else:
+                    await event.respond(msg)
+            except:
+                await event.respond(msg)
+    else:
+        message = "Your directory is empty, send me any file"
+        try:
+            await event.edit(message, buttons=nofile_buttons)
+        except:
+            await event.respond(message, buttons=nofile_buttons)
+
+
+#@client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/my_files'))
+async def lillst_files(event):
     user = await event.get_sender()
     user_id = user.id
     check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.sender_id)
@@ -648,6 +723,7 @@ class Timer:
             return True
         return False
 time_left=0
+stopper=0
 # Store user state to track when to downlo
 import queue  # Import the queue module
 dd=0
@@ -685,6 +761,7 @@ async def download(event):
     global download_in_progress  # Use a global flag to track download process
     global dd
     global user1
+    global stopper
     global user2
     global user3
     global message
@@ -764,8 +841,8 @@ async def download(event):
           except Exception as e:
             print(e)
         os.makedirs(user_dir, exist_ok=True)
+        stopper +=1
         #os.chdir(user_dir)
-
         if not download_in_progress:
             user_ids[user_id] = True
             download_in_progress = True  #
@@ -773,11 +850,13 @@ async def download(event):
             time.sleep(5)
             fi = event.file.name
 
-            if fi is None or not time_difference < 0:
+            if fi is None or not time_difference < 0 or size <= 35000000:
                 msg = await event.reply("Downloading started")
                 await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
                 await msg.edit("Finished downloading\n/my_files to see your files")
             elif fi is not None and time_difference < 0:
+                if stopper % 10 == 0:
+                  await asyncio.sleep(180)
                 msg = await event.reply("Downloading started")
                 extension = os.path.splitext(fi)[1]
                 fi_encoded = fi.encode('utf-8').decode('utf-8')
@@ -1211,7 +1290,9 @@ async def premium_info(event):
     - Per file size limit increased to 3GB.
     - Storage limit increased to 10GB.
     - No ads for 30 days.
-    
+    - Priority downloads.
+    - fast downloads and uploads.
+
     Get Premium for just ₹50 (approximately $0.6).
     
     Contact any admin to get premium.
