@@ -23,7 +23,11 @@ collection = db["users"]
 def store_user(user_id):
     timestamp = int(time.time())
     user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
+    collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
+
+def store_code(user_id,verifycode):
+    user_data = {"user_id": user_id, "verifycode": verifycode}
+    collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
 
 # Function to check user status
 def check_status(user_id):
@@ -324,7 +328,46 @@ async def cancel_download(event):
         await event.edit("No ongoing download to cancel.")
 
 
+import random
+import string
+
+def generate_random_code(length=10):
+  """Generates a random 10-digit code combining letters and numbers."""
+  characters = string.ascii_letters + string.digits
+  code = ''.join(random.choice(characters) for i in range(length))
+  return code
+
 async def link_send(event):
+    global dd
+# Get the current date and time Define the phases for each day Calculate the current phase based on the time of day
+    import requests
+    code = generate_random_code()
+    print(code)
+    store_code(event.sender_id,code)
+    long=f"http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}"
+    url = f"https://api.cuty.io/quick?token=b09763cdea0deb0cc373ca5eb&url={long}"
+
+# Send an HTTP GET request and get the JSON response
+    response = requests.get(url)
+    data = response.json()
+
+# Print the result
+    print(data)
+    print(data["short_url"])
+    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",data["short_url"]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+    elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+async def linnk_send(event):
     global dd
 # Get the current date and time
 # Define the phases for each day
@@ -361,22 +404,6 @@ async def lstart(event):
         return
     print(event.raw_text)
     user_id = event.sender_id
-    current_time = time.time()
-# Get the current day of the week
-    phases = ['phase1', 'phase2', 'phase3', 'phase4']
-
-# Get the current day and time
-    current_datetime = datetime.datetime.now()
-
-# Calculate the current phase based on the time of day
-    current_hour = current_datetime.hour
-    phase_index = (current_hour // 6) % 4  # 6 hours per phase, modulo 4 to cycle through phases
-
-# Get the name of the current day
-    day_name = current_datetime.strftime('%A')
-
-# Combine the day name and phase                                                                                          
-    output = f'{day_name}_{phases[phase_index]}'
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
     if user_data:
@@ -385,7 +412,8 @@ async def lstart(event):
         if time_difference < 21600:  # 6 hours in seconds
          return await event.respond("You are already verified")
     # Check if the user's message contains the special start link
-    if days_of_week[output] == event.raw_text:
+    print(user_data["verifycode"])
+    if f'verifycodeis{user_data["verifycode"]}'  == event.raw_text.split(' ')[1]:
             # Add the new user ID with an expiration time of 1 day (86400 seconds)
         store_user(user_id)
 
@@ -394,7 +422,7 @@ async def lstart(event):
 
             # User already exists, check if their expiration time has passed
 
-    if  days_of_week[output] != event.raw_text:
+    else:
         await event.respond("Wrong link, please try again")
         await link_send(event)
                 # User exists and their access is still valid
@@ -466,11 +494,12 @@ async def start(event):
     user_id = event.sender_id
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
-    if not user_data:
+    tame = collection.find_one("timestamp")
+    if not user_data or not tame:
      timestamp = int(time.time())
      timestamp=timestamp-21600
      user_data = {"user_id": user_id, "timestamp": timestamp}
-     collection.replace_one({"user_id": user_id}, user_data, upsert=True)
+     collection.update_one({"user_id": user_id},{'$set': user_data}, upsert=True)
     # Check
     await event.respond(
             "Hello! Send me any files or direct download link  and I will compress them to a zip",
