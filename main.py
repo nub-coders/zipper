@@ -371,7 +371,7 @@ async def liink_send(event):
                 dd=dd-1
                 user_ids.clear()
                 await download(next_file)
-async def lnnk_send(event):
+async def link_send(event):
     global dd
 # Get the current date and time
 # Define the phases for each day
