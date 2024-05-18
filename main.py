@@ -345,7 +345,7 @@ async def link_send(event):
     print(code)
     store_code(event.sender_id,code)
     long=f'http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}'
-    url = f'https://api.cuty.io/quick?token=b09763cdea0deb0cc373ca5eb&url={long}'
+    url = f'https://cuty.io/api?api=b09763cdea0deb0cc373ca5ebda5c62c20ba942c&url={long}'
 
 # Send an HTTP GET request and get the JSON response
     response = requests.get(url)
@@ -355,8 +355,8 @@ async def link_send(event):
 
 # Print the result
     print(data)
-    print(data["short_url"])
-    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",data["short_url"]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    print(data["shortenedUrl"])
+    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",data["shortenedUrl"]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
     if not premium_queue.empty():
 
                 next_file = premium_queue.get()
