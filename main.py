@@ -1,3 +1,5 @@
+import urllib3
+urllib3.disable_warnings()
 from fp.fp import FreeProxy
 import random
 import os
