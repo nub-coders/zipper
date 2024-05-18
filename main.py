@@ -340,7 +340,7 @@ def generate_random_code(length=10):
   code = ''.join(random.choice(characters) for i in range(length))
   return code
 
-async def link_send(event):
+async def liink_send(event):
     global dd
     headers = {'User-Agent': 'Mozilla/5.0'}
 
@@ -371,7 +371,7 @@ async def link_send(event):
                 dd=dd-1
                 user_ids.clear()
                 await download(next_file)
-async def linnk_send(event):
+async def lnnk_send(event):
     global dd
 # Get the current date and time
 # Define the phases for each day
@@ -402,8 +402,55 @@ async def linnk_send(event):
                 dd=dd-1
                 user_ids.clear()
                 await download(next_file)
-@client.on(events.NewMessage(incoming=True, pattern='/start',func=lambda e: e.is_private))
+
+
+@client.on(events.NewMessage(pattern='/start'))
 async def lstart(event):
+    if event.raw_text=="/start":
+        return
+    print(event.raw_text)
+    user_id = event.sender_id
+    current_time = time.time()
+# Get the current day of the week
+    phases = ['phase1', 'phase2', 'phase3', 'phase4']
+
+# Get the current day and time
+    current_datetime = datetime.datetime.now()
+
+# Calculate the current phase based on the time of day
+    current_hour = current_datetime.hour
+    phase_index = (current_hour // 6) % 4  # 6 hours per phase, modulo 4 to cycle through phases
+
+# Get the name of the current day
+    day_name = current_datetime.strftime('%A')
+
+# Combine the day name and phase
+    output = f'{day_name}_{phases[phase_index]}'
+    current_time = int(time.time())
+    user_data = collection.find_one({"user_id": user_id})
+    if user_data:
+        stored_time = user_data["timestamp"]
+        time_difference = current_time - stored_time
+        if time_difference < 21600:  # 6 hours in seconds
+         return await event.respod("You are already verified")
+    # Check if the user's message contains the special start link
+    if days_of_week[output] == event.raw_text:
+            # Add the new user ID with an expiration time of 1 day (86400 seconds)
+        store_user(user_id)
+
+            # Send a welcome message to the new user
+        await event.respond("Welcome back to the bot! You are verified for 6 hours",buttons=home_buttons)
+
+            # User already exists, check if their expiration time has passed
+
+    if  days_of_week[output] != event.raw_text:
+        await event.respond("Wrong link, please try again")
+        await link_send(event)
+                # User exists and their access is still valid
+# ...
+active_user_id =None
+#@client.on(events.NewMessage(incoming=True, pattern='/start',func=lambda e: e.is_private))
+async def lhhstart(event):
     if event.raw_text=="/start":
         return
     print(event.raw_text)
