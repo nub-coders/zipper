@@ -350,8 +350,6 @@ async def link_send(event):
     proxy = FreeProxy(https=True).get()
 # Send an HTTP GET request and get the JSON response
     response = requests.get(url,proxies={'https': proxy})
-    if not response.status_code == 200:
-      return await event.respond("error contact the admin")
     data = response.json()
 
 # Print the result
