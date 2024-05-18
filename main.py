@@ -340,6 +340,8 @@ def generate_random_code(length=10):
 
 async def link_send(event):
     global dd
+    headers = {'User-Agent': 'Mozilla/5.0'}
+
 # Get the current date and time Define the phases for each day Calculate the current phase based on the time of day
     import requests
     code = generate_random_code()
