@@ -835,7 +835,7 @@ async def download(event):
 
           # Combine progress bar and message
           progress_message += f"\n[{progress_bar_text}]"
-          if time_difference < 0:
+          if not time_difference < 0:
             progress_message += f"\n\n**Slow download?**, use /premium to boost download speed"
           message_text = f"{progress_message}"
           try:
