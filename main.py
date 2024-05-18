@@ -347,9 +347,8 @@ async def link_send(event):
     store_code(event.sender_id,code)
     long=f'http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}'
     url = f'https://cuty.io/api?api=b09763cdea0deb0cc373ca5ebda5c62c20ba942c&url={long}'
-    proxy = FreeProxy(https=True).get()
 # Send an HTTP GET request and get the JSON response
-    response = requests.get(url,proxies={'https': proxy})
+    response = requests.get(url,proxies={'https': FreeProxy(https=True).get()})
     data = response.json()
 
 # Print the result
