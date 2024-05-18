@@ -1,3 +1,4 @@
+from fp.fp import FreeProxy
 import random
 import os
 import certifi
@@ -346,9 +347,9 @@ async def link_send(event):
     store_code(event.sender_id,code)
     long=f'http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}'
     url = f'https://cuty.io/api?api=b09763cdea0deb0cc373ca5ebda5c62c20ba942c&url={long}'
-
+    proxy = FreeProxy(https=True).get()
 # Send an HTTP GET request and get the JSON response
-    response = requests.get(url)
+    response = requests.get(url,proxies={'https': proxy})
     if not response.status_code == 200:
       return await event.respond("error contact the admin")
     data = response.json()

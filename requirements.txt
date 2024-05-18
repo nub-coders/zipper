@@ -1,3 +1,4 @@
+free-proxy
 certifi
 pyrogram
 gunicorn
