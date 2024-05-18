@@ -342,7 +342,7 @@ async def link_send(event):
 # Combine the day name and phase
     output = f'{day_name}_{phases[phase_index]}'
 # Print the result
-    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user\nUse /premium to get details about premium features",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
     if not premium_queue.empty():
 
                 next_file = premium_queue.get()
@@ -835,6 +835,8 @@ async def download(event):
 
           # Combine progress bar and message
           progress_message += f"\n[{progress_bar_text}]"
+          if time_difference < 0:
+            progress_message += f"\n\n**Slow download?**, use /premium to boost download speed"
           message_text = f"{progress_message}"
           try:
             await msg.edit(message_text, parse_mode='html')
@@ -1104,7 +1106,7 @@ async def create_zip(event):
 
                                             if current != 0 and total != 0:
                                                 progress_percent = current * 100 / total
-                                                progress_message = f"Downloading {zip_filename}: {progress_percent:.2f}%\n\n"
+                                                progress_message = f"Uploading {zip_filename}: {progress_percent:.2f}%\n\n"
 
                                                 elapsed_time = time.time() - start_time
                                                 speed = current / (elapsed_time*10)
