@@ -15,7 +15,6 @@ import datetime
 import pymongo
 import time
 from config import *
-import json
 from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",tlsCAFile=certifi.where())
 db = client["telegram_bot"]
@@ -345,11 +344,13 @@ async def link_send(event):
     code = generate_random_code()
     print(code)
     store_code(event.sender_id,code)
-    long=f"http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}"
-    url = f"https://api.cuty.io/quick?token=b09763cdea0deb0cc373ca5eb&url={long}"
+    long=f'http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}'
+    url = f'https://api.cuty.io/quick?token=b09763cdea0deb0cc373ca5eb&url={long}'
 
 # Send an HTTP GET request and get the JSON response
     response = requests.get(url)
+    if not response.status_code == 200:
+      return await event.respond("error contact the admin")
     data = response.json()
 
 # Print the result
