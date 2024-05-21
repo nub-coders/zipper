@@ -982,6 +982,23 @@ async def download(event):
                 download_queue.put(event)
     else:
         await event.reply("Not enough storage space to download this file.",buttons=common_buttons)
+        if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+        elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+        elif not link_download_queue.empty():
+                next_link = link_download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await link_download(next_link)
 
 
 zipping_in_progress=False
