@@ -648,7 +648,7 @@ async def list_files(event):
             f"List of files in your directory:\n\n"
         )
         if not time_difference <= 21600:
-            remaining_storage = 200 * 1024 * 1024 - total_size  #
+            remaining_storage = 200  - total_size  #
             header = (
             f"Total storage used: {total_size_mb:.2f} MB\n"
             f"Remaining free Storage: {remaining_storage:.2f} MB\n\n"
