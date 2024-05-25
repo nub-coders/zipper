@@ -389,7 +389,7 @@ async def link_send(event):
 # Combine the day name and phase
     output = f'{day_name}_{phases[phase_index]}'
 # Print the result
-    await event.respond("Storage is limited to 200 MB for non verified users\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
     if not premium_queue.empty():
 
                 next_file = premium_queue.get()
@@ -626,7 +626,6 @@ async def list_files(event):
 
     total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
     remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 4.5GB in bytes
-
     stored_time = user_data.get("timestamp", current_time)
     time_difference = current_time - stored_time
 
@@ -639,15 +638,22 @@ async def list_files(event):
             f"{i+1}. {file} - {os.path.getsize(os.path.join(user_dir, file)) / (1024 * 1024):.2f} MB" 
             for i, file in enumerate(files)
         ]
-        
         total_size_mb = total_size / (1024 * 1024)
         remaining_storage_gb = remaining_storage / (1024 * 1024 * 1024)
+        
 
         header = (
             f"Total storage used: {total_size_mb:.2f} MB\n"
             f"Remaining Storage: {remaining_storage_gb:.2f} GB\n\n"
             f"List of files in your directory:\n\n"
         )
+        if not time_difference <= 21600:
+            remaining_storage = 200 * 1024 * 1024 - total_size  #
+            header = (
+            f"Total storage used: {total_size_mb:.2f} MB\n"
+            f"Remaining free Storage: {remaining_storage:.2f} MB\n\n"
+            f"List of files in your directory:\n\n")
+
 
         messages = []
         current_message = header
