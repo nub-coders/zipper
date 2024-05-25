@@ -389,7 +389,7 @@ async def link_send(event):
 # Combine the day name and phase
     output = f'{day_name}_{phases[phase_index]}'
 # Print the result
-    await event.respond("you need to verify first in order to use the bot to avoid spam\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
+    await event.respond("Storage is limited to 200 MB for non verified users\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
     if not premium_queue.empty():
 
                 next_file = premium_queue.get()
@@ -578,14 +578,6 @@ user_states = {}
 async def callback_fzip(event):
     user_id = event.sender_id
     current_time = int(time.time())
-    user_data = collection.find_one({"user_id": user_id})
-    if user_data:
-        stored_time = user_data["timestamp"]
-        time_difference = current_time - stored_time
-        if not time_difference < 21600:  # 6 hours in seconds
-         return await link_send(event)
-    else:
-        return await link_send(event)
        #await event.respond("you need to verify first in order to use the bot to avoid spam",buttons=[Button.url("Click to verify",links[Today]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
     user_states[user_id] = "waiting_for_rename"  # Set the user's state to "waiting_for_rename"
     try:
@@ -852,22 +844,19 @@ async def download(event):
     size=0
 
     user_id = event.sender_id
+    time_difference = 637474
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
     if user_data:
         stored_time = user_data["timestamp"]
         time_difference = current_time - stored_time
-        if not time_difference < 21600:  # 6 hours in seconds
-         return await link_send(event)
-         
-    else:
-        return await link_send(event)
     user_dir = f"{ggg}/zipper/{user_id}"
     #user_path = os.path.join(user_directory, user_id)
     os.makedirs(user_dir, exist_ok=True)
     # Calculate the remaining storage space
     total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
     remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 3GB in bytes
+    remaining_free_storage = 200 * 1024 * 1024 - total_size
     stored_time = user_data["timestamp"]
     time_difference = current_time - stored_time
     if time_difference < 0:
@@ -884,6 +873,8 @@ async def download(event):
 
         size=100
     if size<=remaining_storage:
+        if not size<=remaining_free_storage and not time_difference < 21600:
+           return await link_send(event)
         type_of = "downloading\nProgress:"
         msg = None
 
@@ -1012,15 +1003,6 @@ video_sent=False
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/fzip'))
 async def fzip(event):
     user_id = event.sender_id
-    current_time = int(time.time())
-    user_data = collection.find_one({"user_id": user_id})
-    if user_data:
-        stored_time = user_data["timestamp"]
-        time_difference = current_time - stored_time
-        if not time_difference < 21600:  # 6 hours in seconds
-         return await link_send(event)
-    else:
-        return await link_send(event)
     await callback_fzip(event)
 async def create_zip(event):
     global zipping_in_progress
@@ -1299,15 +1281,11 @@ async def link_download(event):
     link = event.raw_text
     user_id = event.sender_id
     current_time = int(time.time())
-    
+    time_difference = 7373737
     user_data = collection.find_one({"user_id": user_id})
     if user_data:
         stored_time = user_data["timestamp"]
         time_difference = current_time - stored_time
-        if not time_difference < 21600:  # 6 hours in seconds
-            return await link_send(event)
-    else:
-        return await link_send(event)
     
     user_dir = f"zipper/{user_id}"
     user_dir = f"{ggg}/zipper/{user_id}"
@@ -1317,6 +1295,7 @@ async def link_download(event):
     max_file_size_bytes = 4 * 1024 * 1024 * 1024  # 4 GB in bytes
     total_size = sum(os.path.getsize(os.path.join(user_dir, file)) for file in os.listdir(user_dir))
     remaining_storage = 4.5 * 1024 * 1024 * 1024 - total_size  # 3GB in bytes
+    remaining_free_storage = 200 * 1024 * 1024 - total_size
     timer = Timer()
     async def progress_bar(current, total, start_time, msg, filename):
      if timer.can_send() and total != 0:  # Add a check to ensure total is not zero
@@ -1356,6 +1335,8 @@ async def link_download(event):
         if "content-length" in response.headers:
             content_length = int(response.headers["content-length"])
             if content_length <= remaining_storage:
+                if not content_length <= remaining_free_storage and not time_difference < 21600:
+                    return await link_send(event)
                 filename = link.split('/')[-1]  # Extract filename from URL
                 message = await event.reply(f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download")
                 progress_task = asyncio.create_task(update_progress(event, message, link))
