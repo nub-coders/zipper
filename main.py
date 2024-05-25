@@ -1410,9 +1410,9 @@ async def user_status(event):
             time_difference *= -1
         else:
             status = "Not Verified"
-            total_storage = "4.5 GB"
-            file_size = "2 GB"
-            ads = "Some ads"
+            total_storage = "200MB"
+            file_size = "200MB"
+            ads = "No ads upto 200MB"
 
         if status in ("💎 Premium 💎", "🌟 Elite 🌟"):
             days = time_difference // (24 * 3600)
