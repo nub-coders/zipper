@@ -851,6 +851,20 @@ async def download(event):
     size=0
 
     user_id = event.sender_id
+    user = await bot.get_entity(user_id)
+    if user.status == None:
+        if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+        elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
     time_difference = 637474
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
