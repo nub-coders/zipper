@@ -851,7 +851,7 @@ async def download(event):
     size=0
 
     user_id = event.sender_id
-    user = await bot.get_entity(user_id)
+    user = await client.get_entity(user_id)
     if user.status == None:
         if not premium_queue.empty():
 
