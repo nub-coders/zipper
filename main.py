@@ -18,6 +18,7 @@ import datetime
 import pymongo
 import time
 from config import *
+from telethon.errors.rpcerrorlist import UserIsBlockedError
 from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",tlsCAFile=certifi.where())
 db = client["telegram_bot"]
@@ -117,7 +118,6 @@ async def skip_handler(event):
             if user_id in admin_ids:
                 await event.respond("Admin command received. Skipping the task...")
                 await timeout(event)
-
 
 
 
@@ -852,6 +852,7 @@ async def download(event):
 
     user_id = event.sender_id
     user = await client.get_entity(user_id)
+    print(user.status)
     if user.status == None:
         if not premium_queue.empty():
 
@@ -944,12 +945,12 @@ async def download(event):
             active_user_id=user_id
             time.sleep(5)
             fi = event.file.name
-
-            if fi is None or not time_difference < 0 or size <= 35000000:
+            try:
+             if fi is None or not time_difference < 0 or size <= 35000000:
                 msg = await event.reply("Downloading started")
                 await client.download_media(event.media,file=user_dir,progress_callback=progress_bar)
                 await msg.edit("Finished downloading\n/my_files to see your files")
-            elif fi is not None and time_difference < 0:
+             elif fi is not None and time_difference < 0:
                 if stopper % 10 == 0:
                   await asyncio.sleep(180)
                 msg = await event.reply("Downloading started")
@@ -962,6 +963,8 @@ async def download(event):
                     except Exception as e:
                       await msg.edit(f"Download failed: {e}\nPlease resend this file")
                       download_in_progress = False
+            except UserIsBlockedError:
+                 return await timeout(event)
             download_in_progress = False
             if not premium_queue.empty():
 
