@@ -432,7 +432,7 @@ async def lstart(event):
         stored_time = user_data["timestamp"]
         time_difference = current_time - stored_time
         if time_difference < 21600:  # 6 hours in seconds
-         return await event.respod("You are already verified")
+         return await event.respond("You are already verified")
     # Check if the user's message contains the special start link
     if days_of_week[output] == event.raw_text:
             # Add the new user ID with an expiration time of 1 day (86400 seconds)
