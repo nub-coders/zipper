@@ -533,7 +533,7 @@ async def callback_queue(event):
                     else:
                        last_time_left = time_left  # Update last known time_left
 
-                 await asyncio.sleep(1)  # Check every second
+                await asyncio.sleep(1)  # Check every second
 
 @client.on(events.CallbackQuery(data=b'help'))
 async def callback_help(event):
