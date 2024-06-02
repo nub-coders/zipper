@@ -1387,7 +1387,7 @@ async def premium_info(event):
     
     Contact any admin to get premium.
     """
-    contact_button = Button.url("Contact Admin", "https://t.me/nub_coder_s_update_s")
+    contact_button = Button.url("Contact Admin", "https://t.me/nub_coder_s")
     await event.respond(premium_benefits, buttons=[[contact_button]])
 
 
