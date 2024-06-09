@@ -389,7 +389,7 @@ async def link_send(event):
 # Combine the day name and phase
     output = f'{day_name}_{phases[phase_index]}'
 # Print the result
-    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_update_s/3")])
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
     if not premium_queue.empty():
 
                 next_file = premium_queue.get()
@@ -610,12 +610,12 @@ async def handle_message(event):
 async def list_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(client, "@nub_coder_s_update_s", user_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", user_id)
     
     if not check_if:
-        button = Button.url("Join", "https://t.me/nub_coder_s_update_s")
+        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
         return await event.respond(
-            "You need to join @nub_coder_s_update_s in order to use this bot.\n\nClick below to Join!", 
+            "You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", 
             buttons=button
         )
 
@@ -687,10 +687,10 @@ async def list_files(event):
 async def lillst_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(client, "@nub_coder_s_update_s", event.sender_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.sender_id)
     if not check_if:
-        button = Button.url("Join", "https://t.me/nub_coder_s_update_s")
-        return await event.respond("You need to join @nub_coder_s_update_s in order to use this bot.\n\nClick below to Join!", buttons=button)
+        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
+        return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
 
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
@@ -1025,10 +1025,10 @@ async def create_zip(event):
     if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
         return
     # Fetch all user IDs in the group and store them in the dictionary
-    check_if = await is_user_on_chat(client, "@nub_coder_s_update_s", event.sender_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.sender_id)
     if not check_if:
-        button = Button.url("Join", "https://t.me/nub_coder_s_update_s")
-        return await event.respond("You need to join @nub_coder_s_update_s in order to use this bot.\n\nClick below to Join!", buttons=button)
+        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
+        return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
     user_dir =f"{ggg}/zipper/{user_id}"
@@ -1127,7 +1127,7 @@ async def create_zip(event):
              event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
                     
 
-                await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s_update_s', buttons=home_buttons)
+                await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s_updates', buttons=home_buttons)
                     
                 if os.path.exists(user_dir):
                         shutil.rmtree(user_dir, ignore_errors=True)  # Recursivel$
@@ -1272,7 +1272,7 @@ async def help_handler(event):
         "- Maximum storage per user: 4GB\n\n"
         "📞 Support:\n"
         "If you need assistance or have any questions, please contact the bot admin.\n"
-        f"Admin : @nub_coder_s_update_s\n\n"
+        f"Admin : @nub_coder_s_updates\n\n"
         "Enjoy using the bot! 🚀"
     )
 
