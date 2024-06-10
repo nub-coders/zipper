@@ -1471,7 +1471,7 @@ async def unauthorize_user(event):
         replied_msg = await event.get_reply_message()
         if replied_msg.sender_id is not None:
             user_id = replied_msg.sender_id
-         else:
+        else:
             return await event.reply("Cannot authorize user: Unknown user ID.")
     command_args = event.raw_text.split()
     if len(command_args) > 1:
