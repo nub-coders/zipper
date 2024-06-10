@@ -29,11 +29,6 @@ def store_user(user_id):
     user_data = {"user_id": user_id, "timestamp": timestamp}
     collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
 
-def store_userr(user_id):
-    timestamp = int(time.time()) - 21600
-    user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
-
 def store_code(user_id,verifycode):
     user_data = {"user_id": user_id, "verifycode": verifycode}
     collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
@@ -859,8 +854,11 @@ async def download(event):
     time_difference = 637474
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
-    if not user_data:
-        store_userr(user_id)
+    if user_data:
+        stored_time = user_data["timestamp"]
+        time_difference = current_time - stored_time
+    else:
+        
     user_dir = f"{ggg}/zipper/{user_id}"
     #user_path = os.path.join(user_directory, user_id)
     os.makedirs(user_dir, exist_ok=True)
@@ -1456,40 +1454,6 @@ async def user_status(event):
 
     await event.respond(status_message)
 
-@client.on(events.NewMessage(pattern='/rst'))
-async def unauthorize_user(event):
-    user_id = event.sender_id
-
-    # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
-    if os.path.exists(admin_file):
-        with open(admin_file, "r") as file:
-            admin_ids = [int(line.strip()) for line in file.readlines()]
-            if user_id not in admin_ids:
-                return
-    if event.is_reply:
-        replied_msg = await event.get_reply_message()
-        if replied_msg.sender_id is not None:
-            user_id = replied_msg.sender_id
-         else:
-            return await event.reply("Cannot authorize user: Unknown user ID.")
-    command_args = event.raw_text.split()
-    if len(command_args) > 1:
-        arg = command_args[1]
-        if arg.isdigit():
-            user_id = int(arg)
-        else:
-            try:
-                user_id = (await client.get_entity(arg)).id
-            except ValueError:
-                return await event.reply("Cannot find user with the provided username.")
-
-    # Store the user with a timestamp 30 days from now
-    timestamp = int(time.time()) - 12600
-    storre_user(user_id, timestamp)
-    user_data = collection.find_one({"user_id": user_id})
-    await event.reply(f"User resetted successfully.\nUserdata:{user_data}")
-
 @client.on(events.NewMessage(pattern='/authorize'))
 async def authorize_user(event):
     user_id = event.sender_id
@@ -1525,13 +1489,13 @@ async def authorize_user(event):
     
     # Store the user with a timestamp 30 days from now
     timestamp = int(time.time()) + (30 * 24 * 60 * 60)
-    storre_user(user_id, timestamp)
-    user_data = collection.find_one({"user_id": user_id})
+    userdate=storre_user(user_id, timestamp)
     await event.reply(f"User authorized successfully.\nUserdata:{user_data}")
 
 def storre_user(user_id, timestamp):
     user_data = {"user_id": user_id, "timestamp": timestamp}
     collection.replace_one({"user_id": user_id}, user_data, upsert=True)
+    return user_data
 
 
 
