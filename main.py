@@ -550,8 +550,7 @@ async def start(event):
     user_id = event.sender_id
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
-    tame = collection.find_one("timestamp")
-    if not user_data or not tame:
+    if not user_data:
      timestamp = int(time.time())
      timestamp=timestamp-21600
      user_data = {"user_id": user_id, "timestamp": timestamp}
