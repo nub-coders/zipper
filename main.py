@@ -191,9 +191,10 @@ async def loud_message(event):
 
 
 
-@client.on(events.NewMessage(pattern='^!reboot$'))
-async def reboot_handler(event):
-    user_id = event.sender_id
+
+@app.on_message(filters.command("reboot", prefixes="!"))
+async def reboot_handler(client, message):
+    user_id = message.from_user.id
 
     # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
     admin_file = f"{ggg}/zipper/admin.txt"
@@ -201,12 +202,12 @@ async def reboot_handler(event):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id in admin_ids:
-                await event.respond("Admin command received. Stopping the bot...")
+                await message.reply_text("Admin command received. Stopping the bot...")
                 sys.exit(0)  # Raise a system exit exception to stop the entire code
             else:
-                await event.respond("You are not authorized to use this command.")
+                await message.reply_text("You are not authorized to use this command.")
     else:
-        await event.respond("Admin file not found. Please contact the bot admin.")
+        await message.reply_text("Admin file not found. Please contact the bot admin.")
 
 links = {
     'Monday_phase1': 'https://link-center.net/756279/verify',
