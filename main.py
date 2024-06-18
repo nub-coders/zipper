@@ -615,12 +615,12 @@ async def handle_message(event):
 async def list_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", user_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s", user_id)
     
     if not check_if:
-        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
+        button = Button.url("Join", "https://t.me/nub_coder_s")
         return await event.respond(
-            "You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", 
+            "You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", 
             buttons=button
         )
 
@@ -692,10 +692,10 @@ async def list_files(event):
 async def lillst_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.sender_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s", event.sender_id)
     if not check_if:
-        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
-        return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
+        button = Button.url("Join", "https://t.me/nub_coder_s")
+        return await event.respond("You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", buttons=button)
 
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
@@ -1029,10 +1029,10 @@ async def create_zip(event):
     if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
         return
     # Fetch all user IDs in the group and store them in the dictionary
-    check_if = await is_user_on_chat(client, "@nub_coder_s_updates", event.sender_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_s", event.sender_id)
     if not check_if:
-        button = Button.url("Join", "https://t.me/nub_coder_s_updates")
-        return await event.respond("You need to join @nub_coder_s_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
+        button = Button.url("Join", "https://t.me/nub_coder_s")
+        return await event.respond("You need to join @nub_coder_s in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
     user_dir =f"{ggg}/zipper/{user_id}"
@@ -1131,8 +1131,13 @@ async def create_zip(event):
              event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
                     
 
-                await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s_updates', buttons=home_buttons)
-                    
+                await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
+                user_data = collection.find_one({})
+                if user_data:
+                                   is_ad = user_data.get('is_ad',"false")
+                                   ad = user_data.get('ad')
+                                   if ad and is_ad=='true':
+                                      await event.respond(ad)
                 if os.path.exists(user_dir):
                         shutil.rmtree(user_dir, ignore_errors=True)  # Recursivel$
                         os.makedirs(user_dir, exist_ok=True)
@@ -1235,6 +1240,12 @@ async def create_zip(event):
 #print(sanitized_link)
                  try:
                                 await message.edit(f"Not able to upload files more than 500MB here\n So I provided this download link:", buttons=Button.url("Download File",link))
+                                user_data = collection.find_one({})
+                                if user_data:
+                                   is_ad = user_data.get('is_ad',"false")
+                                   ad = user_data.get('ad')
+                                   if ad and is_ad=='true':
+                                      await event.respond(ad)
                                 zipping_in_progress=False
                  except Exception as e:
                                 print(f"Error sending link: {link}, Error: {e}")
@@ -1253,7 +1264,7 @@ async def create_zip(event):
         os.makedirs(user_dir, exist_ok=True)
         zipping_in_progress=False
     except Exception as e:
-        await event.edit(f"An error occurred: {str(e)}", buttons=back_buttons)
+        await event.respond(f"An error occurred: {str(e)}", buttons=back_buttons)
         print(e)
 
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/help'))
@@ -1277,7 +1288,7 @@ async def help_handler(event):
         "- Maximum storage per user: 4GB\n\n"
         "📞 Support:\n"
         "If you need assistance or have any questions, please contact the bot admin.\n"
-        f"Admin : @nub_coder_s_updates\n\n"
+        f"Admin : @nub_coder_s\n\n"
         "Enjoy using the bot! 🚀"
     )
 
@@ -1547,7 +1558,6 @@ async def list_users(event):
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id not in admin_ids:
                 return
-    
     user_ids = [str(user["user_id"]) for user in collection.find()]
     if user_ids:
         user_list = "\n".join(user_ids)
@@ -1558,6 +1568,47 @@ async def list_users(event):
     else:
         await event.respond("No users found.")
 
+
+@client.on(events.NewMessage(pattern='/set'))
+async def set_handler(event):
+    user_id = event.sender_id
+
+    # Check if the user is an admin by comparing their user ID with the ones in admin.txt
+    admin_file = f"{ggg}/zipper/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
+    input_text = event.raw_text.split('/set ')[1]
+    value = input_text.strip()
+    collection.update_one({}, {"$set": {'ad': value}}, upsert=True)
+    await event.respond('Value saved successfully!')
+
+@client.on(events.NewMessage(pattern='/ad'))
+async def ad_handler(event):
+    user_id = event.sender_id
+
+    # Check if the user is an admin by comparing their user ID with the ones in admin.txt
+    admin_file = f"{ggg}/zipper/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
+    is_ad_value = event.raw_text.split()[1]
+    # Update "is_ad" field in Advertisement collection with the new value
+    collection.update_one({}, {"$set": {'is_ad': is_ad_value}}, upsert=True)
+    await event.respond(f'Updated "is_ad" field with: {is_ad_value}')
+
+@client.on(events.NewMessage(pattern='/get'))
+async def get_handler(event):
+    result = collection.find_one({})
+    if result:
+        value = result['ad']
+        await event.respond(f'The value is: {value}')
+    else:
+        await event.respond('No value found')
 
 app.start()
 client.run_until_disconnected()
