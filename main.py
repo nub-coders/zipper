@@ -1140,7 +1140,7 @@ async def create_zip(event):
                 global time_left
                 import requests
 
-                url = "https://api.gofile.io/getServer"
+                url = "https://api.gofile.io/servers"
 
 # Send an HTTP GET request and get the JSON response
                 response = requests.get(url)
