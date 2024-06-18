@@ -1147,7 +1147,8 @@ async def create_zip(event):
                 data = response.json()
 
 # Extract the server from the JSON response
-                server = data["data"]["server"]
+                servers = data["data"]["servers"][0]
+                server= servers['name']
                 if not server:
         # Handle the scenario where the server variable is not available
         # Move the zip file to a specific directory based on an environmental value
@@ -1207,7 +1208,7 @@ async def create_zip(event):
 
                                                 time_left = (total - current) / (speed*10)
                                                 progress_message += f"Time left: {time_left:.2f} seconds"
-                                                progress_message += f"Size: {current / (1024 * 1024):.2f} MB / {total / (1024 * 1024):.2f} MB"
+                                                progress_message += f"Size: {current :.2f} MB / {total :.2f} MB"
 
                                                 progress_bar_length = int(progress_percent / 5)
                                                 progress_bar_text = "█" * progress_bar_length + "░" * (20 - progress_bar_length)
