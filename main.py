@@ -1563,7 +1563,7 @@ async def list_users(event):
     user_ids = [str(user["user_id"]) for user in collection.find()]
     if user_ids:
         user_list = "\n".join(user_ids)
-        user_list += str(len(user_ids))
+        user_list += f"Total users: {str(len(user_ids))}"
         chunk_size = 4000
         chunks = [user_list[i:i+chunk_size] for i in range(0, len(user_list), chunk_size)]
         for chunk in chunks:
