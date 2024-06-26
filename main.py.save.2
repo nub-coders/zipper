@@ -1562,15 +1562,14 @@ async def list_users(event):
                 return
     user_ids = [str(user["user_id"]) for user in collection.find()]
     if user_ids:
+        
         user_list = "\n".join(user_ids)
-        user_list += len(user_ids)
         chunk_size = 4000
         chunks = [user_list[i:i+chunk_size] for i in range(0, len(user_list), chunk_size)]
         for chunk in chunks:
             await event.respond(chunk)
     else:
         await event.respond("No users found.")
-
 @client.on(events.NewMessage(pattern='/set'))
 async def set_handler(event):
     user_id = event.sender_id
