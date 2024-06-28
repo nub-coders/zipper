@@ -623,8 +623,7 @@ async def list_files(event):
         button = Button.url("Join", "https://t.me/treaserthings")
         return await event.respond(
             "You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", 
-            buttons=button
-        )
+            buttons=button)
 
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
@@ -658,9 +657,9 @@ async def list_files(event):
             remaining_storage = 200 * 1024 * 1024 - total_size
             remaining_storage_mb = remaining_storage / 1024 / 1024
             header = (
-            f"Total storage used: {total_size_mb:.2f} MB\n"
-            f"Remaining free Storage: {remaining_storage_mb:.2f} MB\n\n"
-            f"List of files in your directory:\n\n")
+            f"<b>Total storage used: {total_size_mb:.2f} MB</b>\n"
+            f"<b>Remaining free Storage: {remaining_storage_mb:.2f} MB</b>\n\n"
+            f"<b>List of files in your directory:</b>\n\n")
 
 
         messages = []
@@ -668,20 +667,20 @@ async def list_files(event):
         for entry in file_entries:
             if len(current_message) + len(entry) + 1 > 4096:  # +1 for newline
                 messages.append(current_message)
-                current_message = entry + "\n"
+                current_message = f"<blockquote>{entry}</blockquote>" + "\n"
             else:
-                current_message += entry + "\n"
+                current_message += f"<blockquote>{entry}</blockquote>" + "\n"
 
         messages.append(current_message)  # Add the last accumulated message
 
         for i, msg in enumerate(messages):
             try:
                 if i == len(messages) - 1:
-                    await event.respond(msg, buttons=file_buttons)
+                    await event.respond(msg, parse_mode="html", buttons=file_buttons)
                 else:
-                    await event.respond(msg)
+                    await event.respond(msg, parse_mode="html")
             except:
-                await event.respond(msg)
+                await event.respond(msg, parse_mode="html")
     else:
         message = "Your directory is empty, send me any file"
         try:
