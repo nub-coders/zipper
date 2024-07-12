@@ -1,3 +1,4 @@
+uvloop
 free-proxy
 certifi
 pyrogram
