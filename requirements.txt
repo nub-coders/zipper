@@ -1,7 +1,7 @@
 uvloop
 free-proxy
 certifi
-pyrogram
+https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
 gunicorn
 flask
 aiohttp
