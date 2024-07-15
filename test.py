@@ -620,11 +620,11 @@ async def list_files(event):
     user_id = user.id
     check_if = await is_user_on_chat(client, "@treaserthings", user_id)
     
-    if not check_if:
+    '''if not check_if:
         button = Button.url("Join", "https://t.me/treaserthings")
         return await event.respond(
             "You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", 
-            buttons=button)
+            buttons=button)'''
 
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
@@ -695,9 +695,9 @@ async def lillst_files(event):
     user = await event.get_sender()
     user_id = user.id
     check_if = await is_user_on_chat(client, "@treaserthings", event.sender_id)
-    if not check_if:
+    '''if not check_if:
         button = Button.url("Join", "https://t.me/treaserthings")
-        return await event.respond("You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", buttons=button)
+        return await event.respond("You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", buttons=button)'''
 
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
@@ -1032,9 +1032,9 @@ async def create_zip(event):
         return
     # Fetch all user IDs in the group and store them in the dictionary
     check_if = await is_user_on_chat(client, "@treaserthings", event.sender_id)
-    if not check_if:
+    '''if not check_if:
         button = Button.url("Join", "https://t.me/treaserthings")
-        return await event.respond("You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", buttons=button)
+        return await event.respond("You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", buttons=button)'''
     group_user_ids.clear()
     user_id = str(event.sender_id)
     user_dir =f"{ggg}/zipper/{user_id}"
@@ -1049,8 +1049,8 @@ async def create_zip(event):
             await event.edit("No files to compress.", buttons=back_buttons)
         except:
             return await event.respond("No files to compress.", buttons=back_buttons)
-    zip_dir = os.path.join(user_dir, 'zip')
-    os.makedirs(zip_dir, exist_ok=True)
+    #zip_dir = os.path.join(user_dir, 'zip')
+    #os.makedirs(zip_dir, exist_ok=True)
 
     if not file_name.endswith('.zip'):
         file_name=f'{file_name}.zip'
@@ -1129,8 +1129,8 @@ async def create_zip(event):
                 msg = await event.respond("uploading started")
 
          
-                #await app.send_document(
-             #event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
+                #await app.send_video(
+             #int(event.sender_id),zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
                 with open(zip_filename, "rb") as out:
                    res = await upload_file(client, out, progress_callback=progress_bar)
             # result is InputFile()
