@@ -19,6 +19,8 @@ import datetime
 import pymongo
 import time
 from config import *
+from FastTelethonhelper import fast_upload
+
 from telethon.errors.rpcerrorlist import UserIsBlockedError
 from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",tlsCAFile=certifi.where())
@@ -1131,21 +1133,7 @@ async def create_zip(event):
          
                 #await app.send_video(
              #int(event.sender_id),zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
-                with open(zip_filename, "rb") as out:
-                   res = await upload_file(client, out, progress_callback=progress_bar)
-            # result is InputFile()
-            # you can add more data to it
-                   attributes, mime_type = utils.get_attributes(
-                zip_filename,
-            )
-                   media = types.InputMediaUploadedDocument(
-                file=res,
-                mime_type=mime_type,
-                attributes=attributes,
-                # not needed for most files, thumb=thumb,
-                force_file=False
-            )
-                   await event.reply(file=media)
+                await client.send_file(event.sender_id,zip_filename,progress_callback=progress_bar)
 
                 await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
                 user_data = collection.find_one({})

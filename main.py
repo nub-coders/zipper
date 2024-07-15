@@ -1049,8 +1049,8 @@ async def create_zip(event):
             await event.edit("No files to compress.", buttons=back_buttons)
         except:
             return await event.respond("No files to compress.", buttons=back_buttons)
-    zip_dir = os.path.join(user_dir, 'zip')
-    os.makedirs(zip_dir, exist_ok=True)
+    #zip_dir = os.path.join(user_dir, 'zip')
+    #os.makedirs(zip_dir, exist_ok=True)
 
     if not file_name.endswith('.zip'):
         file_name=f'{file_name}.zip'
@@ -1131,22 +1131,7 @@ async def create_zip(event):
          
                 #await app.send_document(
              #event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
-                with open(zip_filename, "rb") as out:
-                   res = await upload_file(client, out, progress_callback=progress_bar)
-            # result is InputFile()
-            # you can add more data to it
-                   attributes, mime_type = utils.get_attributes(
-                zip_filename,
-            )
-                   media = types.InputMediaUploadedDocument(
-                file=res,
-                mime_type=mime_type,
-                attributes=attributes,
-                # not needed for most files, thumb=thumb,
-                force_file=False
-            )
-                   await event.reply(file=media)
-
+                await client.send_file(event.sender_id,zip_filename,progress_callback=progress_bar)
                 await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
                 user_data = collection.find_one({})
                 if user_data:
