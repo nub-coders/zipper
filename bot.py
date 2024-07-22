@@ -1618,8 +1618,12 @@ app.start()
 #client.run_until_disconnected()
 @fall.route('/')
 def index():
-    return 'index.html'
-
+    if client.is_connected:
+       return 'index.html'
+    else:
+       client.start()
+       app.start()
+       return 'index.html'
 
 if __name__ == '__main__':
     fall.run(host="0.0.0.0", port=3000, debug=True)
