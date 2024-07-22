@@ -1616,10 +1616,10 @@ async def get_handler(event):
 
 app.start()
 #client.run_until_disconnected()
-@app.route('/')
+@fall.route('/')
 def index():
     return 'index.html'
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=3000, debug=True)
+    fall.run(host="0.0.0.0", port=3000, debug=True)
