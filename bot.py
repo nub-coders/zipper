@@ -790,14 +790,6 @@ async def clear(event):
 client.flood_sleep_threshold = 24*60*60
 #client.start(bot_token=token)
 
-config = client(functions.help.GetConfigRequest())
-for option in config.dc_options:
-    if option.ip_address == client.session.server_address:
-        if client.session.dc_id != option.id:
-            log.warning(f"Fixed DC ID in session from {client.session.dc_id} to {option.id}")
-        client.session.set_dc(option.id, option.ip_address, option.port)
-        client.session.save()
-        break
 
 class Timer:
     def __init__(self, time_between=2):
