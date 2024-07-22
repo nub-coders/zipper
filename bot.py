@@ -1,7 +1,6 @@
 from flask import Flask
 fall = Flask(__name__)
 fall.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-import uvloop
 import urllib3
 urllib3.disable_warnings()
 from fp.fp import FreeProxy
@@ -788,7 +787,6 @@ async def clear(event):
             await event.edit(f"Your directory does not exist.", buttons=back_buttons)
         except:
             await event.respond(f"Your directory does not exist.", buttons=back_buttons)
-uvloop.install()
 client.flood_sleep_threshold = 24*60*60
 #client.start(bot_token=token)
 
