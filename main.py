@@ -582,31 +582,6 @@ user_states = {}
 
 # ...
 
-@client.on(events.CallbackQuery(data=b'fzip'))
-async def callback_fzip(event):
-    user_id = event.sender_id
-    current_time = int(time.time())
-       #await event.respond("you need to verify first in order to use the bot to avoid spam",buttons=[Button.url("Click to verify",links[Today]),Button.url("how to verify","https://t.me/nub_coder_s_updates/3")])
-    user_states[user_id] = "waiting_for_rename"  # Set the user's state to "waiting_for_rename"
-    try:
-        await event.edit("Please give me a suitable name for the compressed file.\n\nNote: name should contain extension also")
-    except:
-        await event.respond("Please give me a suitable name for the compressed file.\n\nNote: name should contain extension also")
-# ...
-
-@client.on(events.NewMessage(func=lambda e: e.text and e.is_private))
-async def handle_message(event):
-    user_id = event.sender_id
-    user_state = user_states.get(user_id)
-
-    if user_state == "waiting_for_rename":
-        user_states[user_id] = "ready"  # Reset the user's state
-        global file_name
-        file_name = event.text
-        await create_zip(event)  # Call the create_zip function to proceed with compression
-    else:
-        # Handle other messages or commands here
-        pass
 
 
 
@@ -808,6 +783,31 @@ class Timer:
             self.start_time = time.time()
             return True
         return False
+
+
+
+async def next_user():
+            global dd
+            if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+            elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+            elif not zip_queue.empty():
+                next_file = zip_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await create_zip(next_file)
+
+
+
 time_left=0
 stopper=0
 # Store user state to track when to downlo
@@ -828,8 +828,8 @@ download_in_progress = False
 user_ids = {}
 link_download_queue = queue.Queue()
 link_downloading = False  # Flag to track if a link download is in progress
-
-
+zip_in_progress = False
+zip_queue = queue.Queue()
 
 
 
@@ -957,23 +957,7 @@ async def download(event):
             except UserIsBlockedError:
                  return await timeout(event)
             download_in_progress = False
-            if not premium_queue.empty():
-
-                next_file = premium_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await download(next_file)
-            elif not download_queue.empty():
-
-                next_file = download_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await download(next_file)
-            elif not link_download_queue.empty():
-                next_link = link_download_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await link_download(next_link)
+            await next_user()
         else:
             dd+=1
             que=f'I have added your file in queue to download'
@@ -988,37 +972,28 @@ async def download(event):
                 download_queue.put(event)
     else:
         await event.reply("Not enough storage space to download this file.",buttons=common_buttons)
-        if not premium_queue.empty():
-
-                next_file = premium_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await download(next_file)
-        elif not download_queue.empty():
-
-                next_file = download_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await download(next_file)
-        elif not link_download_queue.empty():
-                next_link = link_download_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await link_download(next_link)
-
-
+        await next_user()
 zipping_in_progress=False
 
 import zipfile
 import re
-
+conversations = {}
 # Updated API credentials and bot
 
 video_sent=False
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/fzip'))
 async def fzip(event):
-    user_id = event.sender_id
-    await callback_fzip(event)
+    sender = event.sender_id
+    try:
+        async with bot.conversation(sender, timeout=300) as don:
+            conversations[sender] = don
+            conv = conversations[sender]
+            mess = await event.respond("Please give me a suitable name for the compressed file without extension")
+            event = await conv.wait_event(events.NewMessage(from_users=sender, func=lambda x: x.is_private, outgoing=False))
+            await create_zip(event)
+    except Exception as e:
+        pass
+
 async def create_zip(event):
     global zipping_in_progress
     user = await event.get_sender()
@@ -1063,6 +1038,11 @@ async def create_zip(event):
     if video_files:
         video_sent=True
     # Compress files into a zip archive
+    if zipping_in_progress:
+            dd+=1
+            que=f'I have added your files in queue to zip'
+            user2=await event.reply(que,buttons=Button.inline("check your queue",b"bhad"))
+            return zip_queue.put(event)
     try:
         message=await event.edit("Compressing files to zip please wait")
     except:
@@ -1083,6 +1063,7 @@ async def create_zip(event):
                     except Exception as e:
                         print(e)
                 edit+=1
+            await asyncio.sleep(3)
             count += 1
 
         # Check if the zip file was created successfully
@@ -1264,6 +1245,7 @@ async def create_zip(event):
                     shutil.rmtree(user_dir, ignore_errors=True)
         os.makedirs(user_dir, exist_ok=True)
         zipping_in_progress=False
+        await next_user()
     except Exception as e:
         await event.respond(f"An error occurred: {str(e)}", buttons=back_buttons)
         print(e)
