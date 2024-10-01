@@ -1,8 +1,11 @@
-import uvloop
+from flask import Flask
+fall = Flask(__name__)
+fall.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 import urllib3
 urllib3.disable_warnings()
 from fp.fp import FreeProxy
 import random
+from pyromod import listen
 import os
 import certifi
 from pyrogram import Client as dint
@@ -61,10 +64,8 @@ current_time = datetime.datetime.now()
 print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 # Iterate over all sub-directories
-for dirpath, dirnames, filenames in os.walk(current_dir):
+'''for dirpath, dirnames, filenames in os.walk(current_dir):
     # Get the creation time of the latest file in each sub-directory
-    if 'venv' in dirnames or 'ProjectMan' in dirnames:
-        dirnames.remove('venv')
     latest_file_creation_time = 0
     for filename in filenames:
         file_path = os.path.join(dirpath, filename)
@@ -86,7 +87,7 @@ for dirpath, dirnames, filenames in os.walk(current_dir):
             # Skip deletion for files in current_dir
             if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3 and dirpath != current_dir:
                 os.remove(file_path)
-                print(f"Deleted file: {file_path}")
+                print(f"Deleted file: {file_path}")'''
 
 
 import cryptg
@@ -190,7 +191,7 @@ async def loud_message(event):
                         xx+=1
                     except Exception as e:
                         print(f"Failed to forward message: {e}")
-                await event.respond(f"Broadcasted to {xx} users")
+                    await event.respond(f"Broadcasted to {xx} users")
         except Exception as e:
             print(f"Failed to forward message: {e}")
 
@@ -584,6 +585,23 @@ user_states = {}
 
 # ...
 
+@client.on(events.CallbackQuery(data=b'fzip'))
+async def callback_fzip(event):
+    await create_zip(event)
+
+@client.on(events.NewMessage(func=lambda e: e.text and e.is_private))
+async def handle_message(event):
+    user_id = event.sender_id
+    user_state = user_states.get(user_id)
+
+    if user_state == "waiting_for_rename":
+        user_states[user_id] = "ready"  # Reset the user's state
+        global file_name
+        file_name = event.text
+        await create_zip(event)  # Call the create_zip function to proceed with compression
+    else:
+        # Handle other messages or commands here
+        pass
 
 
 
@@ -762,18 +780,9 @@ async def clear(event):
             await event.edit(f"Your directory does not exist.", buttons=back_buttons)
         except:
             await event.respond(f"Your directory does not exist.", buttons=back_buttons)
-uvloop.install()
 client.flood_sleep_threshold = 24*60*60
 client.start(bot_token=token)
 
-config = client(functions.help.GetConfigRequest())
-for option in config.dc_options:
-    if option.ip_address == client.session.server_address:
-        if client.session.dc_id != option.id:
-            log.warning(f"Fixed DC ID in session from {client.session.dc_id} to {option.id}")
-        client.session.set_dc(option.id, option.ip_address, option.port)
-        client.session.save()
-        break
 
 class Timer:
     def __init__(self, time_between=2):
@@ -785,31 +794,6 @@ class Timer:
             self.start_time = time.time()
             return True
         return False
-
-
-
-async def next_user():
-            global dd
-            if not premium_queue.empty():
-
-                next_file = premium_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await download(next_file)
-            elif not download_queue.empty():
-
-                next_file = download_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await download(next_file)
-            elif not zip_queue.empty():
-                next_file = zip_queue.get()
-                dd=dd-1
-                user_ids.clear()
-                await create_zip(next_file)
-
-
-
 time_left=0
 stopper=0
 # Store user state to track when to downlo
@@ -830,8 +814,8 @@ download_in_progress = False
 user_ids = {}
 link_download_queue = queue.Queue()
 link_downloading = False  # Flag to track if a link download is in progress
-zip_in_progress = False
-zip_queue = queue.Queue()
+
+
 
 
 
@@ -959,7 +943,23 @@ async def download(event):
             except UserIsBlockedError:
                  return await timeout(event)
             download_in_progress = False
-            await next_user()
+            if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+            elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+            elif not link_download_queue.empty():
+                next_link = link_download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await link_download(next_link)
         else:
             dd+=1
             que=f'I have added your file in queue to download'
@@ -974,35 +974,46 @@ async def download(event):
                 download_queue.put(event)
     else:
         await event.reply("Not enough storage space to download this file.",buttons=common_buttons)
-        await next_user()
+        if not premium_queue.empty():
+
+                next_file = premium_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+        elif not download_queue.empty():
+
+                next_file = download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await download(next_file)
+        elif not link_download_queue.empty():
+                next_link = link_download_queue.get()
+                dd=dd-1
+                user_ids.clear()
+                await link_download(next_link)
+
+
 zipping_in_progress=False
 
 import zipfile
 import re
-conversations = {}
+
 # Updated API credentials and bot
 
 video_sent=False
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/fzip'))
-async def fzip(event):
-    sender = event.sender_id
-    try:
-        async with bot.conversation(sender, timeout=300) as don:
-            conversations[sender] = don
-            conv = conversations[sender]
-            mess = await event.respond("Please give me a suitable name for the compressed file without extension")
-            event = await conv.wait_event(events.NewMessage(from_users=sender, func=lambda x: x.is_private, outgoing=False))
-            await create_zip(event)
-    except Exception as e:
-        pass
-
 async def create_zip(event):
+    user_id = event.sender_id
+    try:
+       response = await app.listen(user_id=user_id, filters=filters.text, timeout=15)
+    except Exception as e:
+       return await event.respond(e)
     global zipping_in_progress
     user = await event.get_sender()
     user_iid = user.id
     global group_user_ids
     global zipping_in_progress
-    global file_name
+    file_name = response
     global edit
     global message
     if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
@@ -1040,21 +1051,16 @@ async def create_zip(event):
     if video_files:
         video_sent=True
     # Compress files into a zip archive
-    if zipping_in_progress:
-            dd+=1
-            que=f'I have added your files in queue to zip'
-            user2=await event.reply(que,buttons=Button.inline("check your queue",b"bhad"))
-            return zip_queue.put(event)
     try:
         message=await event.edit("Compressing files to zip please wait")
     except:
         message=await event.respond("Compressing files to zip please wait")
-    try:
+    if 2==2:
         # Use the 'zip' command via subprocess to create the zip file
         count = 0
         zipping_in_progress=True
         for filename in os.listdir(user_dir):
-            command=['zip', zip_filename, os.path.join(user_dir, filename)]
+            command=['zip', zip_filename, user_dir]
             output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
             for line in output.stdout:
                 line = line.strip()
@@ -1065,7 +1071,6 @@ async def create_zip(event):
                     except Exception as e:
                         print(e)
                 edit+=1
-            await asyncio.sleep(3)
             count += 1
 
         # Check if the zip file was created successfully
@@ -1247,10 +1252,9 @@ async def create_zip(event):
                     shutil.rmtree(user_dir, ignore_errors=True)
         os.makedirs(user_dir, exist_ok=True)
         zipping_in_progress=False
-        await next_user()
-    except Exception as e:
-        await event.respond(f"An error occurred: {str(e)}", buttons=back_buttons)
-        print(e)
+    #except Exception as e:
+     #   await event.respond(f"An error occurred: {str(e)}", buttons=back_buttons)
+      #  print(e)
 
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/help'))
 async def help_handler(event):

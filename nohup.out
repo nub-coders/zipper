@@ -1,0 +1,285 @@
+Requirement already satisfied: pip in ./venv/lib/python3.10/site-packages (22.0.2)
+Collecting pip
+  Using cached pip-24.2-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.2
+    Uninstalling pip-22.0.2:
+      Successfully uninstalled pip-22.0.2
+Successfully installed pip-24.2
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting uvloop (from -r requirements.txt (line 1))
+  Using cached uvloop-0.20.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting free-proxy (from -r requirements.txt (line 2))
+  Downloading free_proxy-1.1.2.tar.gz (5.3 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting certifi (from -r requirements.txt (line 3))
+  Using cached certifi-2024.8.30-py3-none-any.whl.metadata (2.2 kB)
+Collecting gunicorn (from -r requirements.txt (line 5))
+  Using cached gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+Collecting flask (from -r requirements.txt (line 6))
+  Using cached flask-3.0.3-py3-none-any.whl.metadata (3.2 kB)
+Collecting aiohttp (from -r requirements.txt (line 7))
+  Downloading aiohttp-3.10.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.6 kB)
+Collecting telethon (from -r requirements.txt (line 8))
+  Using cached Telethon-1.37.0-py3-none-any.whl
+Collecting tgcrypto (from -r requirements.txt (line 9))
+  Using cached TgCrypto-1.2.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.1 kB)
+Collecting cryptg (from -r requirements.txt (line 10))
+  Using cached cryptg-0.4.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.4 kB)
+Collecting requests (from -r requirements.txt (line 11))
+  Using cached requests-2.32.3-py3-none-any.whl.metadata (4.6 kB)
+Collecting pymongo (from -r requirements.txt (line 12))
+  Downloading pymongo-4.10.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (22 kB)
+Collecting lxml (from free-proxy->-r requirements.txt (line 2))
+  Using cached lxml-5.3.0-cp310-cp310-manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting pyaes==1.6.1 (from Pyrogram==2.1.28->-r requirements.txt (line 4))
+  Using cached pyaes-1.6.1-py3-none-any.whl
+Collecting pysocks==1.7.1 (from Pyrogram==2.1.28->-r requirements.txt (line 4))
+  Using cached PySocks-1.7.1-py3-none-any.whl.metadata (13 kB)
+Collecting packaging (from gunicorn->-r requirements.txt (line 5))
+  Using cached packaging-24.1-py3-none-any.whl.metadata (3.2 kB)
+Collecting Werkzeug>=3.0.0 (from flask->-r requirements.txt (line 6))
+  Using cached werkzeug-3.0.4-py3-none-any.whl.metadata (3.7 kB)
+Collecting Jinja2>=3.1.2 (from flask->-r requirements.txt (line 6))
+  Using cached jinja2-3.1.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting itsdangerous>=2.1.2 (from flask->-r requirements.txt (line 6))
+  Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting click>=8.1.3 (from flask->-r requirements.txt (line 6))
+  Using cached click-8.1.7-py3-none-any.whl.metadata (3.0 kB)
+Collecting blinker>=1.6.2 (from flask->-r requirements.txt (line 6))
+  Using cached blinker-1.8.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting aiohappyeyeballs>=2.3.0 (from aiohttp->-r requirements.txt (line 7))
+  Downloading aiohappyeyeballs-2.4.3-py3-none-any.whl.metadata (6.1 kB)
+Collecting aiosignal>=1.1.2 (from aiohttp->-r requirements.txt (line 7))
+  Using cached aiosignal-1.3.1-py3-none-any.whl.metadata (4.0 kB)
+Collecting attrs>=17.3.0 (from aiohttp->-r requirements.txt (line 7))
+  Using cached attrs-24.2.0-py3-none-any.whl.metadata (11 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp->-r requirements.txt (line 7))
+  Using cached frozenlist-1.4.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (12 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp->-r requirements.txt (line 7))
+  Using cached multidict-6.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.0 kB)
+Collecting yarl<2.0,>=1.12.0 (from aiohttp->-r requirements.txt (line 7))
+  Downloading yarl-1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (50 kB)
+Collecting async-timeout<5.0,>=4.0 (from aiohttp->-r requirements.txt (line 7))
+  Using cached async_timeout-4.0.3-py3-none-any.whl.metadata (4.2 kB)
+Collecting rsa (from telethon->-r requirements.txt (line 8))
+  Using cached rsa-4.9-py3-none-any.whl.metadata (4.2 kB)
+Collecting charset-normalizer<4,>=2 (from requests->-r requirements.txt (line 11))
+  Using cached charset_normalizer-3.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (33 kB)
+Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 11))
+  Using cached idna-3.10-py3-none-any.whl.metadata (10 kB)
+Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 11))
+  Using cached urllib3-2.2.3-py3-none-any.whl.metadata (6.5 kB)
+Collecting dnspython<3.0.0,>=1.16.0 (from pymongo->-r requirements.txt (line 12))
+  Using cached dnspython-2.6.1-py3-none-any.whl.metadata (5.8 kB)
+WARNING: pymongo 4.10.0 does not provide the extra 'srv'
+Collecting MarkupSafe>=2.0 (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6))
+  Using cached MarkupSafe-2.1.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.0 kB)
+Collecting typing-extensions>=4.1.0 (from multidict<7.0,>=4.5->aiohttp->-r requirements.txt (line 7))
+  Using cached typing_extensions-4.12.2-py3-none-any.whl.metadata (3.0 kB)
+Collecting pyasn1>=0.1.3 (from rsa->telethon->-r requirements.txt (line 8))
+  Using cached pyasn1-0.6.1-py3-none-any.whl.metadata (8.4 kB)
+Using cached uvloop-0.20.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.4 MB)
+Using cached certifi-2024.8.30-py3-none-any.whl (167 kB)
+Using cached PySocks-1.7.1-py3-none-any.whl (16 kB)
+Using cached gunicorn-23.0.0-py3-none-any.whl (85 kB)
+Using cached flask-3.0.3-py3-none-any.whl (101 kB)
+Downloading aiohttp-3.10.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 27.0 MB/s eta 0:00:00
+Using cached TgCrypto-1.2.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (59 kB)
+Using cached cryptg-0.4.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.0 MB)
+Using cached requests-2.32.3-py3-none-any.whl (64 kB)
+Downloading pymongo-4.10.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 52.4 MB/s eta 0:00:00
+Downloading aiohappyeyeballs-2.4.3-py3-none-any.whl (14 kB)
+Using cached aiosignal-1.3.1-py3-none-any.whl (7.6 kB)
+Using cached async_timeout-4.0.3-py3-none-any.whl (5.7 kB)
+Using cached attrs-24.2.0-py3-none-any.whl (63 kB)
+Using cached blinker-1.8.2-py3-none-any.whl (9.5 kB)
+Using cached charset_normalizer-3.3.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (142 kB)
+Using cached click-8.1.7-py3-none-any.whl (97 kB)
+Using cached dnspython-2.6.1-py3-none-any.whl (307 kB)
+Using cached frozenlist-1.4.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (239 kB)
+Using cached idna-3.10-py3-none-any.whl (70 kB)
+Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Using cached jinja2-3.1.4-py3-none-any.whl (133 kB)
+Using cached multidict-6.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (124 kB)
+Using cached urllib3-2.2.3-py3-none-any.whl (126 kB)
+Using cached werkzeug-3.0.4-py3-none-any.whl (227 kB)
+Downloading yarl-1.13.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (447 kB)
+Using cached lxml-5.3.0-cp310-cp310-manylinux_2_28_x86_64.whl (5.0 MB)
+Using cached packaging-24.1-py3-none-any.whl (53 kB)
+Using cached rsa-4.9-py3-none-any.whl (34 kB)
+Using cached MarkupSafe-2.1.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)
+Using cached pyasn1-0.6.1-py3-none-any.whl (83 kB)
+Using cached typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Building wheels for collected packages: free-proxy, Pyrogram
+  Building wheel for free-proxy (pyproject.toml): started
+  Building wheel for free-proxy (pyproject.toml): finished with status 'done'
+  Created wheel for free-proxy: filename=free_proxy-1.1.2-py3-none-any.whl size=5813 sha256=b052dd21f71064a3b694608406f804cd45d011d80a8fac1c49c9603f8e7b80c5
+  Stored in directory: /home/ubuntu/.cache/pip/wheels/66/db/d5/089b3eb5f67a2103a5136b9043156af7fb96fac4cae00fe006
+  Building wheel for Pyrogram (pyproject.toml): started
+  Building wheel for Pyrogram (pyproject.toml): finished with status 'done'
+  Created wheel for Pyrogram: filename=Pyrogram-2.1.28-py3-none-any.whl size=4550753 sha256=b06f451bd265aaf3f52dae5ba326e47fb580228dc9c96ebeaf05aa2f7d3736d1
+  Stored in directory: /tmp/pip-ephem-wheel-cache-xwzzv86y/wheels/f7/6e/1e/4d0d3cef057b509c4d92b5cd106e56b2a0e73c34cc79812295
+Successfully built free-proxy Pyrogram
+Installing collected packages: pyaes, uvloop, urllib3, typing-extensions, tgcrypto, pysocks, pyasn1, packaging, MarkupSafe, lxml, itsdangerous, idna, frozenlist, dnspython, cryptg, click, charset-normalizer, certifi, blinker, attrs, async-timeout, aiohappyeyeballs, Werkzeug, rsa, requests, Pyrogram, pymongo, multidict, Jinja2, gunicorn, aiosignal, yarl, telethon, free-proxy, flask, aiohttp
+Successfully installed Jinja2-3.1.4 MarkupSafe-2.1.5 Pyrogram-2.1.28 Werkzeug-3.0.4 aiohappyeyeballs-2.4.3 aiohttp-3.10.8 aiosignal-1.3.1 async-timeout-4.0.3 attrs-24.2.0 blinker-1.8.2 certifi-2024.8.30 charset-normalizer-3.3.2 click-8.1.7 cryptg-0.4.0 dnspython-2.6.1 flask-3.0.3 free-proxy-1.1.2 frozenlist-1.4.1 gunicorn-23.0.0 idna-3.10 itsdangerous-2.2.0 lxml-5.3.0 multidict-6.1.0 packaging-24.1 pyaes-1.6.1 pyasn1-0.6.1 pymongo-4.10.0 pysocks-1.7.1 requests-2.32.3 rsa-4.9 telethon-1.37.0 tgcrypto-1.2.5 typing-extensions-4.12.2 urllib3-2.2.3 uvloop-0.20.0 yarl-1.13.1
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Collecting free-proxy (from -r requirements.txt (line 2))
+  Using cached free_proxy-1.1.2-py3-none-any.whl
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Installing collected packages: free-proxy
+Successfully installed free-proxy-1.1.2
+Starting zipper.py...
+./zip.sh: line 33: 189717 Killed                  nohup python3 main.py
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+./zip.sh: line 33: 190325 Killed                  nohup python3 main.py
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Building wheels for collected packages: Pyrogram
+  Building wheel for Pyrogram (setup.py): started
+  Building wheel for Pyrogram (setup.py): finished with status 'done'
+  Created wheel for Pyrogram: filename=Pyrogram-2.1.28-py3-none-any.whl size=4550771 sha256=19d06e032ff26a401000c94f52333979b706f0d53f681d50d6916fb7c8e0a76f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-a11p1mkl/wheels/f7/6e/1e/4d0d3cef057b509c4d92b5cd106e56b2a0e73c34cc79812295
+Successfully built Pyrogram
+Installing collected packages: Pyrogram
+  Attempting uninstall: Pyrogram
+    Found existing installation: Pyrogram 2.0.106
+    Uninstalling Pyrogram-2.0.106:
+      Successfully uninstalled Pyrogram-2.0.106
+Successfully installed Pyrogram-2.1.28
+Starting zipper.py...
