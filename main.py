@@ -61,8 +61,10 @@ current_time = datetime.datetime.now()
 print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 # Iterate over all sub-directories
-'''for dirpath, dirnames, filenames in os.walk(current_dir):
+for dirpath, dirnames, filenames in os.walk(current_dir):
     # Get the creation time of the latest file in each sub-directory
+    if 'venv' in dirnames or 'ProjectMan' in dirnames:
+        dirnames.remove('venv')
     latest_file_creation_time = 0
     for filename in filenames:
         file_path = os.path.join(dirpath, filename)
@@ -84,7 +86,7 @@ print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
             # Skip deletion for files in current_dir
             if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3 and dirpath != current_dir:
                 os.remove(file_path)
-                print(f"Deleted file: {file_path}")'''
+                print(f"Deleted file: {file_path}")
 
 
 import cryptg
@@ -117,7 +119,7 @@ async def skip_handler(event):
     global zipping_in_progress
 
     # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
-    admin_file =f"{ggg}/zipper/admin.txt"
+    admin_file =f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -160,7 +162,7 @@ def read_chat_ids_from_file(file_path):
         return []
 
 # Path to your /home/u219967/Work/Work/Work/zipper//home/u219967/Work/Work/zipper/user.txt file
-file_path = f'{ggg}/zipper/user.txt'
+file_path = f'{ggg}/user.txt'
 
 # Define event handler for /loud command
 @client.on(events.NewMessage(pattern='/loud'))
@@ -168,7 +170,7 @@ async def loud_message(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -188,7 +190,7 @@ async def loud_message(event):
                         xx+=1
                     except Exception as e:
                         print(f"Failed to forward message: {e}")
-                    await event.respond(f"Broadcasted to {xx} users")
+                await event.respond(f"Broadcasted to {xx} users")
         except Exception as e:
             print(f"Failed to forward message: {e}")
 
@@ -199,8 +201,8 @@ async def loud_message(event):
 async def reboot_handler(client, message):
     user_id = message.from_user.id
 
-    # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work/zipper//home/u219967/Work/zipper/admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/Work/Work/Work//home/u219967/Work/admin.txt
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -497,7 +499,7 @@ async def callback_queue(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.t$
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if 2==2:
                 user_task_counts = {}
 
@@ -1456,7 +1458,7 @@ async def unauthorize_user(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -1490,7 +1492,7 @@ async def authorize_user(event):
     user_id = event.sender_id
     
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -1535,7 +1537,7 @@ async def list_users(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -1557,7 +1559,7 @@ async def set_handler(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
@@ -1573,7 +1575,7 @@ async def ad_handler(event):
     user_id = event.sender_id
 
     # Check if the user is an admin by comparing their user ID with the ones in admin.txt
-    admin_file = f"{ggg}/zipper/admin.txt"
+    admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
