@@ -613,12 +613,12 @@ async def handle_message(event):
 async def list_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(client, "@treaserthings", user_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
     
     if not check_if:
         button = Button.url("Join", "https://t.me/treaserthings")
         return await event.respond(
-            "You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", 
+            "You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!", 
             buttons=button)
 
     current_time = int(time.time())
@@ -689,10 +689,10 @@ async def list_files(event):
 async def lillst_files(event):
     user = await event.get_sender()
     user_id = user.id
-    check_if = await is_user_on_chat(client, "@treaserthings", event.sender_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_updates", event.sender_id)
     if not check_if:
         button = Button.url("Join", "https://t.me/treaserthings")
-        return await event.respond("You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", buttons=button)
+        return await event.respond("You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
 
     current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
@@ -1005,7 +1005,7 @@ video_sent=False
 async def create_zip(event):
     user_id = event.sender_id
     try:
-       response = await app.listen(user_id=user_id, filters=filters.text, timeout=15)
+       response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
     except Exception as e:
        return await event.respond(e)
     global zipping_in_progress
@@ -1013,16 +1013,16 @@ async def create_zip(event):
     user_iid = user.id
     global group_user_ids
     global zipping_in_progress
-    file_name = response
+    file_name = response.text
     global edit
     global message
-    if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
+    if file_name.startswith("/") or file_name.startswith("http"):
         return
     # Fetch all user IDs in the group and store them in the dictionary
-    check_if = await is_user_on_chat(client, "@treaserthings", event.sender_id)
+    check_if = await is_user_on_chat(client, "@nub_coder_updates", event.sender_id)
     if not check_if:
         button = Button.url("Join", "https://t.me/treaserthings")
-        return await event.respond("You need to join @treaserthings in order to use this bot.\n\nClick below to Join!", buttons=button)
+        return await event.respond("You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
     user_dir =f"{ggg}/zipper/{user_id}"
@@ -1060,7 +1060,7 @@ async def create_zip(event):
         count = 0
         zipping_in_progress=True
         for filename in os.listdir(user_dir):
-            command=['zip', zip_filename, user_dir]
+            command=['zip', zip_filename, os.path.join(user_dir, filename, '-d', user_dir)]
             output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
             for line in output.stdout:
                 line = line.strip()

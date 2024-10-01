@@ -283,3 +283,584 @@ Installing collected packages: Pyrogram
       Successfully uninstalled Pyrogram-2.0.106
 Successfully installed Pyrogram-2.1.28
 Starting zipper.py...
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.listen(user_id=user_id, filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-418' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
+AttributeError: 'Message' object has no attribute 'startswith'
+Unhandled exception on create_zip
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.listen(user_id=user_id, filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 764, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Unhandled exception on create_zip
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    if file_name.startswith("/") or file_name.startswith("http") or event.document or event.media:
+AttributeError: 'Message' object has no attribute 'startswith'
+Unhandled exception on create_zip
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.listen(user_id=user_id, filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 764, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2024-10-01 15:03:21
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+  File "/home/ubuntu/Work/main.py", line 1008
+    response = await app.listen(user_id=user_id, text="Provide me a suitable filename for the zip file"filters=filters.text, timeout=15)
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 8, in <module>
+    from pyromod import listen, ask
+ImportError: cannot import name 'ask' from 'pyromod' (/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/__init__.py)
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.listen(user_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.listen() got an unexpected keyword argument 'text'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2024-10-01 15:24:33
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.ask(user_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.ask() missing 1 required positional argument: 'chat_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.ask() missing 1 required positional argument: 'chat_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.ask() missing 1 required positional argument: 'chat_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.ask() missing 1 required positional argument: 'chat_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.ask() missing 1 required positional argument: 'chat_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Unhandled exception on callback_fzip
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1008, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/sync.py", line 53, in async_to_sync_wrap
+    coroutine = function(*args, **kwargs)
+TypeError: Client.ask() missing 1 required positional argument: 'chat_id'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 590, in callback_fzip
+    await create_zip(event)
+  File "/home/ubuntu/Work/main.py", line 1010, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TypeError' object is not iterable
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2024-10-01 15:27:36
+/start verifycodeis27373636365449
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.5)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.28->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.7)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
