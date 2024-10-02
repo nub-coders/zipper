@@ -191,7 +191,7 @@ async def loud_message(event):
                         xx+=1
                     except Exception as e:
                         print(f"Failed to forward message: {e}")
-                    await event.respond(f"Broadcasted to {xx} users")
+                await event.respond(f"Broadcasted to {xx} users")
         except Exception as e:
             print(f"Failed to forward message: {e}")
 
@@ -1117,9 +1117,9 @@ async def create_zip(event):
                 msg = await event.respond("uploading started")
 
          
-                #await app.send_document(
-             #event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
-                await client.send_file(event.sender_id,zip_filename,progress_callback=progress_bar)
+                await app.send_document(
+                event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
+                #await client.send_file(event.sender_id,zip_filename,progress_callback=progress_bar)
                 await msg.edit('Uploaded successfully\n\nPlease join @nub_coder_s', buttons=home_buttons)
                 user_data = collection.find_one({})
                 if user_data:
@@ -1201,7 +1201,7 @@ async def create_zip(event):
                                                 progress_message += f"Speed: {speed:.2f} MB/s\n"
 
                                                 time_left = (total - current) / (speed*10)
-                                                progress_message += f"Time left: {time_left:.2f} seconds"
+                                                progress_message += f"Time left: {time_left:.2f} seconds\n"
                                                 progress_message += f"Size: {current :.2f} MB / {total :.2f} MB"
 
                                                 progress_bar_length = int(progress_percent / 5)
