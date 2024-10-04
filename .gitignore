@@ -2,4 +2,4 @@ zipper/
 user*/
 downloads/
 venv/
-
+nohup*
