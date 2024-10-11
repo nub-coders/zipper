@@ -5,12 +5,13 @@ import urllib3
 urllib3.disable_warnings()
 from fp.fp import FreeProxy
 import random
-from pyromod import listen
+import pyromod
 import os
 import certifi
 from pyrogram import Client as dint
 from pyrogram import filters
 from pyrogram.types import Message
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait
 import subprocess
 import shutil
@@ -60,34 +61,6 @@ def check_status(user_id):
 current_dir = f"{ggg}/zipper"
 
 # Get the current date and time
-current_time = datetime.datetime.now()
-print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
-
-# Iterate over all sub-directories
-'''for dirpath, dirnames, filenames in os.walk(current_dir):
-    # Get the creation time of the latest file in each sub-directory
-    latest_file_creation_time = 0
-    for filename in filenames:
-        file_path = os.path.join(dirpath, filename)
-        file_creation_time = os.path.getctime(file_path)
-        if file_creation_time > latest_file_creation_time:
-            latest_file_creation_time = file_creation_time
-
-    # Calculate the time difference
-    if latest_file_creation_time > 0:
-        time_difference = current_time - datetime.datetime.fromtimestamp(latest_file_creation_time)
-        # Print the time difference in a human-readable format
-        print(f"Directory: {dirpath}, Updated {time_difference} ago")
-
-        # Delete files that are 3 days old or older (except in current_dir)
-        for filename in filenames:
-            file_path = os.path.join(dirpath, filename)
-            file_creation_time = os.path.getctime(file_path)
-            
-            # Skip deletion for files in current_dir
-            if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3 and dirpath != current_dir:
-                os.remove(file_path)
-                print(f"Deleted file: {file_path}")'''
 
 
 import cryptg
@@ -306,7 +279,7 @@ home_buttons = [
 ]
 
 back_buttons = [Button.inline("🏠 Home", b"home"), help_button]  # Add the "Help" button
-
+pass_button = [Button.inline("🔒 Set a Password", b"set_password"), Button.inline("🔓Continue without Password",b"no_password")]
 file_buttons = [
     [
         Button.inline("❌ Clear My Files", b"clear"),
@@ -326,6 +299,16 @@ nofile_buttons = [
 
 ]
 
+
+@client.on(events.CallbackQuery(data=b'no_password'))
+async def without_pass(event):
+    pass_protect = None
+    await create_zip(event, pass_protect)
+
+@client.on(events.CallbackQuery(data=b'set_password'))
+async def with_pass(event):
+    pass_protect = True
+    await create_zip(event, pass_protect)
 @client.on(events.CallbackQuery(data=b'cancel_download'))
 async def cancel_download(event):
     user_id = event.sender_id
@@ -587,21 +570,7 @@ user_states = {}
 
 @client.on(events.CallbackQuery(data=b'fzip'))
 async def callback_fzip(event):
-    await create_zip(event)
-
-@client.on(events.NewMessage(func=lambda e: e.text and e.is_private))
-async def handle_message(event):
-    user_id = event.sender_id
-    user_state = user_states.get(user_id)
-
-    if user_state == "waiting_for_rename":
-        user_states[user_id] = "ready"  # Reset the user's state
-        global file_name
-        file_name = event.text
-        await create_zip(event)  # Call the create_zip function to proceed with compression
-    else:
-        # Handle other messages or commands here
-        pass
+    await check_pass(event)
 
 
 
@@ -995,19 +964,39 @@ async def download(event):
 
 zipping_in_progress=False
 
-import zipfile
 import re
+from pyromod.helpers import ikb
+async def func(_, __, query):
+    return query.data ==  "no_password"
 
-# Updated API credentials and bot
+static_data_filter = filters.create(func)
 
 video_sent=False
 @client.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.raw_text == '/fzip'))
-async def create_zip(event):
+async def check_pass(event):
+    return await event.respond("Would you like to protect your zip file with a secure password ?",buttons=pass_button)
+
+
+async def create_zip(event, pass_protect = None):
+    get_pass = None
     user_id = event.sender_id
     try:
        response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
     except Exception as e:
        return await event.respond(e)
+    if pass_protect:
+
+      try:
+        get_pass = await app.ask(text="please type your password below.", filters=filters.text, chat_id=user_id, timeout=15)
+      except Exception as e:
+        return await event.respond(e)
+      if get_pass.text.startswith("/") or get_pass.text.startswith("http"):
+           return
+      password = get_pass.text
+      com = '--password'
+    else:
+        password = ''
+        com = ''
     global zipping_in_progress
     user = await event.get_sender()
     user_iid = user.id
@@ -1060,7 +1049,7 @@ async def create_zip(event):
         count = 0
         zipping_in_progress=True
         for filename in os.listdir(user_dir):
-            command=['zip', zip_filename, os.path.join(user_dir, filename)]
+            command=['zip', com, password, zip_filename, os.path.join(user_dir, filename)]
             output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
             for line in output.stdout:
                 line = line.strip()
