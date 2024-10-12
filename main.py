@@ -279,7 +279,7 @@ home_buttons = [
 ]
 
 back_buttons = [Button.inline("🏠 Home", b"home"), help_button]  # Add the "Help" button
-pass_button = [Button.inline("🔒 Set a Password", b"set_password"), Button.inline("🔓Continue without Password",b"no_password")]
+pass_button = [[Button.inline("🔒 Set a Password", b"set_password")], [Button.inline("🔓Continue without Password",b"no_password")]]
 file_buttons = [
     [
         Button.inline("❌ Clear My Files", b"clear"),
@@ -624,7 +624,8 @@ async def list_files(event):
             header = (
             f"<b>Total storage used: {total_size_mb:.2f} MB</b>\n"
             f"<b>Remaining free Storage: {remaining_storage_mb:.2f} MB</b>\n\n"
-            f"<b>List of files in your directory:</b>\n\n")
+            f"<b>List of files in your directory:</b>\n\n"
+            f"<b>Use /del <number> to delete the file using file number in list:</b>\n\n")
 
 
         messages = []
@@ -1015,8 +1016,9 @@ async def create_zip(event, pass_protect = None):
     group_user_ids.clear()
     user_id = str(event.sender_id)
     user_dir =f"{ggg}/zipper/{user_id}"
-    if not os.path.exists(user_dir):
-        return await event.reply("Your directory doesn't exist.", buttons=back_buttons)
+    files = os.listdir(user_dir)
+    if not os.path.exists(user_dir) or not files:
+        return await event.reply("you don't have files to zip\nSend your files first", buttons=back_buttons)
 
     # List all files in the user's directory and add them to the zip archive
     files = os.listdir(user_dir)
@@ -1049,7 +1051,7 @@ async def create_zip(event, pass_protect = None):
         count = 0
         zipping_in_progress=True
         for filename in os.listdir(user_dir):
-            command=['zip', com, password, zip_filename, os.path.join(user_dir, filename)]
+            command = ['zip', com, password, zip_filename, os.path.join(user_dir, filename)] if pass_protect else ['zip', zip_filename, os.path.join(user_dir, filename)]
             output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
             for line in output.stdout:
                 line = line.strip()

@@ -50,11 +50,13 @@ from .photo import Photo
 from .poll import Poll
 from .poll_option import PollOption
 from .reaction import Reaction
+from .star_gift import StarGift
 from .sticker import Sticker
 from .story import Story
 from .stripped_thumbnail import StrippedThumbnail
 from .successful_payment import SuccessfulPayment
 from .thumbnail import Thumbnail
+from .user_star_gift import UserStarGift
 from .venue import Venue
 from .video import Video
 from .video_note import VideoNote
@@ -97,11 +99,13 @@ __all__ = [
     "Poll",
     "PollOption",
     "Reaction",
+    "StarGift",
     "Sticker",
     "Story",
     "StrippedThumbnail",
     "SuccessfulPayment",
     "Thumbnail",
+    "UserStarGift",
     "Venue",
     "Video",
     "VideoNote",

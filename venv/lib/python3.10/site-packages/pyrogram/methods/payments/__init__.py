@@ -18,13 +18,27 @@
 
 from .apply_gift_code import ApplyGiftCode
 from .check_gift_code import CheckGiftCode
+from .convert_star_gift import ConvertStarGift
 from .get_payment_form import GetPaymentForm
+from .get_star_gifts import GetStarGifts
+from .get_user_star_gifts_count import GetUserStarGiftsCount
+from .get_user_star_gifts import GetUserStarGifts
+from .hide_star_gift import HideStarGift
 from .send_payment_form import SendPaymentForm
+from .send_star_gift import SendStarGift
+from .show_star_gift import ShowStarGift
 
 class Payments(
     ApplyGiftCode,
     CheckGiftCode,
+    ConvertStarGift,
     GetPaymentForm,
-    SendPaymentForm
+    GetStarGifts,
+    GetUserStarGiftsCount,
+    GetUserStarGifts,
+    HideStarGift,
+    SendPaymentForm,
+    SendStarGift,
+    ShowStarGift
 ):
     pass
