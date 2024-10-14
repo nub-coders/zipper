@@ -1310,3 +1310,1000 @@ WARNING: pymongo 4.9.1 does not provide the extra 'srv'
 Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
 Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
 Starting zipper.py...
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-3911' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-14120' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-14238' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 311, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-27094' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-33601' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-33661' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-33962' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 311, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-46718' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-93812' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-93959' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-151768' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-151978' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Server closed the connection: [Errno 104] Connection reset by peer
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-175872' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 311, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-186455' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-186519' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-186733' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 799, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 829, in download
+    stored_time = user_data["timestamp"]
+TypeError: 'NoneType' object is not subscriptable
+Unhandled exception on callback_home
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 563, in callback_home
+    await event.delete()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 343, in delete
+    return await self._client.delete_messages(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1303, in delete_messages
+    return await self([functions.messages.DeleteMessagesRequest(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 83, in _call
+    raise MultiError(exceptions, results, requests)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 73, in _call
+    result = await f
+telethon.errors.rpcerrorlist.MessageDeleteForbiddenError: You can't delete one of the messages you tried to delete, most likely because it is a service message. (caused by DeleteMessagesRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 985, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 987, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-216226' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Server sent a very old message with ID 7425236394642829313, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236395237486601, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425235620265639937, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236395242559489, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236395246015489, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236395246635009, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236395250787329, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236395278529537, ignoring (see FAQ for details)
+Server sent a very old message with ID 7425236614667627521, ignoring (see FAQ for details)
+socket.send() raised exception.
+Requirement already satisfied: pip in ./venv/lib/python3.10/site-packages (24.2)
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: uvloop in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (2024.8.30)
+Requirement already satisfied: gunicorn in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.10.8)
+Requirement already satisfied: telethon in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in ./venv/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.10.0)
+Requirement already satisfied: lxml in ./venv/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in ./venv/lib/python3.10/site-packages (from Pyrogram==2.1.29->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in ./venv/lib/python3.10/site-packages (from Pyrogram==2.1.29->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in ./venv/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in ./venv/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in ./venv/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in ./venv/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in ./venv/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in ./venv/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (2.4.3)
+Requirement already satisfied: aiosignal>=1.1.2 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (24.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.1.0)
+Requirement already satisfied: yarl<2.0,>=1.12.0 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.13.1)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in ./venv/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in ./venv/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in ./venv/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in ./venv/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in ./venv/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in ./venv/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.10.0 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in ./venv/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: typing-extensions>=4.1.0 in ./venv/lib/python3.10/site-packages (from multidict<7.0,>=4.5->aiohttp->-r requirements.txt (line 7)) (4.12.2)
+Requirement already satisfied: pyasn1>=0.1.3 in ./venv/lib/python3.10/site-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.6.1)
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.3)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.29->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.29->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.6)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+/start verifycodeis27373636363874
+/start verifycodeis27373636363874
+/start verifycodeis2737363639127644
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-1702' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-102276' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-133392' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)

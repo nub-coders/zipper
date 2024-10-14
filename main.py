@@ -750,7 +750,6 @@ async def clear(event):
             await event.edit(f"Your directory does not exist.", buttons=back_buttons)
         except:
             await event.respond(f"Your directory does not exist.", buttons=back_buttons)
-client.flood_sleep_threshold = 24*60*60
 client.start(bot_token=token)
 
 
