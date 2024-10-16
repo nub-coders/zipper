@@ -61,11 +61,10 @@ def check_status(user_id):
 current_dir = f"{ggg}/zipper"
 
 # Get the current date and time
-print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 current_dir = os.getcwd() # Get the current working directory
 current_time = datetime.datetime.now()
-
+print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
 # Specify the zipper directory name
 zipper_dir_name = "zipper" # Replace with the actual name of your directory
 

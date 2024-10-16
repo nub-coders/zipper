@@ -3243,3 +3243,847 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
     result = await future
 telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+75 4250M    0     0   75 3225M      0  18.9M  0:03:44  0:02:50  0:00:54 19.3M
+76 4250M    0     0   76 3245M      0  18.9M  0:03:44  0:02:51  0:00:53 19.3M
+76 4250M    0     0   76 3264M      0  18.9M  0:03:44  0:02:52  0:00:52 19.4M
+4250M
+77 4250M    0     0   77 3284M      0  18.9M  0:03:44  0:02:53  0:00:51 19.4M
+77 4250M    0     0   77 3303M      0  18.9M  0:03:44  0:02:54  0:00:50 19.3M
+78 4250M    0     0   78 3322M      0  18.9M  0:03:44  0:02:55  0:00:49 19.3M
+78 4250M    0     0   78 3342M      0  18.9M  0:03:44  0:02:56  0:00:48 19.3M
+79 4250M    0     0   79 3361M      0  18.9M  0:03:44  0:02:57  0:00:47 19.4M
+4250M
+79 4250M    0     0   79 3381M      0  18.9M  0:03:44  0:02:58  0:00:46 19.3M
+80 4250M    0     0   80 3400M      0  18.9M  0:03:44  0:02:59  0:00:45 19.4M
+80 4250M    0     0   80 3419M      0  18.9M  0:03:44  0:03:00  0:00:44 19.3M
+80 4250M    0     0   80 3439M      0  18.9M  0:03:43  0:03:01  0:00:42 19.3M
+81 4250M    0     0   81 3458M      0  18.9M  0:03:43  0:03:02  0:00:41 19.3M
+4250M
+81 4250M    0     0   81 3477M      0  18.9M  0:03:43  0:03:03  0:00:40 19.2M
+82 4250M    0     0   82 3497M      0  18.9M  0:03:43  0:03:04  0:00:39 19.3M
+82 4250M    0     0   82 3516M      0  18.9M  0:03:43  0:03:05  0:00:38 19.4M
+83 4250M    0     0   83 3535M      0  18.9M  0:03:43  0:03:06  0:00:37 19.2M
+83 4250M    0     0   83 3555M      0  18.9M  0:03:43  0:03:07  0:00:36 19.3M
+4250M
+84 4250M    0     0   84 3574M      0  18.9M  0:03:43  0:03:08  0:00:35 19.3M
+84 4250M    0     0   84 3593M      0  18.9M  0:03:43  0:03:09  0:00:34 19.2M
+85 4250M    0     0   85 3613M      0  18.9M  0:03:43  0:03:10  0:00:33 19.3M
+85 4250M    0     0   85 3632M      0  18.9M  0:03:43  0:03:11  0:00:32 19.4M
+85 4250M    0     0   85 3652M      0  19.0M  0:03:43  0:03:12  0:00:31 19.3M
+4250M
+86 4250M    0     0   86 3671M      0  19.0M  0:03:43  0:03:13  0:00:30 19.4M
+86 4250M    0     0   86 3690M      0  19.0M  0:03:43  0:03:14  0:00:29 19.4M
+87 4250M    0     0   87 3710M      0  19.0M  0:03:43  0:03:15  0:00:28 19.3M
+87 4250M    0     0   87 3729M      0  19.0M  0:03:43  0:03:16  0:00:27 19.4M
+88 4250M    0     0   88 3749M      0  19.0M  0:03:43  0:03:17  0:00:26 19.5M
+4250M
+88 4250M    0     0   88 3768M      0  19.0M  0:03:43  0:03:18  0:00:25 19.4M
+89 4250M    0     0   89 3787M      0  19.0M  0:03:43  0:03:19  0:00:24 19.3M
+89 4250M    0     0   89 3807M      0  19.0M  0:03:43  0:03:20  0:00:23 19.3M
+90 4250M    0     0   90 3826M      0  19.0M  0:03:43  0:03:21  0:00:22 19.3M
+90 4250M    0     0   90 3845M      0  19.0M  0:03:43  0:03:22  0:00:21 19.1M
+4250M
+90 4250M    0     0   90 3865M      0  19.0M  0:03:43  0:03:23  0:00:20 19.3M
+91 4250M    0     0   91 3884M      0  19.0M  0:03:43  0:03:24  0:00:19 19.4M
+91 4250M    0     0   91 3904M      0  19.0M  0:03:43  0:03:25  0:00:18 19.5M
+92 4250M    0     0   92 3923M      0  19.0M  0:03:43  0:03:26  0:00:17 19.3M
+92 4250M    0     0   92 3942M      0  19.0M  0:03:43  0:03:27  0:00:16 19.3M
+4250M
+93 4250M    0     0   93 3962M      0  19.0M  0:03:43  0:03:28  0:00:15 19.3M
+93 4250M    0     0   93 3981M      0  19.0M  0:03:43  0:03:29  0:00:14 19.4M
+94 4250M    0     0   94 4001M      0  19.0M  0:03:43  0:03:30  0:00:13 19.2M
+94 4250M    0     0   94 4020M      0  19.0M  0:03:43  0:03:31  0:00:12 19.3M
+95 4250M    0     0   95 4039M      0  19.0M  0:03:43  0:03:32  0:00:11 19.3M
+4250M
+95 4250M    0     0   95 4059M      0  19.0M  0:03:43  0:03:33  0:00:10 19.3M
+95 4250M    0     0   95 4078M      0  19.0M  0:03:43  0:03:34  0:00:09 19.3M
+96 4250M    0     0   96 4098M      0  19.0M  0:03:43  0:03:35  0:00:08 19.3M
+96 4250M    0     0   96 4117M      0  19.0M  0:03:43  0:03:36  0:00:07 19.3M
+97 4250M    0     0   97 4136M      0  19.0M  0:03:43  0:03:37  0:00:06 19.3M
+4250M
+97 4250M    0     0   97 4156M      0  19.0M  0:03:43  0:03:38  0:00:05 19.3M
+98 4250M    0     0   98 4175M      0  19.0M  0:03:43  0:03:39  0:00:04 19.4M
+98 4250M    0     0   98 4195M      0  19.0M  0:03:43  0:03:40  0:00:03 19.4M
+99 4250M    0     0   99 4214M      0  19.0M  0:03:43  0:03:41  0:00:02 19.4M
+99 4250M    0     0   99 4233M      0  19.0M  0:03:43  0:03:42  0:00:01 19.4M
+4250M
+100 4250M    0     0  100 4250M      0  19.0M  0:03:43  0:03:43 --:--:-- 18.9M
+100 4250M    0    27  100 4250M      0  19.0M  0:03:43  0:03:43 --:--:-- 17.3M
+error-createFolderResponse
+Error sending link: , Error: Button URL invalid (caused by EditMessageRequest)
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+/start verifycodeis2737363636758
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (1.1 MB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.3)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.30->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.30->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.6)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 64, in <module>
+    print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
+NameError: name 'current_time' is not defined. Did you mean: 'current_dir'?
+./zip.sh: line 22: deactivate: command not found
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.2)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (1.1 MB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.20.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.2)
+Requirement already satisfied: certifi in /usr/lib/python3/dist-packages (from -r requirements.txt (line 3)) (2020.6.20)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.0.3)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.9.3)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.37.0)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.4.0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.9.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.30->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Pyrogram==2.1.30->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.1)
+Requirement already satisfied: Werkzeug>=3.0.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.0.4)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.4)
+Requirement already satisfied: itsdangerous>=2.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.7)
+Requirement already satisfied: blinker>=1.6.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.8.2)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (23.2.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.0.5)
+Requirement already satisfied: yarl<2.0,>=1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.9.4)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (4.0.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.3.2)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.6)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.2.3)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.6.1)
+WARNING: pymongo 4.9.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (2.1.5)
+Requirement already satisfied: pyasn1>=0.1.3 in /usr/lib/python3/dist-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.4.8)
+Starting zipper.py...
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2024-10-16 11:30:21
+Directory: /home/ubuntu/Work, Updated 0:00:01.044456 ago
+Directory: /home/ubuntu/Work/__pycache__, Updated 5 days, 0:52:42.394046 ago
+Directory: /home/ubuntu/Work/zipper/6976333006, Updated 4 days, 5:16:05.763106 ago
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_2_in_D_Major,_Op_36_I (1).mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/Steve_Reich_and_Musicians_Music_for_18_Musicians_Section_X.mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_1_in_C_Major,_Op_21_I.mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_1_in_C_Major,_Op_21:_I_Adagio.mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_4_in_B_Flat_Major,_Op.mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_3_in_E_Flat_Major,_Op (2).mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_2_in_D_Major,_Op_36_I.mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_3_in_E_Flat_Major,_Op (1).mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_3_in_E_Flat_Major,_Op.mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_1_in_C_Major,_Op_21_I (1).mp3
+Deleted file: /home/ubuntu/Work/zipper/6976333006/London_Symphony_Orchestra_Symphony_No_1_in_C_Major,_Op_21_I (2).mp3
+Directory: /home/ubuntu/Work/zipper/665968339, Updated 5 days, 1:02:14.899287 ago
+Deleted file: /home/ubuntu/Work/zipper/665968339/01 غزل های01_20.mp3
+Deleted file: /home/ubuntu/Work/zipper/665968339/05 غزل های 81_100.mp3
+Deleted file: /home/ubuntu/Work/zipper/665968339/04 غزل های 61_80.mp3
+Deleted file: /home/ubuntu/Work/zipper/665968339/02 غزل های 21_40.mp3
+Deleted file: /home/ubuntu/Work/zipper/665968339/03 غزل های 41_60.mp3
+Directory: /home/ubuntu/Work/zipper/6403621085, Updated 4 days, 18:20:14.354361 ago
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 5 Jul 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 6 Sep 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Vindingryk_2(128k).m4a
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 2 Aug 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 16 Aug 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 19 Jul 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Vindingryk_3(128k).m4a
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Vindingryk_1(128k).m4a
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 30 Aug 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Vindingryk_4(128k).m4a
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 26 Jul 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 12 Jul 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 23 Aug 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Liedjiedorp 9 Aug 2024.mp3
+Deleted file: /home/ubuntu/Work/zipper/6403621085/Vindingryk_5(128k).m4a
+Directory: /home/ubuntu/Work/zipper/5945570687, Updated 3 days, 9:51:31.945729 ago
+Deleted file: /home/ubuntu/Work/zipper/5945570687/BROADCAST ENABLE.apk
+Directory: /home/ubuntu/Work/zipper/6920484600, Updated 4 days, 3:39:31.937633 ago
+Deleted file: /home/ubuntu/Work/zipper/6920484600/document_2024-10-12_07-49-36.mp4
+Deleted file: /home/ubuntu/Work/zipper/6920484600/document_2024-10-12_07-50-15.mp4
+Deleted file: /home/ubuntu/Work/zipper/6920484600/document_2024-10-12_07-48-49.mp4
+Directory: /home/ubuntu/Work/zipper/5044894671, Updated 4 days, 5:15:12.817993 ago
+Deleted file: /home/ubuntu/Work/zipper/5044894671/COLOR GOLD SHARTNOMA (1).pdf
+Deleted file: /home/ubuntu/Work/zipper/5044894671/COLOR GOLD SHARTNOMA.pdf
+Deleted file: /home/ubuntu/Work/zipper/5044894671/COLOR GOLD SHARTNOMA (2).pdf
+Directory: /home/ubuntu/Work/zipper/866006064, Updated 4 days, 5:15:05.073976 ago
+Deleted file: /home/ubuntu/Work/zipper/866006064/COLOR GOLD ariza.pdf
+Directory: /home/ubuntu/Work/zipper/1699220358, Updated 4:34:54.966941 ago
+Directory: /home/ubuntu/Work/zipper/5870649169, Updated 20:26:49.511890 ago
+Directory: /home/ubuntu/Work/zipper/5770202849, Updated 2 days, 22:31:09.886843 ago
+Directory: /home/ubuntu/Work/zipper/6509653035, Updated 6:43:41.664581 ago
+Directory: /home/ubuntu/Work/zipper/7603340434, Updated 20:22:48.458371 ago
+Directory: /home/ubuntu/Work/zipper/5948964902, Updated 2 days, 2:45:23.425680 ago
+Directory: /home/ubuntu/Work/zipper/1008725111, Updated 14:17:04.262149 ago
+Directory: /home/ubuntu/Work/zipper/5953814273, Updated 3 days, 6:12:33.494484 ago
+Deleted file: /home/ubuntu/Work/zipper/5953814273/GrPYRG
+Directory: /home/ubuntu/Work/zipper/102875736, Updated 4 days, 13:54:08.003007 ago
+Deleted file: /home/ubuntu/Work/zipper/102875736/Акушерские_кровотечения_—_Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/Миома матки — Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/Менструальный цикл — Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/Маточное_кровотечение_—_Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/Трофобластическая_болезнь_—_Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/Внематочная_беременность_—_Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/362474.pptx
+Deleted file: /home/ubuntu/Work/zipper/102875736/Женская_репродуктивная_система_—_Википедия.pdf
+Deleted file: /home/ubuntu/Work/zipper/102875736/498892.pptx
+Directory: /home/ubuntu/Work/zipper/1575654764, Updated 3:36:37.416421 ago
+Directory: /home/ubuntu/Work/zipper/5524098279, Updated 1 day, 14:19:39.340410 ago
+Directory: /home/ubuntu/Work/zipper/6446059590, Updated 1 day, 0:00:34.398480 ago
+Directory: /home/ubuntu/Work/zipper/6254699821, Updated 2 days, 16:39:03.913378 ago
+Directory: /home/ubuntu/Work/zipper/2098233472, Updated 4 days, 8:55:39.491463 ago
+Deleted file: /home/ubuntu/Work/zipper/2098233472/Screen Recording 2024-10-06 at 3.03.14 PM.mov
+Directory: /home/ubuntu/Work/zipper/576983714, Updated 1:42:31.872698 ago
+Directory: /home/ubuntu/Work/zipper/5195775173, Updated 1:42:06.797636 ago
+Directory: /home/ubuntu/Work/zipper/5789100861, Updated 2:18:05.101282 ago
+Directory: /home/ubuntu/Work/zipper/808443037, Updated 20:09:26.637647 ago
+Directory: /home/ubuntu/Work/zipper/1073700686, Updated 2 days, 15:20:11.008184 ago
+Directory: /home/ubuntu/Work/zipper/6349160727, Updated 8:29:16.020219 ago
+Directory: /home/ubuntu/Work/zipper/363190734, Updated 2 days, 23:05:16.657431 ago
+Directory: /home/ubuntu/Work/zipper/434452837, Updated 4 days, 13:44:43.635820 ago
+Deleted file: /home/ubuntu/Work/zipper/434452837/violentmonkey
+Deleted file: /home/ubuntu/Work/zipper/434452837/2048 AutoFarm.user.js
+Directory: /home/ubuntu/Work/zipper/1168919281, Updated 4 days, 3:41:37.084902 ago
+Deleted file: /home/ubuntu/Work/zipper/1168919281/ریاضی_دوازدهم.pdf
+Directory: /home/ubuntu/Work/zipper/1928598755, Updated 3 days, 16:29:55.903212 ago
+Deleted file: /home/ubuntu/Work/zipper/1928598755/practical kitab university (1).pptx
+Directory: /home/ubuntu/Work/zipper/529071746, Updated 1 day, 6:32:35.409145 ago
+Directory: /home/ubuntu/Work/zipper/6358905945, Updated 1 day, 4:06:24.742221 ago
+Directory: /home/ubuntu/Work/zipper/694002261, Updated 1 day, 14:57:22.321298 ago
+Directory: /home/ubuntu/Work/zipper/6777610405, Updated 4 days, 6:44:42.455555 ago
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_2_2_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_2_4_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_7_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_9_Chapter_2_1_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_3_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_5_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_4_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_3_5_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_1_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_3_3_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_3_2_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_8_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_3_6_Chapter_4_1_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_2_5_Chapter_3_1_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_6_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_1_2_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_2_3_العادات_الذرية.flac
+Deleted file: /home/ubuntu/Work/zipper/6777610405/جيمس_كلير_Chapter_3_4_العادات_الذرية.flac
+Directory: /home/ubuntu/Work/zipper/7053994801, Updated 3 days, 11:03:07.391957 ago
+Deleted file: /home/ubuntu/Work/zipper/7053994801/1x13 La caldera – Segunda parte.mp4
+Directory: /home/ubuntu/Work/venv, Updated 0:00:04.616464 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages, Updated 5 days, 1:05:59.425770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/frozenlist, Updated 5 days, 1:06:01.103773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/frozenlist/__pycache__, Updated 5 days, 0:51:21.945874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/itsdangerous-2.2.0.dist-info, Updated 5 days, 1:06:01.088774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools, Updated 5 days, 1:06:00.161771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_distutils, Updated 5 days, 1:06:00.184772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_distutils/__pycache__, Updated 5 days, 1:06:00.193771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_distutils/command, Updated 5 days, 1:06:00.187772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_distutils/command/__pycache__, Updated 5 days, 1:06:00.190772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/__pycache__, Updated 5 days, 1:06:00.197772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/command, Updated 5 days, 1:06:00.167771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/command/__pycache__, Updated 5 days, 1:06:00.170771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/extern, Updated 5 days, 1:06:00.166771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/extern/__pycache__, Updated 5 days, 1:06:00.166771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_vendor, Updated 5 days, 1:06:00.176771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging, Updated 5 days, 1:06:00.177771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/__pycache__, Updated 5 days, 1:06:00.178772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_vendor/__pycache__, Updated 5 days, 1:06:00.182772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_vendor/more_itertools, Updated 5 days, 1:06:00.180771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools/_vendor/more_itertools/__pycache__, Updated 5 days, 1:06:00.181772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/packaging, Updated 5 days, 1:06:00.972773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/packaging/__pycache__, Updated 5 days, 1:06:00.973773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/yarl-1.13.1.dist-info, Updated 5 days, 1:05:59.316770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/bson, Updated 5 days, 1:06:01.183774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/bson/__pycache__, Updated 5 days, 0:51:21.851873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/cryptg, Updated 5 days, 1:06:01.143774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/cryptg/__pycache__, Updated 5 days, 0:51:21.717873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/idna, Updated 5 days, 1:06:01.089773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/idna/__pycache__, Updated 5 days, 0:51:22.604875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug-3.0.4.dist-info, Updated 5 days, 1:05:59.332770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/click, Updated 5 days, 1:06:01.168774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/click/__pycache__, Updated 5 days, 0:51:22.813875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1-0.6.1.dist-info, Updated 5 days, 1:06:00.850773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/__pycache__, Updated 5 days, 0:51:22.062874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/fp, Updated 5 days, 1:06:01.110773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/fp/__pycache__, Updated 5 days, 0:51:22.537875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/click-8.1.7.dist-info, Updated 5 days, 1:06:01.175774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiohttp, Updated 5 days, 1:06:01.203774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiohttp/__pycache__, Updated 5 days, 0:51:21.936874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiohttp/.hash, Updated 5 days, 1:06:01.242774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pymongo, Updated 5 days, 1:06:00.797773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pymongo/__pycache__, Updated 5 days, 0:51:05.150838 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pymongo/synchronous, Updated 5 days, 1:06:00.798773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pymongo/synchronous/__pycache__, Updated 5 days, 0:51:05.148838 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pymongo/asynchronous, Updated 5 days, 1:06:00.814773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pymongo/asynchronous/__pycache__, Updated 5 days, 0:51:21.736873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiohttp-3.10.8.dist-info, Updated 5 days, 1:06:01.242774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/multidict, Updated 5 days, 1:06:00.975773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/multidict/__pycache__, Updated 5 days, 0:51:22.075874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/uvloop, Updated 5 days, 1:05:59.333770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/uvloop/handles, Updated 5 days, 1:05:59.411770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/uvloop/__pycache__, Updated 5 days, 1:05:59.413770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/uvloop/includes, Updated 5 days, 1:05:59.410770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/uvloop/includes/__pycache__, Updated 5 days, 1:05:59.410770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources, Updated 5 days, 1:06:00.859773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/__pycache__, Updated 5 days, 1:06:00.858773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/tests/data/my-test-package-source, Updated 5 days, 1:06:00.852773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/tests/data/my-test-package-source/__pycache__, Updated 5 days, 1:06:00.852773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/extern, Updated 5 days, 1:06:00.852773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/extern/__pycache__, Updated 5 days, 1:06:00.852773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/_vendor, Updated 5 days, 1:06:00.852773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging, Updated 5 days, 1:06:00.854773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/__pycache__, Updated 5 days, 1:06:00.855773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pkg_resources/_vendor/__pycache__, Updated 5 days, 1:06:00.856773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1, Updated 5 days, 1:06:00.846773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/__pycache__, Updated 5 days, 0:51:21.113872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/compat, Updated 5 days, 1:06:00.846773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/compat/__pycache__, Updated 5 days, 0:51:21.125872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec, Updated 5 days, 1:06:00.846773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/__pycache__, Updated 5 days, 0:51:21.141872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/der, Updated 5 days, 1:06:00.847773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/der/__pycache__, Updated 5 days, 0:51:21.143872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/cer, Updated 5 days, 1:06:00.847773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/cer/__pycache__, Updated 5 days, 0:51:21.142872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/ber, Updated 5 days, 1:06:00.848773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/ber/__pycache__, Updated 5 days, 0:51:21.114872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/native, Updated 5 days, 1:06:00.846773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/codec/native/__pycache__, Updated 5 days, 1:06:00.847773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/type, Updated 5 days, 1:06:00.842773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyasn1/type/__pycache__, Updated 5 days, 0:51:21.111872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon, Updated 5 days, 1:05:59.428770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/__pycache__, Updated 5 days, 0:51:20.867871 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/crypto, Updated 5 days, 1:06:00.152772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/crypto/__pycache__, Updated 5 days, 0:51:21.152872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/errors, Updated 5 days, 1:06:00.149772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/errors/__pycache__, Updated 5 days, 0:51:21.546873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/sessions, Updated 5 days, 1:05:59.469770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/sessions/__pycache__, Updated 5 days, 0:51:21.083872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/network, Updated 5 days, 1:05:59.470770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/network/__pycache__, Updated 5 days, 0:51:21.101872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/network/connection, Updated 5 days, 1:06:00.143771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/network/connection/__pycache__, Updated 5 days, 0:51:21.087872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/_updates, Updated 5 days, 1:06:00.159772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/_updates/__pycache__, Updated 5 days, 0:51:21.078872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/client, Updated 5 days, 1:06:00.153771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/client/__pycache__, Updated 5 days, 0:51:21.021872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl, Updated 5 days, 1:05:59.451770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/patched, Updated 5 days, 1:05:59.451770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/patched/__pycache__, Updated 5 days, 0:51:21.021872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/__pycache__, Updated 5 days, 0:51:21.536873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/core, Updated 5 days, 1:05:59.466770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/core/__pycache__, Updated 5 days, 0:51:21.154872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/custom, Updated 5 days, 1:05:59.462770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/custom/__pycache__, Updated 5 days, 0:51:21.045872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/functions, Updated 5 days, 1:05:59.451770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/functions/__pycache__, Updated 5 days, 0:51:21.577873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/types, Updated 5 days, 1:05:59.428770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/tl/types/__pycache__, Updated 5 days, 0:51:21.172872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/events, Updated 5 days, 1:06:00.146771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/events/__pycache__, Updated 5 days, 0:51:21.046872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/extensions, Updated 5 days, 1:06:00.146771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/telethon/extensions/__pycache__, Updated 5 days, 0:51:21.094872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/yarl, Updated 5 days, 1:05:59.305770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/yarl/__pycache__, Updated 5 days, 0:51:22.016874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/markupsafe, Updated 5 days, 1:06:00.979773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/markupsafe/__pycache__, Updated 5 days, 0:51:22.920876 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/certifi, Updated 5 days, 1:06:01.180774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/certifi/__pycache__, Updated 5 days, 0:51:22.600875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns, Updated 5 days, 1:06:01.118774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/__pycache__, Updated 5 days, 0:51:20.935871 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes, Updated 5 days, 1:06:01.121774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/__pycache__, Updated 5 days, 0:51:20.921871 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/IN, Updated 5 days, 1:06:01.123773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/IN/__pycache__, Updated 5 days, 0:51:20.927872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/ANY, Updated 5 days, 1:06:01.127774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/ANY/__pycache__, Updated 5 days, 0:51:20.922871 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/CH, Updated 5 days, 1:06:01.124774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/rdtypes/CH/__pycache__, Updated 5 days, 1:06:01.124774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/dnssecalgs, Updated 5 days, 1:06:01.134774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/dnssecalgs/__pycache__, Updated 5 days, 1:06:01.135773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/quic, Updated 5 days, 1:06:01.131774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dns/quic/__pycache__, Updated 5 days, 0:51:20.963872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/idna-3.10.dist-info, Updated 5 days, 1:06:01.093773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/rsa, Updated 5 days, 1:06:00.201772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/rsa/__pycache__, Updated 5 days, 0:51:21.110872 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod, Updated 5 days, 1:06:00.211772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/__pycache__, Updated 5 days, 0:51:22.537875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/listen, Updated 5 days, 1:06:00.209771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/listen/__pycache__, Updated 5 days, 0:51:22.080874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/utils, Updated 5 days, 1:06:00.208772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/utils/__pycache__, Updated 5 days, 0:51:22.082874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/exceptions, Updated 5 days, 1:06:00.210772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/exceptions/__pycache__, Updated 5 days, 0:51:22.086874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/nav, Updated 5 days, 1:06:00.209771 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/nav/__pycache__, Updated 5 days, 0:51:22.079874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/helpers, Updated 5 days, 1:06:00.210772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/helpers/__pycache__, Updated 5 days, 0:51:22.536875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/config, Updated 5 days, 1:06:00.211772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/config/__pycache__, Updated 5 days, 0:51:22.537875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/types, Updated 5 days, 1:06:00.208772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyromod/types/__pycache__, Updated 5 days, 0:51:22.084874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn-23.0.0.dist-info, Updated 5 days, 1:06:01.100773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/blinker-1.8.2.dist-info, Updated 5 days, 1:06:01.197774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram, Updated 5 days, 0:52:49.167061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/__pycache__, Updated 5 days, 0:52:47.296057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/connection, Updated 5 days, 0:52:49.166061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/connection/__pycache__, Updated 5 days, 0:52:48.752060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/connection/transport, Updated 5 days, 0:52:49.166061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/connection/transport/__pycache__, Updated 5 days, 0:52:48.752060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/connection/transport/tcp, Updated 5 days, 0:52:49.165061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/connection/transport/tcp/__pycache__, Updated 5 days, 0:52:48.749060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/parser, Updated 5 days, 0:52:49.121061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/parser/__pycache__, Updated 5 days, 0:52:48.561060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods, Updated 5 days, 0:52:49.157061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/utilities, Updated 5 days, 0:52:49.122061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/utilities/__pycache__, Updated 5 days, 0:52:48.565059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/contacts, Updated 5 days, 0:52:49.143061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/contacts/__pycache__, Updated 5 days, 0:52:48.641060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/business, Updated 5 days, 0:52:49.151061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/business/__pycache__, Updated 5 days, 0:52:48.665060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/chats, Updated 5 days, 0:52:49.144061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/chats/__pycache__, Updated 5 days, 0:52:48.643060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/invite_links, Updated 5 days, 0:52:49.140061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/invite_links/__pycache__, Updated 5 days, 0:52:48.627060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/__pycache__, Updated 5 days, 0:52:48.687060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/premium, Updated 5 days, 0:52:49.127061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/premium/__pycache__, Updated 5 days, 0:52:48.584060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/bots, Updated 5 days, 0:52:49.151061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/bots/__pycache__, Updated 5 days, 0:52:48.667060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/messages, Updated 5 days, 0:52:49.129061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/messages/__pycache__, Updated 5 days, 0:52:48.591060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/auth, Updated 5 days, 0:52:49.153061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/auth/__pycache__, Updated 5 days, 0:52:48.676060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/password, Updated 5 days, 0:52:49.129061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/password/__pycache__, Updated 5 days, 0:52:48.589060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/account, Updated 5 days, 0:52:49.157061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/account/__pycache__, Updated 5 days, 0:52:48.685060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/stories, Updated 5 days, 0:52:49.124061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/stories/__pycache__, Updated 5 days, 0:52:48.575060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/users, Updated 5 days, 0:52:49.123061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/users/__pycache__, Updated 5 days, 0:52:48.569060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/advanced, Updated 5 days, 0:52:49.156061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/__pycache__, Updated 5 days, 0:52:48.683060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/payments, Updated 5 days, 0:52:49.128061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/payments/__pycache__, Updated 5 days, 0:52:48.585060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/decorators, Updated 5 days, 0:52:49.141061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/decorators/__pycache__, Updated 5 days, 0:52:48.633060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/phone, Updated 5 days, 0:52:49.128061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/methods/phone/__pycache__, Updated 5 days, 0:52:48.585060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/crypto, Updated 5 days, 0:52:49.165061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/crypto/__pycache__, Updated 5 days, 0:52:48.745060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/session, Updated 5 days, 0:52:48.791060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/session/__pycache__, Updated 5 days, 0:52:47.403057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/session/internals, Updated 5 days, 0:52:48.789060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/session/internals/__pycache__, Updated 5 days, 0:52:47.405057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/errors, Updated 5 days, 0:52:49.162061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/errors/__pycache__, Updated 5 days, 0:52:48.700060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/errors/exceptions, Updated 5 days, 0:52:49.160061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/errors/exceptions/__pycache__, Updated 5 days, 0:52:48.700060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/storage, Updated 5 days, 0:52:48.789060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/storage/__pycache__, Updated 5 days, 0:52:47.400057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw, Updated 5 days, 0:52:49.120061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/__pycache__, Updated 5 days, 0:52:48.552059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/core, Updated 5 days, 0:52:49.052061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/core/__pycache__, Updated 5 days, 0:52:48.404059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/core/primitives, Updated 5 days, 0:52:49.052061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/core/primitives/__pycache__, Updated 5 days, 0:52:48.405059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base, Updated 5 days, 0:52:49.077061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/contacts, Updated 5 days, 0:52:49.071061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/contacts/__pycache__, Updated 5 days, 0:52:48.520059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/help, Updated 5 days, 0:52:49.068061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/help/__pycache__, Updated 5 days, 0:52:48.503059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/__pycache__, Updated 5 days, 0:52:48.411059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/premium, Updated 5 days, 0:52:49.057061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/premium/__pycache__, Updated 5 days, 0:52:48.445059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/chatlists, Updated 5 days, 0:52:49.072061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/chatlists/__pycache__, Updated 5 days, 0:52:48.524060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/photos, Updated 5 days, 0:52:49.057061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/photos/__pycache__, Updated 5 days, 0:52:48.448059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/bots, Updated 5 days, 0:52:49.073061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/bots/__pycache__, Updated 5 days, 0:52:48.535060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/messages, Updated 5 days, 0:52:49.061061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/messages/__pycache__, Updated 5 days, 0:52:48.465059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/storage, Updated 5 days, 0:52:49.056061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/storage/__pycache__, Updated 5 days, 0:52:48.423059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/upload, Updated 5 days, 0:52:49.053061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/upload/__pycache__, Updated 5 days, 0:52:48.415059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/auth, Updated 5 days, 0:52:49.073061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/auth/__pycache__, Updated 5 days, 0:52:48.541060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/stats, Updated 5 days, 0:52:49.056061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/stats/__pycache__, Updated 5 days, 0:52:48.427059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/account, Updated 5 days, 0:52:49.075061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/account/__pycache__, Updated 5 days, 0:52:48.544060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/fragment, Updated 5 days, 0:52:49.070061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/fragment/__pycache__, Updated 5 days, 0:52:48.511059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/stories, Updated 5 days, 0:52:49.054061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/stories/__pycache__, Updated 5 days, 0:52:48.421059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/channels, Updated 5 days, 0:52:49.072061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/channels/__pycache__, Updated 5 days, 0:52:48.527060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/stickers, Updated 5 days, 0:52:49.056061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/stickers/__pycache__, Updated 5 days, 0:52:48.423059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/updates, Updated 5 days, 0:52:49.054061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/updates/__pycache__, Updated 5 days, 0:52:48.416059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/users, Updated 5 days, 0:52:49.053061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/users/__pycache__, Updated 5 days, 0:52:48.413059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/smsjobs, Updated 5 days, 0:52:49.057061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/smsjobs/__pycache__, Updated 5 days, 0:52:48.432059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/payments, Updated 5 days, 0:52:49.059061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/payments/__pycache__, Updated 5 days, 0:52:48.454059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/phone, Updated 5 days, 0:52:49.058061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/base/phone/__pycache__, Updated 5 days, 0:52:48.450059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions, Updated 5 days, 0:52:49.049061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/contacts, Updated 5 days, 0:52:49.016061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/contacts/__pycache__, Updated 5 days, 0:52:48.288059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/help, Updated 5 days, 0:52:49.012060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/help/__pycache__, Updated 5 days, 0:52:48.276059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/__pycache__, Updated 5 days, 0:52:48.127059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/langpack, Updated 5 days, 0:52:49.011061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/langpack/__pycache__, Updated 5 days, 0:52:48.269059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/premium, Updated 5 days, 0:52:48.976060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/premium/__pycache__, Updated 5 days, 0:52:48.129059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/chatlists, Updated 5 days, 0:52:49.018061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/chatlists/__pycache__, Updated 5 days, 0:52:48.300059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/photos, Updated 5 days, 0:52:48.976060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/photos/__pycache__, Updated 5 days, 0:52:48.132059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/bots, Updated 5 days, 0:52:49.029061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/bots/__pycache__, Updated 5 days, 0:52:48.336059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/messages, Updated 5 days, 0:52:48.985061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/messages/__pycache__, Updated 5 days, 0:52:48.164059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/upload, Updated 5 days, 0:52:48.967060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/upload/__pycache__, Updated 5 days, 0:52:48.096059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/auth, Updated 5 days, 0:52:49.032061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/auth/__pycache__, Updated 5 days, 0:52:48.345059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/stats, Updated 5 days, 0:52:48.973060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/stats/__pycache__, Updated 5 days, 0:52:48.119059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/account, Updated 5 days, 0:52:49.035061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/account/__pycache__, Updated 5 days, 0:52:48.355059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/fragment, Updated 5 days, 0:52:49.015060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/fragment/__pycache__, Updated 5 days, 0:52:48.285059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/stories, Updated 5 days, 0:52:48.968061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/stories/__pycache__, Updated 5 days, 0:52:48.101059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/channels, Updated 5 days, 0:52:49.020061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/channels/__pycache__, Updated 5 days, 0:52:48.304059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/stickers, Updated 5 days, 0:52:48.972061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/stickers/__pycache__, Updated 5 days, 0:52:48.114059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/updates, Updated 5 days, 0:52:48.968061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/updates/__pycache__, Updated 5 days, 0:52:48.099059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/users, Updated 5 days, 0:52:48.966060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/users/__pycache__, Updated 5 days, 0:52:48.093059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/contest, Updated 5 days, 0:52:49.016061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/contest/__pycache__, Updated 5 days, 0:52:48.288059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/smsjobs, Updated 5 days, 0:52:48.975061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/smsjobs/__pycache__, Updated 5 days, 0:52:48.124059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/folders, Updated 5 days, 0:52:49.015060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/folders/__pycache__, Updated 5 days, 0:52:48.286059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/payments, Updated 5 days, 0:52:48.980060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/payments/__pycache__, Updated 5 days, 0:52:48.149059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/phone, Updated 5 days, 0:52:48.977060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/functions/phone/__pycache__, Updated 5 days, 0:52:48.135059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types, Updated 5 days, 0:52:48.827060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/contacts, Updated 5 days, 0:52:48.816060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/contacts/__pycache__, Updated 5 days, 0:52:47.956058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/help, Updated 5 days, 0:52:48.812060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/help/__pycache__, Updated 5 days, 0:52:47.901058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/__pycache__, Updated 5 days, 0:52:47.408057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/premium, Updated 5 days, 0:52:48.796060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/premium/__pycache__, Updated 5 days, 0:52:47.617058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/chatlists, Updated 5 days, 0:52:48.817060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/chatlists/__pycache__, Updated 5 days, 0:52:47.967058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/photos, Updated 5 days, 0:52:48.797060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/photos/__pycache__, Updated 5 days, 0:52:47.627058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/bots, Updated 5 days, 0:52:48.820060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/bots/__pycache__, Updated 5 days, 0:52:48.035058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/messages, Updated 5 days, 0:52:48.802060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/messages/__pycache__, Updated 5 days, 0:52:47.693058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/storage, Updated 5 days, 0:52:48.794060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/storage/__pycache__, Updated 5 days, 0:52:47.534057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/upload, Updated 5 days, 0:52:48.792060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/upload/__pycache__, Updated 5 days, 0:52:47.430057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/auth, Updated 5 days, 0:52:48.820060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/auth/__pycache__, Updated 5 days, 0:52:48.059058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/stats, Updated 5 days, 0:52:48.795060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/stats/__pycache__, Updated 5 days, 0:52:47.546057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/account, Updated 5 days, 0:52:48.823060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/account/__pycache__, Updated 5 days, 0:52:48.075059 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/fragment, Updated 5 days, 0:52:48.816060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/fragment/__pycache__, Updated 5 days, 0:52:47.921058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/stories, Updated 5 days, 0:52:48.793060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/stories/__pycache__, Updated 5 days, 0:52:47.529057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/channels, Updated 5 days, 0:52:48.818060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/channels/__pycache__, Updated 5 days, 0:52:47.984058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/stickers, Updated 5 days, 0:52:48.795060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/stickers/__pycache__, Updated 5 days, 0:52:47.538057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/updates, Updated 5 days, 0:52:48.792060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/updates/__pycache__, Updated 5 days, 0:52:47.435057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/users, Updated 5 days, 0:52:48.791060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/users/__pycache__, Updated 5 days, 0:52:47.419057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/smsjobs, Updated 5 days, 0:52:48.796060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/smsjobs/__pycache__, Updated 5 days, 0:52:47.561057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/payments, Updated 5 days, 0:52:48.800060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/payments/__pycache__, Updated 5 days, 0:52:47.648058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/phone, Updated 5 days, 0:52:48.799060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/raw/types/phone/__pycache__, Updated 5 days, 0:52:47.640058 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/enums, Updated 5 days, 0:52:49.162061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/enums/__pycache__, Updated 5 days, 0:52:48.720060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/handlers, Updated 5 days, 0:52:49.158061 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/handlers/__pycache__, Updated 5 days, 0:52:48.688060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types, Updated 5 days, 0:52:48.788060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/__pycache__, Updated 5 days, 0:52:47.322057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/inline_mode, Updated 5 days, 0:52:48.780060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/inline_mode/__pycache__, Updated 5 days, 0:52:47.370057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/authorization, Updated 5 days, 0:52:48.788060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/authorization/__pycache__, Updated 5 days, 0:52:47.396057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/input_privacy_rule, Updated 5 days, 0:52:48.777060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/input_privacy_rule/__pycache__, Updated 5 days, 0:52:47.361057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/messages_and_media, Updated 5 days, 0:52:48.770060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/messages_and_media/__pycache__, Updated 5 days, 0:52:47.324057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/bots_and_keyboards, Updated 5 days, 0:52:48.782060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/bots_and_keyboards/__pycache__, Updated 5 days, 0:52:47.381057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/input_message_content, Updated 5 days, 0:52:48.778060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/input_message_content/__pycache__, Updated 5 days, 0:52:47.368057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/input_media, Updated 5 days, 0:52:48.779060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/input_media/__pycache__, Updated 5 days, 0:52:47.368057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/user_and_chats, Updated 5 days, 0:52:48.765060 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyrogram/types/user_and_chats/__pycache__, Updated 5 days, 0:52:47.299057 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/MarkupSafe-2.1.5.dist-info, Updated 5 days, 1:06:01.250774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiosignal, Updated 5 days, 1:06:01.203774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiosignal/__pycache__, Updated 5 days, 0:51:21.945874 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/jinja2, Updated 5 days, 1:06:01.078773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/jinja2/__pycache__, Updated 5 days, 0:51:22.718875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip, Updated 5 days, 1:06:00.860773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal, Updated 5 days, 1:06:00.940773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/locations, Updated 5 days, 1:06:00.959773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/locations/__pycache__, Updated 5 days, 0:52:54.921073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/__pycache__, Updated 5 days, 0:52:54.258072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/utils, Updated 5 days, 1:06:00.942773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/utils/__pycache__, Updated 5 days, 0:52:54.257072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/req, Updated 5 days, 1:06:00.949773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/req/__pycache__, Updated 5 days, 0:52:54.604073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/commands, Updated 5 days, 1:06:00.963773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/commands/__pycache__, Updated 5 days, 0:52:54.861073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/index, Updated 5 days, 1:06:00.960773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/index/__pycache__, Updated 5 days, 0:52:54.685073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/network, Updated 5 days, 1:06:00.954773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/network/__pycache__, Updated 5 days, 0:52:54.608073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/metadata, Updated 5 days, 1:06:00.958773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/metadata/__pycache__, Updated 5 days, 0:52:54.505072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/metadata/importlib, Updated 5 days, 1:06:00.958773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/metadata/importlib/__pycache__, Updated 5 days, 1:06:00.958773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/models, Updated 5 days, 1:06:00.956773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/models/__pycache__, Updated 5 days, 0:52:54.601073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/resolution, Updated 5 days, 1:06:00.949773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/resolution/__pycache__, Updated 5 days, 0:52:54.602073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib, Updated 5 days, 1:06:00.946773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/__pycache__, Updated 5 days, 0:52:54.421072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/resolution/legacy, Updated 5 days, 1:06:00.948773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/resolution/legacy/__pycache__, Updated 5 days, 1:06:00.949773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/distributions, Updated 5 days, 1:06:00.962773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/distributions/__pycache__, Updated 5 days, 0:52:54.627073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/cli, Updated 5 days, 1:06:00.966773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/cli/__pycache__, Updated 5 days, 0:52:54.625073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/operations, Updated 5 days, 1:06:00.951773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/operations/__pycache__, Updated 5 days, 0:52:54.600073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/operations/build, Updated 5 days, 1:06:00.952773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/operations/build/__pycache__, Updated 5 days, 0:52:54.597073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/operations/install, Updated 5 days, 1:06:00.951773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/operations/install/__pycache__, Updated 5 days, 0:52:54.671073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/vcs, Updated 5 days, 1:06:00.940773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_internal/vcs/__pycache__, Updated 5 days, 0:52:54.697073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/__pycache__, Updated 5 days, 0:52:53.121069 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor, Updated 5 days, 1:06:00.860773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/packaging, Updated 5 days, 1:06:00.912773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/packaging/__pycache__, Updated 5 days, 0:52:54.932073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/idna, Updated 5 days, 1:06:00.917773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/idna/__pycache__, Updated 5 days, 0:52:54.788073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/tomli, Updated 5 days, 1:06:00.871773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/tomli/__pycache__, Updated 5 days, 0:52:54.639073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/__pycache__, Updated 5 days, 0:52:54.901073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pkg_resources, Updated 5 days, 1:06:00.911773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pkg_resources/__pycache__, Updated 5 days, 0:52:54.489072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/resolvelib, Updated 5 days, 1:06:00.892773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/resolvelib/__pycache__, Updated 5 days, 0:52:54.435072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/resolvelib/compat, Updated 5 days, 1:06:00.892773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/resolvelib/compat/__pycache__, Updated 5 days, 0:52:54.434072 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/certifi, Updated 5 days, 1:06:00.935773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/certifi/__pycache__, Updated 5 days, 0:52:55.129074 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/msgpack, Updated 5 days, 1:06:00.916773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/msgpack/__pycache__, Updated 5 days, 0:52:54.710073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/truststore, Updated 5 days, 1:06:00.870773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/truststore/__pycache__, Updated 5 days, 0:52:54.592073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/distlib, Updated 5 days, 1:06:00.922773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/distlib/__pycache__, Updated 5 days, 0:52:54.651073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments, Updated 5 days, 1:06:00.898773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/styles, Updated 5 days, 1:06:00.899773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/styles/__pycache__, Updated 5 days, 0:52:54.963073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/__pycache__, Updated 5 days, 0:52:54.964073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/lexers, Updated 5 days, 1:06:00.900773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/lexers/__pycache__, Updated 5 days, 0:52:54.988073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/filters, Updated 5 days, 1:06:00.906773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/filters/__pycache__, Updated 5 days, 0:52:54.966073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/formatters, Updated 5 days, 1:06:00.902773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pygments/formatters/__pycache__, Updated 5 days, 1:06:00.904773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/requests, Updated 5 days, 1:06:00.893773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/requests/__pycache__, Updated 5 days, 0:52:54.768073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/platformdirs, Updated 5 days, 1:06:00.909773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/platformdirs/__pycache__, Updated 5 days, 0:52:54.916073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks, Updated 5 days, 1:06:00.898773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/__pycache__, Updated 5 days, 0:52:54.931073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process, Updated 5 days, 1:06:00.897773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/pyproject_hooks/_in_process/__pycache__, Updated 5 days, 0:52:54.929073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3, Updated 5 days, 1:06:00.862773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/__pycache__, Updated 5 days, 0:52:54.806073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/contrib, Updated 5 days, 1:06:00.864773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/contrib/__pycache__, Updated 5 days, 0:52:54.767073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/contrib/_securetransport, Updated 5 days, 1:06:00.865773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/contrib/_securetransport/__pycache__, Updated 5 days, 1:06:00.865773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/util, Updated 5 days, 1:06:00.860773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/util/__pycache__, Updated 5 days, 0:52:54.808073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/packages, Updated 5 days, 1:06:00.863773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/packages/backports, Updated 5 days, 1:06:00.863773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/packages/backports/__pycache__, Updated 5 days, 1:06:00.863773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/urllib3/packages/__pycache__, Updated 5 days, 0:52:54.841073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/rich, Updated 5 days, 1:06:00.872773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/rich/__pycache__, Updated 5 days, 0:52:54.610073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/distro, Updated 5 days, 1:06:00.921773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/distro/__pycache__, Updated 5 days, 0:52:54.546073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol, Updated 5 days, 1:06:00.937773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/__pycache__, Updated 5 days, 0:52:54.709073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/caches, Updated 5 days, 1:06:00.938773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/caches/__pycache__, Updated 5 days, 0:52:54.694073 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyaes, Updated 5 days, 1:06:00.850773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyaes/__pycache__, Updated 5 days, 0:51:21.721873 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/_distutils_hack, Updated 5 days, 1:06:01.243774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/_distutils_hack/__pycache__, Updated 5 days, 1:06:01.243774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/frozenlist-1.4.1.dist-info, Updated 5 days, 1:06:01.109773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/Telethon-1.37.0.dist-info, Updated 5 days, 1:06:01.246774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/itsdangerous, Updated 5 days, 1:06:01.087773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/itsdangerous/__pycache__, Updated 5 days, 0:51:22.707875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/aiohappyeyeballs-2.4.3.dist-info, Updated 5 days, 1:06:01.243774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests, Updated 5 days, 1:05:59.428770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/ige, Updated 5 days, 1:05:59.427770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/ige/__pycache__, Updated 5 days, 1:05:59.427770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/__pycache__, Updated 5 days, 1:05:59.428770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/cbc, Updated 5 days, 1:05:59.428770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/cbc/__pycache__, Updated 5 days, 1:05:59.428770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/ctr, Updated 5 days, 1:05:59.427770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/tests/ctr/__pycache__, Updated 5 days, 1:05:59.427770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug, Updated 5 days, 1:05:59.317770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/__pycache__, Updated 5 days, 0:51:22.857876 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/middleware, Updated 5 days, 1:05:59.323770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/middleware/__pycache__, Updated 5 days, 1:05:59.323770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/debug, Updated 5 days, 1:05:59.325770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/debug/__pycache__, Updated 5 days, 1:05:59.326770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/debug/shared, Updated 5 days, 1:05:59.325770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/sansio, Updated 5 days, 1:05:59.319770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/sansio/__pycache__, Updated 5 days, 0:51:22.860876 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/routing, Updated 5 days, 1:05:59.321770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/routing/__pycache__, Updated 5 days, 0:51:22.801875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/datastructures, Updated 5 days, 1:05:59.326770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/datastructures/__pycache__, Updated 5 days, 0:51:22.894876 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/wrappers, Updated 5 days, 1:05:59.317770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/werkzeug/wrappers/__pycache__, Updated 5 days, 0:51:22.862876 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/cryptg-0.4.0.dist-info, Updated 5 days, 1:06:01.168774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/free_proxy-1.1.2.dist-info, Updated 5 days, 1:06:01.109773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pyaes-1.6.1.dist-info, Updated 5 days, 1:06:00.852773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/uvloop-0.20.0.dist-info, Updated 5 days, 1:05:59.414770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/urllib3-2.2.3.dist-info, Updated 5 days, 1:05:59.423770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/urllib3-2.2.3.dist-info/licenses, Updated 5 days, 1:05:59.423770 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/TgCrypto-1.2.5.dist-info, Updated 5 days, 1:06:01.245774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/attrs-24.2.0.dist-info, Updated 5 days, 1:06:01.198774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/attrs-24.2.0.dist-info/licenses, Updated 5 days, 1:06:01.198774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/jinja2-3.1.4.dist-info, Updated 5 days, 1:06:01.087773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/charset_normalizer, Updated 5 days, 1:06:01.175774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/charset_normalizer/__pycache__, Updated 5 days, 0:51:22.622875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/charset_normalizer/cli, Updated 5 days, 1:06:01.178774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/charset_normalizer/cli/__pycache__, Updated 5 days, 1:06:01.178774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/packaging-24.1.dist-info, Updated 5 days, 1:06:00.975773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/requests, Updated 5 days, 1:06:00.203772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/requests/__pycache__, Updated 5 days, 0:51:22.583875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dnspython-2.6.1.dist-info, Updated 5 days, 1:06:01.117774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/dnspython-2.6.1.dist-info/licenses, Updated 5 days, 1:06:01.117774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/pip-24.2.dist-info, Updated 5 days, 1:06:00.971773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml, Updated 5 days, 1:06:00.980773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/__pycache__, Updated 5 days, 0:51:22.653875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/isoschematron, Updated 5 days, 1:06:01.013773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/isoschematron/__pycache__, Updated 5 days, 1:06:01.013773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/isoschematron/resources/xsl, Updated 5 days, 1:06:01.012773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/isoschematron/resources/xsl/iso-schematron-xslt1, Updated 5 days, 1:06:01.011773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/isoschematron/resources/rng, Updated 5 days, 1:06:01.012773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes, Updated 5 days, 1:06:01.013773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/libxml, Updated 5 days, 1:06:01.016773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/libxml/__pycache__, Updated 5 days, 1:06:01.020773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/__pycache__, Updated 5 days, 1:06:01.022773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/libexslt, Updated 5 days, 1:06:01.020773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/libexslt/__pycache__, Updated 5 days, 1:06:01.020773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/libxslt, Updated 5 days, 1:06:01.014773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/libxslt/__pycache__, Updated 5 days, 1:06:01.016773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/extlibs, Updated 5 days, 1:06:01.021773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/includes/extlibs/__pycache__, Updated 5 days, 1:06:01.022773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/html, Updated 5 days, 1:06:01.022773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/lxml/html/__pycache__, Updated 5 days, 0:51:22.640875 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/PySocks-1.7.1.dist-info, Updated 5 days, 1:06:01.250774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/charset_normalizer-3.3.2.dist-info, Updated 5 days, 1:06:01.180774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/setuptools-59.6.0.dist-info, Updated 5 days, 1:06:00.200772 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn, Updated 5 days, 1:06:01.095774 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn/__pycache__, Updated 5 days, 1:06:01.099773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn/instrument, Updated 5 days, 1:06:01.096773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn/instrument/__pycache__, Updated 5 days, 1:06:01.096773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn/http, Updated 5 days, 1:06:01.096773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn/http/__pycache__, Updated 5 days, 1:06:01.096773 ago
+Directory: /home/ubuntu/Work/venv/lib/python3.10/site-packages/gunicorn/app, Updated 5 days, 1:06:01.098774 ago
