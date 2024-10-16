@@ -61,7 +61,37 @@ def check_status(user_id):
 current_dir = f"{ggg}/zipper"
 
 # Get the current date and time
+print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
+current_dir = os.getcwd() # Get the current working directory
+current_time = datetime.datetime.now()
+
+# Specify the zipper directory name
+zipper_dir_name = "zipper" # Replace with the actual name of your directory
+
+for dirpath, dirnames, filenames in os.walk(current_dir):
+  # Get the creation time of the latest file in each sub-directory
+  latest_file_creation_time = 0
+  for filename in filenames:
+    file_path = os.path.join(dirpath, filename)
+    file_creation_time = os.path.getctime(file_path)
+    if file_creation_time > latest_file_creation_time:
+      latest_file_creation_time = file_creation_time
+
+  # Calculate the time difference
+  if latest_file_creation_time > 0:
+    time_difference = current_time - datetime.datetime.fromtimestamp(latest_file_creation_time)
+    print(f"Directory: {dirpath}, Updated {time_difference} ago")
+
+    # Delete files that are 3 days old or older in the zipper directory
+    if zipper_dir_name in dirpath:
+      for filename in filenames:
+        file_path = os.path.join(dirpath, filename)
+        file_creation_time = os.path.getctime(file_path)
+        
+        if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3:
+          os.remove(file_path)
+          print(f"Deleted file: {file_path}")
 
 import cryptg
 import requests

@@ -2307,3 +2307,939 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
     result = await future
 telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+./zip.sh: line 33: 103868 Killed                  sleep 60
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 311, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-278455' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-278607' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Task exception was never retrieved
+future: <Task finished name='Task-368610' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 798, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 926, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 898, in download
+    await msg.edit("Finished downloading\n/my_files to see your files")
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 834, in edit
+    return await self._client.edit_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1230, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageIdInvalidError: The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+Server sent a very old message with ID 7426063561742595073, ignoring (see FAQ for details)
+Task exception was never retrieved
+future: <Task finished name='Task-462592' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-462618' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Server sent a very old message with ID 7426102562673845249, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426102562736684033, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426101782627264513, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426102704851924993, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426102729678393345, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426101785261592577, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426101787310961665, ignoring (see FAQ for details)
+Server closed the connection: 0 bytes read on a total of 8 expected bytes
+Server sent a very old message with ID 7426166080662230017, ignoring (see FAQ for details)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-566300' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+/start verifycodeis2737363827374
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+/start verifycodeis27373636365449
+/start verifycodeis27373636365449
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+/start verifycodeis27373755635449
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+store7
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/6349160727/Daway El Safar.zip', 'https://store7.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 4250M    0     0    0 3456k      0  2915k  0:24:53  0:00:01  0:24:52 2913k
+0 4250M    0     0    0 19.1M      0  8922k  0:08:07  0:00:02  0:08:05 8922k
+4250M
+0 4250M    0     0    0 37.6M      0  11.7M  0:06:02  0:00:03  0:05:59 11.7M
+1 4250M    0     0    1 58.4M      0  13.8M  0:05:06  0:00:04  0:05:02 13.8M
+1 4250M    0     0    1 77.0M      0  14.7M  0:04:49  0:00:05  0:04:44 15.3M
+2 4250M    0     0    2 95.6M      0  15.4M  0:04:34  0:00:06  0:04:28 18.4M
+2 4250M    0     0    2  116M      0  16.1M  0:04:22  0:00:07  0:04:15 19.4M
+4250M
+3 4250M    0     0    3  134M      0  16.4M  0:04:19  0:00:08  0:04:11 19.3M
+3 4250M    0     0    3  154M      0  15.7M  0:04:29  0:00:09  0:04:20 17.2M
+3 4250M    0     0    3  162M      0  15.9M  0:04:26  0:00:10  0:04:16 17.2M
+4 4250M    0     0    4  175M      0  15.5M  0:04:33  0:00:11  0:04:22 15.6M
+4 4250M    0     0    4  189M      0  15.2M  0:04:37  0:00:12  0:04:25 14.0M
+4250M
+4 4250M    0     0    4  205M      0  15.5M  0:04:33  0:00:13  0:04:20 14.1M
+4 4250M    0     0    4  209M      0  14.7M  0:04:48  0:00:14  0:04:34 12.3M
+5 4250M    0     0    5  227M      0  14.9M  0:04:43  0:00:15  0:04:28 12.9M
+5 4250M    0     0    5  247M      0  15.2M  0:04:39  0:00:16  0:04:23 14.5M
+6 4250M    0     0    6  266M      0  15.4M  0:04:34  0:00:17  0:04:17 15.9M
+4250M
+6 4250M    0     0    6  287M      0  15.6M  0:04:30  0:00:18  0:04:12 16.0M
+7 4250M    0     0    7  305M      0  15.8M  0:04:27  0:00:19  0:04:08 19.1M
+7 4250M    0     0    7  323M      0  16.0M  0:04:24  0:00:20  0:04:04 19.3M
+7 4250M    0     0    7  336M      0  15.8M  0:04:28  0:00:21  0:04:07 17.8M
+8 4250M    0     0    8  355M      0  15.9M  0:04:25  0:00:22  0:04:03 17.8M
+4250M
+8 4250M    0     0    8  376M      0  16.1M  0:04:23  0:00:23  0:04:00 17.8M
+9 4250M    0     0    9  394M      0  16.2M  0:04:21  0:00:24  0:03:57 17.8M
+9 4250M    0     0    9  414M      0  16.4M  0:04:18  0:00:25  0:03:53 18.0M
+10 4250M    0     0   10  433M      0  16.5M  0:04:17  0:00:26  0:03:51 19.4M
+10 4250M    0     0   10  452M      0  16.6M  0:04:15  0:00:27  0:03:48 19.4M
+4250M
+11 4250M    0     0   11  473M      0  16.7M  0:04:13  0:00:28  0:03:45 19.7M
+11 4250M    0     0   11  491M      0  16.8M  0:04:12  0:00:29  0:03:43 19.3M
+12 4250M    0     0   12  510M      0  16.9M  0:04:11  0:00:30  0:03:41 19.2M
+12 4250M    0     0   12  530M      0  16.9M  0:04:10  0:00:31  0:03:39 19.3M
+12 4250M    0     0   12  549M      0  17.0M  0:04:09  0:00:32  0:03:37 19.3M
+4250M
+13 4250M    0     0   13  569M      0  17.1M  0:04:07  0:00:33  0:03:34 19.3M
+13 4250M    0     0   13  588M      0  17.1M  0:04:07  0:00:34  0:03:33 19.3M
+14 4250M    0     0   14  607M      0  17.2M  0:04:06  0:00:35  0:03:31 19.3M
+14 4250M    0     0   14  628M      0  17.3M  0:04:05  0:00:36  0:03:29 19.3M
+15 4250M    0     0   15  646M      0  17.3M  0:04:04  0:00:37  0:03:27 19.3M
+4250M
+15 4250M    0     0   15  665M      0  17.4M  0:04:03  0:00:38  0:03:25 19.1M
+16 4250M    0     0   16  685M      0  17.4M  0:04:03  0:00:39  0:03:24 19.3M
+16 4250M    0     0   16  704M      0  17.5M  0:04:02  0:00:40  0:03:22 19.3M
+17 4250M    0     0   17  725M      0  17.5M  0:04:01  0:00:41  0:03:20 19.3M
+17 4250M    0     0   17  743M      0  17.6M  0:04:01  0:00:42  0:03:19 19.4M
+4250M
+17 4250M    0     0   17  763M      0  17.6M  0:04:00  0:00:43  0:03:17 19.4M
+18 4250M    0     0   18  782M      0  17.6M  0:04:00  0:00:44  0:03:16 19.4M
+18 4250M    0     0   18  801M      0  17.7M  0:03:59  0:00:45  0:03:14 19.4M
+19 4250M    0     0   19  822M      0  17.7M  0:03:58  0:00:46  0:03:12 19.7M
+19 4250M    0     0   19  840M      0  17.7M  0:03:58  0:00:47  0:03:11 19.3M
+4250M
+20 4250M    0     0   20  859M      0  17.8M  0:03:58  0:00:48  0:03:10 19.2M
+20 4250M    0     0   20  880M      0  17.8M  0:03:57  0:00:49  0:03:08 19.4M
+21 4250M    0     0   21  898M      0  17.8M  0:03:57  0:00:50  0:03:07 19.4M
+21 4250M    0     0   21  918M      0  17.9M  0:03:56  0:00:51  0:03:05 19.3M
+22 4250M    0     0   22  937M      0  17.9M  0:03:56  0:00:52  0:03:04 19.4M
+4250M
+22 4250M    0     0   22  956M      0  17.9M  0:03:56  0:00:53  0:03:03 19.3M
+22 4250M    0     0   22  977M      0  18.0M  0:03:55  0:00:54  0:03:01 19.6M
+23 4250M    0     0   23  995M      0  18.0M  0:03:55  0:00:55  0:03:00 19.4M
+23 4250M    0     0   23 1015M      0  18.0M  0:03:55  0:00:56  0:02:59 19.2M
+24 4250M    0     0   24 1034M      0  18.0M  0:03:55  0:00:57  0:02:58 19.3M
+4250M
+24 4250M    0     0   24 1053M      0  18.1M  0:03:54  0:00:58  0:02:56 19.4M
+25 4250M    0     0   25 1074M      0  18.1M  0:03:54  0:00:59  0:02:55 19.3M
+25 4250M    0     0   25 1092M      0  18.1M  0:03:54  0:01:00  0:02:54 19.3M
+26 4250M    0     0   26 1112M      0  18.1M  0:03:53  0:01:01  0:02:52 19.3M
+26 4250M    0     0   26 1132M      0  18.1M  0:03:53  0:01:02  0:02:51 19.4M
+4250M
+27 4250M    0     0   27 1150M      0  18.2M  0:03:53  0:01:03  0:02:50 19.3M
+27 4250M    0     0   27 1170M      0  18.2M  0:03:53  0:01:04  0:02:49 19.2M
+27 4250M    0     0   27 1189M      0  18.2M  0:03:53  0:01:05  0:02:48 19.4M
+28 4250M    0     0   28 1208M      0  18.2M  0:03:52  0:01:06  0:02:46 19.3M
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+28 4250M    0     0   28 1229M      0  18.2M  0:03:52  0:01:07  0:02:45 19.3M
+4250M
+29 4250M    0     0   29 1247M      0  18.2M  0:03:52  0:01:08  0:02:44 19.4M
+29 4250M    0     0   29 1267M      0  18.3M  0:03:52  0:01:09  0:02:43 19.4M
+30 4250M    0     0   30 1286M      0  18.3M  0:03:51  0:01:10  0:02:41 19.4M
+30 4250M    0     0   30 1305M      0  18.3M  0:03:51  0:01:11  0:02:40 19.3M
+31 4250M    0     0   31 1326M      0  18.3M  0:03:51  0:01:12  0:02:39 19.6M
+4250M
+31 4250M    0     0   31 1344M      0  18.3M  0:03:51  0:01:13  0:02:38 19.4M
+32 4250M    0     0   32 1364M      0  18.3M  0:03:51  0:01:14  0:02:37 19.3M
+32 4250M    0     0   32 1384M      0  18.3M  0:03:51  0:01:15  0:02:36 19.3M
+32 4250M    0     0   32 1402M      0  18.4M  0:03:50  0:01:16  0:02:34 19.3M
+33 4250M    0     0   33 1422M      0  18.4M  0:03:50  0:01:17  0:02:33 19.3M
+4250M
+33 4250M    0     0   33 1441M      0  18.4M  0:03:50  0:01:18  0:02:32 19.4M
+34 4250M    0     0   34 1461M      0  18.4M  0:03:50  0:01:19  0:02:31 19.4M
+34 4250M    0     0   34 1481M      0  18.4M  0:03:50  0:01:20  0:02:30 19.4M
+35 4250M    0     0   35 1499M      0  18.4M  0:03:50  0:01:21  0:02:29 19.3M
+35 4250M    0     0   35 1519M      0  18.4M  0:03:49  0:01:22  0:02:27 19.2M
+4250M
+36 4250M    0     0   36 1538M      0  18.4M  0:03:49  0:01:23  0:02:26 19.4M
+36 4250M    0     0   36 1558M      0  18.5M  0:03:49  0:01:24  0:02:25 19.4M
+37 4250M    0     0   37 1578M      0  18.5M  0:03:49  0:01:25  0:02:24 19.6M
+37 4250M    0     0   37 1596M      0  18.5M  0:03:49  0:01:26  0:02:23 19.4M
+38 4250M    0     0   38 1616M      0  18.5M  0:03:49  0:01:27  0:02:22 19.4M
+4250M
+38 4250M    0     0   38 1636M      0  18.5M  0:03:49  0:01:28  0:02:21 19.4M
+38 4250M    0     0   38 1655M      0  18.5M  0:03:49  0:01:29  0:02:20 19.3M
+39 4250M    0     0   39 1674M      0  18.5M  0:03:49  0:01:30  0:02:19 19.1M
+39 4250M    0     0   39 1693M      0  18.5M  0:03:48  0:01:31  0:02:17 19.4M
+40 4250M    0     0   40 1713M      0  18.5M  0:03:48  0:01:32  0:02:16 19.4M
+4250M
+40 4250M    0     0   40 1732M      0  18.5M  0:03:48  0:01:33  0:02:15 19.4M
+41 4250M    0     0   41 1752M      0  18.6M  0:03:48  0:01:34  0:02:14 19.4M
+41 4250M    0     0   41 1771M      0  18.6M  0:03:48  0:01:35  0:02:13 19.4M
+42 4250M    0     0   42 1790M      0  18.6M  0:03:48  0:01:36  0:02:12 19.4M
+42 4250M    0     0   42 1810M      0  18.6M  0:03:48  0:01:37  0:02:11 19.3M
+4250M
+43 4250M    0     0   43 1829M      0  18.6M  0:03:48  0:01:38  0:02:10 19.3M
+43 4250M    0     0   43 1848M      0  18.6M  0:03:48  0:01:39  0:02:09 19.3M
+43 4250M    0     0   43 1868M      0  18.6M  0:03:47  0:01:40  0:02:07 19.3M
+44 4250M    0     0   44 1887M      0  18.6M  0:03:47  0:01:41  0:02:06 19.3M
+44 4250M    0     0   44 1907M      0  18.6M  0:03:47  0:01:42  0:02:05 19.4M
+4250M
+45 4250M    0     0   45 1926M      0  18.6M  0:03:47  0:01:43  0:02:04 19.3M
+45 4250M    0     0   45 1945M      0  18.6M  0:03:47  0:01:44  0:02:03 19.3M
+46 4250M    0     0   46 1965M      0  18.6M  0:03:47  0:01:45  0:02:02 19.3M
+46 4250M    0     0   46 1985M      0  18.6M  0:03:47  0:01:46  0:02:01 19.4M
+47 4250M    0     0   47 2004M      0  18.7M  0:03:47  0:01:47  0:02:00 19.4M
+4250M
+47 4250M    0     0   47 2023M      0  18.7M  0:03:47  0:01:48  0:01:59 19.4M
+48 4250M    0     0   48 2042M      0  18.7M  0:03:47  0:01:49  0:01:58 19.3M
+48 4250M    0     0   48 2062M      0  18.7M  0:03:47  0:01:50  0:01:57 19.4M
+48 4250M    0     0   48 2081M      0  18.7M  0:03:47  0:01:51  0:01:56 19.4M
+49 4250M    0     0   49 2101M      0  18.7M  0:03:46  0:01:52  0:01:54 19.4M
+4250M
+49 4250M    0     0   49 2120M      0  18.7M  0:03:46  0:01:53  0:01:53 19.3M
+50 4250M    0     0   50 2140M      0  18.7M  0:03:46  0:01:54  0:01:52 19.4M
+50 4250M    0     0   50 2159M      0  18.7M  0:03:46  0:01:55  0:01:51 19.3M
+51 4250M    0     0   51 2178M      0  18.7M  0:03:46  0:01:56  0:01:50 19.3M
+51 4250M    0     0   51 2198M      0  18.7M  0:03:46  0:01:57  0:01:49 19.4M
+4250M
+52 4250M    0     0   52 2217M      0  18.7M  0:03:46  0:01:58  0:01:48 19.3M
+52 4250M    0     0   52 2237M      0  18.7M  0:03:46  0:01:59  0:01:47 19.4M
+53 4250M    0     0   53 2256M      0  18.7M  0:03:46  0:02:00  0:01:46 19.3M
+53 4250M    0     0   53 2275M      0  18.7M  0:03:46  0:02:01  0:01:45 19.3M
+53 4250M    0     0   53 2295M      0  18.7M  0:03:46  0:02:02  0:01:44 19.3M
+4250M
+54 4250M    0     0   54 2314M      0  18.7M  0:03:46  0:02:03  0:01:43 19.3M
+54 4250M    0     0   54 2334M      0  18.7M  0:03:46  0:02:04  0:01:42 19.4M
+55 4250M    0     0   55 2353M      0  18.8M  0:03:46  0:02:05  0:01:41 19.5M
+55 4250M    0     0   55 2372M      0  18.7M  0:03:46  0:02:06  0:01:40 19.2M
+56 4250M    0     0   56 2392M      0  18.8M  0:03:46  0:02:07  0:01:39 19.3M
+4250M
+56 4250M    0     0   56 2411M      0  18.8M  0:03:46  0:02:08  0:01:38 19.3M
+57 4250M    0     0   57 2430M      0  18.8M  0:03:45  0:02:09  0:01:36 19.3M
+57 4250M    0     0   57 2450M      0  18.8M  0:03:45  0:02:10  0:01:35 19.3M
+58 4250M    0     0   58 2469M      0  18.8M  0:03:45  0:02:11  0:01:34 19.4M
+58 4250M    0     0   58 2489M      0  18.8M  0:03:45  0:02:12  0:01:33 19.4M
+4250M
+59 4250M    0     0   59 2508M      0  18.8M  0:03:45  0:02:13  0:01:32 19.3M
+59 4250M    0     0   59 2527M      0  18.8M  0:03:45  0:02:14  0:01:31 19.4M
+59 4250M    0     0   59 2547M      0  18.8M  0:03:45  0:02:15  0:01:30 19.4M
+60 4250M    0     0   60 2566M      0  18.8M  0:03:45  0:02:16  0:01:29 19.3M
+60 4250M    0     0   60 2586M      0  18.8M  0:03:45  0:02:17  0:01:28 19.3M
+4250M
+61 4250M    0     0   61 2605M      0  18.8M  0:03:45  0:02:18  0:01:27 19.5M
+61 4250M    0     0   61 2624M      0  18.8M  0:03:45  0:02:19  0:01:26 19.4M
+62 4250M    0     0   62 2644M      0  18.8M  0:03:45  0:02:20  0:01:25 19.4M
+62 4250M    0     0   62 2663M      0  18.8M  0:03:45  0:02:21  0:01:24 19.4M
+63 4250M    0     0   63 2683M      0  18.8M  0:03:45  0:02:22  0:01:23 19.4M
+4250M
+63 4250M    0     0   63 2702M      0  18.8M  0:03:45  0:02:23  0:01:22 19.3M
+64 4250M    0     0   64 2721M      0  18.8M  0:03:45  0:02:24  0:01:21 19.3M
+64 4250M    0     0   64 2741M      0  18.8M  0:03:45  0:02:25  0:01:20 19.2M
+64 4250M    0     0   64 2760M      0  18.8M  0:03:45  0:02:26  0:01:19 19.4M
+65 4250M    0     0   65 2779M      0  18.8M  0:03:45  0:02:27  0:01:18 19.3M
+4250M
+65 4250M    0     0   65 2799M      0  18.8M  0:03:45  0:02:28  0:01:17 19.3M
+66 4250M    0     0   66 2818M      0  18.8M  0:03:45  0:02:29  0:01:16 19.2M
+66 4250M    0     0   66 2838M      0  18.8M  0:03:44  0:02:30  0:01:14 19.4M
+67 4250M    0     0   67 2857M      0  18.8M  0:03:44  0:02:31  0:01:13 19.3M
+67 4250M    0     0   67 2876M      0  18.9M  0:03:44  0:02:32  0:01:12 19.3M
+4250M
+68 4250M    0     0   68 2896M      0  18.9M  0:03:44  0:02:33  0:01:11 19.4M
+68 4250M    0     0   68 2915M      0  18.9M  0:03:44  0:02:34  0:01:10 19.3M
+69 4250M    0     0   69 2935M      0  18.9M  0:03:44  0:02:35  0:01:09 19.4M
+69 4250M    0     0   69 2954M      0  18.9M  0:03:44  0:02:36  0:01:08 19.3M
+69 4250M    0     0   69 2973M      0  18.9M  0:03:44  0:02:37  0:01:07 19.3M
+4250M
+70 4250M    0     0   70 2993M      0  18.9M  0:03:44  0:02:38  0:01:06 19.4M
+70 4250M    0     0   70 3012M      0  18.9M  0:03:44  0:02:39  0:01:05 19.4M
+71 4250M    0     0   71 3031M      0  18.9M  0:03:44  0:02:40  0:01:04 19.3M
+71 4250M    0     0   71 3051M      0  18.9M  0:03:44  0:02:41  0:01:03 19.4M
+72 4250M    0     0   72 3070M      0  18.9M  0:03:44  0:02:42  0:01:02 19.3M
+4250M
+72 4250M    0     0   72 3090M      0  18.9M  0:03:44  0:02:43  0:01:01 19.3M
+73 4250M    0     0   73 3109M      0  18.9M  0:03:44  0:02:44  0:01:00 19.3M
+73 4250M    0     0   73 3128M      0  18.9M  0:03:44  0:02:45  0:00:59 19.3M
+74 4250M    0     0   74 3148M      0  18.9M  0:03:44  0:02:46  0:00:58 19.4M
+74 4250M    0     0   74 3167M      0  18.9M  0:03:44  0:02:47  0:00:57 19.3M
+4250M
+74 4250M    0     0   74 3187M      0  18.9M  0:03:44  0:02:48  0:00:56 19.4M
+75 4250M    0     0   75 3206M      0  18.9M  0:03:44  0:02:49  0:00:55 19.4M
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-608147' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Server sent a very old message with ID 7426221442356011009, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426220667539847169, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426221442359445505, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426221486499186689, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426221574842754049, ignoring (see FAQ for details)
+Server sent a very old message with ID 7426221592557563905, ignoring (see FAQ for details)
+Unable to connect due to network issues: Connection timed out
+Task exception was never retrieved
+future: <Task finished name='Task-613515' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Server closed the connection: 0 bytes read on a total of 8 expected bytes
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 984, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 306, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 986, in create_zip
+    return await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 886, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'ListenerTimeout' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-675271' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
