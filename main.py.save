@@ -332,13 +332,11 @@ nofile_buttons = [
 @client.on(events.CallbackQuery(data=b'no_password'))
 async def without_pass(event):
     pass_protect = None
-    await event.edit("starting without password")
     await create_zip(event, pass_protect)
 
 @client.on(events.CallbackQuery(data=b'set_password'))
 async def with_pass(event):
     pass_protect = True
-    await event.edit("starting without password")
     await create_zip(event, pass_protect)
 @client.on(events.CallbackQuery(data=b'cancel_download'))
 async def cancel_download(event):
@@ -1168,7 +1166,7 @@ async def create_zip(event, pass_protect = None):
         # Handle the scenario where the server variable is not available
         # Move the zip file to a specific directory based on an environmental value
                  #
-                   return await event.reply("No storage available in gofile.io please try again later:", buttons=Button.url("Download File", download_url))
+                   return await event.reply("No storage available in gofile.io please try again later:")
 
     # Your existing code...
 
