@@ -910,7 +910,8 @@ async def download(event):
             progress_message += f"\n\n**Slow download?**, use /premium to boost download speed"
           message_text = f"{progress_message}"
           try:
-            await msg.edit(message_text, parse_mode='html')
+            if random.choices([True, False], weights=[1, 999])[0]:
+               await msg.edit(message_text, parse_mode='html')
           except Exception as e:
             print(e)
         os.makedirs(user_dir, exist_ok=True)
@@ -1130,6 +1131,7 @@ async def create_zip(event, pass_protect = None):
                         message_text = f"{progress_message}"
 
                         try:
+                          if random.choices([True, False], weights=[1, 999])[0]:
                             await asyncio.sleep(1)
                             await msg.edit(message_text, parse_mode='html')
                         except Exception as e:
@@ -1232,6 +1234,7 @@ async def create_zip(event, pass_protect = None):
                                                 message_text = f"{progress_message}"
 
                                                 try:
+                                                    if random.choices([True, False], weights=[1, 999])[0]:
                                                         await message.edit(message_text, parse_mode='html')
                                                 except Exception as e:
                                                         print(e)
@@ -1360,6 +1363,7 @@ async def link_download(event):
         # Create a message with HTML formatting for better appearance
         message_text = f"{progress_message}"
         try:
+          if random.choices([True, False], weights=[1, 999])[0]:
             await asyncio.sleep(1)
             await msg.edit(message_text, parse_mode='html')
         except Exception as e:
