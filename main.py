@@ -1012,16 +1012,17 @@ async def check_pass(event):
 async def create_zip(event, pass_protect = None):
     get_pass = None
     user_id = event.sender_id
+    response = None
     try:
-       response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=15)
+       response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
     except Exception as e:
-       return await event.respond(e)
+       return await response.edit(e)
     if pass_protect:
-
+      get_pass = None
       try:
         get_pass = await app.ask(text="please type your password below.", filters=filters.text, chat_id=user_id, timeout=15)
       except Exception as e:
-        return await event.respond(e)
+        return await get_pass.edit(e)
       if get_pass.text.startswith("/") or get_pass.text.startswith("http"):
            return
       password = get_pass.text
