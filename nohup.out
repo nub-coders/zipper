@@ -9990,3 +9990,4 @@ telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (cause
 socket.send() raised exception.
 socket.send() raised exception.
 socket.send() raised exception.
+Unable to connect due to network issues: Connection timed out
