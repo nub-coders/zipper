@@ -10585,3 +10585,8 @@ Traceback (most recent call last):
   File "/home/ubuntu/Work/main.py", line 1019, in create_zip
     return await response.edit(e)
 AttributeError: 'NoneType' object has no attribute 'edit'
+Unable to connect due to network issues: Connection timed out
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
