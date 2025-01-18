@@ -12649,3 +12649,270 @@ socket.send() raised exception.
 socket.send() raised exception.
 socket.send() raised exception.
 socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1051, in create_zip
+    files = os.listdir(user_dir)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ubuntu/Work/zipper/6243694287'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+Unable to connect due to network issues: Connection timed out
+57 1951M    0     0   57 1117M      0  16.0M  0:02:01  0:01:09  0:00:52 16.2M
+58 1951M    0     0   58 1133M      0  16.0M  0:02:01  0:01:10  0:00:51 16.2M
+1951M
+58 1951M    0     0   58 1149M      0  16.0M  0:02:01  0:01:11  0:00:50 16.3M
+59 1951M    0     0   59 1165M      0  16.0M  0:02:01  0:01:12  0:00:49 16.2M
+60 1951M    0     0   60 1183M      0  16.0M  0:02:01  0:01:13  0:00:48 15.9M
+61 1951M    0     0   61 1199M      0  16.0M  0:02:01  0:01:14  0:00:47 16.3M
+62 1951M    0     0   62 1214M      0  16.0M  0:02:01  0:01:15  0:00:46 16.4M
+1951M
+63 1951M    0     0   63 1233M      0  16.0M  0:02:01  0:01:16  0:00:45 16.3M
+64 1951M    0     0   64 1249M      0  16.0M  0:02:01  0:01:17  0:00:44 16.4M
+64 1951M    0     0   64 1264M      0  16.0M  0:02:01  0:01:18  0:00:43 16.4M
+65 1951M    0     0   65 1280M      0  16.1M  0:02:01  0:01:19  0:00:42 16.4M
+66 1951M    0     0   66 1298M      0  16.1M  0:02:00  0:01:20  0:00:40 16.7M
+1951M
+67 1951M    0     0   67 1314M      0  16.1M  0:02:01  0:01:21  0:00:40 16.6M
+68 1951M    0     0   68 1330M      0  16.1M  0:02:01  0:01:22  0:00:39 16.4M
+68 1951M    0     0   68 1346M      0  16.1M  0:02:01  0:01:23  0:00:38 16.4M
+69 1951M    0     0   69 1364M      0  16.1M  0:02:00  0:01:24  0:00:36 16.5M
+70 1951M    0     0   70 1379M      0  16.1M  0:02:00  0:01:25  0:00:35 16.2M
+1951M
+71 1951M    0     0   71 1396M      0  16.1M  0:02:00  0:01:26  0:00:34 16.3M
+72 1951M    0     0   72 1412M      0  16.1M  0:02:00  0:01:27  0:00:33 16.6M
+73 1951M    0     0   73 1429M      0  16.1M  0:02:00  0:01:28  0:00:32 16.5M
+74 1951M    0     0   74 1445M      0  16.1M  0:02:00  0:01:29  0:00:31 16.4M
+74 1951M    0     0   74 1461M      0  16.1M  0:02:00  0:01:30  0:00:30 16.2M
+1951M
+75 1951M    0     0   75 1477M      0  16.1M  0:02:00  0:01:31  0:00:29 16.2M
+76 1951M    0     0   76 1493M      0  16.1M  0:02:00  0:01:32  0:00:28 16.1M
+77 1951M    0     0   77 1511M      0  16.1M  0:02:00  0:01:33  0:00:27 16.3M
+78 1951M    0     0   78 1526M      0  16.1M  0:02:00  0:01:34  0:00:26 16.2M
+79 1951M    0     0   79 1543M      0  16.1M  0:02:00  0:01:35  0:00:25 16.2M
+1951M
+79 1951M    0     0   79 1558M      0  16.1M  0:02:00  0:01:36  0:00:24 16.2M
+80 1951M    0     0   80 1574M      0  16.1M  0:02:00  0:01:37  0:00:23 16.3M
+81 1951M    0     0   81 1592M      0  16.1M  0:02:00  0:01:38  0:00:22 16.4M
+82 1951M    0     0   82 1608M      0  16.1M  0:02:00  0:01:39  0:00:21 16.1M
+83 1951M    0     0   83 1624M      0  16.1M  0:02:00  0:01:40  0:00:20 16.2M
+1951M
+84 1951M    0     0   84 1640M      0  16.1M  0:02:00  0:01:41  0:00:19 16.4M
+84 1951M    0     0   84 1658M      0  16.1M  0:02:00  0:01:42  0:00:18 16.7M
+85 1951M    0     0   85 1674M      0  16.1M  0:02:00  0:01:43  0:00:17 16.1M
+86 1951M    0     0   86 1690M      0  16.1M  0:02:00  0:01:44  0:00:16 16.3M
+87 1951M    0     0   87 1705M      0  16.1M  0:02:00  0:01:45  0:00:15 16.4M
+1951M
+88 1951M    0     0   88 1721M      0  16.1M  0:02:00  0:01:46  0:00:14 16.3M
+89 1951M    0     0   89 1739M      0  16.1M  0:02:00  0:01:47  0:00:13 16.0M
+89 1951M    0     0   89 1755M      0  16.1M  0:02:00  0:01:48  0:00:12 16.2M
+90 1951M    0     0   90 1771M      0  16.1M  0:02:00  0:01:49  0:00:11 16.3M
+91 1951M    0     0   91 1789M      0  16.1M  0:02:00  0:01:50  0:00:10 16.5M
+1951M
+92 1951M    0     0   92 1805M      0  16.1M  0:02:00  0:01:51  0:00:09 16.4M
+93 1951M    0     0   93 1821M      0  16.1M  0:02:00  0:01:52  0:00:08 16.3M
+94 1951M    0     0   94 1837M      0  16.1M  0:02:00  0:01:53  0:00:07 16.3M
+94 1951M    0     0   94 1852M      0  16.1M  0:02:00  0:01:54  0:00:06 16.3M
+95 1951M    0     0   95 1871M      0  16.1M  0:02:00  0:01:55  0:00:05 16.1M
+1951M
+96 1951M    0     0   96 1886M      0  16.1M  0:02:00  0:01:56  0:00:04 16.2M
+97 1951M    0     0   97 1902M      0  16.1M  0:02:00  0:01:57  0:00:03 16.3M
+98 1951M    0     0   98 1917M      0  16.1M  0:02:00  0:01:58  0:00:02 16.3M
+99 1951M    0     0   99 1936M      0  16.1M  0:02:00  0:01:59  0:00:01 16.3M
+100 1951M    0     0  100 1951M      0  16.1M  0:02:00  0:02:00 --:--:-- 16.1M
+1951M
+100 1951M  100   429  100 1951M      3  16.0M  0:02:23  0:02:01  0:00:22 14.0M
+{"data":{"createTime":1737128117,"downloadPage":"https://gofile.io/d/2KewoJ","guestToken":"AUIHyavZDfQls9xpCqLVyhaOVEfzPQL3","id":"1248a640-9bc8-4809-b6c9-05d4299f8a8f","md5":"2ed824845dcb652463dfd7fa8aac2c77","mimetype":"application/zip","modTime":1737128117,"name":"Test.zip","parentFolder":"fa3880d5-540b-4474-a70b-20b383f0bea9","parentFolderCode":"2KewoJ","servers":["store9"],"size":2046010192,"type":"file"},"status":"ok"}
+/start verifycodeis27373636365437373
+/start verifycodeis27373636365437373
+time_left unchanged for 30 seconds. Setting downloading to False.
+store-eu-par-2
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/130940226/for sbz.zip', 'https://store-eu-par-2.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0
+1 3908M    0     0    1 66.3M      0  58.8M  0:01:06  0:00:01  0:01:05 58.8M
+3 3908M    0     0    3  149M      0  71.0M  0:00:55  0:00:02  0:00:53 71.0M
+5 3908M    0     0    5  234M      0  75.3M  0:00:51  0:00:03  0:00:48 75.3M
+8 3908M    0     0    8  318M      0  77.4M  0:00:50  0:00:04  0:00:46 77.4M
+10 3908M    0     0   10  403M      0  78.8M  0:00:49  0:00:05  0:00:44 80.7M
+3908M
+12 3908M    0     0   12  487M      0  79.7M  0:00:48  0:00:06  0:00:42 84.4M
+14 3908M    0     0   14  571M      0  80.3M  0:00:48  0:00:07  0:00:41 84.3M
+16 3908M    0     0   16  655M      0  80.8M  0:00:48  0:00:08  0:00:40 84.2M
+18 3908M    0     0   18  739M      0  81.1M  0:00:48  0:00:09  0:00:39 84.2M
+21 3908M    0     0   21  823M      0  81.4M  0:00:48  0:00:10  0:00:38 84.0M
+3908M
+23 3908M    0     0   23  907M      0  81.7M  0:00:47  0:00:11  0:00:36 84.1M
+25 3908M    0     0   25  992M      0  81.9M  0:00:47  0:00:12  0:00:35 84.2M
+27 3908M    0     0   27 1077M      0  82.1M  0:00:47  0:00:13  0:00:34 84.4M
+29 3908M    0     0   29 1161M      0  82.3M  0:00:47  0:00:14  0:00:33 84.5M
+31 3908M    0     0   31 1245M      0  82.4M  0:00:47  0:00:15  0:00:32 84.4M
+3908M
+34 3908M    0     0   34 1330M      0  82.5M  0:00:47  0:00:16  0:00:31 84.3M
+36 3908M    0     0   36 1414M      0  82.6M  0:00:47  0:00:17  0:00:30 84.4M
+38 3908M    0     0   38 1498M      0  82.7M  0:00:47  0:00:18  0:00:29 84.0M
+40 3908M    0     0   40 1582M      0  82.7M  0:00:47  0:00:19  0:00:28 84.0M
+42 3908M    0     0   42 1666M      0  82.8M  0:00:47  0:00:20  0:00:27 84.1M
+3908M
+44 3908M    0     0   44 1751M      0  82.9M  0:00:47  0:00:21  0:00:26 84.2M
+46 3908M    0     0   46 1834M      0  82.9M  0:00:47  0:00:22  0:00:25 84.0M
+49 3908M    0     0   49 1918M      0  83.0M  0:00:47  0:00:23  0:00:24 84.1M
+51 3908M    0     0   51 2002M      0  83.0M  0:00:47  0:00:24  0:00:23 84.1M
+53 3908M    0     0   53 2087M      0  83.1M  0:00:47  0:00:25  0:00:22 84.0M
+3908M
+55 3908M    0     0   55 2171M      0  83.1M  0:00:47  0:00:26  0:00:21 84.0M
+57 3908M    0     0   57 2255M      0  83.1M  0:00:46  0:00:27  0:00:19 84.1M
+59 3908M    0     0   59 2339M      0  83.2M  0:00:46  0:00:28  0:00:18 84.1M
+62 3908M    0     0   62 2423M      0  83.2M  0:00:46  0:00:29  0:00:17 84.1M
+64 3908M    0     0   64 2507M      0  83.2M  0:00:46  0:00:30  0:00:16 84.0M
+3908M
+66 3908M    0     0   66 2592M      0  83.3M  0:00:46  0:00:31  0:00:15 84.1M
+68 3908M    0     0   68 2675M      0  83.3M  0:00:46  0:00:32  0:00:14 84.0M
+70 3908M    0     0   70 2760M      0  83.3M  0:00:46  0:00:33  0:00:13 84.0M
+72 3908M    0     0   72 2845M      0  83.4M  0:00:46  0:00:34  0:00:12 84.3M
+74 3908M    0     0   74 2929M      0  83.4M  0:00:46  0:00:35  0:00:11 84.5M
+3908M
+77 3908M    0     0   77 3013M      0  83.4M  0:00:46  0:00:36  0:00:10 84.2M
+79 3908M    0     0   79 3097M      0  83.4M  0:00:46  0:00:37  0:00:09 84.2M
+81 3908M    0     0   81 3181M      0  83.4M  0:00:46  0:00:38  0:00:08 84.3M
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
