@@ -24,6 +24,6 @@ while true; do
             pids["$process_name"]="$!"
         fi
     done
-    sleep 60
+    sleep 10
 done
 
