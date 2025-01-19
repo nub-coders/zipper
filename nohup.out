@@ -13353,3 +13353,6 @@ Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python
 Requirement already satisfied: typing-extensions>=4.1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from multidict<7.0,>=4.5->aiohttp->-r requirements.txt (line 7)) (4.12.2)
 Requirement already satisfied: pyasn1>=0.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.6.1)
 Starting zipper.py...
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
