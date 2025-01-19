@@ -616,7 +616,7 @@ async def list_files(event):
     check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
     
     if not check_if:
-        button = Button.url("Join", "https://t.me/treaserthings")
+        button = Button.url("Join", "https://t.me/nub_coder_updates")
         return await event.respond(
             "You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!", 
             buttons=button)
@@ -692,7 +692,7 @@ async def lillst_files(event):
     user_id = user.id
     check_if = await is_user_on_chat(client, "@nub_coder_updates", event.sender_id)
     if not check_if:
-        button = Button.url("Join", "https://t.me/treaserthings")
+        button = Button.url("Join", "https://t.me/nub_coder_updates")
         return await event.respond("You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
 
     current_time = int(time.time())
@@ -1043,7 +1043,7 @@ async def create_zip(event, pass_protect = None):
     # Fetch all user IDs in the group and store them in the dictionary
     check_if = await is_user_on_chat(client, "@nub_coder_updates", event.sender_id)
     if not check_if:
-        button = Button.url("Join", "https://t.me/treaserthings")
+        button = Button.url("Join", "https://t.me/nub_coder_updates")
         return await event.respond("You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!", buttons=button)
     group_user_ids.clear()
     user_id = str(event.sender_id)
