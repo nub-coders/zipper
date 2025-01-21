@@ -13855,3 +13855,354 @@ Traceback (most recent call last):
   File "/home/ubuntu/Work/main.py", line 1019, in create_zip
     return await response.edit(e)
 AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+97 4599M    0     0   97 4507M      0  37.2M  0:02:03  0:02:00  0:00:03 58.4M
+99 4599M    0     0   99 4564M      0  37.4M  0:02:02  0:02:01  0:00:01 58.3M
+100 4599M  100   443  100 4599M      3  37.5M  0:02:27  0:02:02  0:00:25 56.2M
+{"data":{"createTime":1737306802,"downloadPage":"https://gofile.io/d/K1Y2bV","guestToken":"OLEeD6ueed2gRk8AyA3NIiIN6yjvpKIq","id":"c261a64b-d7a1-4e36-82de-7db7d639c23e","md5":"f203a73e35130c882a901711888523a1","mimetype":"application/zip","modTime":1737306802,"name":"custom_111.zip","parentFolder":"da08171f-b70d-4792-ae0e-238b322e91df","parentFolderCode":"K1Y2bV","servers":["store-eu-par-4"],"size":4822849343,"type":"file"},"status":"ok"}
+/start verifycodeis2737363827374
+/start verifycodeis27373636365744
+/start verifycodeis27373636384747
+time_left unchanged for 30 seconds. Setting downloading to False.
+store-eu-par-2
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/7517241149/BC.zip', 'https://store-eu-par-2.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 4385M    0     0    0 37.1M      0  48.9M  0:01:29 --:--:--  0:01:29 48.9M
+2 4385M    0     0    2  123M      0  70.0M  0:01:02  0:00:01  0:01:01 70.0M
+4 4385M    0     0    4  208M      0  75.8M  0:00:57  0:00:02  0:00:55 75.8M
+6 4385M    0     0    6  294M      0  78.6M  0:00:55  0:00:03  0:00:52 78.6M
+4385M
+8 4385M    0     0    8  381M      0  80.5M  0:00:54  0:00:04  0:00:50 80.5M
+10 4385M    0     0   10  469M      0  81.8M  0:00:53  0:00:05  0:00:48 86.8M
+12 4385M    0     0   12  556M      0  82.5M  0:00:53  0:00:06  0:00:47 87.0M
+14 4385M    0     0   14  643M      0  83.1M  0:00:52  0:00:07  0:00:45 87.1M
+16 4385M    0     0   16  730M      0  83.5M  0:00:52  0:00:08  0:00:44 87.1M
+4385M
+18 4385M    0     0   18  818M      0  83.9M  0:00:52  0:00:09  0:00:43 87.1M
+20 4385M    0     0   20  906M      0  84.3M  0:00:51  0:00:10  0:00:41 87.2M
+22 4385M    0     0   22  993M      0  84.5M  0:00:51  0:00:11  0:00:40 87.3M
+24 4385M    0     0   24 1080M      0  84.7M  0:00:51  0:00:12  0:00:39 87.3M
+26 4385M    0     0   26 1167M      0  84.9M  0:00:51  0:00:13  0:00:38 87.3M
+4385M
+28 4385M    0     0   28 1253M      0  85.0M  0:00:51  0:00:14  0:00:37 87.1M
+30 4385M    0     0   30 1340M      0  85.1M  0:00:51  0:00:15  0:00:36 86.8M
+32 4385M    0     0   32 1427M      0  85.2M  0:00:51  0:00:16  0:00:35 86.9M
+34 4385M    0     0   34 1515M      0  85.4M  0:00:51  0:00:17  0:00:34 86.9M
+36 4385M    0     0   36 1602M      0  85.5M  0:00:51  0:00:18  0:00:33 87.0M
+4385M
+38 4385M    0     0   38 1689M      0  85.5M  0:00:51  0:00:19  0:00:32 87.2M
+40 4385M    0     0   40 1776M      0  85.6M  0:00:51  0:00:20  0:00:31 87.2M
+42 4385M    0     0   42 1864M      0  85.7M  0:00:51  0:00:21  0:00:30 87.3M
+44 4385M    0     0   44 1951M      0  85.8M  0:00:51  0:00:22  0:00:29 87.2M
+46 4385M    0     0   46 2038M      0  85.8M  0:00:51  0:00:23  0:00:28 87.3M
+4385M
+48 4385M    0     0   48 2126M      0  85.9M  0:00:51  0:00:24  0:00:27 87.4M
+50 4385M    0     0   50 2213M      0  85.9M  0:00:50  0:00:25  0:00:25 87.3M
+52 4385M    0     0   52 2300M      0  86.0M  0:00:50  0:00:26  0:00:24 87.1M
+54 4385M    0     0   54 2388M      0  86.0M  0:00:50  0:00:27  0:00:23 87.4M
+56 4385M    0     0   56 2474M      0  86.1M  0:00:50  0:00:28  0:00:22 87.1M
+4385M
+58 4385M    0     0   58 2562M      0  86.1M  0:00:50  0:00:29  0:00:21 87.1M
+60 4385M    0     0   60 2649M      0  86.1M  0:00:50  0:00:30  0:00:20 87.2M
+62 4385M    0     0   62 2736M      0  86.2M  0:00:50  0:00:31  0:00:19 87.2M
+64 4385M    0     0   64 2824M      0  86.2M  0:00:50  0:00:32  0:00:18 87.2M
+66 4385M    0     0   66 2910M      0  86.2M  0:00:50  0:00:33  0:00:17 87.2M
+4385M
+68 4385M    0     0   68 2996M      0  86.2M  0:00:50  0:00:34  0:00:16 86.9M
+70 4385M    0     0   70 3083M      0  86.2M  0:00:50  0:00:35  0:00:15 86.7M
+72 4385M    0     0   72 3171M      0  86.3M  0:00:50  0:00:36  0:00:14 86.9M
+74 4385M    0     0   74 3257M      0  86.3M  0:00:50  0:00:37  0:00:13 86.6M
+76 4385M    0     0   76 3345M      0  86.3M  0:00:50  0:00:38  0:00:12 86.8M
+4385M
+78 4385M    0     0   78 3432M      0  86.3M  0:00:50  0:00:39  0:00:11 87.1M
+80 4385M    0     0   80 3518M      0  86.3M  0:00:50  0:00:40  0:00:10 87.0M
+82 4385M    0     0   82 3606M      0  86.3M  0:00:50  0:00:41  0:00:09 86.9M
+84 4385M    0     0   84 3694M      0  86.4M  0:00:50  0:00:42  0:00:08 87.1M
+86 4385M    0     0   86 3781M      0  86.4M  0:00:50  0:00:43  0:00:07 87.3M
+4385M
+88 4385M    0     0   88 3868M      0  86.4M  0:00:50  0:00:44  0:00:06 87.2M
+90 4385M    0     0   90 3956M      0  86.4M  0:00:50  0:00:45  0:00:05 87.4M
+92 4385M    0     0   92 4042M      0  86.4M  0:00:50  0:00:46  0:00:04 87.2M
+94 4385M    0     0   94 4130M      0  86.5M  0:00:50  0:00:47  0:00:03 87.3M
+96 4385M    0     0   96 4217M      0  86.5M  0:00:50  0:00:48  0:00:02 87.0M
+4385M
+98 4385M    0     0   98 4304M      0  86.5M  0:00:50  0:00:49  0:00:01 87.0M
+100 4385M  100   435  100 4385M      8  86.0M  0:00:54  0:00:50  0:00:04 81.9M
+100 4385M  100   435  100 4385M      8  86.0M  0:00:54  0:00:50  0:00:04 80.9M
+{"data":{"createTime":1737339533,"downloadPage":"https://gofile.io/d/ivRRSM","guestToken":"6k0uJ5qUphn0i7ZRvB4dANkcNUXdrcPQ","id":"840d77a9-3870-454c-8a99-af5222deb653","md5":"b65e11f5389e34e5025f8bfc25472bc4","mimetype":"application/zip","modTime":1737339533,"name":"BC.zip","parentFolder":"9a028183-8d33-4eb7-9d41-455458af7d3e","parentFolderCode":"ivRRSM","servers":["store-eu-par-2"],"size":4598210918,"type":"file"},"status":"ok"}
+/start verifycodeis27373636737473
+/start verifycodeis2737363373748484
+store7
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/7517241149/BC 2.zip', 'https://store7.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Total
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 4348M    0     0    0 65535      0   337k  3:40:04 --:--:--  3:40:04  336k
+1 4348M    0     0    1 60.8M      0  52.9M  0:01:22  0:00:01  0:01:21 52.8M
+4348M
+3 4348M    0     0    3  143M      0  66.8M  0:01:04  0:00:02  0:01:02 66.8M
+5 4348M    0     0    5  226M      0  71.9M  0:01:00  0:00:03  0:00:57 71.9M
+7 4348M    0     0    7  309M      0  74.6M  0:00:58  0:00:04  0:00:54 74.5M
+9 4348M    0     0    9  392M      0  76.1M  0:00:57  0:00:05  0:00:52 79.0M
+10 4348M    0     0   10  474M      0  77.1M  0:00:56  0:00:06  0:00:50 82.7M
+4348M
+12 4348M    0     0   12  556M      0  77.8M  0:00:55  0:00:07  0:00:48 82.5M
+14 4348M    0     0   14  638M      0  78.3M  0:00:55  0:00:08  0:00:47 82.3M
+16 4348M    0     0   16  721M      0  78.8M  0:00:55  0:00:09  0:00:46 82.2M
+18 4348M    0     0   18  803M      0  79.1M  0:00:54  0:00:10  0:00:44 82.2M
+20 4348M    0     0   20  885M      0  79.3M  0:00:54  0:00:11  0:00:43 82.0M
+4348M
+22 4348M    0     0   22  967M      0  79.6M  0:00:54  0:00:12  0:00:42 82.2M
+24 4348M    0     0   24 1049M      0  79.8M  0:00:54  0:00:13  0:00:41 82.2M
+26 4348M    0     0   26 1132M      0  79.9M  0:00:54  0:00:14  0:00:40 82.1M
+27 4348M    0     0   27 1214M      0  80.1M  0:00:54  0:00:15  0:00:39 82.2M
+29 4348M    0     0   29 1297M      0  80.3M  0:00:54  0:00:16  0:00:38 82.5M
+4348M
+31 4348M    0     0   31 1379M      0  80.4M  0:00:54  0:00:17  0:00:37 82.4M
+33 4348M    0     0   33 1459M      0  80.3M  0:00:54  0:00:18  0:00:36 81.8M
+35 4348M    0     0   35 1540M      0  80.4M  0:00:54  0:00:19  0:00:35 81.6M
+37 4348M    0     0   37 1623M      0  80.5M  0:00:53  0:00:20  0:00:33 81.6M
+39 4348M    0     0   39 1704M      0  80.5M  0:00:53  0:00:21  0:00:32 81.3M
+4348M
+41 4348M    0     0   41 1787M      0  80.7M  0:00:53  0:00:22  0:00:31 81.6M
+43 4348M    0     0   43 1869M      0  80.7M  0:00:53  0:00:23  0:00:30 82.1M
+44 4348M    0     0   44 1951M      0  80.8M  0:00:53  0:00:24  0:00:29 82.3M
+46 4348M    0     0   46 2031M      0  80.7M  0:00:53  0:00:25  0:00:28 81.7M
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+Unable to connect due to network issues: Connection timed out
+48 4348M    0     0   48 2110M      0  80.6M  0:00:53  0:00:26  0:00:27 81.1M
+4348M
+50 4348M    0     0   50 2191M      0  80.6M  0:00:53  0:00:27  0:00:26 80.5M
+52 4348M    0     0   52 2272M      0  80.7M  0:00:53  0:00:28  0:00:25 80.5M
+54 4348M    0     0   54 2354M      0  80.7M  0:00:53  0:00:29  0:00:24 80.4M
+56 4348M    0     0   56 2436M      0  80.7M  0:00:53  0:00:30  0:00:23 80.8M
+57 4348M    0     0   57 2519M      0  80.8M  0:00:53  0:00:31  0:00:22 81.9M
+4348M
+59 4348M    0     0   59 2601M      0  80.8M  0:00:53  0:00:32  0:00:21 82.0M
+61 4348M    0     0   61 2683M      0  80.9M  0:00:53  0:00:33  0:00:20 82.1M
+63 4348M    0     0   63 2764M      0  80.9M  0:00:53  0:00:34  0:00:19 82.1M
+65 4348M    0     0   65 2848M      0  81.0M  0:00:53  0:00:35  0:00:18 82.4M
+67 4348M    0     0   67 2932M      0  81.0M  0:00:53  0:00:36  0:00:17 82.3M
+4348M
+69 4348M    0     0   69 3013M      0  81.1M  0:00:53  0:00:37  0:00:16 82.5M
+71 4348M    0     0   71 3093M      0  81.0M  0:00:53  0:00:38  0:00:15 81.7M
+73 4348M    0     0   73 3174M      0  81.0M  0:00:53  0:00:39  0:00:14 81.9M
+74 4348M    0     0   74 3257M      0  81.1M  0:00:53  0:00:40  0:00:13 81.8M
+76 4348M    0     0   76 3339M      0  81.1M  0:00:53  0:00:41  0:00:12 81.5M
+4348M
+78 4348M    0     0   78 3421M      0  81.1M  0:00:53  0:00:42  0:00:11 81.6M
+80 4348M    0     0   80 3504M      0  81.2M  0:00:53  0:00:43  0:00:10 82.4M
+82 4348M    0     0   82 3585M      0  81.2M  0:00:53  0:00:44  0:00:09 82.0M
+84 4348M    0     0   84 3666M      0  81.1M  0:00:53  0:00:45  0:00:08 81.7M
+86 4348M    0     0   86 3745M      0  81.1M  0:00:53  0:00:46  0:00:07 81.2M
+4348M
+88 4348M    0     0   88 3827M      0  81.1M  0:00:53  0:00:47  0:00:06 81.1M
+89 4348M    0     0   89 3907M      0  81.1M  0:00:53  0:00:48  0:00:05 80.6M
+91 4348M    0     0   91 3987M      0  81.1M  0:00:53  0:00:49  0:00:04 80.4M
+93 4348M    0     0   93 4070M      0  81.1M  0:00:53  0:00:50  0:00:03 80.8M
+95 4348M    0     0   95 4151M      0  81.1M  0:00:53  0:00:51  0:00:02 81.1M
+4348M
+97 4348M    0     0   97 4233M      0  81.1M  0:00:53  0:00:52  0:00:01 81.2M
+99 4348M    0     0   99 4315M      0  81.2M  0:00:53  0:00:53 --:--:-- 81.6M
+100 4348M  100   429  100 4348M      7  80.6M  0:01:01  0:00:53  0:00:08 75.7M
+{"data":{"createTime":1737427363,"downloadPage":"https://gofile.io/d/s8Bp1N","guestToken":"mtUb4R5jM8nbNSM3qKlnQbC8i2vn6yz3","id":"a13072f2-b014-4d7d-ab29-ffee1167d319","md5":"34b8c501375f41db226a07b344330d2c","mimetype":"application/zip","modTime":1737427363,"name":"BC 2.zip","parentFolder":"d94418b3-04ba-4424-8ac1-908791d38d68","parentFolderCode":"s8Bp1N","servers":["store7"],"size":4559415721,"type":"file"},"status":"ok"}
+store-eu-par-1
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/781049846/Vdm.zip', 'https://store-eu-par-1.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+1 4512M    0     0    1 51.3M      0  52.5M  0:01:25 --:--:--  0:01:25 52.5M
+2 4512M    0     0    2  132M      0  66.8M  0:01:07  0:00:01  0:01:06 66.7M
+4 4512M    0     0    4  212M      0  71.4M  0:01:03  0:00:02  0:01:01 71.4M
+4512M
+6 4512M    0     0    6  293M      0  73.7M  0:01:01  0:00:03  0:00:58 73.7M
+8 4512M    0     0    8  372M      0  74.8M  0:01:00  0:00:04  0:00:56 74.8M
+10 4512M    0     0   10  453M      0  75.8M  0:00:59  0:00:05  0:00:54 80.3M
+11 4512M    0     0   11  532M      0  76.2M  0:00:59  0:00:06  0:00:53 80.0M
+13 4512M    0     0   13  610M      0  76.4M  0:00:58  0:00:07  0:00:51 79.4M
+4512M
+15 4512M    0     0   15  689M      0  76.8M  0:00:58  0:00:08  0:00:50 79.3M
+17 4512M    0     0   17  770M      0  77.2M  0:00:58  0:00:09  0:00:49 79.5M
+18 4512M    0     0   18  850M      0  77.3M  0:00:58  0:00:10  0:00:48 79.2M
+20 4512M    0     0   20  928M      0  77.5M  0:00:58  0:00:11  0:00:47 79.2M
+22 4512M    0     0   22 1009M      0  77.7M  0:00:58  0:00:12  0:00:46 79.8M
+4512M
+24 4512M    0     0   24 1091M      0  78.1M  0:00:57  0:00:13  0:00:44 80.4M
+25 4512M    0     0   25 1172M      0  78.2M  0:00:57  0:00:14  0:00:43 80.2M
+27 4512M    0     0   27 1254M      0  78.4M  0:00:57  0:00:15  0:00:42 80.7M
+29 4512M    0     0   29 1338M      0  78.7M  0:00:57  0:00:16  0:00:41 81.8M
+31 4512M    0     0   31 1420M      0  78.9M  0:00:57  0:00:17  0:00:40 82.0M
+4512M
+33 4512M    0     0   33 1500M      0  79.0M  0:00:57  0:00:18  0:00:39 81.6M
+35 4512M    0     0   35 1580M      0  79.0M  0:00:57  0:00:19  0:00:38 81.6M
+36 4512M    0     0   36 1660M      0  79.1M  0:00:56  0:00:20  0:00:36 81.5M
+38 4512M    0     0   38 1742M      0  79.2M  0:00:56  0:00:21  0:00:35 80.9M
+40 4512M    0     0   40 1825M      0  79.3M  0:00:56  0:00:22  0:00:34 80.9M
+4512M
+42 4512M    0     0   42 1903M      0  79.3M  0:00:56  0:00:23  0:00:33 80.6M
+43 4512M    0     0   43 1985M      0  79.4M  0:00:56  0:00:24  0:00:32 81.0M
+45 4512M    0     0   45 2065M      0  79.5M  0:00:56  0:00:25  0:00:31 80.9M
+47 4512M    0     0   47 2147M      0  79.5M  0:00:56  0:00:26  0:00:30 80.9M
+49 4512M    0     0   49 2228M      0  79.6M  0:00:56  0:00:27  0:00:29 80.8M
+4512M
+51 4512M    0     0   51 2308M      0  79.6M  0:00:56  0:00:28  0:00:28 80.8M
+52 4512M    0     0   52 2390M      0  79.7M  0:00:56  0:00:29  0:00:27 81.0M
+54 4512M    0     0   54 2470M      0  79.7M  0:00:56  0:00:30  0:00:26 80.9M
+56 4512M    0     0   56 2552M      0  79.7M  0:00:56  0:00:31  0:00:25 80.8M
+58 4512M    0     0   58 2632M      0  79.8M  0:00:56  0:00:32  0:00:24 80.7M
+4512M
+60 4512M    0     0   60 2715M      0  79.9M  0:00:56  0:00:33  0:00:23 81.4M
+61 4512M    0     0   61 2796M      0  79.9M  0:00:56  0:00:34  0:00:22 81.2M
+63 4512M    0     0   63 2880M      0  80.0M  0:00:56  0:00:35  0:00:21 82.0M
+65 4512M    0     0   65 2964M      0  80.1M  0:00:56  0:00:36  0:00:20 82.5M
+67 4512M    0     0   67 3047M      0  80.2M  0:00:56  0:00:37  0:00:19 83.0M
+4512M
+69 4512M    0     0   69 3129M      0  80.2M  0:00:56  0:00:38  0:00:18 82.9M
+71 4512M    0     0   71 3212M      0  80.3M  0:00:56  0:00:39  0:00:17 83.1M
+73 4512M    0     0   73 3295M      0  80.4M  0:00:56  0:00:40  0:00:16 82.8M
+74 4512M    0     0   74 3378M      0  80.4M  0:00:56  0:00:41  0:00:15 82.5M
+76 4512M    0     0   76 3461M      0  80.5M  0:00:56  0:00:42  0:00:14 82.6M
+4512M
+78 4512M    0     0   78 3545M      0  80.5M  0:00:56  0:00:43  0:00:13 82.7M
+80 4512M    0     0   80 3628M      0  80.6M  0:00:55  0:00:44  0:00:11 82.9M
+82 4512M    0     0   82 3711M      0  80.7M  0:00:55  0:00:45  0:00:10 83.2M
+84 4512M    0     0   84 3792M      0  80.7M  0:00:55  0:00:46  0:00:09 83.1M
+85 4512M    0     0   85 3875M      0  80.7M  0:00:55  0:00:47  0:00:08 83.0M
+4512M
+87 4512M    0     0   87 3959M      0  80.8M  0:00:55  0:00:48  0:00:07 83.1M
+89 4512M    0     0   89 4043M      0  80.9M  0:00:55  0:00:49  0:00:06 83.2M
+91 4512M    0     0   91 4126M      0  80.9M  0:00:55  0:00:50  0:00:05 83.0M
+93 4512M    0     0   93 4207M      0  80.9M  0:00:55  0:00:51  0:00:04 82.7M
+95 4512M    0     0   95 4291M      0  80.9M  0:00:55  0:00:52  0:00:03 83.0M
+4512M
+96 4512M    0     0   96 4375M      0  81.0M  0:00:55  0:00:53  0:00:02 82.9M
+98 4512M    0     0   98 4457M      0  81.0M  0:00:55  0:00:54  0:00:01 82.8M
+100 4512M    0     0  100 4512M      0  79.6M  0:00:56  0:00:56 --:--:-- 67.7M
+100 4512M    0     0  100 4512M      0  78.2M  0:00:57  0:00:57 --:--:-- 53.5M
+100 4512M  100   436  100 4512M      7  78.0M  0:01:02  0:00:57  0:00:05 45.4M
+4512M
+{"data":{"createTime":1737439318,"downloadPage":"https://gofile.io/d/HpASTB","guestToken":"UErSiAMlbV4sW25IcEhaSapwMQjDoGE3","id":"a09a6953-2004-48cc-bffe-a6b5582362c7","md5":"c361087907935503ee6dd58008fe7b1a","mimetype":"application/zip","modTime":1737439318,"name":"Vdm.zip","parentFolder":"ad061cc7-5a4e-4242-b07e-b3df9a02ae02","parentFolderCode":"HpASTB","servers":["store-eu-par-1"],"size":4731312418,"type":"file"},"status":"ok"}
+/start verifycodeis27373636e626353747
+time_left unchanged for 30 seconds. Setting downloading to False.
+Server sent a very old message with ID 7462248958412445697, ignoring (see FAQ for details)
+Server sent a very old message with ID 7462248958417716225, ignoring (see FAQ for details)
+Server sent a very old message with ID 7462248958486238209, ignoring (see FAQ for details)
+Security error while unpacking a received message: Server replied with a wrong session ID (see FAQ for details)
+Task exception was never retrieved
+future: <Task finished name='Task-286267' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Server closed the connection: 0 bytes read on a total of 8 expected bytes
+Unable to connect due to network issues: Connection timed out
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
