@@ -14316,3 +14316,21 @@ Traceback (most recent call last):
   File "/home/ubuntu/Work/main.py", line 1019, in create_zip
     return await response.edit(e)
 AttributeError: 'NoneType' object has no attribute 'edit'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 829, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 925, in download
+    fi = event.file.name
+AttributeError: 'NoneType' object has no attribute 'name'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 829, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 859, in download
+    stored_time = user_data["timestamp"]
+TypeError: 'NoneType' object is not subscriptable
