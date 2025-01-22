@@ -14243,3 +14243,76 @@ Traceback (most recent call last):
     return await response.edit(e)
 AttributeError: 'NoneType' object has no attribute 'edit'
 Telegram is having internal issues TimeoutError: Timeout while fetching data (caused by GetFileRequest)
+Unable to connect due to network issues: Connection timed out
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1023, in create_zip
+    get_pass = await app.ask(text="please type your password below.", filters=filters.text, chat_id=user_id, timeout=15)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 15
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 342, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1025, in create_zip
+    return await get_pass.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 342, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
