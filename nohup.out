@@ -14704,3 +14704,136 @@ Security error while unpacking a received message: Too many messages had to be i
 Server sent a very old message with ID 7463113952523084801, ignoring (see FAQ for details)
 Security error while unpacking a received message: Too many messages had to be ignored consecutively
 socket.send() raised exception.
+Unable to connect due to network issues: Connection timed out
+93 3973M    0     0   93 3733M      0  71.1M  0:00:55  0:00:52  0:00:03 37.8M
+94 3973M    0     0   94 3767M      0  70.4M  0:00:56  0:00:53  0:00:03 36.4M
+95 3973M    0     0   95 3801M      0  69.8M  0:00:56  0:00:54  0:00:02 35.4M
+3973M
+96 3973M    0     0   96 3839M      0  69.2M  0:00:57  0:00:55  0:00:02 35.0M
+97 3973M    0     0   97 3877M      0  68.6M  0:00:57  0:00:56  0:00:01 34.8M
+98 3973M    0     0   98 3916M      0  68.1M  0:00:58  0:00:57  0:00:01 36.6M
+99 3973M    0     0   99 3956M      0  67.6M  0:00:58  0:00:58 --:--:-- 37.9M
+100 3973M  100   436  100 3973M      7  66.8M  0:01:02  0:00:59  0:00:03 34.2M
+3973M
+100 3973M  100   436  100 3973M      7  66.8M  0:01:02  0:00:59  0:00:03 33.3M
+{"data":{"createTime":1737627846,"downloadPage":"https://gofile.io/d/LaSjAH","guestToken":"btzknpqOrtZUah6yEiA6uM3Gau7VPZBy","id":"b8e2ee56-3ae9-4ff7-93f0-a7ca32b91a79","md5":"eb277e92c5f65228b9a8f9d2ee341185","mimetype":"application/zip","modTime":1737627846,"name":"Gov.zip","parentFolder":"c8418f7a-4a51-4e21-a368-9670b4ebfabb","parentFolderCode":"LaSjAH","servers":["store-eu-par-4"],"size":4166730525,"type":"file"},"status":"ok"}
+store-eu-par-2
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/5912021860/Sociology last.zip', 'https://store-eu-par-2.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Total
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+1 4222M    0     0    1 62.8M      0  57.9M  0:01:12  0:00:01  0:01:11 57.9M
+4222M
+3 4222M    0     0    3  140M      0  67.2M  0:01:02  0:00:02  0:01:00 67.2M
+5 4222M    0     0    5  217M      0  70.1M  0:01:00  0:00:03  0:00:57 70.1M
+7 4222M    0     0    7  296M      0  72.5M  0:00:58  0:00:04  0:00:54 72.5M
+8 4222M    0     0    8  377M      0  74.1M  0:00:56  0:00:05  0:00:51 75.9M
+10 4222M    0     0   10  460M      0  75.6M  0:00:55  0:00:06  0:00:49 79.4M
+4222M
+12 4222M    0     0   12  542M      0  76.4M  0:00:55  0:00:07  0:00:48 80.2M
+14 4222M    0     0   14  626M      0  77.3M  0:00:54  0:00:08  0:00:46 81.7M
+16 4222M    0     0   16  709M      0  78.0M  0:00:54  0:00:09  0:00:45 82.4M
+18 4222M    0     0   18  791M      0  78.4M  0:00:53  0:00:10  0:00:43 82.7M
+20 4222M    0     0   20  875M      0  78.9M  0:00:53  0:00:11  0:00:42 83.0M
+4222M
+22 4222M    0     0   22  958M      0  79.2M  0:00:53  0:00:12  0:00:41 83.3M
+24 4222M    0     0   24 1042M      0  79.7M  0:00:52  0:00:13  0:00:39 83.5M
+26 4222M    0     0   26 1126M      0  79.9M  0:00:52  0:00:14  0:00:38 83.6M
+28 4222M    0     0   28 1209M      0  80.2M  0:00:52  0:00:15  0:00:37 83.8M
+30 4222M    0     0   30 1293M      0  80.4M  0:00:52  0:00:16  0:00:36 83.6M
+4222M
+32 4222M    0     0   32 1376M      0  80.5M  0:00:52  0:00:17  0:00:35 83.6M
+34 4222M    0     0   34 1459M      0  80.7M  0:00:52  0:00:18  0:00:34 83.3M
+36 4222M    0     0   36 1542M      0  80.8M  0:00:52  0:00:19  0:00:33 83.1M
+38 4222M    0     0   38 1625M      0  80.9M  0:00:52  0:00:20  0:00:32 83.0M
+40 4222M    0     0   40 1708M      0  81.0M  0:00:52  0:00:21  0:00:31 82.9M
+4222M
+42 4222M    0     0   42 1791M      0  81.1M  0:00:52  0:00:22  0:00:30 83.0M
+44 4222M    0     0   44 1874M      0  81.2M  0:00:51  0:00:23  0:00:28 83.0M
+46 4222M    0     0   46 1957M      0  81.2M  0:00:51  0:00:24  0:00:27 83.0M
+48 4222M    0     0   48 2040M      0  81.3M  0:00:51  0:00:25  0:00:26 83.0M
+50 4222M    0     0   50 2121M      0  81.3M  0:00:51  0:00:26  0:00:25 82.7M
+4222M
+52 4222M    0     0   52 2205M      0  81.4M  0:00:51  0:00:27  0:00:24 82.7M
+54 4222M    0     0   54 2288M      0  81.4M  0:00:51  0:00:28  0:00:23 82.7M
+56 4222M    0     0   56 2371M      0  81.5M  0:00:51  0:00:29  0:00:22 82.6M
+58 4222M    0     0   58 2454M      0  81.5M  0:00:51  0:00:30  0:00:21 82.7M
+60 4222M    0     0   60 2536M      0  81.6M  0:00:51  0:00:31  0:00:20 83.0M
+4222M
+62 4222M    0     0   62 2619M      0  81.6M  0:00:51  0:00:32  0:00:19 82.8M
+64 4222M    0     0   64 2702M      0  81.6M  0:00:51  0:00:33  0:00:18 82.8M
+65 4222M    0     0   65 2785M      0  81.7M  0:00:51  0:00:34  0:00:17 82.9M
+67 4222M    0     0   67 2869M      0  81.7M  0:00:51  0:00:35  0:00:16 82.9M
+69 4222M    0     0   69 2951M      0  81.8M  0:00:51  0:00:36  0:00:15 83.0M
+4222M
+71 4222M    0     0   71 3034M      0  81.8M  0:00:51  0:00:37  0:00:14 83.0M
+73 4222M    0     0   73 3118M      0  81.8M  0:00:51  0:00:38  0:00:13 83.0M
+75 4222M    0     0   75 3200M      0  81.8M  0:00:51  0:00:39  0:00:12 83.0M
+77 4222M    0     0   77 3284M      0  81.9M  0:00:51  0:00:40  0:00:11 83.0M
+79 4222M    0     0   79 3367M      0  81.9M  0:00:51  0:00:41  0:00:10 83.0M
+4222M
+81 4222M    0     0   81 3450M      0  81.9M  0:00:51  0:00:42  0:00:09 83.0M
+83 4222M    0     0   83 3532M      0  82.0M  0:00:51  0:00:43  0:00:08 82.9M
+85 4222M    0     0   85 3615M      0  82.0M  0:00:51  0:00:44  0:00:07 82.8M
+87 4222M    0     0   87 3698M      0  82.0M  0:00:51  0:00:45  0:00:06 82.8M
+89 4222M    0     0   89 3778M      0  82.0M  0:00:51  0:00:46  0:00:05 82.3M
+4222M
+91 4222M    0     0   91 3861M      0  82.0M  0:00:51  0:00:47  0:00:04 82.3M
+93 4222M    0     0   93 3944M      0  82.0M  0:00:51  0:00:48  0:00:03 82.4M
+95 4222M    0     0   95 4027M      0  82.0M  0:00:51  0:00:49  0:00:02 82.3M
+97 4222M    0     0   97 4110M      0  82.0M  0:00:51  0:00:50  0:00:01 82.4M
+99 4222M    0     0   99 4193M      0  82.0M  0:00:51  0:00:51 --:--:-- 82.9M
+4222M
+100 4222M  100   447  100 4222M      8  80.7M  0:00:55  0:00:52  0:00:03 69.4M
+100 4222M  100   447  100 4222M      8  80.7M  0:00:55  0:00:52  0:00:03 66.2M
+{"data":{"createTime":1737629313,"downloadPage":"https://gofile.io/d/Wh1cwu","guestToken":"AFeKkfD1Y8maOJOGdCu7L3Aje2D8pOdf","id":"dd3c3c80-9a64-47a4-8a5e-7c89a1fa04f5","md5":"896bf62ea1b62feed73cbc833a8859e6","mimetype":"application/zip","modTime":1737629313,"name":"Sociology last.zip","parentFolder":"c5f337c2-f140-485e-8aaa-daf59d020568","parentFolderCode":"Wh1cwu","servers":["store-eu-par-2"],"size":4427377966,"type":"file"},"status":"ok"}
+/start verifycodeis273736363534799
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+/start verifycodeis273736363534799
+store7
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/6362203346/Opt.zip', 'https://store7.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 4284M    0     0    0 24.0M      0  37.4M  0:01:54 --:--:--  0:01:54 37.4M
+2 4284M    0     0    2  107M      0  66.0M  0:01:04  0:00:01  0:01:03 65.9M
+4 4284M    0     0    4  191M      0  72.8M  0:00:58  0:00:02  0:00:56 72.8M
+6 4284M    0     0    6  277M      0  76.2M  0:00:56  0:00:03  0:00:53 76.2M
+4284M
+8 4284M    0     0    8  362M      0  78.3M  0:00:54  0:00:04  0:00:50 78.3M
+10 4284M    0     0   10  446M      0  79.2M  0:00:54  0:00:05  0:00:49 84.6M
+12 4284M    0     0   12  530M      0  80.0M  0:00:53  0:00:06  0:00:47 84.6M
+14 4284M    0     0   14  614M      0  80.5M  0:00:53  0:00:07  0:00:46 84.5M
+16 4284M    0     0   16  698M      0  80.9M  0:00:52  0:00:08  0:00:44 84.4M
+4284M
+18 4284M    0     0   18  782M      0  81.3M  0:00:52  0:00:09  0:00:43 84.0M
+Server closed the connection: 0 bytes read on a total of 8 expected bytes
+Unhandled exception on callback_help
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 566, in callback_help
+    await event.delete()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 343, in delete
+    return await self._client.delete_messages(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1306, in delete_messages
+    return await self([functions.messages.DeleteMessagesRequest(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 83, in _call
+    raise MultiError(exceptions, results, requests)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 73, in _call
+    result = await f
+telethon.errors.rpcerrorlist.MessageDeleteForbiddenError: You can't delete one of the messages you tried to delete, most likely because it is a service message. (caused by DeleteMessagesRequest)
