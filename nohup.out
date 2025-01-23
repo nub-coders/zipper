@@ -14671,3 +14671,36 @@ Dload  Upload   Total   Spent    Left  Speed
 Server sent a very old message with ID 7463091374260449281, ignoring (see FAQ for details)
 Unable to connect due to network issues: Connection timed out
 Server sent a very old message with ID 7463091374282173441, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463110855098022921, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463110855462823937, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463110855608729601, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463110973533975553, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463112405537512449, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463112468765001729, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463112541595113473, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463112590563798017, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463112593694440449, ignoring (see FAQ for details)
+Task exception was never retrieved
+future: <Task finished name='Task-680746' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Server sent a very old message with ID 7463113952450301953, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952464102401, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952464797697, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952483937281, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952488646657, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952491213825, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952491278337, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952493349889, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952517439489, ignoring (see FAQ for details)
+Server sent a very old message with ID 7463113952521697281, ignoring (see FAQ for details)
+Security error while unpacking a received message: Too many messages had to be ignored consecutively
+Server sent a very old message with ID 7463113952523084801, ignoring (see FAQ for details)
+Security error while unpacking a received message: Too many messages had to be ignored consecutively
+socket.send() raised exception.
