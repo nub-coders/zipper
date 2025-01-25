@@ -15466,3 +15466,353 @@ Traceback (most recent call last):
 AttributeError: 'NoneType' object has no attribute 'edit'
 Server sent a very old message with ID 7463601133170578433, ignoring (see FAQ for details)
 Server closed the connection: 0 bytes read on a total of 8 expected bytes
+./zip.sh: line 28: 798134 Killed                  nohup python3 main.py
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /home/ubuntu/.local/lib/python3.10/site-packages (24.3.1)
+Defaulting to user installation because normal site-packages is not writeable
+Collecting https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip (from -r requirements.txt (line 4))
+  Using cached https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: uvloop in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (0.21.0)
+Requirement already satisfied: free-proxy in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 2)) (1.1.3)
+Requirement already satisfied: certifi in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 3)) (2024.12.14)
+Requirement already satisfied: gunicorn in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 5)) (23.0.0)
+Requirement already satisfied: flask in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 6)) (3.1.0)
+Requirement already satisfied: aiohttp in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 7)) (3.11.11)
+Requirement already satisfied: telethon in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 8)) (1.38.1)
+Requirement already satisfied: tgcrypto in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 9)) (1.2.5)
+Requirement already satisfied: cryptg in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 10)) (0.5.0.post0)
+Requirement already satisfied: requests in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 11)) (2.32.3)
+Requirement already satisfied: pymongo in /home/ubuntu/.local/lib/python3.10/site-packages (from -r requirements.txt (line 12)) (4.10.1)
+Requirement already satisfied: lxml in /home/ubuntu/.local/lib/python3.10/site-packages (from free-proxy->-r requirements.txt (line 2)) (5.3.0)
+Requirement already satisfied: pyaes==1.6.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Kurigram==2.1.37->-r requirements.txt (line 4)) (1.6.1)
+Requirement already satisfied: pysocks==1.7.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from Kurigram==2.1.37->-r requirements.txt (line 4)) (1.7.1)
+Requirement already satisfied: packaging in /home/ubuntu/.local/lib/python3.10/site-packages (from gunicorn->-r requirements.txt (line 5)) (24.2)
+Requirement already satisfied: Werkzeug>=3.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.3)
+Requirement already satisfied: Jinja2>=3.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (3.1.5)
+Requirement already satisfied: itsdangerous>=2.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (8.1.8)
+Requirement already satisfied: blinker>=1.9 in /home/ubuntu/.local/lib/python3.10/site-packages (from flask->-r requirements.txt (line 6)) (1.9.0)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (2.4.4)
+Requirement already satisfied: aiosignal>=1.1.2 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.3.2)
+Requirement already satisfied: async-timeout<6.0,>=4.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (5.0.1)
+Requirement already satisfied: attrs>=17.3.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (24.3.0)
+Requirement already satisfied: frozenlist>=1.1.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.5.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (6.1.0)
+Requirement already satisfied: propcache>=0.2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (0.2.1)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from aiohttp->-r requirements.txt (line 7)) (1.18.3)
+Requirement already satisfied: rsa in /home/ubuntu/.local/lib/python3.10/site-packages (from telethon->-r requirements.txt (line 8)) (4.9)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.4.1)
+Requirement already satisfied: idna<4,>=2.5 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/ubuntu/.local/lib/python3.10/site-packages (from requests->-r requirements.txt (line 11)) (2.3.0)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from pymongo->-r requirements.txt (line 12)) (2.7.0)
+WARNING: pymongo 4.10.1 does not provide the extra 'srv'
+Requirement already satisfied: MarkupSafe>=2.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from Jinja2>=3.1.2->flask->-r requirements.txt (line 6)) (3.0.2)
+Requirement already satisfied: typing-extensions>=4.1.0 in /home/ubuntu/.local/lib/python3.10/site-packages (from multidict<7.0,>=4.5->aiohttp->-r requirements.txt (line 7)) (4.12.2)
+Requirement already satisfied: pyasn1>=0.1.3 in /home/ubuntu/.local/lib/python3.10/site-packages (from rsa->telethon->-r requirements.txt (line 8)) (0.6.1)
+Starting zipper.py...
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2025-01-25 04:47:54
+Directory: /home/ubuntu/Work, Updated 0:00:01.321056 ago
+Directory: /home/ubuntu/Work/.git, Updated 0:53:21.073469 ago
+Directory: /home/ubuntu/Work/.git/refs/remotes/origin, Updated 0:53:20.116463 ago
+Directory: /home/ubuntu/Work/.git/refs/heads, Updated 0:53:21.071470 ago
+Directory: /home/ubuntu/Work/.git/info, Updated 18 days, 19:37:02.167898 ago
+Directory: /home/ubuntu/Work/.git/objects/1f, Updated 5 days, 16:49:27.908735 ago
+Directory: /home/ubuntu/Work/.git/objects/2d, Updated 9 days, 10:33:32.559038 ago
+Directory: /home/ubuntu/Work/.git/objects/0c, Updated 9 days, 10:33:32.558038 ago
+Directory: /home/ubuntu/Work/.git/objects/6c, Updated 2 days, 19:01:25.170873 ago
+Directory: /home/ubuntu/Work/.git/objects/4b, Updated 2 days, 17:12:01.438973 ago
+Directory: /home/ubuntu/Work/.git/objects/d0, Updated 10 days, 15:11:19.176351 ago
+Directory: /home/ubuntu/Work/.git/objects/2a, Updated 11 days, 9:00:24.469656 ago
+Directory: /home/ubuntu/Work/.git/objects/66, Updated 4 days, 14:22:05.125766 ago
+Directory: /home/ubuntu/Work/.git/objects/3f, Updated 3 days, 18:43:26.645204 ago
+Directory: /home/ubuntu/Work/.git/objects/19, Updated 2 days, 17:53:45.084954 ago
+Directory: /home/ubuntu/Work/.git/objects/pack, Updated 12 days, 9:18:56.934442 ago
+Directory: /home/ubuntu/Work/.git/objects/77, Updated 2 days, 19:01:25.172873 ago
+Directory: /home/ubuntu/Work/.git/objects/92, Updated 2 days, 19:01:25.180874 ago
+Directory: /home/ubuntu/Work/.git/objects/29, Updated 11 days, 9:00:24.468656 ago
+Directory: /home/ubuntu/Work/.git/objects/f2, Updated 8 days, 20:03:55.533961 ago
+Directory: /home/ubuntu/Work/.git/objects/60, Updated 6 days, 16:39:14.749002 ago
+Directory: /home/ubuntu/Work/.git/objects/c6, Updated 8 days, 22:40:17.871624 ago
+Directory: /home/ubuntu/Work/.git/objects/7a, Updated 5 days, 12:47:38.573379 ago
+Directory: /home/ubuntu/Work/.git/objects/dc, Updated 20:06:43.316052 ago
+Directory: /home/ubuntu/Work/.git/objects/35, Updated 0:53:21.073469 ago
+Directory: /home/ubuntu/Work/.git/objects/98, Updated 8 days, 20:03:55.535961 ago
+Directory: /home/ubuntu/Work/.git/objects/fb, Updated 1 day, 15:23:48.231544 ago
+Directory: /home/ubuntu/Work/.git/objects/a6, Updated 1 day, 10:20:37.447956 ago
+Directory: /home/ubuntu/Work/.git/objects/73, Updated 11 days, 11:56:09.399536 ago
+Directory: /home/ubuntu/Work/.git/objects/50, Updated 8 days, 8:38:26.312551 ago
+Directory: /home/ubuntu/Work/.git/objects/0b, Updated 1 day, 10:20:37.451956 ago
+Directory: /home/ubuntu/Work/.git/objects/72, Updated 8 days, 20:03:55.531961 ago
+Directory: /home/ubuntu/Work/.git/objects/3d, Updated 5 days, 22:03:24.413233 ago
+Directory: /home/ubuntu/Work/.git/objects/e7, Updated 3 days, 18:43:26.651204 ago
+Directory: /home/ubuntu/Work/.git/objects/74, Updated 20:06:43.314052 ago
+Directory: /home/ubuntu/Work/.git/objects/67, Updated 4 days, 14:22:05.122766 ago
+Directory: /home/ubuntu/Work/.git/objects/b8, Updated 4 days, 14:22:05.121766 ago
+Directory: /home/ubuntu/Work/.git/objects/0a, Updated 5 days, 22:03:24.416233 ago
+Directory: /home/ubuntu/Work/.git/objects/b6, Updated 6 days, 16:39:14.747003 ago
+Directory: /home/ubuntu/Work/.git/objects/24, Updated 2 days, 17:12:01.435973 ago
+Directory: /home/ubuntu/Work/.git/objects/d1, Updated 1 day, 14:00:44.486505 ago
+Directory: /home/ubuntu/Work/.git/objects/cc, Updated 2 days, 10:48:35.598889 ago
+Directory: /home/ubuntu/Work/.git/objects/34, Updated 2 days, 10:48:35.593889 ago
+Directory: /home/ubuntu/Work/.git/objects/79, Updated 12 days, 9:18:48.621391 ago
+Directory: /home/ubuntu/Work/.git/objects/b4, Updated 5 days, 16:49:27.911735 ago
+Directory: /home/ubuntu/Work/.git/objects/88, Updated 11 days, 11:56:09.398536 ago
+Directory: /home/ubuntu/Work/.git/objects/85, Updated 5 days, 16:49:27.909735 ago
+Directory: /home/ubuntu/Work/.git/objects/b7, Updated 1 day, 14:00:44.487505 ago
+Directory: /home/ubuntu/Work/.git/objects/95, Updated 8 days, 22:40:17.872625 ago
+Directory: /home/ubuntu/Work/.git/objects/39, Updated 1 day, 15:23:48.226544 ago
+Directory: /home/ubuntu/Work/.git/objects/13, Updated 0:53:21.074470 ago
+Directory: /home/ubuntu/Work/.git/objects/7b, Updated 5 days, 12:47:38.572379 ago
+Directory: /home/ubuntu/Work/.git/objects/04, Updated 5 days, 19:04:29.296863 ago
+Directory: /home/ubuntu/Work/.git/objects/4c, Updated 1 day, 14:00:44.489505 ago
+Directory: /home/ubuntu/Work/.git/objects/0f, Updated 7 days, 11:44:08.906676 ago
+Directory: /home/ubuntu/Work/.git/objects/18, Updated 5 days, 12:47:38.575379 ago
+Directory: /home/ubuntu/Work/.git/objects/42, Updated 11 days, 11:56:09.403536 ago
+Directory: /home/ubuntu/Work/.git/objects/fa, Updated 12 days, 9:18:48.625390 ago
+Directory: /home/ubuntu/Work/.git/objects/64, Updated 5 days, 22:03:24.412232 ago
+Directory: /home/ubuntu/Work/.git/objects/6a, Updated 4 days, 19:21:09.033914 ago
+Directory: /home/ubuntu/Work/.git/objects/6f, Updated 2 days, 17:53:45.087954 ago
+Directory: /home/ubuntu/Work/.git/objects/84, Updated 8 days, 22:40:17.875625 ago
+Directory: /home/ubuntu/Work/.git/objects/c1, Updated 20:06:43.321052 ago
+Directory: /home/ubuntu/Work/.git/objects/81, Updated 0:53:21.080470 ago
+Directory: /home/ubuntu/Work/.git/objects/f9, Updated 7 days, 11:44:08.912676 ago
+Directory: /home/ubuntu/Work/.git/objects/fe, Updated 4 days, 19:21:09.035914 ago
+Directory: /home/ubuntu/Work/.git/objects/23, Updated 5 days, 19:04:29.299863 ago
+Directory: /home/ubuntu/Work/.git/objects/e5, Updated 11 days, 9:00:24.472656 ago
+Directory: /home/ubuntu/Work/.git/objects/d5, Updated 10 days, 17:42:33.833374 ago
+Directory: /home/ubuntu/Work/.git/objects/8e, Updated 2 days, 17:12:01.436973 ago
+Directory: /home/ubuntu/Work/.git/objects/fc, Updated 1 day, 10:20:37.448956 ago
+Directory: /home/ubuntu/Work/.git/objects/08, Updated 5 days, 19:04:29.297863 ago
+Directory: /home/ubuntu/Work/.git/objects/fd, Updated 12 days, 9:18:56.929442 ago
+Directory: /home/ubuntu/Work/.git/objects/15, Updated 2 days, 10:48:35.591889 ago
+Directory: /home/ubuntu/Work/.git/objects/f6, Updated 1 day, 15:23:48.224544 ago
+Directory: /home/ubuntu/Work/.git/objects/e2, Updated 6 days, 16:39:14.745002 ago
+Directory: /home/ubuntu/Work/.git/logs, Updated 0:53:21.072469 ago
+Directory: /home/ubuntu/Work/.git/logs/refs/remotes/origin, Updated 0:53:20.116463 ago
+Directory: /home/ubuntu/Work/.git/logs/refs/heads, Updated 0:53:21.072469 ago
+Directory: /home/ubuntu/Work/.git/hooks, Updated 18 days, 19:37:02.167898 ago
+Directory: /home/ubuntu/Work/__pycache__, Updated 18 days, 16:24:51.887797 ago
+Directory: /home/ubuntu/Work/zipper/6974249831, Updated 3 days, 16:36:38.498435 ago
+Deleted file: /home/ubuntu/Work/zipper/6974249831/FILEs_COMPRESSOR_BOT?start=verifycodeis27373636365449
+Directory: /home/ubuntu/Work/zipper/6095818258, Updated 8 days, 3:41:49.783198 ago
+Deleted file: /home/ubuntu/Work/zipper/6095818258/6- Yourfavets - ( JOIN TELE @Aset_Pemersatu ).mp4
+Directory: /home/ubuntu/Work/zipper/7243904767, Updated 8 days, 12:36:34.264218 ago
+Deleted file: /home/ubuntu/Work/zipper/7243904767/Copy of Vowel.pdf.pdf
+Directory: /home/ubuntu/Work/zipper/8154521395, Updated 6 days, 22:57:29.491783 ago
+Deleted file: /home/ubuntu/Work/zipper/8154521395/Taqdimot-5916b857-424c-41c1-b446-93d3078f5d75.pptx
+Deleted file: /home/ubuntu/Work/zipper/8154521395/Taqdimot-cd38c73c-67c2-47bd-b3ad-fe8198dd6396.pptx
+Deleted file: /home/ubuntu/Work/zipper/8154521395/file-46gTL9LFFD3hibF45XVzjZ.pptx
+Deleted file: /home/ubuntu/Work/zipper/8154521395/Taqdimot-1a9529e1-7efb-4424-9e44-dfc318210e38.pptx
+Deleted file: /home/ubuntu/Work/zipper/8154521395/Lesson plan on Classroom things by Muzaffarova Hosila.docx
+Deleted file: /home/ubuntu/Work/zipper/8154521395/file-4YUDvbbSP6piNCTgK5y23s.pptx
+Directory: /home/ubuntu/Work/zipper/809359042, Updated 6 days, 10:18:32.490908 ago
+Deleted file: /home/ubuntu/Work/zipper/809359042/4. LaTeX Markdown and Generating Data with Numpy.mp4
+Deleted file: /home/ubuntu/Work/zipper/809359042/3. Introduction to Cost Functions.mp4
+Directory: /home/ubuntu/Work/zipper/5130968768, Updated 6 days, 15:23:19.905886 ago
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Indias_Most_Fearless_2_-_Shiv_Aroor.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/The_Mental_Floss_History_of_the_World_-_Erik_Sass.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/A_Man_Called_Ove_-_Fredrik_Backman.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Rise_and_Kill_First_The_Secret_History_of_Israel’s_Targeted_Assassinations.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/India_Unbound_-_Gurcharan_Das.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/David_and_Goliath_-_Malcolm_Gladwell.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Land_of_the_Seven_Rivers_-_Sanjeev_Sanyal.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Unbroken_Una_storia_di_resistenza_e_coraggio_Hillenbrand_Laura.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/India_After_Gandhi_Revised_and_Updated_Edi_Ramachandra_Guha.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/India_Most_Fearless_True_Stories_of_Modern_Military_Heroes.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Seeing_Like_a_Feminist_-_Nivedita_Menon.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Sapiens-A-Brief-History-of-Humankind.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/History_of_Israel_and_Palestine_-_Michael_Scott-Baumann.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/Outliers_-_Malcolm_Gladwell.pdf
+Deleted file: /home/ubuntu/Work/zipper/5130968768/A_Gentleman_in_Moscow_-_Amor_Towles.pdf
+Directory: /home/ubuntu/Work/zipper/5814867154, Updated 2 days, 19:07:10.595053 ago
+Directory: /home/ubuntu/Work/zipper/1468870806, Updated 7 days, 11:19:10.917242 ago
+Deleted file: /home/ubuntu/Work/zipper/1468870806/𝖺𝗇𝖽𝗈𝗋𝖺 ﹙𝗇𝗒𝗆𝗉𝗁﹚.zip
+Directory: /home/ubuntu/Work/zipper/60098612, Updated 5 days, 18:13:28.811414 ago
+Deleted file: /home/ubuntu/Work/zipper/60098612/fabric 3.pptx
+Directory: /home/ubuntu/Work/zipper/689810876, Updated 6 days, 17:07:39.012847 ago
+Deleted file: /home/ubuntu/Work/zipper/689810876/photo_2025-01-18_11-40-01.jpg
+Deleted file: /home/ubuntu/Work/zipper/689810876/photo_2025-01-18_11-40-14.jpg
+Deleted file: /home/ubuntu/Work/zipper/689810876/photo_2025-01-18_11-40-08.jpg
+Directory: /home/ubuntu/Work/zipper/6824818847, Updated 1 day, 8:19:42.408336 ago
+Directory: /home/ubuntu/Work/zipper/687423395, Updated 7 days, 12:22:46.872102 ago
+Deleted file: /home/ubuntu/Work/zipper/687423395/26. Numeric Palindrome Equilateral Pyramid.mp4
+Deleted file: /home/ubuntu/Work/zipper/687423395/24. Numeric Hollow Half Pyramid.mp4
+Deleted file: /home/ubuntu/Work/zipper/687423395/16. Patterns Q1.mp4
+Directory: /home/ubuntu/Work/zipper/1303669604, Updated 4 days, 1:43:30.421211 ago
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-05 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-11 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-14 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-12 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-06 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-13 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-08 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-01 sol.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-06 sol.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-02 sol.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-07 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-01 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-03 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-10 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-09 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-04 QP.pdf
+Deleted file: /home/ubuntu/Work/zipper/1303669604/CST-02 QP.pdf
+Directory: /home/ubuntu/Work/zipper/1109500787, Updated 2 days, 14:50:11.829237 ago
+Directory: /home/ubuntu/Work/zipper/6529778081, Updated 2 days, 19:23:47.344538 ago
+Directory: /home/ubuntu/Work/zipper/7876640297, Updated 5 days, 16:32:02.605247 ago
+Deleted file: /home/ubuntu/Work/zipper/7876640297/Jutta Boniface Mhando Assgt. 4.pdf
+Directory: /home/ubuntu/Work/zipper/1722932787, Updated 7 days, 22:44:21.110991 ago
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Forget Me Not.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Fire In My Lungs.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Forever Love.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Good Time.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Forever V2.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Good Days V2.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Back in Chicago.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Ball (WOD).mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Can_t Help It.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Chimp.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Cold Summer (No Breaks).mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Gamble (Off The Rip).mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Carry It.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Bankroll.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Girl With The Blonde Hair.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Ball.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Good Time (feat. Kid Cudi).mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/27 Club.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Elevate.m4a
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Agree to Disagree.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/38 Special.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Good Days.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Good Days 1.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Junkie.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/The_Chainsmokers_X_Juice_Wrld_-_Lemon_Glow.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Choppa (feat. D Savage).mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Bussin_.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Fever.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Drugs Are My Friends (Sick).mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Confide.mp3
+Deleted file: /home/ubuntu/Work/zipper/1722932787/Goyard Bag.mp3
+Directory: /home/ubuntu/Work/zipper/6532611813, Updated 8 days, 7:22:10.931787 ago
+Deleted file: /home/ubuntu/Work/zipper/6532611813/🌐Ooredoo (1).dark
+Directory: /home/ubuntu/Work/zipper/5011243812, Updated 7 days, 12:10:43.805599 ago
+Deleted file: /home/ubuntu/Work/zipper/5011243812/photo_2025-01-17_16-37-09.jpg
+Deleted file: /home/ubuntu/Work/zipper/5011243812/photo_2025-01-17_16-36-56.jpg
+Deleted file: /home/ubuntu/Work/zipper/5011243812/photo_2025-01-17_16-37-03.jpg
+Directory: /home/ubuntu/Work/zipper/5930968405, Updated 1 day, 23:34:45.873380 ago
+Directory: /home/ubuntu/Work/zipper/1495834696, Updated 5 days, 14:34:55.022696 ago
+Deleted file: /home/ubuntu/Work/zipper/1495834696/scrapbook atiqah (1).pdf
+Directory: /home/ubuntu/Work/zipper/6328848071, Updated 7 days, 10:23:49.632172 ago
+Deleted file: /home/ubuntu/Work/zipper/6328848071/NEETPREP CHAPTERWISE TEST.zip
+Directory: /home/ubuntu/Work/zipper/5120553235, Updated 2 days, 21:19:55.214398 ago
+Directory: /home/ubuntu/Work/zipper/7113074675, Updated 5 days, 4:18:25.964899 ago
+Deleted file: /home/ubuntu/Work/zipper/7113074675/document_2025-01-20_00-27-42.mp4
+Directory: /home/ubuntu/Work/zipper/1916422671, Updated 2 days, 10:49:57.620410 ago
+Directory: /home/ubuntu/Work/zipper/1780823851, Updated 14:39:11.216396 ago
+Directory: /home/ubuntu/Work/zipper/1084887127, Updated 2 days, 21:45:51.248238 ago
+Directory: /home/ubuntu/Work/zipper/1689398601, Updated 5 days, 14:55:04.854337 ago
+Deleted file: /home/ubuntu/Work/zipper/1689398601/Christine.zip
+Directory: /home/ubuntu/Work/zipper/431227028, Updated 6 days, 10:17:14.715409 ago
+Deleted file: /home/ubuntu/Work/zipper/431227028/list_3451907273_2821980765_0_0.mp4
+Directory: /home/ubuntu/Work/zipper/577040223, Updated 8 days, 3:34:12.680270 ago
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 5.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 8 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 7 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 6 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 13 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 11.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 7.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 13.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 10 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 12.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 6.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 11 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 8.zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 12 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 5 (1).zip
+Deleted file: /home/ubuntu/Work/zipper/577040223/j 10.zip
+Directory: /home/ubuntu/Work/zipper/5626179908, Updated 15:18:19.475176 ago
+Directory: /home/ubuntu/Work/zipper/201092931, Updated 1 day, 20:42:14.064212 ago
+Directory: /home/ubuntu/Work/zipper/5900380813, Updated 4 days, 21:22:22.507383 ago
+Deleted file: /home/ubuntu/Work/zipper/5900380813/photo_2025-01-20_07-25-26.jpg
+Deleted file: /home/ubuntu/Work/zipper/5900380813/photo_2025-01-20_07-25-31.jpg
+Deleted file: /home/ubuntu/Work/zipper/5900380813/photo_2025-01-20_07-25-20.jpg
+Deleted file: /home/ubuntu/Work/zipper/5900380813/photo_2025-01-20_07-25-14.jpg
+Directory: /home/ubuntu/Work/zipper/6494225836, Updated 8 days, 14:50:40.751871 ago
+Deleted file: /home/ubuntu/Work/zipper/6494225836/Yellow_Cute_Illustrative_Creative_Portfolio_Presentation_2.pptx
+Directory: /home/ubuntu/Work/zipper/1651746145, Updated 6 days, 22:40:48.853353 ago
+Deleted file: /home/ubuntu/Work/zipper/1651746145/Adobe After Effects CC 2020 v17.0.0.555.part1.rar
+Directory: /home/ubuntu/Work/zipper/1898131781, Updated 2 days, 8:23:01.049887 ago
+Directory: /home/ubuntu/Work/zipper/2062530062, Updated 5 days, 18:23:20.057277 ago
+Deleted file: /home/ubuntu/Work/zipper/2062530062/Иқтисодиёт_назарияси_Дарслик_Ш_Шодмонов,_М_Рахматов_Тошкент_2021.rar
+Directory: /home/ubuntu/Work/zipper/6596445615, Updated 4 days, 9:24:26.526517 ago
+Deleted file: /home/ubuntu/Work/zipper/6596445615/mousa.mousavi-bio.be.kenaram(320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/[SPOTIFY-DOWNLOADER.COM] The Rains of Castamere.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Farshid Hekmati - Nazi Jon(320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Shadmehr Aghili - Taghdir [320].mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Saeid-Hosseini-20.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Sami Low X Raha Wantons X THE Don - Del (320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Shir.Ali.Mardoon(1).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Vigen-Mara Beboos.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Morteza Pashaei - Jadeye Yektarafe (320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Hasan Golnaraghi - Mara Beboos (320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Remix Nika 1 - Ali Ahmadiani _ Mosafer ( MiX ).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Raghs_Pichak_Ali_Sorena,_Ali_Sorena,_Saeed_Dehghan,_Ali_Khod.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Mohammaddarvish2.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Boro Bache Poro (320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Mehdi Ahmadvand - Baroon (320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/saeed hoseine-sarhad.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Mehrshad Dubai Boode Landan 320 .mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Remix - Tavalodame.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Farshid Hekmati - Shaz Abdollah - 320.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Ebi - Goreez (320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/sandi_-_delom_chine_320.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Aron Afshar - Delshoore (UpMusic 320).mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/01 Tak Khal.mp3
+Deleted file: /home/ubuntu/Work/zipper/6596445615/Saeid-Hosseini-23.mp3
+Directory: /home/ubuntu/Work/zipper/7385089891, Updated 2 days, 21:20:05.218462 ago
+Directory: /home/ubuntu/Work/zipper/1966354949, Updated 16:00:04.253999 ago
+Directory: /home/ubuntu/Work/zipper/5814769089, Updated 22:33:08.459487 ago
+Directory: /home/ubuntu/Work/zipper/7022188093, Updated 4 days, 22:28:47.033033 ago
+Deleted file: /home/ubuntu/Work/zipper/7022188093/C6 Thermodynamics.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/Organic chemistry basics some principle.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/A13 hydrocarbons new.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/7-Equilibrium (3).pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/D and F elements.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/Biomolecules.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/1_Some Basic Concepts of Chemistry.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/12. Aldehyde Ketones and Carboxylic Acid.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/C1 Solid State.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/C9 Hydrogen.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/8. Redox Reaction.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/11 Environmental Chemistry.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/Chemical bonding and molecular structure.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/15_Polymers.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/6_General_Principles_and_Processes_of_Isolation_of_Elements_1.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/5. States of Matter (1).pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/C16 Chemistry in everyday Life.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/C2 Structure of Atom.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/11_The P-Block Elements.pdf
+Deleted file: /home/ubuntu/Work/zipper/7022188093/The S - block elements.pdf
+Directory: /home/ubuntu/Work/zipper/6157640191, Updated 8 days, 15:06:51.367996 ago
+Deleted file: /home/ubuntu/Work/zipper/6157640191/Yashamoq 3_250109_135018.pdf
+Directory: /home/ubuntu/Work/zipper/6664842275, Updated 7 days, 12:10:37.830562 ago
+Deleted file: /home/ubuntu/Work/zipper/6664842275/photo_2025-01-17_16-37-16.jpg
+Deleted file: /home/ubuntu/Work/zipper/6664842275/photo_2025-01-17_15-49-24.jpg
+Deleted file: /home/ubuntu/Work/zipper/6664842275/photo_2025-01-17_09-12-27.jpg
+Deleted file: /home/ubuntu/Work/zipper/6664842275/photo_2025-01-17_09-12-21.jpg
+Deleted file: /home/ubuntu/Work/zipper/6664842275/photo_2025-01-17_14-10-42.jpg
+Directory: /home/ubuntu/Work/zipper/5308446987, Updated 2 days, 14:49:36.920010 ago
+Directory: /home/ubuntu/Work/zipper/7004042401, Updated 7 days, 17:56:51.369055 ago
+Deleted file: /home/ubuntu/Work/zipper/7004042401/قانون وبتون چپتر ۱۸۶...pdf
+Directory: /home/ubuntu/Work/zipper/1387151841, Updated 8 days, 10:40:07.214336 ago
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E08.Nana.Saheb.T.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E16.Chaphekar.Br.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E13.Rani.Chennam.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E10.Rani.Lakshmi.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E09.Rani.Lakshmi.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E14.Kerala.Varma.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E12.Rani.Velu.Na.mkv
+Deleted file: /home/ubuntu/Work/zipper/1387151841/Krish.Trish.and.Baltiboy.Bharat.Hain.Hum.S01E11.Rani.Ahilyab.mkv
