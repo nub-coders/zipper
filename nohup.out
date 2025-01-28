@@ -17445,3 +17445,505 @@ Traceback (most recent call last):
   File "/home/ubuntu/Work/main.py", line 1019, in create_zip
     return await response.edit(e)
 AttributeError: 'NoneType' object has no attribute 'edit'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 829, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 958, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 418, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 765, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 829, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 418, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 765, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 829, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 876, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 418, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 765, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unable to connect due to network issues: Connection timed out
+socket.send() raised exception.
+socket.send() raised exception.
+Task exception was never retrieved
+future: <Task finished name='Task-423751' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+/start verifycodeis2737363373664
+/start verifycodeis2737363373664
+/start verifycodeis2737363827374
+/start@FILEs_COMPRESSOR_BOT
+/start verifycodeis273733764778
+/start verifycodeis273733764778
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+time_left unchanged for 30 seconds. Setting downloading to False.
+store-eu-par-2
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/5912021860/Socio 1-5.zip', 'https://store-eu-par-2.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Total
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 4307M    0     0    0 23.7M      0  40.0M  0:01:47 --:--:--  0:01:47 39.9M
+2 4307M    0     0    2  111M      0  69.4M  0:01:02  0:00:01  0:01:01 69.3M
+4307M
+4 4307M    0     0    4  196M      0  75.8M  0:00:56  0:00:02  0:00:54 75.8M
+6 4307M    0     0    6  283M      0  78.7M  0:00:54  0:00:03  0:00:51 78.7M
+8 4307M    0     0    8  369M      0  80.3M  0:00:53  0:00:04  0:00:49 80.3M
+10 4307M    0     0   10  455M      0  81.3M  0:00:52  0:00:05  0:00:47 86.2M
+12 4307M    0     0   12  541M      0  82.1M  0:00:52  0:00:06  0:00:46 86.2M
+4307M
+14 4307M    0     0   14  627M      0  82.6M  0:00:52  0:00:07  0:00:45 86.1M
+16 4307M    0     0   16  714M      0  83.1M  0:00:51  0:00:08  0:00:43 86.2M
+18 4307M    0     0   18  799M      0  83.3M  0:00:51  0:00:09  0:00:42 86.0M
+20 4307M    0     0   20  885M      0  83.6M  0:00:51  0:00:10  0:00:41 86.1M
+22 4307M    0     0   22  971M      0  83.8M  0:00:51  0:00:11  0:00:40 86.0M
+4307M
+24 4307M    0     0   24 1057M      0  84.0M  0:00:51  0:00:12  0:00:39 86.1M
+26 4307M    0     0   26 1144M      0  84.1M  0:00:51  0:00:13  0:00:38 86.0M
+28 4307M    0     0   28 1229M      0  84.2M  0:00:51  0:00:14  0:00:37 86.0M
+30 4307M    0     0   30 1316M      0  84.4M  0:00:51  0:00:15  0:00:36 86.0M
+32 4307M    0     0   32 1402M      0  84.5M  0:00:50  0:00:16  0:00:34 86.0M
+4307M
+34 4307M    0     0   34 1488M      0  84.6M  0:00:50  0:00:17  0:00:33 86.1M
+36 4307M    0     0   36 1574M      0  84.6M  0:00:50  0:00:18  0:00:32 86.0M
+38 4307M    0     0   38 1660M      0  84.7M  0:00:50  0:00:19  0:00:31 86.0M
+40 4307M    0     0   40 1746M      0  84.8M  0:00:50  0:00:20  0:00:30 86.1M
+42 4307M    0     0   42 1832M      0  84.8M  0:00:50  0:00:21  0:00:29 86.0M
+4307M
+44 4307M    0     0   44 1918M      0  84.9M  0:00:50  0:00:22  0:00:28 86.0M
+46 4307M    0     0   46 2004M      0  84.9M  0:00:50  0:00:23  0:00:27 85.9M
+48 4307M    0     0   48 2090M      0  85.0M  0:00:50  0:00:24  0:00:26 86.1M
+50 4307M    0     0   50 2176M      0  85.0M  0:00:50  0:00:25  0:00:25 85.8M
+52 4307M    0     0   52 2262M      0  85.0M  0:00:50  0:00:26  0:00:24 86.0M
+4307M
+54 4307M    0     0   54 2348M      0  85.1M  0:00:50  0:00:27  0:00:23 86.0M
+56 4307M    0     0   56 2434M      0  85.1M  0:00:50  0:00:28  0:00:22 86.0M
+58 4307M    0     0   58 2521M      0  85.2M  0:00:50  0:00:29  0:00:21 86.0M
+60 4307M    0     0   60 2606M      0  85.2M  0:00:50  0:00:30  0:00:20 86.0M
+62 4307M    0     0   62 2693M      0  85.2M  0:00:50  0:00:31  0:00:19 86.0M
+4307M
+64 4307M    0     0   64 2779M      0  85.2M  0:00:50  0:00:32  0:00:18 86.0M
+66 4307M    0     0   66 2864M      0  85.2M  0:00:50  0:00:33  0:00:17 86.0M
+68 4307M    0     0   68 2951M      0  85.3M  0:00:50  0:00:34  0:00:16 86.1M
+70 4307M    0     0   70 3036M      0  85.3M  0:00:50  0:00:35  0:00:15 86.0M
+72 4307M    0     0   72 3124M      0  85.3M  0:00:50  0:00:36  0:00:14 86.1M
+4307M
+74 4307M    0     0   74 3209M      0  85.3M  0:00:50  0:00:37  0:00:13 85.9M
+76 4307M    0     0   76 3296M      0  85.3M  0:00:50  0:00:38  0:00:12 86.0M
+78 4307M    0     0   78 3382M      0  85.4M  0:00:50  0:00:39  0:00:11 86.0M
+80 4307M    0     0   80 3468M      0  85.4M  0:00:50  0:00:40  0:00:10 86.2M
+82 4307M    0     0   82 3553M      0  85.4M  0:00:50  0:00:41  0:00:09 85.9M
+4307M
+84 4307M    0     0   84 3640M      0  85.4M  0:00:50  0:00:42  0:00:08 86.2M
+86 4307M    0     0   86 3725M      0  85.4M  0:00:50  0:00:43  0:00:07 85.9M
+88 4307M    0     0   88 3812M      0  85.4M  0:00:50  0:00:44  0:00:06 86.0M
+90 4307M    0     0   90 3897M      0  85.4M  0:00:50  0:00:45  0:00:05 85.9M
+92 4307M    0     0   92 3984M      0  85.5M  0:00:50  0:00:46  0:00:04 86.1M
+4307M
+94 4307M    0     0   94 4070M      0  85.5M  0:00:50  0:00:47  0:00:03 85.9M
+96 4307M    0     0   96 4156M      0  85.5M  0:00:50  0:00:48  0:00:02 86.0M
+Unable to connect due to network issues: Connection timed out
+Task exception was never retrieved
+future: <Task finished name='Task-448200' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-448201' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-448202' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-448203' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 64, in listen
+    return await asyncio.wait_for(future, timeout)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1017, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 96, in ask
+    response = await self.listen(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 74, in listen
+    raise ListenerTimeout(timeout)
+pyromod.exceptions.listener_timeout.ListenerTimeout: 60
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1019, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+Unable to connect due to network issues: Connection timed out
+socket.send() raised exception.
+socket.send() raised exception.
+98 4307M    0     0   98 4242M      0  85.5M  0:00:50  0:00:49  0:00:01 86.0M
+100 4307M  100   442  100 4307M      8  84.8M  0:00:55  0:00:50  0:00:05 79.0M
+100 4307M  100   442  100 4307M      8  84.8M  0:00:55  0:00:50  0:00:05 77.3M
+4307M
+{"data":{"createTime":1737980711,"downloadPage":"https://gofile.io/d/PDa3XT","guestToken":"uBNrqchG0YYsFOiXoH6QXVGuB8555uGR","id":"ad049323-35c3-43ea-ae28-b1cc2a9d7029","md5":"79ca1ce47b80b1b6c85123a6aa4e7a9a","mimetype":"application/zip","modTime":1737980711,"name":"Socio 1-5.zip","parentFolder":"93b42a7f-0f5b-414a-b317-6a4e25165d6d","parentFolderCode":"PDa3XT","servers":["store-eu-par-2"],"size":4517029298,"type":"file"},"status":"ok"}
+store-eu-par-2
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/6362203346/Socio 12-18.zip', 'https://store-eu-par-2.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 4273M    0     0    0 13.0M      0  27.2M  0:02:37 --:--:--  0:02:37 27.1M
+2 4273M    0     0    2 98.3M      0  66.5M  0:01:04  0:00:01  0:01:03 66.4M
+4 4273M    0     0    4  183M      0  73.9M  0:00:57  0:00:02  0:00:55 73.9M
+6 4273M    0     0    6  268M      0  77.0M  0:00:55  0:00:03  0:00:52 77.0M
+4273M
+8 4273M    0     0    8  353M      0  78.7M  0:00:54  0:00:04  0:00:50 78.7M
+10 4273M    0     0   10  437M      0  79.8M  0:00:53  0:00:05  0:00:48 84.8M
+12 4273M    0     0   12  522M      0  80.5M  0:00:53  0:00:06  0:00:47 84.7M
+14 4273M    0     0   14  606M      0  81.1M  0:00:52  0:00:07  0:00:45 84.6M
+16 4273M    0     0   16  691M      0  81.5M  0:00:52  0:00:08  0:00:44 84.6M
+4273M
+18 4273M    0     0   18  776M      0  81.9M  0:00:52  0:00:09  0:00:43 84.7M
+20 4273M    0     0   20  861M      0  82.2M  0:00:51  0:00:10  0:00:41 84.8M
+22 4273M    0     0   22  946M      0  82.4M  0:00:51  0:00:11  0:00:40 84.8M
+24 4273M    0     0   24 1031M      0  82.6M  0:00:51  0:00:12  0:00:39 84.8M
+26 4273M    0     0   26 1116M      0  82.7M  0:00:51  0:00:13  0:00:38 84.9M
+4273M
+28 4273M    0     0   28 1200M      0  82.8M  0:00:51  0:00:14  0:00:37 84.7M
+30 4273M    0     0   30 1285M      0  83.0M  0:00:51  0:00:15  0:00:36 84.7M
+32 4273M    0     0   32 1369M      0  83.0M  0:00:51  0:00:16  0:00:35 84.6M
+34 4273M    0     0   34 1454M      0  83.1M  0:00:51  0:00:17  0:00:34 84.6M
+36 4273M    0     0   36 1538M      0  83.2M  0:00:51  0:00:18  0:00:33 84.4M
+4273M
+37 4273M    0     0   37 1623M      0  83.3M  0:00:51  0:00:19  0:00:32 84.6M
+39 4273M    0     0   39 1707M      0  83.3M  0:00:51  0:00:20  0:00:31 84.4M
+41 4273M    0     0   41 1793M      0  83.4M  0:00:51  0:00:21  0:00:30 84.7M
+43 4273M    0     0   43 1878M      0  83.5M  0:00:51  0:00:22  0:00:29 84.7M
+45 4273M    0     0   45 1962M      0  83.5M  0:00:51  0:00:23  0:00:28 84.8M
+4273M
+47 4273M    0     0   47 2047M      0  83.6M  0:00:51  0:00:24  0:00:27 84.8M
+49 4273M    0     0   49 2132M      0  83.6M  0:00:51  0:00:25  0:00:26 84.8M
+51 4273M    0     0   51 2217M      0  83.7M  0:00:51  0:00:26  0:00:25 84.8M
+53 4273M    0     0   53 2301M      0  83.7M  0:00:51  0:00:27  0:00:24 84.7M
+55 4273M    0     0   55 2386M      0  83.7M  0:00:50  0:00:28  0:00:22 84.7M
+4273M
+57 4273M    0     0   57 2471M      0  83.8M  0:00:50  0:00:29  0:00:21 84.7M
+59 4273M    0     0   59 2556M      0  83.8M  0:00:50  0:00:30  0:00:20 84.7M
+61 4273M    0     0   61 2640M      0  83.8M  0:00:50  0:00:31  0:00:19 84.6M
+63 4273M    0     0   63 2725M      0  83.9M  0:00:50  0:00:32  0:00:18 84.7M
+65 4273M    0     0   65 2809M      0  83.9M  0:00:50  0:00:33  0:00:17 84.6M
+4273M
+67 4273M    0     0   67 2894M      0  83.9M  0:00:50  0:00:34  0:00:16 84.5M
+69 4273M    0     0   69 2979M      0  83.9M  0:00:50  0:00:35  0:00:15 84.5M
+71 4273M    0     0   71 3063M      0  83.9M  0:00:50  0:00:36  0:00:14 84.6M
+73 4273M    0     0   73 3148M      0  84.0M  0:00:50  0:00:37  0:00:13 84.7M
+75 4273M    0     0   75 3233M      0  84.0M  0:00:50  0:00:38  0:00:12 84.7M
+4273M
+77 4273M    0     0   77 3318M      0  84.0M  0:00:50  0:00:39  0:00:11 84.7M
+79 4273M    0     0   79 3402M      0  84.0M  0:00:50  0:00:40  0:00:10 84.6M
+81 4273M    0     0   81 3488M      0  84.0M  0:00:50  0:00:41  0:00:09 84.7M
+83 4273M    0     0   83 3573M      0  84.0M  0:00:50  0:00:42  0:00:08 84.7M
+85 4273M    0     0   85 3658M      0  84.1M  0:00:50  0:00:43  0:00:07 84.9M
+4273M
+87 4273M    0     0   87 3743M      0  84.1M  0:00:50  0:00:44  0:00:06 84.8M
+89 4273M    0     0   89 3827M      0  84.1M  0:00:50  0:00:45  0:00:05 84.8M
+91 4273M    0     0   91 3911M      0  84.1M  0:00:50  0:00:46  0:00:04 84.9M
+93 4273M    0     0   93 3996M      0  84.1M  0:00:50  0:00:47  0:00:03 84.8M
+95 4273M    0     0   95 4080M      0  84.1M  0:00:50  0:00:48  0:00:02 84.5M
+4273M
+97 4273M    0     0   97 4165M      0  84.1M  0:00:50  0:00:49  0:00:01 84.6M
+99 4273M    0     0   99 4250M      0  84.1M  0:00:50  0:00:50 --:--:-- 84.7M
+100 4273M  100   444  100 4273M      8  83.9M  0:00:55  0:00:50  0:00:05 81.5M
+{"data":{"createTime":1737983233,"downloadPage":"https://gofile.io/d/U2YRzM","guestToken":"itjLa0Av5HhpbawVP3CMOYagmtMuq1PK","id":"975a3c90-408d-43c5-b477-9d718efc6083","md5":"67f0738e9fc69f577da1334bc4ea3aaa","mimetype":"application/zip","modTime":1737983233,"name":"Socio 12-18.zip","parentFolder":"d7294ac0-d06b-49c1-9b65-4411d3042084","parentFolderCode":"U2YRzM","servers":["store-eu-par-2"],"size":4480661436,"type":"file"},"status":"ok"}
+/start@FILEs_COMPRESSOR_BOT
+/start verifycodeis27373636286364
+/start verifycodeis273736327364637
+time_left unchanged for 30 seconds. Setting downloading to False.
+/start verifycodeis273736327364637
+/start verifycodeis273736327364637
+store7
+['curl', '-F', 'file=@/home/ubuntu/Work/zipper/7517241149/Haikyu.zip', 'https://store7.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0
+0 2616M    0     0    0  832k      0  2814k  0:15:51 --:--:--  0:15:51 2810k
+2 2616M    0     0    2 75.6M      0  59.3M  0:00:44  0:00:01  0:00:43 59.3M
+5 2616M    0     0    5  153M      0  67.5M  0:00:38  0:00:02  0:00:36 67.4M
+9 2616M    0     0    9  238M      0  72.7M  0:00:35  0:00:03  0:00:32 72.7M
+12 2616M    0     0   12  323M      0  75.5M  0:00:34  0:00:04  0:00:30 75.5M
+2616M
+15 2616M    0     0   15  408M      0  77.4M  0:00:33  0:00:05  0:00:28 81.8M
+18 2616M    0     0   18  490M      0  78.2M  0:00:33  0:00:06  0:00:27 83.0M
+22 2616M    0     0   22  575M      0  79.1M  0:00:33  0:00:07  0:00:26 84.4M
+25 2616M    0     0   25  657M      0  79.3M  0:00:32  0:00:08  0:00:24 83.7M
+28 2616M    0     0   28  743M      0  80.1M  0:00:32  0:00:09  0:00:23 84.0M
+2616M
+31 2616M    0     0   31  828M      0  80.6M  0:00:32  0:00:10  0:00:22 83.9M
+34 2616M    0     0   34  914M      0  81.0M  0:00:32  0:00:11  0:00:21 84.6M
+38 2616M    0     0   38 1000M      0  81.4M  0:00:32  0:00:12  0:00:20 84.7M
+41 2616M    0     0   41 1085M      0  81.7M  0:00:32  0:00:13  0:00:19 85.6M
+44 2616M    0     0   44 1171M      0  82.0M  0:00:31  0:00:14  0:00:17 85.6M
+2616M
+48 2616M    0     0   48 1255M      0  82.1M  0:00:31  0:00:15  0:00:16 85.4M
+51 2616M    0     0   51 1341M      0  82.4M  0:00:31  0:00:16  0:00:15 85.4M
+54 2616M    0     0   54 1427M      0  82.6M  0:00:31  0:00:17  0:00:14 85.5M
+57 2616M    0     0   57 1510M      0  82.6M  0:00:31  0:00:18  0:00:13 85.1M
+60 2616M    0     0   60 1595M      0  82.7M  0:00:31  0:00:19  0:00:12 84.8M
+2616M
+64 2616M    0     0   64 1682M      0  82.9M  0:00:31  0:00:20  0:00:11 85.2M
+67 2616M    0     0   67 1767M      0  83.0M  0:00:31  0:00:21  0:00:10 85.2M
+70 2616M    0     0   70 1854M      0  83.2M  0:00:31  0:00:22  0:00:09 85.1M
+74 2616M    0     0   74 1939M      0  83.3M  0:00:31  0:00:23  0:00:08 85.7M
+77 2616M    0     0   77 2025M      0  83.4M  0:00:31  0:00:24  0:00:07 85.8M
+2616M
+80 2616M    0     0   80 2111M      0  83.5M  0:00:31  0:00:25  0:00:06 85.9M
+Unable to connect due to network issues: Connection timed out
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 336, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1051, in create_zip
+    files = os.listdir(user_dir)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ubuntu/Work/zipper/1013652420'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 829, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 925, in download
+    fi = event.file.name
+AttributeError: 'NoneType' object has no attribute 'name'
+Telegram is having internal issues TimeoutError: Timeout while fetching data (caused by GetFileRequest)
+Telegram is having internal issues TimeoutError: Timeout while fetching data (caused by GetFileRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Telegram is having internal issues TimeoutError: Timeout while fetching data (caused by GetFileRequest)
+Telegram is having internal issues TimeoutError: Timeout while fetching data (caused by GetFileRequest)
