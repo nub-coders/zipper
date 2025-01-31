@@ -78731,3 +78731,14 @@ Traceback (most recent call last):
   File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
     raise OSError(e)
 OSError: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "updates.GetState" due to: Connection lost
+socket.send() raised exception.
