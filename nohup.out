@@ -78696,3 +78696,38 @@ Traceback (most recent call last):
     raise child_exception_type(errno_num, err_msg, err_filename)
 FileNotFoundError: [Errno 2] No such file or directory: 'zip'
 [name] Waiting for 3 seconds before continuing (required by "messages.SendMedia")
+Task exception was never retrieved
+future: <Task finished name='Task-3226' coro=<Session.restart() done, defined at /root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/session/session.py:186> exception=OSError(ConnectionResetError('Connection lost'))>
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/connection/transport/tcp/tcp.py", line 144, in send
+    await self.writer.drain()
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/asyncio/streams.py", line 386, in drain
+    await self._protocol._drain_helper()
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/asyncio/streams.py", line 166, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/session/session.py", line 188, in restart
+    await self.start()
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/session/session.py", line 150, in start
+    raise e
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/session/session.py", line 122, in start
+    await self.send(
+    ...<15 lines>...
+    )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+    ...<4 lines>...
+    )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
