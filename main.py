@@ -3,7 +3,6 @@ fall = Flask(__name__)
 fall.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 import urllib3
 urllib3.disable_warnings()
-from fp.fp import FreeProxy
 import random
 import pyromod
 import os
