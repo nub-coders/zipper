@@ -3,8 +3,6 @@ free-proxy
 certifi
 pyromod
 https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
-gunicorn
-flask
 aiohttp
 telethon
 tgcrypto
