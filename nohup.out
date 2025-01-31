@@ -78695,3 +78695,4 @@ Traceback (most recent call last):
   File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1966, in _execute_child
     raise child_exception_type(errno_num, err_msg, err_filename)
 FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+[name] Waiting for 3 seconds before continuing (required by "messages.SendMedia")
