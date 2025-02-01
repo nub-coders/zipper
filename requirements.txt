@@ -2,6 +2,7 @@ uvloop
 free-proxy
 certifi
 pyromod
+aiofiles
 https://github.com/KurimuzonAkuma/pyrogram/archive/refs/heads/dev.zip
 aiohttp
 telethon
