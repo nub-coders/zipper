@@ -78783,3 +78783,923 @@ Directory: /root/Work/.git/hooks, Updated 0:15:19.713594 ago
 Directory: /root/Work/.git/info, Updated 0:15:19.713594 ago
 Directory: /root/Work/__pycache__, Updated 0:01:03.463724 ago
 Starting zipper.py...
+Unhandled exception on help_handler
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 1306, in help_handler
+    await event.respond(help_message, parse_mode="html", buttons=common_buttons)
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 889, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/extensions/html.py", line 124, in parse
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/helpers.py", line 40, in add_surrogate
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/helpers.py", line 43, in <genexpr>
+LookupError: unknown encoding: utf-16le
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1083, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1036, in __init__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1966, in _execute_child
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1083, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1036, in __init__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1966, in _execute_child
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on help_handler
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 1306, in help_handler
+    await event.respond(help_message, parse_mode="html", buttons=common_buttons)
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 889, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/extensions/html.py", line 124, in parse
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/helpers.py", line 40, in add_surrogate
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/helpers.py", line 43, in <genexpr>
+LookupError: unknown encoding: utf-16le
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  [Previous line repeated 38 more times]
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 426, in link_send
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1083, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1036, in __init__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1966, in _execute_child
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1083, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1036, in __init__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1966, in _execute_child
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 924, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 776, in reply
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 825, in main
+    await download(event)
+  File "/root/Work/main.py", line 954, in download
+    await download(next_file)
+  File "/root/Work/main.py", line 941, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/root/Work/main.py", line 872, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Work/main.py", line 414, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 765, in respond
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/users.py", line 87, in _call
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1083, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1036, in __init__
+  File "/root/.pyenv/versions/3.13.1/lib/python3.13/subprocess.py", line 1966, in _execute_child
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Starting zipper.py...
+Server sent a very old message with ID 7466705167893822465, ignoring (see FAQ for details)
+Server sent a very old message with ID 7466705167944041473, ignoring (see FAQ for details)
+Server sent a very old message with ID 7466705314258252801, ignoring (see FAQ for details)
+Security error while unpacking a received message: Server replied with a wrong session ID (see FAQ for details)
+Security error while unpacking a received message: Server replied with a wrong session ID (see FAQ for details)
+Security error while unpacking a received message: Server replied with a wrong session ID (see FAQ for details)
+Task exception was never retrieved
+future: <Task finished name='Task-1346' coro=<CallbackQuery.Event.answer() done, defined at /usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-1348' coro=<CallbackQuery.Event.answer() done, defined at /usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-1278' coro=<Session.restart() done, defined at /usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py:186> exception=TimeoutError('Request timed out')>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 188, in restart
+    await self.start()
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 150, in start
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 119, in start
+    await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 369, in send
+    raise TimeoutError("Request timed out")
+TimeoutError: Request timed out
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "updates.GetState" due to: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1013, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 332, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1015, in create_zip
+    return await response.edit(e)
+AttributeError: 'NoneType' object has no attribute 'edit'
