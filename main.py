@@ -195,6 +195,22 @@ async def loud_message(event):
 
 
 
+@app.on_message(filters.command("reboot"))
+async def reboot_handler(client, message):
+    user_id = message.from_user.id
+
+    # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/W>
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id in admin_ids:
+                await message.reply_text("Admin command received. Stopping the bot...")
+                os.system(f"kill -9 {os.getpid()}")  # Raise a system exit Exception to stop th>
+            else:
+                await message.reply_text("You are not authorized to use this command.")
+    else:
+        await message.reply_text("Admin file not found. Please contact the bot admin.")         
 
 @app.on_message(filters.command("reboot", prefixes="!"))
 async def reboot_handler(client, message):
@@ -1012,7 +1028,7 @@ async def create_zip(event, pass_protect = None):
     try:
        response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
     except Exception as e:
-       return await response.edit(e)
+       return await event.respond(e)
     if pass_protect:
       get_pass = None
       try:
