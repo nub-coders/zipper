@@ -94519,3 +94519,4 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 87, in _call
     result = await future
 telethon.errors.rpcerrorlist.MessageIdInvalidError: The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+Starting zipper.py...
