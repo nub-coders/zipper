@@ -94498,3 +94498,24 @@ Starting zipper.py...
 [name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
 ./zip.sh: line 24: 215775 Killed                  nohup python3 main.py
 Starting zipper.py...
+./zip.sh: line 24: 227876 Killed                  nohup python3 main.py
+Starting zipper.py...
+./zip.sh: line 24: 242109 Killed                  nohup python3 main.py
+Starting zipper.py...
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 841, in main
+    await download(event)
+  File "/root/Work/main.py", line 942, in download
+    await msg.edit("Finished downloading\n/my_files to see your files")
+  File "/usr/local/lib/python3.10/dist-packages/telethon/tl/custom/message.py", line 835, in edit
+    return await self._client.edit_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 1233, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageIdInvalidError: The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
