@@ -93245,3 +93245,1256 @@ Starting zipper.py...
 [name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
 [name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
 [name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+./zip.sh: line 24: 143360 Killed                  nohup python3 main.py
+Starting zipper.py...
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2025-02-03 22:33:13
+Directory: /root/Work, Updated 0:00:01.555901 ago
+Directory: /root/Work/.git, Updated 4:41:15.751590 ago
+Directory: /root/Work/.git/refs/remotes/origin, Updated 4:41:14.035571 ago
+Directory: /root/Work/.git/refs/heads, Updated 4:41:15.751590 ago
+Directory: /root/Work/.git/objects/99, Updated 1 day, 7:55:20.226771 ago
+Directory: /root/Work/.git/objects/pack, Updated 2 days, 5:55:42.170113 ago
+Directory: /root/Work/.git/objects/54, Updated 2 days, 0:22:09.998715 ago
+Directory: /root/Work/.git/objects/bf, Updated 1 day, 1:17:21.659632 ago
+Directory: /root/Work/.git/objects/d4, Updated 2 days, 0:22:09.998715 ago
+Directory: /root/Work/.git/objects/a7, Updated 4:41:15.755591 ago
+Directory: /root/Work/.git/objects/29, Updated 4:41:15.751590 ago
+Directory: /root/Work/.git/objects/62, Updated 2 days, 0:22:10.110714 ago
+Directory: /root/Work/.git/objects/34, Updated 2 days, 5:52:43.642416 ago
+Directory: /root/Work/.git/objects/8f, Updated 2 days, 5:52:43.642416 ago
+Directory: /root/Work/.git/objects/3c, Updated 2 days, 5:55:45.618001 ago
+Directory: /root/Work/.git/objects/d3, Updated 1 day, 7:55:20.362773 ago
+Directory: /root/Work/.git/objects/bc, Updated 2 days, 5:55:42.170113 ago
+Directory: /root/Work/.git/objects/98, Updated 1 day, 7:55:20.362773 ago
+Directory: /root/Work/.git/objects/6e, Updated 1 day, 7:55:20.358773 ago
+Directory: /root/Work/.git/objects/65, Updated 1 day, 7:55:20.230772 ago
+Directory: /root/Work/.git/objects/b9, Updated 1 day, 1:17:21.663632 ago
+Directory: /root/Work/.git/objects/a9, Updated 4:41:15.751590 ago
+Directory: /root/Work/.git/objects/17, Updated 8:37:37.768057 ago
+Directory: /root/Work/.git/objects/ed, Updated 2 days, 0:22:10.110714 ago
+Directory: /root/Work/.git/objects/d8, Updated 8:37:37.772057 ago
+Directory: /root/Work/.git/objects/05, Updated 8:37:37.768057 ago
+Directory: /root/Work/.git/objects/90, Updated 2 days, 0:22:10.002715 ago
+Directory: /root/Work/.git/objects/e7, Updated 2 days, 0:22:10.110714 ago
+Directory: /root/Work/.git/objects/ab, Updated 1 day, 7:55:20.226771 ago
+Directory: /root/Work/.git/objects/8c, Updated 1 day, 1:17:21.779633 ago
+Directory: /root/Work/.git/objects/56, Updated 2 days, 0:22:09.998715 ago
+Directory: /root/Work/.git/logs, Updated 4:41:15.751590 ago
+Directory: /root/Work/.git/logs/refs/remotes/origin, Updated 4:41:14.035571 ago
+Directory: /root/Work/.git/logs/refs/heads, Updated 4:41:15.751590 ago
+Directory: /root/Work/.git/hooks, Updated 2 days, 6:03:53.014817 ago
+Directory: /root/Work/.git/info, Updated 2 days, 6:03:53.014817 ago
+Directory: /root/Work/__pycache__, Updated 1 day, 10:53:01.098296 ago
+Directory: /root/Work/zipper/5858704638, Updated 17:28:14.970530 ago
+Directory: /root/Work/zipper/1450404567, Updated 15:33:19.457362 ago
+Directory: /root/Work/zipper/7090079729, Updated 10:46:12.189518 ago
+Directory: /root/Work/zipper/7914837054, Updated 1 day, 6:58:57.650424 ago
+Directory: /root/Work/zipper/5174831910, Updated 1 day, 9:53:51.543044 ago
+Directory: /root/Work/zipper/6587973123, Updated 17:35:40.403830 ago
+Directory: /root/Work/zipper/7385089891, Updated 9:28:29.163443 ago
+Directory: /root/Work/zipper/7240478028, Updated 19:49:18.356880 ago
+Directory: /root/Work/zipper/1707358480, Updated 9:32:50.714476 ago
+Directory: /root/Work/zipper/6166329325, Updated 1 day, 16:57:43.040019 ago
+Directory: /root/Work/zipper/877485425, Updated 3:02:45.455050 ago
+Directory: /root/Work/zipper/1455971478, Updated 1 day, 18:17:55.173328 ago
+Directory: /root/Work/zipper/5236441213, Updated 16:12:02.348165 ago
+Directory: /root/Work/zipper/646262206, Updated 1 day, 1:23:22.079679 ago
+Directory: /root/Work/zipper/6441280856, Updated 0:00:07.047965 ago
+Directory: /root/Work/zipper/516720665, Updated 1 day, 7:07:04.728263 ago
+Directory: /root/Work/zipper/757617590, Updated 1 day, 12:48:24.063969 ago
+Directory: /root/Work/zipper/5435574663, Updated 1 day, 10:19:36.416271 ago
+Directory: /root/Work/zipper/1622058536, Updated 10:09:38.148075 ago
+Directory: /root/Work/zipper/1991471067, Updated 1 day, 19:56:48.753519 ago
+store-eu-par-5
+['curl', '-F', 'file=@/root/Work/zipper/1450404567/Bleach 1-20.zip', 'https://store-eu-par-5.gofile.io/uploadFile']
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+0 2705M    0     0    0  512k      0   423k  1:48:59  0:00:01  1:48:58  423k
+0 2705M    0     0    0 8256k      0  3531k  0:13:04  0:00:02  0:13:02 3531k
+0 2705M    0     0    0 19.8M      0  6177k  0:07:28  0:00:03  0:07:25 6175k
+2705M
+1 2705M    0     0    1 31.8M      0  7716k  0:05:58  0:00:04  0:05:54 7716k
+1 2705M    0     0    1 43.8M      0  8679k  0:05:19  0:00:05  0:05:14 9014k
+2 2705M    0     0    2 58.3M      0  9460k  0:04:52  0:00:06  0:04:46 11.3M
+2 2705M    0     0    2 70.4M      0  9947k  0:04:38  0:00:07  0:04:31 12.6M
+3 2705M    0     0    3 82.4M      0  10.0M  0:04:29  0:00:08  0:04:21 12.6M
+2705M
+3 2705M    0     0    3 94.5M      0  10.3M  0:04:22  0:00:09  0:04:13 12.6M
+4 2705M    0     0    4  109M      0  10.5M  0:04:15  0:00:10  0:04:05 12.7M
+4 2705M    0     0    4  121M      0  10.7M  0:04:11  0:00:11  0:04:00 12.7M
+4 2705M    0     0    4  133M      0  10.9M  0:04:08  0:00:12  0:03:56 12.6M
+5 2705M    0     0    5  147M      0  11.1M  0:04:01  0:00:13  0:03:48 13.1M
+2705M
+5 2705M    0     0    5  159M      0  11.1M  0:04:02  0:00:14  0:03:48 12.7M
+6 2705M    0     0    6  171M      0  11.2M  0:04:00  0:00:15  0:03:45 12.7M
+6 2705M    0     0    6  181M      0  11.1M  0:04:01  0:00:16  0:03:45 12.1M
+7 2705M    0     0    7  195M      0  11.3M  0:03:59  0:00:17  0:03:42 12.2M
+7 2705M    0     0    7  207M      0  11.3M  0:03:58  0:00:18  0:03:40 11.7M
+2705M
+8 2705M    0     0    8  219M      0  11.4M  0:03:56  0:00:19  0:03:37 12.1M
+8 2705M    0     0    8  231M      0  11.4M  0:03:55  0:00:20  0:03:35 12.1M
+9 2705M    0     0    9  245M      0  11.5M  0:03:54  0:00:21  0:03:33 12.6M
+9 2705M    0     0    9  257M      0  11.5M  0:03:53  0:00:22  0:03:31 12.6M
+9 2705M    0     0    9  269M      0  11.6M  0:03:52  0:00:23  0:03:29 12.6M
+2705M
+10 2705M    0     0   10  282M      0  11.6M  0:03:51  0:00:24  0:03:27 12.5M
+10 2705M    0     0   10  296M      0  11.7M  0:03:50  0:00:25  0:03:25 12.6M
+11 2705M    0     0   11  302M      0  11.5M  0:03:54  0:00:26  0:03:28 11.4M
+11 2705M    0     0   11  312M      0  11.4M  0:03:55  0:00:27  0:03:28 11.0M
+11 2705M    0     0   11  324M      0  11.4M  0:03:56  0:00:28  0:03:28 10.6M
+2705M
+12 2705M    0     0   12  334M      0  11.4M  0:03:56  0:00:29  0:03:27 10.3M
+12 2705M    0     0   12  345M      0  11.4M  0:03:56  0:00:30  0:03:26 10.0M
+13 2705M    0     0   13  356M      0  11.4M  0:03:56  0:00:31  0:03:25 10.9M
+13 2705M    0     0   13  369M      0  11.4M  0:03:56  0:00:32  0:03:24 11.2M
+14 2705M    0     0   14  380M      0  11.4M  0:03:55  0:00:33  0:03:22 11.5M
+2705M
+14 2705M    0     0   14  391M      0  11.4M  0:03:56  0:00:34  0:03:22 11.4M
+14 2705M    0     0   14  404M      0  11.4M  0:03:55  0:00:35  0:03:20 11.8M
+15 2705M    0     0   15  416M      0  11.5M  0:03:55  0:00:36  0:03:19 11.9M
+15 2705M    0     0   15  427M      0  11.4M  0:03:55  0:00:37  0:03:18 11.6M
+16 2705M    0     0   16  438M      0  11.4M  0:03:55  0:00:38  0:03:17 11.5M
+2705M
+16 2705M    0     0   16  450M      0  11.4M  0:03:55  0:00:39  0:03:16 11.7M
+17 2705M    0     0   17  462M      0  11.5M  0:03:54  0:00:40  0:03:14 11.6M
+17 2705M    0     0   17  475M      0  11.5M  0:03:54  0:00:41  0:03:13 11.6M
+17 2705M    0     0   17  486M      0  11.5M  0:03:54  0:00:42  0:03:12 11.9M
+18 2705M    0     0   18  499M      0  11.5M  0:03:54  0:00:43  0:03:11 12.1M
+2705M
+18 2705M    0     0   18  512M      0  11.6M  0:03:53  0:00:44  0:03:09 12.4M
+19 2705M    0     0   19  524M      0  11.6M  0:03:52  0:00:45  0:03:07 12.4M
+19 2705M    0     0   19  537M      0  11.6M  0:03:52  0:00:46  0:03:06 12.5M
+20 2705M    0     0   20  551M      0  11.6M  0:03:51  0:00:47  0:03:04 12.7M
+20 2705M    0     0   20  563M      0  11.6M  0:03:51  0:00:48  0:03:03 12.7M
+2705M
+21 2705M    0     0   21  575M      0  11.6M  0:03:51  0:00:49  0:03:02 12.5M
+21 2705M    0     0   21  588M      0  11.7M  0:03:50  0:00:50  0:03:00 12.6M
+22 2705M    0     0   22  600M      0  11.7M  0:03:50  0:00:51  0:02:59 12.6M
+22 2705M    0     0   22  614M      0  11.7M  0:03:50  0:00:52  0:02:58 12.6M
+23 2705M    0     0   23  626M      0  11.7M  0:03:49  0:00:53  0:02:56 12.6M
+2705M
+23 2705M    0     0   23  638M      0  11.7M  0:03:49  0:00:54  0:02:55 12.6M
+24 2705M    0     0   24  651M      0  11.8M  0:03:49  0:00:55  0:02:54 12.6M
+24 2705M    0     0   24  664M      0  11.8M  0:03:48  0:00:56  0:02:52 12.6M
+25 2705M    0     0   25  676M      0  11.8M  0:03:48  0:00:57  0:02:51 12.5M
+25 2705M    0     0   25  689M      0  11.8M  0:03:48  0:00:58  0:02:50 12.6M
+2705M
+25 2705M    0     0   25  702M      0  11.8M  0:03:48  0:00:59  0:02:49 12.7M
+26 2705M    0     0   26  714M      0  11.8M  0:03:47  0:01:00  0:02:47 12.6M
+26 2705M    0     0   26  727M      0  11.8M  0:03:47  0:01:01  0:02:46 12.6M
+27 2705M    0     0   27  740M      0  11.8M  0:03:47  0:01:02  0:02:45 12.6M
+27 2705M    0     0   27  752M      0  11.9M  0:03:47  0:01:03  0:02:44 12.5M
+2705M
+28 2705M    0     0   28  764M      0  11.9M  0:03:47  0:01:04  0:02:43 12.4M
+28 2705M    0     0   28  778M      0  11.9M  0:03:46  0:01:05  0:02:41 12.5M
+29 2705M    0     0   29  790M      0  11.9M  0:03:46  0:01:06  0:02:40 12.5M
+29 2705M    0     0   29  798M      0  11.8M  0:03:47  0:01:07  0:02:40 11.7M
+30 2705M    0     0   30  812M      0  11.8M  0:03:47  0:01:08  0:02:39 11.7M
+2705M
+30 2705M    0     0   30  824M      0  11.9M  0:03:46  0:01:09  0:02:37 11.9M
+30 2705M    0     0   30  836M      0  11.8M  0:03:47  0:01:10  0:02:37 11.5M
+31 2705M    0     0   31  847M      0  11.8M  0:03:47  0:01:11  0:02:36 11.4M
+31 2705M    0     0   31  859M      0  11.9M  0:03:47  0:01:12  0:02:35 12.0M
+32 2705M    0     0   32  871M      0  11.9M  0:03:47  0:01:13  0:02:34 12.1M
+2705M
+32 2705M    0     0   32  885M      0  11.9M  0:03:46  0:01:14  0:02:32 11.9M
+33 2705M    0     0   33  897M      0  11.9M  0:03:46  0:01:15  0:02:31 12.3M
+33 2705M    0     0   33  909M      0  11.9M  0:03:46  0:01:16  0:02:30 12.4M
+34 2705M    0     0   34  921M      0  11.9M  0:03:46  0:01:17  0:02:29 12.4M
+34 2705M    0     0   34  934M      0  11.9M  0:03:46  0:01:18  0:02:28 12.2M
+2705M
+34 2705M    0     0   34  945M      0  11.9M  0:03:46  0:01:19  0:02:27 12.2M
+35 2705M    0     0   35  957M      0  11.9M  0:03:46  0:01:20  0:02:26 12.1M
+35 2705M    0     0   35  969M      0  11.9M  0:03:46  0:01:21  0:02:25 12.2M
+36 2705M    0     0   36  983M      0  11.9M  0:03:46  0:01:22  0:02:24 12.2M
+36 2705M    0     0   36  995M      0  11.9M  0:03:46  0:01:23  0:02:23 12.3M
+2705M
+37 2705M    0     0   37 1007M      0  11.9M  0:03:46  0:01:24  0:02:22 12.4M
+37 2705M    0     0   37 1019M      0  11.9M  0:03:45  0:01:25  0:02:20 12.5M
+38 2705M    0     0   38 1032M      0  11.9M  0:03:45  0:01:26  0:02:19 12.3M
+38 2705M    0     0   38 1044M      0  11.9M  0:03:45  0:01:27  0:02:18 12.3M
+39 2705M    0     0   39 1056M      0  11.9M  0:03:45  0:01:28  0:02:17 12.2M
+2705M
+39 2705M    0     0   39 1069M      0  11.9M  0:03:45  0:01:29  0:02:16 12.2M
+39 2705M    0     0   39 1080M      0  11.9M  0:03:45  0:01:30  0:02:15 12.1M
+40 2705M    0     0   40 1093M      0  11.9M  0:03:45  0:01:31  0:02:14 12.2M
+40 2705M    0     0   40 1105M      0  11.9M  0:03:45  0:01:32  0:02:13 12.2M
+41 2705M    0     0   41 1117M      0  11.9M  0:03:45  0:01:33  0:02:12 12.3M
+2705M
+41 2705M    0     0   41 1130M      0  12.0M  0:03:45  0:01:34  0:02:11 12.4M
+42 2705M    0     0   42 1143M      0  12.0M  0:03:45  0:01:35  0:02:10 12.3M
+42 2705M    0     0   42 1155M      0  12.0M  0:03:45  0:01:36  0:02:09 12.4M
+43 2705M    0     0   43 1167M      0  12.0M  0:03:45  0:01:37  0:02:08 12.4M
+43 2705M    0     0   43 1179M      0  12.0M  0:03:45  0:01:38  0:02:07 12.4M
+2705M
+44 2705M    0     0   44 1192M      0  12.0M  0:03:45  0:01:39  0:02:06 12.2M
+44 2705M    0     0   44 1204M      0  12.0M  0:03:44  0:01:40  0:02:04 12.4M
+44 2705M    0     0   44 1216M      0  12.0M  0:03:44  0:01:41  0:02:03 12.3M
+45 2705M    0     0   45 1229M      0  12.0M  0:03:44  0:01:42  0:02:02 12.5M
+45 2705M    0     0   45 1241M      0  12.0M  0:03:44  0:01:43  0:02:01 12.2M
+2705M
+46 2705M    0     0   46 1253M      0  12.0M  0:03:44  0:01:44  0:02:00 12.2M
+46 2705M    0     0   46 1265M      0  12.0M  0:03:44  0:01:45  0:01:59 12.1M
+47 2705M    0     0   47 1278M      0  12.0M  0:03:44  0:01:46  0:01:58 12.2M
+47 2705M    0     0   47 1290M      0  12.0M  0:03:44  0:01:47  0:01:57 12.0M
+48 2705M    0     0   48 1302M      0  12.0M  0:03:44  0:01:48  0:01:56 12.2M
+2705M
+48 2705M    0     0   48 1311M      0  12.0M  0:03:45  0:01:49  0:01:56 11.3M
+48 2705M    0     0   48 1321M      0  11.9M  0:03:45  0:01:50  0:01:55 10.9M
+49 2705M    0     0   49 1331M      0  11.9M  0:03:45  0:01:51  0:01:54 10.7M
+49 2705M    0     0   49 1343M      0  11.9M  0:03:46  0:01:52  0:01:54 10.4M
+50 2705M    0     0   50 1354M      0  11.9M  0:03:46  0:01:53  0:01:53 10.3M
+2705M
+50 2705M    0     0   50 1362M      0  11.9M  0:03:46  0:01:54  0:01:52 10.4M
+50 2705M    0     0   50 1373M      0  11.9M  0:03:47  0:01:55  0:01:52 10.1M
+51 2705M    0     0   51 1381M      0  11.8M  0:03:47  0:01:56  0:01:51 9898k
+51 2705M    0     0   51 1390M      0  11.8M  0:03:48  0:01:57  0:01:51 9575k
+51 2705M    0     0   51 1399M      0  11.8M  0:03:48  0:01:58  0:01:50 9188k
+2705M
+52 2705M    0     0   52 1409M      0  11.8M  0:03:48  0:01:59  0:01:49 9401k
+52 2705M    0     0   52 1419M      0  11.8M  0:03:49  0:02:00  0:01:49 9605k
+52 2705M    0     0   52 1428M      0  11.7M  0:03:49  0:02:01  0:01:48 9817k
+53 2705M    0     0   53 1438M      0  11.7M  0:03:49  0:02:02  0:01:47  9.8M
+53 2705M    0     0   53 1449M      0  11.7M  0:03:50  0:02:03  0:01:47  9.8M
+2705M
+53 2705M    0     0   53 1458M      0  11.7M  0:03:50  0:02:04  0:01:46  9.9M
+54 2705M    0     0   54 1468M      0  11.7M  0:03:50  0:02:05  0:01:45  9.9M
+54 2705M    0     0   54 1478M      0  11.7M  0:03:50  0:02:06  0:01:44 10.0M
+55 2705M    0     0   55 1489M      0  11.7M  0:03:51  0:02:07  0:01:44  9.8M
+55 2705M    0     0   55 1498M      0  11.6M  0:03:51  0:02:08  0:01:43 10.0M
+2705M
+55 2705M    0     0   55 1508M      0  11.6M  0:03:51  0:02:09  0:01:42 10.1M
+56 2705M    0     0   56 1520M      0  11.6M  0:03:51  0:02:10  0:01:41 10.2M
+56 2705M    0     0   56 1531M      0  11.6M  0:03:51  0:02:11  0:01:40 10.4M
+57 2705M    0     0   57 1542M      0  11.6M  0:03:51  0:02:12  0:01:39 10.8M
+57 2705M    0     0   57 1554M      0  11.6M  0:03:51  0:02:13  0:01:38 11.2M
+2705M
+57 2705M    0     0   57 1568M      0  11.6M  0:03:51  0:02:14  0:01:37 11.6M
+58 2705M    0     0   58 1579M      0  11.6M  0:03:51  0:02:15  0:01:36 11.9M
+58 2705M    0     0   58 1591M      0  11.6M  0:03:51  0:02:16  0:01:35 12.1M
+59 2705M    0     0   59 1604M      0  11.6M  0:03:51  0:02:17  0:01:34 12.3M
+59 2705M    0     0   59 1617M      0  11.6M  0:03:51  0:02:18  0:01:33 12.2M
+2705M
+60 2705M    0     0   60 1629M      0  11.7M  0:03:51  0:02:19  0:01:32 12.4M
+60 2705M    0     0   60 1641M      0  11.7M  0:03:51  0:02:20  0:01:31 12.3M
+61 2705M    0     0   61 1654M      0  11.7M  0:03:50  0:02:21  0:01:29 12.5M
+61 2705M    0     0   61 1666M      0  11.7M  0:03:50  0:02:22  0:01:28 12.4M
+62 2705M    0     0   62 1678M      0  11.7M  0:03:50  0:02:23  0:01:27 12.4M
+2705M
+62 2705M    0     0   62 1691M      0  11.7M  0:03:50  0:02:24  0:01:26 12.5M
+63 2705M    0     0   63 1705M      0  11.7M  0:03:50  0:02:25  0:01:25 12.6M
+63 2705M    0     0   63 1717M      0  11.7M  0:03:50  0:02:26  0:01:24 12.6M
+63 2705M    0     0   63 1730M      0  11.7M  0:03:50  0:02:27  0:01:23 12.7M
+64 2705M    0     0   64 1742M      0  11.7M  0:03:50  0:02:28  0:01:22 12.7M
+2705M
+Task exception was never retrieved
+future: <Task finished name='Task-6908' coro=<Session.restart() done, defined at /usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py:186> exception=OSError(ConnectionResetError('Connection lost'))>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 144, in send
+    await self.writer.drain()
+  File "/usr/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/usr/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 188, in restart
+    await self.start()
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 150, in start
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 122, in start
+    await self.send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "updates.GetState" due to: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+Server closed the connection: [Errno 104] Connection reset by peer
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+Server closed the connection: [Errno 104] Connection reset by peer
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-18949' coro=<Session.restart() done, defined at /usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py:186> exception=OSError(ConnectionResetError('Connection lost'))>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 144, in send
+    await self.writer.drain()
+  File "/usr/lib/python3.10/asyncio/streams.py", line 371, in drain
+    await self._protocol._drain_helper()
+  File "/usr/lib/python3.10/asyncio/streams.py", line 167, in _drain_helper
+    raise ConnectionResetError('Connection lost')
+ConnectionResetError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 188, in restart
+    await self.start()
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 150, in start
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 119, in start
+    await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+Task exception was never retrieved
+future: <Task finished name='Task-18970' coro=<CallbackQuery.Event.answer() done, defined at /usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "messages.SendMessage" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1029, in create_zip
+    response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+  File "/usr/local/lib/python3.10/dist-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/messages/send_message.py", line 174, in send_message
+    r = await self.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 430, in invoke
+    return await self.invoke(query, retries - 1, timeout)
+  [Previous line repeated 7 more times]
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 420, in invoke
+    raise e from None
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 407, in invoke
+    return await self.send(query, timeout=timeout)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 358, in send
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 355, in send
+    await self.connection.send(payload)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1031, in create_zip
+    return await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+./zip.sh: line 24: 170794 Killed                  nohup python3 main.py
+Starting zipper.py...
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 2 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+[name] Waiting for 1 seconds before continuing (required by "upload.SaveBigFilePart")
+./zip.sh: line 24: 215775 Killed                  nohup python3 main.py
+Starting zipper.py...
