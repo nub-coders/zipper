@@ -23,6 +23,7 @@ from telethon.errors.rpcerrorlist import UserIsBlockedError
 from tools import is_user_on_chat
 client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",tlsCAFile=certifi.where())
 db = client["telegram_bot"]
+conversations = {}
 collection = db["users"]
 # Function to store user ID and timestamp
 def store_user(user_id):
@@ -195,22 +196,22 @@ async def loud_message(event):
 
 
 
-@app.on_message(filters.command("reboot"))
-async def reboot_handler(client, message):
-    user_id = message.from_user.id
+@client.on(events.NewMessage(pattern=r'/reboot'))
+async def reboot_handler(event):
+    user_id = event.sender_id
 
-    # Check if the user is an admin by comparing their user ID with the ones in /home/u219967/W>
+    # Check if the user is an admin
     admin_file = f"{ggg}/admin.txt"
     if os.path.exists(admin_file):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id in admin_ids:
-                await message.reply_text("Admin command received. Stopping the bot...")
-                os.system(f"kill -9 {os.getpid()}")  # Raise a system exit Exception to stop th>
+                await event.reply("Admin command received. Stopping the bot...")
+                os.system(f"kill -9 {os.getpid()}")  # Kill the current process
             else:
-                await message.reply_text("You are not authorized to use this command.")
+                await event.reply("You are not authorized to use this command.")
     else:
-        await message.reply_text("Admin file not found. Please contact the bot admin.")         
+        await event.reply("Admin file not found. Please contact the bot admin.")
 
 @app.on_message(filters.command("reboot", prefixes="!"))
 async def reboot_handler(client, message):
@@ -1026,22 +1027,22 @@ async def create_zip(event, pass_protect = None):
     user_id = event.sender_id
     response = None
     try:
-       response = await app.ask(chat_id=user_id, text="Provide me a suitable filename for the zip file", filters=filters.text, timeout=60)
+     async with client.conversation(user_id, timeout=120) as don:
+        conversations[user_id] = don
+        conv = conversations[user_id]
+        response = await conv.get_response(message="Provide me a suitable filename for the zip file", timeout=60)
+        if pass_protect:
+           get_pass = None
+           get_pass = await conv.get_response(message="please type your password below.", timeout=20)
+           password = get_pass.text
+           com = '--password'
+        else:
+          password = ''
+          com = ''
     except Exception as e:
-       return await event.respond(e)
-    if pass_protect:
-      get_pass = None
-      try:
-        get_pass = await app.ask(text="please type your password below.", filters=filters.text, chat_id=user_id, timeout=15)
-      except Exception as e:
-        return await get_pass.edit(e)
-      if get_pass.text.startswith("/") or get_pass.text.startswith("http"):
-           return
-      password = get_pass.text
-      com = '--password'
-    else:
-        password = ''
-        com = ''
+      await event.respond(e)
+
+
     global zipping_in_progress
     user = await event.get_sender()
     user_iid = user.id

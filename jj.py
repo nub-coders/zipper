@@ -1,28 +1,20 @@
 from telethon import TelegramClient, events
 from telethon.tl.custom import Button
-from telethon.tl.types import KeyboardButtonCopy
-
+from urllib.parse import quote
 from config import *
-# Initialize the client
+
 bot = TelegramClient('bot_session', API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 @bot.on(events.NewMessage(pattern='/lstart'))
 async def start_handler(event):
-    # Text to be copied when button is pressed
     copy_text = "I'm trying to test newly launched telegram text copy buttons"
-    
-    # Create the button using Button.inline() with callback data
-    copy_button = Button.text(
-        "📋 Copy Text",
-        text=copy_text  # This sets the text to be copied
-    )    
-    # Create the message with the copy button
+    # Create URL to trigger copy action
+    copy_url = f"tg://copy?text={quote(copy_text)}"
+    # Create an inline button with the copy URL
+    copy_button = Button.url("📋 Copy Text", copy_url)
     await event.respond(
         "Welcome! Click the button below to copy the text:",
-        buttons = [[copy_button]]
+        buttons=[[copy_button]]
     )
 
-# Start the bot
-    
 bot.run_until_disconnected()
-
