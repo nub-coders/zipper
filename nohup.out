@@ -96335,3 +96335,2102 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
     result = await future
 telethon.errors.rpcerrorlist.MessageNotModifiedError: Content of the message was not modified (caused by EditMessageRequest)
+./zip.sh: line 24: 14168 Killed                  nohup python3 main.py
+Starting zipper.py...
+Pyromod is working! If you like pyromod, please star it at https://github.com/usernein/pyromod
+Current Date and Time: 2025-02-05 15:33:07
+Directory: /home/ubuntu/Work, Updated 0:00:01.115916 ago
+Directory: /home/ubuntu/Work/zipper/5770202849, Updated 11:48:51.514104 ago
+Directory: /home/ubuntu/Work/zipper/1140148144, Updated 14:12:34.337488 ago
+Directory: /home/ubuntu/Work/zipper/187854657, Updated 17:53:37.842952 ago
+Directory: /home/ubuntu/Work/zipper/1707358480, Updated 4:27:56.530506 ago
+Directory: /home/ubuntu/Work/zipper/6426980852, Updated 3:06:52.260725 ago
+Directory: /home/ubuntu/Work/zipper/7340700688, Updated 8:15:09.167104 ago
+Directory: /home/ubuntu/Work/zipper/108063382, Updated 5:52:53.361914 ago
+Directory: /home/ubuntu/Work/zipper/1213046463, Updated 12:52:02.620217 ago
+Directory: /home/ubuntu/Work/.git, Updated 0:01:45.281967 ago
+Directory: /home/ubuntu/Work/.git/refs/heads, Updated 0:09:02.975133 ago
+Directory: /home/ubuntu/Work/.git/refs/remotes/origin, Updated 0:09:02.032132 ago
+Directory: /home/ubuntu/Work/.git/hooks, Updated 21:06:25.276432 ago
+Directory: /home/ubuntu/Work/.git/info, Updated 21:06:25.276432 ago
+Directory: /home/ubuntu/Work/.git/objects/9d, Updated 0:42:27.541351 ago
+Directory: /home/ubuntu/Work/.git/objects/5d, Updated 19:57:53.471830 ago
+Directory: /home/ubuntu/Work/.git/objects/pack, Updated 19:57:53.570830 ago
+Directory: /home/ubuntu/Work/.git/objects/a8, Updated 0:42:27.537351 ago
+Directory: /home/ubuntu/Work/.git/objects/fe, Updated 0:42:27.540351 ago
+Directory: /home/ubuntu/Work/.git/objects/02, Updated 19:57:53.472830 ago
+Directory: /home/ubuntu/Work/.git/objects/1e, Updated 0:42:27.637351 ago
+Directory: /home/ubuntu/Work/.git/objects/dd, Updated 19:57:53.570830 ago
+Directory: /home/ubuntu/Work/.git/objects/7a, Updated 19:57:53.569830 ago
+Directory: /home/ubuntu/Work/.git/objects/d2, Updated 0:42:27.635351 ago
+Directory: /home/ubuntu/Work/.git/objects/7f, Updated 0:42:27.538351 ago
+Directory: /home/ubuntu/Work/.git/objects/26, Updated 0:09:02.976133 ago
+Directory: /home/ubuntu/Work/.git/objects/dc, Updated 19:57:53.472830 ago
+Directory: /home/ubuntu/Work/.git/objects/60, Updated 19:57:53.569830 ago
+Directory: /home/ubuntu/Work/.git/objects/ff, Updated 0:09:02.975133 ago
+Directory: /home/ubuntu/Work/.git/objects/1c, Updated 0:09:02.979133 ago
+Directory: /home/ubuntu/Work/.git/objects/ad, Updated 0:42:27.542351 ago
+Directory: /home/ubuntu/Work/.git/objects/5a, Updated 19:57:53.476830 ago
+Directory: /home/ubuntu/Work/.git/objects/90, Updated 0:09:03.070133 ago
+Directory: /home/ubuntu/Work/.git/logs, Updated 0:09:02.975133 ago
+Directory: /home/ubuntu/Work/.git/logs/refs/heads, Updated 0:09:02.975133 ago
+Directory: /home/ubuntu/Work/.git/logs/refs/remotes/origin, Updated 0:09:02.032132 ago
+Directory: /home/ubuntu/Work/__pycache__, Updated 20:46:47.535469 ago
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1038, in create_zip
+    get_pass = await conv.get_response( timeout=20)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-17522' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-17505' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+time_left unchanged for 30 seconds. Setting downloading to False.
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: The specified user was deleted (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Failed to forward message: User is blocked (caused by ForwardMessagesRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 842, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 971, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 971, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 971, in download
+    await download(next_file)
+  [Previous line repeated 26 more times]
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 889, in download
+    return await link_send(event)
+  File "/home/ubuntu/Work/main.py", line 443, in link_send
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 971, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 971, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 971, in download
+    await download(next_file)
+  [Previous line repeated 18 more times]
+  File "/home/ubuntu/Work/main.py", line 943, in download
+    await msg.edit("Finished downloading\n/my_files to see your files")
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/message.py", line 835, in edit
+    return await self._client.edit_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1233, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageIdInvalidError: The specified message ID is invalid or you can't do that operation on such message (caused by EditMessageRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unable to connect due to network issues: Connection timed out
+Server sent a very old message with ID 7467992126252171265, ignoring (see FAQ for details)
+Server sent a very old message with ID 7467992126262940673, ignoring (see FAQ for details)
+Server sent a very old message with ID 7467993673617974273, ignoring (see FAQ for details)
+Server sent a very old message with ID 7467993674647379977, ignoring (see FAQ for details)
+Server sent a very old message with ID 7467993674899529729, ignoring (see FAQ for details)
+Task exception was never retrieved
+future: <Task finished name='Task-30457' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Task exception was never retrieved
+future: <Task finished name='Task-39110' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+Task exception was never retrieved
+future: <Task finished name='Task-39111' coro=<CallbackQuery.Event.answer() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py:219> exception=QueryIdInvalidError('The query ID is invalid (caused by SetBotCallbackAnswerRequest)')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 245, in answer
+    return await self._client(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.QueryIdInvalidError: The query ID is invalid (caused by SetBotCallbackAnswerRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await event.edit("starting without password")
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 321, in edit
+    return await self._client.edit_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1233, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageNotModifiedError: Content of the message was not modified (caused by EditMessageRequest)
