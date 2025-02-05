@@ -96166,3 +96166,172 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
     return ''.join(
 TypeError: 'OSError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 347, in without_pass
+    pass_protect = None
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 321, in edit
+    return await self._client.edit_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1233, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageNotModifiedError: Content of the message was not modified (caused by EditMessageRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 347, in without_pass
+    pass_protect = None
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 321, in edit
+    return await self._client.edit_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1233, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageNotModifiedError: Content of the message was not modified (caused by EditMessageRequest)
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+[10] Retrying "users.GetUsers" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1029, in create_zip
+    try:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 430, in invoke
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 430, in invoke
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 430, in invoke
+  [Previous line repeated 7 more times]
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 420, in invoke
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 407, in invoke
+    except (FloodWait, FloodPremiumWait) as e:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 358, in send
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 355, in send
+    except OSError as e:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await event.edit("starting without password")
+  File "/home/ubuntu/Work/main.py", line 1031, in create_zip
+    conversations[user_id] = don
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+socket.send() raised exception.
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1029, in create_zip
+    try:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyromod/listen/client.py", line 94, in ask
+    sent_message = await self.send_message(chat_to_ask, text, *args, **kwargs)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/methods/messages/send_message.py", line 173, in send_message
+    peer = await self.resolve_peer(chat_id)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 98, in resolve_peer
+    await self.invoke(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/methods/advanced/invoke.py", line 94, in invoke
+    r = await session.invoke(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 430, in invoke
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 430, in invoke
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 430, in invoke
+  [Previous line repeated 7 more times]
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 420, in invoke
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 407, in invoke
+    except (FloodWait, FloodPremiumWait) as e:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 358, in send
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 355, in send
+    except OSError as e:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/connection/connection.py", line 78, in send
+    await self.protocol.send(data)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/connection/transport/tcp/tcp_abridged.py", line 38, in send
+    await super().send(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/connection/transport/tcp/tcp.py", line 147, in send
+    raise OSError(e)
+OSError: Connection lost
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await event.edit("starting without password")
+  File "/home/ubuntu/Work/main.py", line 1031, in create_zip
+    conversations[user_id] = don
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'OSError' object is not iterable
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 353, in with_pass
+    pass_protect = True
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 321, in edit
+    return await self._client.edit_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 1233, in edit_message
+    msg = self._get_response_message(request, await self(request), entity)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/users.py", line 87, in _call
+    result = await future
+telethon.errors.rpcerrorlist.MessageNotModifiedError: Content of the message was not modified (caused by EditMessageRequest)

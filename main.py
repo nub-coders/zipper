@@ -1030,10 +1030,12 @@ async def create_zip(event, pass_protect = None):
      async with client.conversation(user_id, timeout=120) as don:
         conversations[user_id] = don
         conv = conversations[user_id]
-        response = await conv.get_response(message="Provide me a suitable filename for the zip file", timeout=60)
+        await conv.send_message("Provide me a suitable filename for the zip file")
+        response = await conv.get_response(timeout=60)
         if pass_protect:
            get_pass = None
-           get_pass = await conv.get_response(message="please type your password below.", timeout=20)
+           await conv.send_message("please type your password below.")
+           get_pass = await conv.get_response( timeout=20)
            password = get_pass.text
            com = '--password'
         else:
