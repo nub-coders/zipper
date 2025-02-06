@@ -98732,3 +98732,31 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
     return ''.join(
 TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1030, in create_zip
+    async with client.conversation(user_id, timeout=120) as don:
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/tl/custom/conversation.py", line 478, in __aenter__
+    raise errors.AlreadyInConversationError()
+telethon.errors.common.AlreadyInConversationError: Cannot open exclusive conversation in a chat that already has one open conversation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'AlreadyInConversationError' object is not iterable
