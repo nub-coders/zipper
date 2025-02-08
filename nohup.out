@@ -99287,3 +99287,35 @@ Traceback (most recent call last):
   File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
     raise child_exception_type(errno_num, err_msg, err_filename)
 FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Starting zipper.py...
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1064, in create_zip
+    files = os.listdir(user_dir)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ubuntu/Work/zipper/6041210543'
+Server sent a very old message with ID 7469137548474527745, ignoring (see FAQ for details)
+Server sent a very old message with ID 7469137549029708801, ignoring (see FAQ for details)
+Task exception was never retrieved
+future: <Task finished name='Task-4263' coro=<Session.restart() done, defined at /home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py:186> exception=TimeoutError('Request timed out')>
+Traceback (most recent call last):
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 188, in restart
+    await self.start()
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 150, in start
+    raise e
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 119, in start
+    await self.send(raw.functions.Ping(ping_id=0), timeout=self.START_TIMEOUT)
+  File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 369, in send
+    raise TimeoutError("Request timed out")
+TimeoutError: Request timed out
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "updates.GetState" due to: Connection lost
+socket.send() raised exception.
