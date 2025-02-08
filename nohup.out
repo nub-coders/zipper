@@ -99124,3 +99124,166 @@ Traceback (most recent call last):
   File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
     raise child_exception_type(errno_num, err_msg, err_filename)
 FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1038, in create_zip
+    com = '--password'
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 355, in with_pass
+    @client.on(events.CallbackQuery(data=b'cancel_download'))
+  File "/root/Work/main.py", line 1045, in create_zip
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1034, in create_zip
+    get_pass = None
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1045, in create_zip
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+  File "/root/Work/main.py", line 1102, in create_zip
+    line = line.strip()
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
