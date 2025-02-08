@@ -98760,3 +98760,355 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/telethon/helpers.py", line 40, in add_surrogate
     return ''.join(
 TypeError: 'AlreadyInConversationError' object is not iterable
+Starting zipper.py...
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1030, in create_zip
+    async with client.conversation(user_id, timeout=120) as don:
+  File "/usr/local/lib/python3.10/dist-packages/telethon/tl/custom/conversation.py", line 478, in __aenter__
+    raise errors.AlreadyInConversationError()
+telethon.errors.common.AlreadyInConversationError: Cannot open exclusive conversation in a chat that already has one open conversation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'AlreadyInConversationError' object is not iterable
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1038, in create_zip
+    get_pass = await conv.get_response( timeout=20)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Task exception was never retrieved
+future: <Task finished name='Task-3016' coro=<Session.restart() done, defined at /usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py:186> exception=TimeoutError('Request timed out')>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 188, in restart
+    await self.start()
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 150, in start
+    raise e
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 122, in start
+    await self.send(
+  File "/usr/local/lib/python3.10/dist-packages/pyrogram/session/session.py", line 369, in send
+    raise TimeoutError("Request timed out")
+TimeoutError: Request timed out
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1030, in create_zip
+    async with client.conversation(user_id, timeout=120) as don:
+  File "/usr/local/lib/python3.10/dist-packages/telethon/tl/custom/conversation.py", line 478, in __aenter__
+    raise errors.AlreadyInConversationError()
+telethon.errors.common.AlreadyInConversationError: Cannot open exclusive conversation in a chat that already has one open conversation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'AlreadyInConversationError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "updates.GetState" due to: Connection lost
+socket.send() raised exception.
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+./zip.sh: line 24: 32843 Killed                  nohup python3 main.py
+Starting zipper.py...
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1030, in create_zip
+    async with client.conversation(user_id, timeout=120) as don:
+  File "/usr/local/lib/python3.10/dist-packages/telethon/tl/custom/conversation.py", line 478, in __aenter__
+    raise errors.AlreadyInConversationError()
+telethon.errors.common.AlreadyInConversationError: Cannot open exclusive conversation in a chat that already has one open conversation
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'AlreadyInConversationError' object is not iterable
+Unhandled exception on with_pass
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 456, in wait_for
+    return fut.result()
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Work/main.py", line 1034, in create_zip
+    response = await conv.get_response(timeout=60)
+  File "/usr/lib/python3.10/asyncio/tasks.py", line 458, in wait_for
+    raise exceptions.TimeoutError() from exc
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 355, in with_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1045, in create_zip
+    await event.respond(e)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/extensions/markdown.py", line 68, in parse
+    message = add_surrogate(message)
+  File "/usr/local/lib/python3.10/dist-packages/telethon/helpers.py", line 40, in add_surrogate
+    return ''.join(
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/root/Work/main.py", line 349, in without_pass
+    await create_zip(event, pass_protect)
+  File "/root/Work/main.py", line 1102, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'

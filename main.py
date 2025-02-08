@@ -1,7 +1,6 @@
 import urllib3
 urllib3.disable_warnings()
 import random
-import pyromod
 import os
 import certifi
 from pyrogram import Client as dint
@@ -1010,7 +1009,6 @@ async def download(event):
 zipping_in_progress=False
 
 import re
-from pyromod.helpers import ikb
 async def func(_, __, query):
     return query.data ==  "no_password"
 
