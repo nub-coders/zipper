@@ -99359,3 +99359,11 @@ Traceback (most recent call last):
   File "/home/ubuntu/.local/lib/python3.10/site-packages/pyrogram/session/session.py", line 369, in send
     raise TimeoutError("Request timed out")
 TimeoutError: Request timed out
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+socket.send() raised exception.
+[10] Retrying "updates.GetState" due to: Connection lost
+socket.send() raised exception.
