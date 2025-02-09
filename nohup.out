@@ -99319,3 +99319,4 @@ socket.send() raised exception.
 socket.send() raised exception.
 [10] Retrying "updates.GetState" due to: Connection lost
 socket.send() raised exception.
+Starting zipper.py...
