@@ -120561,3 +120561,7 @@ Traceback (most recent call last):
 OSError: Connection lost
 ./zip.sh: line 24: 126161 Killed                  nohup python3 main.py
 Starting zipper.py...
+Starting zipper.py...
+/home/ubuntu/Work/main.py:1641: RuntimeWarning: coroutine 'Start.start' was never awaited
+  app.start()
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
