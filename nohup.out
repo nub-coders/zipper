@@ -120817,3 +120817,554 @@ Traceback (most recent call last):
   File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/subprocess.py", line 1974, in _execute_child
     raise child_exception_type(errno_num, err_msg, err_filename)
 FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1100, in create_zip
+    output= subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1,  universal_newlines=True, )
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/subprocess.py", line 1038, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/subprocess.py", line 1974, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'zip'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1157, in create_zip
+    await app.send_document(
+    event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/methods/messages/send_document.py", line 204, in send_document
+    file = await self.save_file(document, progress=progress, progress_args=progress_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/methods/advanced/save_file.py", line 145, in save_file
+    dc_id = await self.storage.dc_id()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 239, in dc_id
+    return self._accessor(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 236, in _accessor
+    return self._get() if value == object else self._set(value)
+           ~~~~~~~~~^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 222, in _get
+    return self.conn.execute(
+           ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'execute'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 940, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 778, in reply
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        await self.get_input_chat(), *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 92, in _call
+    result = await future
+             ^^^^^^^^^^^^
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 841, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 970, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 970, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 970, in download
+    await download(next_file)
+  [Previous line repeated 55 more times]
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 888, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 767, in respond
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        await self.get_input_chat(), *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 92, in _call
+    result = await future
+             ^^^^^^^^^^^^
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 940, in download
+    msg = await event.reply("Downloading started")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 778, in reply
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        await self.get_input_chat(), *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 92, in _call
+    result = await future
+             ^^^^^^^^^^^^
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 841, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 970, in download
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 957, in download
+    return await timeout(event)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 147, in timeout
+    await download(next_file)
+  File "/home/ubuntu/Work/main.py", line 888, in download
+    return await link_send(event)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/Work/main.py", line 430, in link_send
+    await event.respond("**Storage is limited to 200 MB for non verified users**\nyou need to verify first in order to incrrase storage capacity\n\nThis is only file to zip bot which gives 4.5 GB storage support to the user \n\nYou can also use /premium to get many benifits including no ads",buttons=[Button.url("Click to verify",links[output]),Button.url("how to verify","https://t.me/nub_coder_updates/211")])
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/tl/custom/message.py", line 767, in respond
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        await self.get_input_chat(), *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messages.py", line 908, in send_message
+    result = await self(request)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 30, in __call__
+    return await self._call(self._sender, request, ordered=ordered)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/users.py", line 92, in _call
+    result = await future
+             ^^^^^^^^^^^^
+telethon.errors.rpcerrorlist.UserIsBlockedError: User is blocked (caused by SendMessageRequest)
