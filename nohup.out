@@ -121775,3 +121775,63 @@ Traceback (most recent call last):
     return self.conn.execute(
            ^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'execute'
+Unhandled exception on main
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 841, in main
+    await download(event)
+  File "/home/ubuntu/Work/main.py", line 871, in download
+    stored_time = user_data["timestamp"]
+                  ~~~~~~~~~^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1157, in create_zip
+    await app.send_document(
+    event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/methods/messages/send_document.py", line 204, in send_document
+    file = await self.save_file(document, progress=progress, progress_args=progress_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/methods/advanced/save_file.py", line 145, in save_file
+    dc_id = await self.storage.dc_id()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 239, in dc_id
+    return self._accessor(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 236, in _accessor
+    return self._get() if value == object else self._set(value)
+           ~~~~~~~~~^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 222, in _get
+    return self.conn.execute(
+           ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'execute'
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1157, in create_zip
+    await app.send_document(
+    event.chat_id,zip_filename,caption="zip by @FILEs_COMPRESSOR_BOT", progress=progress_bar)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/methods/messages/send_document.py", line 204, in send_document
+    file = await self.save_file(document, progress=progress, progress_args=progress_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/methods/advanced/save_file.py", line 145, in save_file
+    dc_id = await self.storage.dc_id()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 239, in dc_id
+    return self._accessor(value)
+           ~~~~~~~~~~~~~~^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 236, in _accessor
+    return self._get() if value == object else self._set(value)
+           ~~~~~~~~~^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/pyrogram/storage/sqlite_storage.py", line 222, in _get
+    return self.conn.execute(
+           ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'execute'
