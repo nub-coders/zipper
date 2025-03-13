@@ -1637,10 +1637,13 @@ async def get_handler(event):
         await event.respond(f'The value is: {value}')
     else:
         await event.respond('No value found')
+
+
 async def mainn():
 
    await app.start()
+   print(app.me.username)
 
 
-asyncio.run(mainn)
+client.loop.run_until_complete(mainn())
 client.run_until_disconnected()
