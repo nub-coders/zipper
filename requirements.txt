@@ -1,3 +1,4 @@
+pillow
 setuptools
 youtube-search-python
 uvloop
