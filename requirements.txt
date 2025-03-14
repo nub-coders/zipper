@@ -4,7 +4,7 @@ uvloop
 free-proxy
 certifi
 aiofiles
-kurigram
+https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip --force-reinstall
 aiohttp
 telethon
 tgcrypto

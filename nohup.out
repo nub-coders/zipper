@@ -155198,3 +155198,95 @@ Traceback (most recent call last):
     result = await f
              ^^^^^^^
 telethon.errors.rpcerrorlist.MessageDeleteForbiddenError: You can't delete one of the messages you tried to delete, most likely because it is a service message. (caused by DeleteMessagesRequest)
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1032, in create_zip
+    response = await conv.get_response(timeout=60)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/asyncio/tasks.py", line 506, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/asyncio/timeouts.py", line 116, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1043, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        await self.get_input_chat(), *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+                            ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/extensions/markdown.py", line 64, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/helpers.py", line 44, in add_surrogate
+    if (0x10000 <= ord(x) <= 0x10FFFF) else x for x in text
+                                                       ^^^^
+TypeError: 'TimeoutError' object is not iterable
+Unhandled exception on without_pass
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/asyncio/tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/Work/main.py", line 1032, in create_zip
+    response = await conv.get_response(timeout=60)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/asyncio/tasks.py", line 506, in wait_for
+    async with timeouts.timeout(timeout):
+               ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/asyncio/timeouts.py", line 116, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/updates.py", line 570, in _dispatch_update
+    await callback(event)
+  File "/home/ubuntu/Work/main.py", line 348, in without_pass
+    await create_zip(event, pass_protect)
+  File "/home/ubuntu/Work/main.py", line 1043, in create_zip
+    await event.respond(e)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/events/callbackquery.py", line 281, in respond
+    return await self._client.send_message(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        await self.get_input_chat(), *args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messages.py", line 889, in send_message
+    message, formatting_entities = await self._parse_message_text(message, parse_mode)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/client/messageparse.py", line 87, in _parse_message_text
+    message, msg_entities = parse_mode.parse(message)
+                            ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/extensions/markdown.py", line 64, in parse
+    message = add_surrogate(message)
+  File "/home/ubuntu/.pyenv/versions/3.13.2/lib/python3.13/site-packages/telethon/helpers.py", line 44, in add_surrogate
+    if (0x10000 <= ord(x) <= 0x10FFFF) else x for x in text
+                                                       ^^^^
+TypeError: 'TimeoutError' object is not iterable
