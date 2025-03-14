@@ -1,3 +1,4 @@
+setuptools
 youtube-search-python
 uvloop
 free-proxy
