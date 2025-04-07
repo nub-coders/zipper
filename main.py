@@ -1266,7 +1266,7 @@ async def create_zip(event, pass_protect = None):
 
 #print(sanitized_link)
                  try:
-                                await message.edit(f"Not able to upload files more than 500MB here\n So I provided this download link:", buttons=Button.url("Download File",link))
+                                await message.edit(f"Not able to upload files more than 2GB here\n So I provided this download link:", buttons=Button.url("Download File",link))
                                 user_data = collection.find_one({})
                                 if user_data:
                                    is_ad = user_data.get('is_ad',"false")
