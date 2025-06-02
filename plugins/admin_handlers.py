@@ -1,43 +1,68 @@
-
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from plugins.admin_commands import is_admin, broadcast_message, authorize_premium_user, reset_user
+from plugins.user_management import storre_user
 from plugins.installer import get_database_collection
 import os
 import time
 
-collection = get_database_collection()
-ggg = os.getcwd()
+# These will be updated by main.py
+collection = None
+ggg = None
 
 @Client.on_message(filters.command("skip") & filters.regex("^!skip$"))
 async def skip_handler(client: Client, message: Message):
     user_id = message.from_user.id
-    if is_admin(user_id):
-        await message.reply_text("Admin command received. Skipping the task...")
-        # Import timeout function from main
-        import main
-        await main.timeout()
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id in admin_ids:
+                await message.reply_text("Admin command received. Skipping the task...")
+                import main
+                await main.timeout()
 
 @Client.on_message(filters.command("loud"))
 async def loud_message(client: Client, message: Message):
     user_id = message.from_user.id
-    if not is_admin(user_id):
-        return
-    
-    await broadcast_message(client, collection, message)
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
+
+    stored_user_ids = [user["user_id"] for user in collection.find()]
+    xx = 0
+
+    if message.reply_to_message:
+        for user_id in stored_user_ids:
+            try:
+                await message.reply_to_message.forward(user_id)
+                xx += 1
+            except Exception as e:
+                print(f"Failed to forward message: {e}")
+        await message.reply_text(f"Broadcasted to {xx} users")
 
 @Client.on_message(filters.command("reboot"))
 async def reboot_handler(client: Client, message: Message):
     user_id = message.from_user.id
-    if is_admin(user_id):
-        await message.reply_text("Admin command received. Stopping the bot...")
-        os.system(f"kill -9 {os.getpid()}")
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id in admin_ids:
+                await message.reply_text("Admin command received. Stopping the bot...")
+                os.system(f"kill -9 {os.getpid()}")
 
 @Client.on_message(filters.command("rst"))
-async def reset_user_handler(client: Client, message: Message):
+async def unauthorize_user(client: Client, message: Message):
     user_id = message.from_user.id
-    if not is_admin(user_id):
-        return
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
 
     target_user_id = None
     if message.reply_to_message and message.reply_to_message.from_user.id:
@@ -56,14 +81,20 @@ async def reset_user_handler(client: Client, message: Message):
                 return await message.reply_text("Cannot find user with the provided username.")
 
     if target_user_id:
-        user_data = reset_user(collection, target_user_id)
+        timestamp = int(time.time()) - 12600
+        storre_user(collection, target_user_id, timestamp)
+        user_data = collection.find_one({"user_id": target_user_id})
         await message.reply_text(f"User resetted successfully.\nUserdata:{user_data}")
 
 @Client.on_message(filters.command("authorize"))
 async def authorize_user(client: Client, message: Message):
     user_id = message.from_user.id
-    if not is_admin(user_id):
-        return
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
 
     target_user_id = None
     if message.reply_to_message and message.reply_to_message.from_user.id:
@@ -82,14 +113,20 @@ async def authorize_user(client: Client, message: Message):
                 return await message.reply_text("Cannot find user with the provided username.")
 
     if target_user_id:
-        user_data = authorize_premium_user(collection, target_user_id)
+        timestamp = int(time.time()) + (30 * 24 * 60 * 60)
+        storre_user(collection, target_user_id, timestamp)
+        user_data = collection.find_one({"user_id": target_user_id})
         await message.reply_text(f"User authorized successfully.\nUserdata:{user_data}")
 
 @Client.on_message(filters.command("users"))
 async def list_users(client: Client, message: Message):
     user_id = message.from_user.id
-    if not is_admin(user_id):
-        return
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
 
     user_ids = [str(user["user_id"]) for user in collection.find()]
     if user_ids:
@@ -105,8 +142,12 @@ async def list_users(client: Client, message: Message):
 @Client.on_message(filters.command("set"))
 async def set_handler(client: Client, message: Message):
     user_id = message.from_user.id
-    if not is_admin(user_id):
-        return
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
 
     try:
         input_text = message.text.split('/set ')[1]
@@ -119,8 +160,12 @@ async def set_handler(client: Client, message: Message):
 @Client.on_message(filters.command("ad"))
 async def ad_handler(client: Client, message: Message):
     user_id = message.from_user.id
-    if not is_admin(user_id):
-        return
+    admin_file = f"{ggg}/admin.txt"
+    if os.path.exists(admin_file):
+        with open(admin_file, "r") as file:
+            admin_ids = [int(line.strip()) for line in file.readlines()]
+            if user_id not in admin_ids:
+                return
 
     try:
         is_ad_value = message.text.split()[1]

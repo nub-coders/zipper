@@ -22,13 +22,14 @@ ggg = os.getcwd()
 
 # Global variables (will be updated by main.py)
 dd = 0
-download_queue = queue.Queue()
-premium_queue = queue.Queue()
+download_queue = None
+premium_queue = None
 zipping_in_progress = False
 download_in_progress = False
 user_ids = {}
 active_user_id = None
 time_left = 0
+timeout = None
 
 @Client.on_message(filters.command("my_files"))
 async def list_files_command(client: Client, message: Message):
@@ -92,7 +93,14 @@ async def handle_links(client: Client, message: Message):
 
 async def list_files(event):
     user_id = event.from_user.id
-    check_if = await is_user_on_chat(Client.get_current(), "@nub_coder_updates", user_id)
+    # Get current client instance
+    client = Client.get_current() if hasattr(Client, 'get_current') else None
+    if not client:
+        # Fallback: get from global app instance
+        import main
+        client = main.app
+    
+    check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
 
     if not check_if:
         button = InlineKeyboardMarkup([[InlineKeyboardButton("Join", url="https://t.me/nub_coder_updates")]])
@@ -240,9 +248,7 @@ async def download(message):
                 await msg.edit_text(f"Download failed: {e}\nPlease resend this file")
 
             download_in_progress = False
-            # Import timeout function from main
-            import main
-            await main.timeout()
+            await timeout()
         else:
             dd += 1
             queue_message = 'I have added your file in queue to download'
@@ -260,8 +266,7 @@ async def download(message):
                 download_queue.put(message)
     else:
         await message.reply_text("Not enough storage space to download this file.", reply_markup=common_buttons)
-        import main
-        await main.timeout()
+        await timeout()
 
 async def link_download(message):
     link = message.text

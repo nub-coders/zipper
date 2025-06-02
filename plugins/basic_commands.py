@@ -1,16 +1,15 @@
-
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from plugins.user_management import store_userr, store_user, get_user_status
+from plugins.user_management import store_userr, get_user_status, store_user
 from plugins.ui_components import home_buttons, common_buttons
 from plugins.verification import send_verification_link
-from tools import is_user_on_chat
-import time
-import os
-
-# Get database collection
 from plugins.installer import get_database_collection
-collection = get_database_collection()
+import time
+
+# These will be updated by main.py
+collection = None
+ggg = None
+timeout = None
 
 @Client.on_message(filters.command("start"))
 async def start_command(client: Client, message: Message):
@@ -72,10 +71,7 @@ async def help_command(client: Client, message: Message):
         "Enjoy using the bot! 🚀"
     )
 
-    if hasattr(message, 'edit_message_text'):
-        await message.edit_message_text(help_message, reply_markup=common_buttons)
-    else:
-        await message.reply_text(help_message, reply_markup=common_buttons)
+    await message.reply_text(help_message, reply_markup=common_buttons)
 
 @Client.on_message(filters.command("premium"))
 async def premium_info(client: Client, message: Message):
