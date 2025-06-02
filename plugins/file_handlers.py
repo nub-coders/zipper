@@ -174,9 +174,11 @@ async def download(message):
 
         timer = Timer()
         fi_encoded = None
+        msg = None
 
         async def progress_bar(current, total, start_time=time.time()):
-            if timer.can_send() and total != 0:
+            nonlocal msg
+            if timer.can_send() and total != 0 and msg:
                 global download_in_progress, time_left
                 download_in_progress = True
                 progress_percent = current * 100 / total
@@ -202,8 +204,7 @@ async def download(message):
                     progress_message += f"\n\n**Slow download?**, use /premium to boost download speed"
 
                 try:
-                    if random.choices([True, False], weights=[1, 999])[0]:
-                        await msg.edit_text(progress_message)
+                    await msg.edit_text(progress_message)
                 except Exception as e:
                     print(e)
 
@@ -220,13 +221,18 @@ async def download(message):
                     file_path = os.path.join(user_dir, fi_encoded)
                 else:
                     fi_encoded = f"file_{user_id}_{int(time.time())}"
+                    if message.photo:
+                        fi_encoded += ".jpg"
                     file_path = os.path.join(user_dir, fi_encoded)
 
                 await message.download(file_path, progress=progress_bar)
                 await msg.edit_text("Finished downloading\n/my_files to see your files")
 
             except Exception as e:
-                await msg.edit_text(f"Download failed: {e}\nPlease resend this file")
+                if msg:
+                    await msg.edit_text(f"Download failed: {e}\nPlease resend this file")
+                else:
+                    await message.reply_text(f"Download failed: {e}\nPlease resend this file")
 
             download_in_progress = False
             if timeout:
