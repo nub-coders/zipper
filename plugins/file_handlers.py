@@ -1,4 +1,3 @@
-
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.user_management import store_userr, get_user_status
@@ -80,7 +79,7 @@ async def handle_links(client: Client, message: Message):
 async def list_files(event):
     user_id = event.from_user.id
     client = event._client if hasattr(event, '_client') else None
-    
+
     check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
 
     if not check_if:
@@ -218,14 +217,12 @@ async def download(message):
 
                 if message.document and message.document.file_name:
                     fi_encoded = message.document.file_name
-                    file_path = os.path.join(user_dir, fi_encoded)
                 else:
                     fi_encoded = f"file_{user_id}_{int(time.time())}"
                     if message.photo:
                         fi_encoded += ".jpg"
-                    file_path = os.path.join(user_dir, fi_encoded)
 
-                await message.download(file_path, progress=progress_bar)
+                await message.download(file_name=f"zipper/{user_id}/", progress=progress_bar)
                 await msg.edit_text("Finished downloading\n/my_files to see your files")
 
             except Exception as e:
