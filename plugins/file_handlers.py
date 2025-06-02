@@ -67,7 +67,7 @@ async def zip_files_command(client: Client, message: Message):
         reply_to_message_id=message.id
     )
 
-@Client.on_message(filters.private & (filters.document | filters.photo))
+@Client.on_message(filters.private & (filters.document | filters.photo | filters.video | filters.audio | filters.voice | filters.video_note | filters.sticker | filters.animation))
 async def handle_media(client: Client, message: Message):
     if not download_queue.empty() or not premium_queue.empty():
         await asyncio.sleep(5)
@@ -166,7 +166,40 @@ async def download(message):
                 reply_to_message_id=message.id
             )
     elif message.photo:
-        size = 100
+        size = sum(photo.file_size for photo in message.photo) if hasattr(message.photo, '__iter__') else getattr(message.photo, 'file_size', 100)
+    elif message.video:
+        size = message.video.file_size
+        if size > max_file_size:
+            size_gb = max_file_size / (1024 * 1024 * 1024)
+            return await message.reply_text(
+                f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
+                reply_markup=common_buttons,
+                reply_to_message_id=message.id
+            )
+    elif message.audio:
+        size = message.audio.file_size
+        if size > max_file_size:
+            size_gb = max_file_size / (1024 * 1024 * 1024)
+            return await message.reply_text(
+                f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
+                reply_markup=common_buttons,
+                reply_to_message_id=message.id
+            )
+    elif message.voice:
+        size = message.voice.file_size
+    elif message.video_note:
+        size = message.video_note.file_size
+    elif message.sticker:
+        size = message.sticker.file_size
+    elif message.animation:
+        size = message.animation.file_size
+        if size > max_file_size:
+            size_gb = max_file_size / (1024 * 1024 * 1024)
+            return await message.reply_text(
+                f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
+                reply_markup=common_buttons,
+                reply_to_message_id=message.id
+            )
     else:
         size = 0
 
@@ -220,10 +253,26 @@ async def download(message):
 
                 if message.document and message.document.file_name:
                     fi_encoded = message.document.file_name
+                elif message.photo:
+                    fi_encoded = f"photo_{user_id}_{int(time.time())}.jpg"
+                elif message.video and message.video.file_name:
+                    fi_encoded = message.video.file_name
+                elif message.video:
+                    fi_encoded = f"video_{user_id}_{int(time.time())}.mp4"
+                elif message.audio and message.audio.file_name:
+                    fi_encoded = message.audio.file_name
+                elif message.audio:
+                    fi_encoded = f"audio_{user_id}_{int(time.time())}.mp3"
+                elif message.voice:
+                    fi_encoded = f"voice_{user_id}_{int(time.time())}.ogg"
+                elif message.video_note:
+                    fi_encoded = f"video_note_{user_id}_{int(time.time())}.mp4"
+                elif message.sticker:
+                    fi_encoded = f"sticker_{user_id}_{int(time.time())}.webp"
+                elif message.animation:
+                    fi_encoded = f"animation_{user_id}_{int(time.time())}.gif"
                 else:
                     fi_encoded = f"file_{user_id}_{int(time.time())}"
-                    if message.photo:
-                        fi_encoded += ".jpg"
 
                 await message.download(file_name=f"zipper/{user_id}/", progress=progress_bar)
                 await msg.edit_text("Finished downloading\n/my_files to see your files")
