@@ -102,7 +102,7 @@ admin = 6476862483
 time.sleep(2)
 dex = "zipper/duo"
 
-app = Client('file_compressor_bot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+app = Client('file_compressor_bot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, in_memory=True)
 Conversation(app)  # Initialize conversation plugin
 
 links = {
