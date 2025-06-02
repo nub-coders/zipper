@@ -12,13 +12,8 @@ from plugins.file_handlers import process_queues
 # Import all configuration and globals from config
 from config import *
 
-# Initialize bot and get database collection
-from plugins.installer import initialize_bot
-collection = initialize_bot()
-
-# Update config with the collection
+# Import all configuration and globals from config (collection already initialized there)
 import config
-config.collection = collection
 config.ggg = os.getcwd()
 
 # Bot configuration with Smart Plugins enabled
