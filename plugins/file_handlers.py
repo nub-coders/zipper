@@ -1,5 +1,4 @@
 
-
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.user_management import store_userr, get_user_status
@@ -9,6 +8,7 @@ from plugins.verification import send_verification_link
 from plugins.installer import get_database_collection
 from tools import is_user_on_chat
 from config import *
+import os
 import shutil
 import subprocess
 import requests
@@ -79,12 +79,7 @@ async def handle_links(client: Client, message: Message):
 
 async def list_files(event):
     user_id = event.from_user.id
-    # Get current client instance
-    client = Client.get_current() if hasattr(Client, 'get_current') else None
-    if not client:
-        # Fallback: get from global app instance
-        import main
-        client = main.app
+    client = event._client if hasattr(event, '_client') else None
     
     check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
 
@@ -178,6 +173,7 @@ async def download(message):
             return await send_verification_link(message, collection)
 
         timer = Timer()
+        fi_encoded = None
 
         async def progress_bar(current, total, start_time=time.time()):
             if timer.can_send() and total != 0:
@@ -215,7 +211,6 @@ async def download(message):
             user_ids[user_id] = True
             download_in_progress = True
             active_user_id = user_id
-            await asyncio.sleep(5)
 
             try:
                 msg = await message.reply_text("Downloading started")
@@ -234,7 +229,8 @@ async def download(message):
                 await msg.edit_text(f"Download failed: {e}\nPlease resend this file")
 
             download_in_progress = False
-            await timeout()
+            if timeout:
+                await timeout()
         else:
             dd += 1
             queue_message = 'I have added your file in queue to download'
@@ -252,7 +248,8 @@ async def download(message):
                 download_queue.put(message)
     else:
         await message.reply_text("Not enough storage space to download this file.", reply_markup=common_buttons)
-        await timeout()
+        if timeout:
+            await timeout()
 
 async def link_download(message):
     link = message.text
@@ -298,7 +295,7 @@ async def link_download(message):
                 if not is_verified and content_length > 200 * 1024 * 1024:
                     return await send_verification_link(message, collection)
 
-                filename = link.split('/')[-1]
+                filename = link.split('/')[-1] or f"download_{int(time.time())}"
                 message_obj = await message.reply_text(f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download")
 
                 start_time = time.time()
@@ -323,4 +320,3 @@ async def link_download(message):
             await message.reply_text("Content length not found in headers. Cannot determine file size.")
     except Exception as e:
         await message.reply_text(str(e))
-

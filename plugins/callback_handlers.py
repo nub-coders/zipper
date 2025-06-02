@@ -1,3 +1,4 @@
+
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
 from plugins.ui_components import home_buttons, back_buttons, pass_button
@@ -6,6 +7,7 @@ from plugins.file_operations import Timer, upload_to_gofile
 from plugins.installer import get_database_collection
 from tools import is_user_on_chat
 from config import *
+import os
 import subprocess
 import shutil
 import time

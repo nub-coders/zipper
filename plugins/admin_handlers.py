@@ -4,6 +4,7 @@ from pyrogram.types import Message
 from plugins.user_management import storre_user
 from plugins.installer import get_database_collection
 from config import *
+import os
 import time
 
 @Client.on_message(filters.command("skip") & filters.regex("^!skip$"))
@@ -15,8 +16,8 @@ async def skip_handler(client: Client, message: Message):
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id in admin_ids:
                 await message.reply_text("Admin command received. Skipping the task...")
-                import main
-                await main.timeout()
+                if timeout:
+                    await timeout()
 
 @Client.on_message(filters.command("loud"))
 async def loud_message(client: Client, message: Message):

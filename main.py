@@ -10,12 +10,14 @@ import queue
 # Import all configuration and globals from config
 from config import *
 
-# Import plugins
-from plugins.installer import initialize_bot
-
 # Initialize bot and get database collection
+from plugins.installer import initialize_bot
 collection = initialize_bot()
-ggg = os.getcwd()
+
+# Update config with the collection
+import config
+config.collection = collection
+config.ggg = os.getcwd()
 
 # Bot configuration with Smart Plugins enabled
 time.sleep(2)
@@ -25,80 +27,29 @@ Conversation(app)
 
 async def timeout():
     global dd, zipping_in_progress, download_in_progress
+    config.zipping_in_progress = False
+    config.download_in_progress = False
     zipping_in_progress = False
     download_in_progress = False
 
-    if not premium_queue.empty():
-        next_file = premium_queue.get()
+    if not config.premium_queue.empty():
+        next_file = config.premium_queue.get()
+        config.dd -= 1
         dd -= 1
-        user_ids.clear()
+        config.user_ids.clear()
         from plugins.file_handlers import download
         await download(next_file)
-    elif not download_queue.empty():
-        next_file = download_queue.get()
+    elif not config.download_queue.empty():
+        next_file = config.download_queue.get()
+        config.dd -= 1
         dd -= 1
-        user_ids.clear()
+        config.user_ids.clear()
         from plugins.file_handlers import download
         await download(next_file)
 
-# Make global variables accessible to plugins
-def get_globals():
-    return {
-        'collection': collection,
-        'ggg': ggg,
-        'dd': dd,
-        'download_queue': download_queue,
-        'premium_queue': premium_queue,
-        'zipping_in_progress': zipping_in_progress,
-        'download_in_progress': download_in_progress,
-        'user_ids': user_ids,
-        'active_user_id': active_user_id,
-        'time_left': time_left,
-        'timeout': timeout
-    }
+# Update config timeout function
+config.timeout = timeout
 
 if __name__ == "__main__":
     print("Bot starting with Smart Plugins...")
-    update_globals()  # Update plugin globals before starting
     app.run()
-
-# Make global variables accessible to plugins
-def update_globals():
-    """Update global variables in plugins"""
-    import plugins.file_handlers as fh
-    import plugins.basic_commands as bc
-    import plugins.admin_handlers as ah
-    import plugins.callback_handlers as ch
-    
-    # Update file_handlers globals
-    fh.dd = dd
-    fh.download_queue = download_queue
-    fh.premium_queue = premium_queue
-    fh.zipping_in_progress = zipping_in_progress
-    fh.download_in_progress = download_in_progress
-    fh.user_ids = user_ids
-    fh.active_user_id = active_user_id
-    fh.time_left = time_left
-    fh.timeout = timeout
-    fh.collection = collection
-    fh.ggg = ggg
-    
-    # Update basic_commands globals
-    bc.collection = collection
-    bc.ggg = ggg
-    bc.timeout = timeout
-    
-    # Update admin_handlers globals
-    ah.collection = collection
-    ah.ggg = ggg
-    
-    # Update callback_handlers globals
-    ch.dd = dd
-    ch.download_queue = download_queue
-    ch.premium_queue = premium_queue
-    ch.user_ids = user_ids
-    ch.active_user_id = active_user_id
-    ch.time_left = time_left
-    ch.collection = collection
-    ch.ggg = ggg
-    ch.timeout = timeout
