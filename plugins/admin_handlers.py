@@ -1,13 +1,10 @@
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from plugins.user_management import storre_user
 from plugins.installer import get_database_collection
-import os
+from config import *
 import time
-
-# These will be updated by main.py
-collection = None
-ggg = None
 
 @Client.on_message(filters.command("skip") & filters.regex("^!skip$"))
 async def skip_handler(client: Client, message: Message):

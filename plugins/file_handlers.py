@@ -1,4 +1,5 @@
 
+
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.user_management import store_userr, get_user_status
@@ -7,7 +8,7 @@ from plugins.file_operations import Timer, upload_to_gofile, get_file_size_info,
 from plugins.verification import send_verification_link
 from plugins.installer import get_database_collection
 from tools import is_user_on_chat
-import os
+from config import *
 import shutil
 import subprocess
 import requests
@@ -15,21 +16,6 @@ import aiohttp
 import time
 import random
 import asyncio
-import queue
-
-collection = get_database_collection()
-ggg = os.getcwd()
-
-# Global variables (will be updated by main.py)
-dd = 0
-download_queue = None
-premium_queue = None
-zipping_in_progress = False
-download_in_progress = False
-user_ids = {}
-active_user_id = None
-time_left = 0
-timeout = None
 
 @Client.on_message(filters.command("my_files"))
 async def list_files_command(client: Client, message: Message):
@@ -337,3 +323,4 @@ async def link_download(message):
             await message.reply_text("Content length not found in headers. Cannot determine file size.")
     except Exception as e:
         await message.reply_text(str(e))
+

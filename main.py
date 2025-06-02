@@ -7,9 +7,11 @@ from pyrogram import Client
 from convopyro import Conversation
 import queue
 
+# Import all configuration and globals from config
+from config import *
+
 # Import plugins
 from plugins.installer import initialize_bot
-from config import *
 
 # Initialize bot and get database collection
 collection = initialize_bot()
@@ -20,16 +22,6 @@ time.sleep(2)
 plugins = dict(root="plugins")
 app = Client('file_compressor_bot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, in_memory=True, plugins=plugins)
 Conversation(app)
-
-# Global variables
-dd = 0
-download_queue = queue.Queue()
-premium_queue = queue.Queue()
-zipping_in_progress = False
-download_in_progress = False
-user_ids = {}
-active_user_id = None
-time_left = 0
 
 async def timeout():
     global dd, zipping_in_progress, download_in_progress

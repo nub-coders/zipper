@@ -1,15 +1,12 @@
+
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.user_management import store_userr, get_user_status, store_user
 from plugins.ui_components import home_buttons, common_buttons
 from plugins.verification import send_verification_link
 from plugins.installer import get_database_collection
+from config import *
 import time
-
-# These will be updated by main.py
-collection = None
-ggg = None
-timeout = None
 
 @Client.on_message(filters.command("start"))
 async def start_command(client: Client, message: Message):
