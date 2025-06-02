@@ -28,7 +28,7 @@ async def delete_file(client: Client, message: Message):
     try:
         file_number = int(message.text.split('/del ')[1]) - 1
     except (IndexError, ValueError):
-        return await message.reply_text("Invalid file number. Use /del <file_number> to delete a file.")
+        return await message.reply_text("Invalid file number. Use /del <file_number> to delete a file.", quote=True)
 
     if os.path.exists(user_dir):
         files = os.listdir(user_dir)
@@ -229,7 +229,7 @@ async def download(message):
                 if msg:
                     await msg.edit_text(f"Download failed: {e}\nPlease resend this file")
                 else:
-                    await message.reply_text(f"Download failed: {e}\nPlease resend this file")
+                    await message.reply_text(f"Download failed: {e}\nPlease resend this file", quote=True)
 
             download_in_progress = False
             if timeout:
@@ -250,7 +250,7 @@ async def download(message):
             else:
                 download_queue.put(message)
     else:
-        await message.reply_text("Not enough storage space to download this file.", reply_markup=common_buttons)
+        await message.reply_text("Not enough storage space to download this file.", reply_markup=common_buttons, quote=True)
         if timeout:
             await timeout()
 
