@@ -2,7 +2,7 @@ import urllib3
 urllib3.disable_warnings()
 import random
 import os
-import certifi
+import time
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.errors import FloodWait, UserIsBlocked
@@ -13,53 +13,25 @@ import requests
 import hashlib
 import aiohttp
 import datetime
-import pymongo
-import time
-from config import *
-from tools import is_user_on_chat
 import asyncio
 import queue
 import math
 import cryptg
+
+# Import plugins
+from plugins.installer import initialize_bot
+from plugins.user_management import *
+from plugins.ui_components import *
+from plugins.file_operations import *
+from plugins.admin_commands import *
+from plugins.verification import send_verification_link
+from config import *
+from tools import is_user_on_chat
 import string
 
+# Initialize bot and get database collection
+collection = initialize_bot()
 ggg = os.getcwd()
-
-client = pymongo.MongoClient("mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", tlsCAFile=certifi.where())
-db = client["telegram_bot"]
-collection = db["users"]
-
-# User management functions
-def store_user(user_id):
-    timestamp = int(time.time())
-    user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
-
-def store_userr(user_id):
-    timestamp = int(time.time()) - 21600
-    user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
-
-def store_code(user_id, verifycode):
-    user_data = {"user_id": user_id, "verifycode": verifycode}
-    collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
-
-def storre_user(user_id, timestamp):
-    user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
-
-# File cleanup on startup
-current_dir = f"{ggg}/zipper"
-current_time = datetime.datetime.now()
-print(f"Current Date and Time: {current_time.strftime('%Y-%m-%d %H:%M:%S')}")
-
-for dirpath, dirnames, filenames in os.walk(current_dir):
-    for filename in filenames:
-        file_path = os.path.join(dirpath, filename)
-        file_creation_time = os.path.getctime(file_path)
-        if (current_time - datetime.datetime.fromtimestamp(file_creation_time)).days >= 3:
-            os.remove(file_path)
-            print(f"Deleted file: {file_path}")
 
 # Bot configuration
 time.sleep(2)
@@ -75,95 +47,6 @@ download_in_progress = False
 user_ids = {}
 active_user_id = None
 time_left = 0
-
-# Button layouts
-help_button = InlineKeyboardButton("❓ Help", callback_data="help")
-common_buttons = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🗂️ List My Files", callback_data="my_files"),
-     InlineKeyboardButton("❌ Clear My Files", callback_data="clear")],
-    [InlineKeyboardButton("🏠 Home", callback_data="home"),
-     InlineKeyboardButton("🗜️📑 Compress files", callback_data="fzip")],
-    [help_button]
-])
-
-home_buttons = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🗂️ List My Files", callback_data="my_files"),
-     InlineKeyboardButton("❌ Clear My Files", callback_data="clear")],
-    [help_button]
-])
-
-back_buttons = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home"), help_button]])
-
-pass_button = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🔒 Set a Password", callback_data="set_password")],
-    [InlineKeyboardButton("🔓Continue without Password", callback_data="no_password")]
-])
-
-file_buttons = InlineKeyboardMarkup([
-    [InlineKeyboardButton("❌ Clear My Files", callback_data="clear"),
-     InlineKeyboardButton("🏠 Home", callback_data="home")],
-    [InlineKeyboardButton("📑 Compress files", callback_data="fzip"), help_button]
-])
-
-nofile_buttons = InlineKeyboardMarkup([
-    [InlineKeyboardButton("❌ Clear My Files", callback_data="clear"),
-     InlineKeyboardButton("🏠 Home", callback_data="home")],
-    [help_button]
-])
-
-class Timer:
-    def __init__(self, time_between=2):
-        self.start_time = time.time()
-        self.time_between = time_between
-
-    def can_send(self):
-        if time.time() > (self.start_time + self.time_between):
-            self.start_time = time.time()
-            return True
-        return False
-
-def generate_random_code(length=10):
-    characters = string.ascii_letters + string.digits
-    return ''.join(random.choice(characters) for _ in range(length))
-
-def get_user_status(user_id):
-    current_time = int(time.time())
-    user_data = collection.find_one({"user_id": user_id})
-    if not user_data:
-        return False, 200 * 1024 * 1024, 200 * 1024 * 1024
-
-    stored_time = user_data["timestamp"]
-    time_difference = current_time - stored_time
-
-    if time_difference < 0:  # Premium user
-        return True, 10 * 1024 * 1024 * 1024, 3.5 * 1024 * 1024 * 1024
-    elif time_difference < 21600:  # Verified user
-        return True, 4.5 * 1024 * 1024 * 1024, 2.5 * 1024 * 1024 * 1024
-    else:  # Non-verified user
-        return False, 200 * 1024 * 1024, 200 * 1024 * 1024
-
-async def send_verification_link(message):
-    code = generate_random_code()
-    store_code(message.from_user.id, code)
-    long = f'http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}'
-    url = f'https://api.cuty.io/quick?token=b09763cdea0deb0cc373ca5eb&url={long}'
-
-    try:
-        response = requests.get(url, verify=False)
-        data = response.json()
-        verify_button = InlineKeyboardMarkup([
-            [InlineKeyboardButton("Click to verify", url=data["shortenedUrl"])],
-            [InlineKeyboardButton("how to verify", url="https://t.me/nub_coder_s_updates/3")]
-        ])
-
-        await message.reply_text(
-            "you need to verify first in order to use the bot to avoid spam\n\n"
-            "This is only file to zip bot which gives 4.5 GB storage support to the user \n\n"
-            "You can also use /premium to get many benifits including no ads",
-            reply_markup=verify_button
-        )
-    except Exception as e:
-        print(f"Error in send_verification_link: {e}")
 
 async def timeout():
     global dd, zipping_in_progress, download_in_progress
@@ -233,7 +116,7 @@ async def lstart(client, message):
     if message.text == "/start":
         user_data = collection.find_one({"user_id": user_id})
         if not user_data:
-            store_userr(user_id)
+            store_userr(collection, user_id)
         await message.reply_text(
             "Hello! this is file to zip bot.\n"
             "Send me any files or direct download link and I will compress them to a zip\n"
@@ -255,15 +138,15 @@ async def lstart(client, message):
     # Check verification codes
     if user_data and "verifycode" in user_data:
         if f'verifycodeis{user_data["verifycode"]}' == message.text.split(' ')[1]:
-            store_user(user_id)
+            store_user(collection, user_id)
             await message.reply_text(
                 "Welcome back to the bot! You are verified for 6 hours",
                 reply_markup=home_buttons
             )
         else:
-            await send_verification_link(message)
+            await send_verification_link(message, collection)
     else:
-        await send_verification_link(message)
+        await send_verification_link(message, collection)
 
 # Callback handlers
 @app.on_callback_query(filters.regex("no_password"))
@@ -334,7 +217,7 @@ async def start_handler(callback_query):
     user_id = callback_query.from_user.id
     user_data = collection.find_one({"user_id": user_id})
     if not user_data:
-        store_userr(user_id)
+        store_userr(collection, user_id)
 
     await callback_query.edit_message_text(
         "Hello! this is file to zip bot.\n"
@@ -355,7 +238,7 @@ async def list_files(event):
         else:
             return await event.reply_text(message_text, reply_markup=button)
 
-    is_verified, max_storage, max_file_size = get_user_status(user_id)
+    is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
     user_dir = f"{ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
 
@@ -451,7 +334,7 @@ async def clear(client, message):
 async def download(message):
     global active_user_id, download_in_progress, dd
     user_id = message.from_user.id
-    is_verified, max_storage, max_file_size = get_user_status(user_id)
+    is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
 
     user_dir = f"{ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
@@ -475,7 +358,7 @@ async def download(message):
 
     if size <= remaining_storage:
         if not is_verified and size > 200 * 1024 * 1024:
-            return await send_verification_link(message)
+            return await send_verification_link(message, collection)
 
         timer = Timer()
 
@@ -741,7 +624,7 @@ async def help_handler(client, message):
 async def link_download(message):
     link = message.text
     user_id = message.from_user.id
-    is_verified, max_storage, max_file_size = get_user_status(user_id)
+    is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
 
     user_dir = f"{ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
@@ -781,7 +664,7 @@ async def link_download(message):
             content_length = int(response.headers["content-length"])
             if content_length <= remaining_storage:
                 if not is_verified and content_length > 200 * 1024 * 1024:
-                    return await send_verification_link(message)
+                    return await send_verification_link(message, collection)
 
                 filename = link.split('/')[-1]
                 message_obj = await message.reply_text(f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download")
@@ -826,7 +709,7 @@ async def premium_info(client, message):
     contact_button = InlineKeyboardMarkup([[InlineKeyboardButton("Contact Admin", url="https://t.me/nub_coder_s")]])
     await message.reply_text(premium_benefits, reply_markup=contact_button)
 
-@app.on_message(filters.command("status"))
+@app<on_message(filters.command("status"))
 async def user_status(client, message):
     user_id = message.from_user.id
     current_time = int(time.time())
@@ -834,7 +717,7 @@ async def user_status(client, message):
 
     if user_data:
         stored_time = user_data.get("timestamp", 0)
-        time_difference = stored_time - current_time
+        time_difference = current_time - stored_time
 
         if time_difference > 0:
             status = "💎 Premium 💎"
@@ -911,7 +794,7 @@ async def unauthorize_user(client, message):
 
     if target_user_id:
         timestamp = int(time.time()) - 12600
-        storre_user(target_user_id, timestamp)
+        storre_user(collection, target_user_id, timestamp)
         user_data = collection.find_one({"user_id": target_user_id})
         await message.reply_text(f"User resetted successfully.\nUserdata:{user_data}")
 
@@ -943,7 +826,7 @@ async def authorize_user(client, message):
 
     if target_user_id:
         timestamp = int(time.time()) + (30 * 24 * 60 * 60)
-        storre_user(target_user_id, timestamp)
+        storre_user(collection, target_user_id, timestamp)
         user_data = collection.find_one({"user_id": target_user_id})
         await message.reply_text(f"User authorized successfully.\nUserdata:{user_data}")
 
