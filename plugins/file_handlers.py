@@ -62,7 +62,9 @@ async def clear_files(client: Client, message: Message):
 async def zip_files_command(client: Client, message: Message):
     return await message.reply_text(
         "Would you like to protect your zip file with a secure password ?",
-        reply_markup=pass_button
+        reply_markup=pass_button,
+        quote=True,
+        reply_to_message_id=message.id
     )
 
 @Client.on_message(filters.private & (filters.document | filters.photo))
@@ -214,7 +216,7 @@ async def download(message):
             active_user_id = user_id
 
             try:
-                msg = await message.reply_text("Downloading started")
+                msg = await message.reply_text("Downloading started", quote=True, reply_to_message_id=message.id)
 
                 if message.document and message.document.file_name:
                     fi_encoded = message.document.file_name
@@ -300,7 +302,7 @@ async def link_download(message):
                     return await send_verification_link(message, collection)
 
                 filename = link.split('/')[-1] or f"download_{int(time.time())}"
-                message_obj = await message.reply_text(f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download")
+                message_obj = await message.reply_text(f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download", quote=True, reply_to_message_id=message.id)
 
                 start_time = time.time()
                 async with aiohttp.ClientSession() as session:
@@ -317,10 +319,10 @@ async def link_download(message):
                                     await progress_bar(current_size, content_length, start_time, message_obj, filename)
                             await message_obj.edit_text(f"File {filename} downloaded successfully\n/my_files to check all your files")
                         else:
-                            await message.reply_text("Download failed. Please check the URL.", reply_to_message_id=message.id)
+                            await message.reply_text("Download failed. Please check the URL.", quote=True, reply_to_message_id=message.id)
             else:
-                await message.reply_text("Not enough storage space.", reply_to_message_id=message.id)
+                await message.reply_text("Not enough storage space.", quote=True, reply_to_message_id=message.id)
         else:
-            await message.reply_text("Content length not found in headers. Cannot determine file size.", reply_to_message_id=message.id)
+            await message.reply_text("Content length not found in headers. Cannot determine file size.", quote=True, reply_to_message_id=message.id)
     except Exception as e:
-        await message.reply_text(str(e), reply_to_message_id=message.id)
+        await message.reply_text(str(e), quote=True, reply_to_message_id=message.id)

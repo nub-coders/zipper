@@ -68,7 +68,7 @@ async def help_command(client: Client, message: Message):
         "Enjoy using the bot! 🚀"
     )
 
-    await message.reply_text(help_message, reply_markup=common_buttons)
+    await message.reply_text(help_message, reply_markup=common_buttons, quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("premium"))
 async def premium_info(client: Client, message: Message):
@@ -85,7 +85,7 @@ async def premium_info(client: Client, message: Message):
     Contact any admin to get premium.
     """
     contact_button = InlineKeyboardMarkup([[InlineKeyboardButton("Contact Admin", url="https://t.me/nub_coder_s")]])
-    await message.reply_text(premium_benefits, reply_markup=contact_button)
+    await message.reply_text(premium_benefits, reply_markup=contact_button, quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("status"))
 async def user_status(client: Client, message: Message):

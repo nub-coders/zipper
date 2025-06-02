@@ -178,7 +178,7 @@ async def create_zip(client, callback_query, pass_protect=None):
 
     if os.path.exists(zip_filename):
         file_size = os.path.getsize(zip_filename)
-        await callback_query.message.reply_text('compression completed now uploading file')
+        await callback_query.message.reply_text('compression completed now uploading file', quote=True, reply_to_message_id=callback_query.message.id)
 
         if file_size <= 2000000000:  # 2GB
             timer = Timer()
@@ -209,7 +209,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                     except Exception:
                         pass
 
-            msg = await callback_query.message.reply_text("uploading started")
+            msg = await callback_query.message.reply_text("uploading started", quote=True, reply_to_message_id=callback_query.message.id)
 
             await client.send_document(
                 callback_query.message.chat.id,
