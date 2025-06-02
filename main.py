@@ -618,19 +618,19 @@ async def list_files(event):
             try:
                 if i == len(messages) - 1:
                     if hasattr(event, 'edit_message_text'):
-                        await event.edit_message_text(msg, parse_mode="html", reply_markup=file_buttons)
+                        await event.edit_message_text(msg, reply_markup=file_buttons)
                     else:
-                        await event.reply_text(msg, parse_mode="html", reply_markup=file_buttons)
+                        await event.reply_text(msg, reply_markup=file_buttons)
                 else:
                     if hasattr(event, 'edit_message_text'):
-                        await event.edit_message_text(msg, parse_mode="html")
+                        await event.edit_message_text(msg)
                     else:
-                        await event.reply_text(msg, parse_mode="html")
+                        await event.reply_text(msg)
             except:
                 if hasattr(event, 'edit_message_text'):
-                    await event.edit_message_text(msg, parse_mode="html")
+                    await event.edit_message_text(msg)
                 else:
-                    await event.reply_text(msg, parse_mode="html")
+                    await event.reply_text(msg)
     else:
         message = "Your directory is empty, send me any file"
         try:
@@ -775,7 +775,7 @@ async def download(message):
 
                 try:
                     if random.choices([True, False], weights=[1, 999])[0]:
-                        await msg.edit_text(message_text, parse_mode='html')
+                        await msg.edit_text(message_text)
                 except Exception as e:
                     print(e)
 
@@ -882,7 +882,7 @@ async def create_zip(callback_query, pass_protect=None):
         else:
             password = ''
             com = ''
-        
+
     except Exception as e:
         await callback_query.message.reply_text(str(e))
         return
@@ -972,7 +972,7 @@ async def create_zip(callback_query, pass_protect=None):
                     try:
                         if random.choices([True, False], weights=[1, 999])[0]:
                             await asyncio.sleep(1)
-                            await msg.edit_text(message_text, parse_mode='html')
+                            await msg.edit_text(message_text)
                     except Exception as e:
                         print(e)
 
@@ -1096,9 +1096,9 @@ async def help_handler(client, message):
     )
 
     if hasattr(message, 'edit_message_text'):
-        await message.edit_message_text(help_message, parse_mode="html", reply_markup=common_buttons)
+        await message.edit_message_text(help_message, reply_markup=common_buttons)
     else:
-        await message.reply_text(help_message, parse_mode="html", reply_markup=common_buttons)
+        await message.reply_text(help_message, reply_markup=common_buttons)
 
 async def link_download(message):
     link = message.text
@@ -1146,7 +1146,7 @@ async def link_download(message):
             try:
                 if random.choices([True, False], weights=[1, 999])[0]:
                     await asyncio.sleep(1)
-                    await msg.edit_text(message_text, parse_mode='html')
+                    await msg.edit_text(message_text)
             except Exception as e:
                 print(e)
 
@@ -1196,7 +1196,7 @@ async def premium_info(client, message):
     Contact any admin to get premium.
     """
     contact_button = InlineKeyboardMarkup([[InlineKeyboardButton("Contact Admin", url="https://t.me/nub_coder_s")]])
-    await message.reply_text(premium_benefits, parse_mode="html", reply_markup=contact_button)
+    await message.reply_text(premium_benefits, reply_markup=contact_button)
 
 @app.on_message(filters.command("status"))
 async def user_status(client, message):
