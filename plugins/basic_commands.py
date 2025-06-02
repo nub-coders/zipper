@@ -32,7 +32,7 @@ async def start_command(client: Client, message: Message):
         stored_time = user_data["timestamp"]
         time_difference = current_time - stored_time
         if time_difference < 21600:
-            return await message.reply_text("You are already verified")
+            return await message.reply_text("You are already verified", quote=True, reply_to_message_id=message.id)
 
     # Check verification codes
     if user_data and "verifycode" in user_data:
@@ -141,4 +141,4 @@ async def user_status(client: Client, message: Message):
     else:
         status_message = "You are Not Verified"
 
-    await message.reply_text(status_message)
+    await message.reply_text(status_message, quote=True, reply_to_message_id=message.id)

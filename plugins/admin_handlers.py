@@ -1,4 +1,3 @@
-
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from plugins.user_management import storre_user
@@ -15,7 +14,7 @@ async def skip_handler(client: Client, message: Message):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id in admin_ids:
-                await message.reply_text("Admin command received. Skipping the task...")
+                await message.reply_text("Admin command received. Skipping the task...", quote=True, reply_to_message_id=message.id)
                 if timeout:
                     await timeout()
 
@@ -39,7 +38,7 @@ async def loud_message(client: Client, message: Message):
                 xx += 1
             except Exception as e:
                 print(f"Failed to forward message: {e}")
-        await message.reply_text(f"Broadcasted to {xx} users")
+        await message.reply_text(f"Broadcasted to {xx} users", quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("reboot"))
 async def reboot_handler(client: Client, message: Message):
@@ -49,7 +48,7 @@ async def reboot_handler(client: Client, message: Message):
         with open(admin_file, "r") as file:
             admin_ids = [int(line.strip()) for line in file.readlines()]
             if user_id in admin_ids:
-                await message.reply_text("Admin command received. Stopping the bot...")
+                await message.reply_text("Admin command received. Stopping the bot...", quote=True, reply_to_message_id=message.id)
                 os.system(f"kill -9 {os.getpid()}")
 
 @Client.on_message(filters.command("rst"))
@@ -76,13 +75,13 @@ async def unauthorize_user(client: Client, message: Message):
                 user_entity = await client.get_users(arg)
                 target_user_id = user_entity.id
             except ValueError:
-                return await message.reply_text("Cannot find user with the provided username.")
+                return await message.reply_text("Cannot find user with the provided username.", quote=True, reply_to_message_id=message.id)
 
     if target_user_id:
         timestamp = int(time.time()) - 12600
         storre_user(collection, target_user_id, timestamp)
         user_data = collection.find_one({"user_id": target_user_id})
-        await message.reply_text(f"User resetted successfully.\nUserdata:{user_data}")
+        await message.reply_text(f"User resetted successfully.\nUserdata:{user_data}", quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("authorize"))
 async def authorize_user(client: Client, message: Message):
@@ -108,13 +107,13 @@ async def authorize_user(client: Client, message: Message):
                 user_entity = await client.get_users(arg)
                 target_user_id = user_entity.id
             except ValueError:
-                return await message.reply_text("Cannot find user with the provided username.")
+                return await message.reply_text("Cannot find user with the provided username.", quote=True, reply_to_message_id=message.id)
 
     if target_user_id:
         timestamp = int(time.time()) + (30 * 24 * 60 * 60)
         storre_user(collection, target_user_id, timestamp)
         user_data = collection.find_one({"user_id": target_user_id})
-        await message.reply_text(f"User authorized successfully.\nUserdata:{user_data}")
+        await message.reply_text(f"User authorized successfully.\nUserdata:{user_data}", quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("users"))
 async def list_users(client: Client, message: Message):
@@ -133,9 +132,9 @@ async def list_users(client: Client, message: Message):
         chunk_size = 4000
         chunks = [user_list[i:i+chunk_size] for i in range(0, len(user_list), chunk_size)]
         for chunk in chunks:
-            await message.reply_text(chunk)
+            await message.reply_text(chunk, quote=True, reply_to_message_id=message.id)
     else:
-        await message.reply_text("No users found.")
+        await message.reply_text("No users found.", quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("set"))
 async def set_handler(client: Client, message: Message):
@@ -151,9 +150,9 @@ async def set_handler(client: Client, message: Message):
         input_text = message.text.split('/set ')[1]
         value = input_text.strip()
         collection.update_one({}, {"$set": {'ad': value}}, upsert=True)
-        await message.reply_text('Value saved successfully!')
+        await message.reply_text('Value saved successfully!', quote=True, reply_to_message_id=message.id)
     except IndexError:
-        await message.reply_text('Please provide a value after /set')
+        await message.reply_text('Please provide a value after /set', quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("ad"))
 async def ad_handler(client: Client, message: Message):
@@ -168,14 +167,14 @@ async def ad_handler(client: Client, message: Message):
     try:
         is_ad_value = message.text.split()[1]
         collection.update_one({}, {"$set": {'is_ad': is_ad_value}}, upsert=True)
-        await message.reply_text(f'Updated "is_ad" field with: {is_ad_value}')
+        await message.reply_text(f'Updated "is_ad" field with: {is_ad_value}', quote=True, reply_to_message_id=message.id)
     except IndexError:
-        await message.reply_text('Please provide a value (true/false)')
+        await message.reply_text('Please provide a value (true/false)', quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("get"))
 async def get_handler(client: Client, message: Message):
     result = collection.find_one({})
     if result and 'ad' in result:
-        await message.reply_text(f'The value is: {result["ad"]}')
+        await message.reply_text(f'The value is: {result["ad"]}', quote=True, reply_to_message_id=message.id)
     else:
-        await message.reply_text('No value found')
+        await message.reply_text('No value found', quote=True, reply_to_message_id=message.id)
