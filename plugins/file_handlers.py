@@ -28,18 +28,18 @@ async def delete_file(client: Client, message: Message):
     try:
         file_number = int(message.text.split('/del ')[1]) - 1
     except (IndexError, ValueError):
-        return await message.reply_text("Invalid file number. Use /del <file_number> to delete a file.", quote=True)
+        return await message.reply_text("Invalid file number. Use /del <file_number> to delete a file.", quote=True, reply_to_message_id=message.id)
 
     if os.path.exists(user_dir):
         files = os.listdir(user_dir)
         if 0 <= file_number < len(files):
             file_to_delete = os.path.join(user_dir, files[file_number])
             os.remove(file_to_delete)
-            return await message.reply_text(f"File '{files[file_number]}' has been deleted.")
+            return await message.reply_text(f"File '{files[file_number]}' has been deleted.", reply_to_message_id=message.id)
         else:
-            return await message.reply_text("Invalid file number.")
+            return await message.reply_text("Invalid file number.", reply_to_message_id=message.id)
     else:
-        return await message.reply_text("Your directory doesn't exist. Send me any file to create your directory.")
+        return await message.reply_text("Your directory doesn't exist. Send me any file to create your directory.", reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("clear"))
 async def clear_files(client: Client, message: Message):
@@ -160,7 +160,8 @@ async def download(message):
             size_gb = max_file_size / (1024 * 1024 * 1024)
             return await message.reply_text(
                 f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
-                reply_markup=common_buttons
+                reply_markup=common_buttons,
+                reply_to_message_id=message.id
             )
     elif message.photo:
         size = 100
@@ -229,7 +230,7 @@ async def download(message):
                 if msg:
                     await msg.edit_text(f"Download failed: {e}\nPlease resend this file")
                 else:
-                    await message.reply_text(f"Download failed: {e}\nPlease resend this file", quote=True)
+                    await message.reply_text(f"Download failed: {e}\nPlease resend this file", quote=True, reply_to_message_id=message.id)
 
             download_in_progress = False
             if timeout:
@@ -243,14 +244,14 @@ async def download(message):
             if user_id not in user_ids:
                 user_ids[user_id] = True
                 queue_button = InlineKeyboardMarkup([[InlineKeyboardButton("check your queue", callback_data="bhad")]])
-                await message.reply_text(queue_message, reply_markup=queue_button)
+                await message.reply_text(queue_message, reply_markup=queue_button, reply_to_message_id=message.id)
 
             if is_verified:
                 premium_queue.put(message)
             else:
                 download_queue.put(message)
     else:
-        await message.reply_text("Not enough storage space to download this file.", reply_markup=common_buttons, quote=True)
+        await message.reply_text("Not enough storage space to download this file.", reply_markup=common_buttons, quote=True, reply_to_message_id=message.id)
         if timeout:
             await timeout()
 
@@ -316,10 +317,10 @@ async def link_download(message):
                                     await progress_bar(current_size, content_length, start_time, message_obj, filename)
                             await message_obj.edit_text(f"File {filename} downloaded successfully\n/my_files to check all your files")
                         else:
-                            await message.reply_text("Download failed. Please check the URL.")
+                            await message.reply_text("Download failed. Please check the URL.", reply_to_message_id=message.id)
             else:
-                await message.reply_text("Not enough storage space.")
+                await message.reply_text("Not enough storage space.", reply_to_message_id=message.id)
         else:
-            await message.reply_text("Content length not found in headers. Cannot determine file size.")
+            await message.reply_text("Content length not found in headers. Cannot determine file size.", reply_to_message_id=message.id)
     except Exception as e:
-        await message.reply_text(str(e))
+        await message.reply_text(str(e), reply_to_message_id=message.id)
