@@ -15,6 +15,19 @@ import aiohttp
 import time
 import random
 import asyncio
+from queue import Queue
+
+# Initialize queues and global variables
+download_queue = Queue()
+premium_queue = Queue()
+user_ids = {}
+download_in_progress = False
+active_user_id = None
+time_left = 0
+dd = 0
+timeout = None
+ggg = "."
+collection = None
 
 @Client.on_message(filters.command("my_files"))
 async def list_files_command(client: Client, message: Message):
@@ -77,6 +90,23 @@ async def handle_media(client: Client, message: Message):
 async def handle_links(client: Client, message: Message):
     if message.text.startswith("http"):
         await link_download(message)
+
+async def process_queues():
+    """Process download queues continuously"""
+    global download_in_progress, active_user_id
+    
+    while True:
+        if not download_in_progress:
+            # Process premium queue first
+            if not premium_queue.empty():
+                message = premium_queue.get()
+                await download(message)
+            # Then process regular queue
+            elif not download_queue.empty():
+                message = download_queue.get()
+                await download(message)
+        
+        await asyncio.sleep(1)
 
 async def list_files(event):
     user_id = event.from_user.id
@@ -284,6 +314,8 @@ async def download(message):
                     await message.reply_text(f"Download failed: {e}\nPlease resend this file", quote=True, reply_to_message_id=message.id)
 
             download_in_progress = False
+            user_ids.pop(user_id, None)
+            active_user_id = None
             if timeout:
                 await timeout()
         else:

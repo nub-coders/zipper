@@ -6,6 +6,8 @@ import time
 from pyrogram import Client
 from convopyro import Conversation
 import queue
+import asyncio
+from plugins.file_handlers import process_queues
 
 # Import all configuration and globals from config
 from config import *
@@ -53,3 +55,10 @@ config.timeout = timeout
 if __name__ == "__main__":
     print("Bot starting with Smart Plugins...")
     app.run()
+    print("Bot components initialized...")
+    print("Bot starting with Smart Plugins...")
+    app.run(asyncio.create_task(process_queues()))
+    print("Bot started successfully!")
+
+    # Start queue processing in background
+    asyncio.create_task(process_queues())

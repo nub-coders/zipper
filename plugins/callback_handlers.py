@@ -1,4 +1,3 @@
-
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
 from plugins.ui_components import home_buttons, back_buttons, pass_button
@@ -56,6 +55,44 @@ async def callback_queue(client: Client, callback_query: CallbackQuery):
         await callback_query.answer(response_text, show_alert=True)
     except Exception:
         await callback_query.answer(f"your current queue {dd}", show_alert=True)
+
+@Client.on_callback_query()
+async def callback_query_handler(client: Client, callback_query: CallbackQuery):
+    data = callback_query.data
+    user_id = callback_query.from_user.id
+
+    if data == "bhad":  # Check queue callback
+        queue_status = get_queue_status(user_id)
+        await callback_query.answer()
+        await callback_query.edit_message_text(queue_status)
+
+def get_queue_status(user_id):
+    """Get current queue status for user"""
+    regular_queue_size = download_queue.qsize()
+    premium_queue_size = premium_queue.qsize()
+
+    status = f"**Queue Status:**\n\n"
+
+    if download_in_progress:
+        status += f"🔄 **Currently downloading for user:** {active_user_id}\n\n"
+    else:
+        status += "✅ **No active downloads**\n\n"
+
+    status += f"📋 **DOWNLOAD IN QUEUE:**\n"
+    status += f"Regular users: {regular_queue_size} tasks\n"
+    status += f"Premium users: {premium_queue_size} tasks\n\n"
+
+    if user_id in user_ids:
+        if download_in_progress and active_user_id == user_id:
+            status += "🎯 **Your download is currently active!**"
+        else:
+            # Calculate position in queue
+            position = premium_queue_size + 1 if user_id not in user_ids else regular_queue_size
+            status += f"⏳ **Your position in queue:** {position}"
+    else:
+        status += "ℹ️ **You have no files in queue**"
+
+    return status
 
 @Client.on_callback_query(filters.regex("help"))
 async def callback_help(client: Client, callback_query: CallbackQuery):
