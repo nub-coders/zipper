@@ -40,3 +40,7 @@ def initialize_bot():
     setup_directories()
     print("Bot components initialized...")
     return get_database_collection()
+
+def get_database_collection():
+    """Get the MongoDB collection"""
+    return collection

@@ -3,39 +3,22 @@ urllib3.disable_warnings()
 import random
 import os
 import time
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from pyrogram.errors import FloodWait, UserIsBlocked
+from pyrogram import Client
 from convopyro import Conversation
-import subprocess
-import shutil
-import requests
-import hashlib
-import aiohttp
-import datetime
-import asyncio
 import queue
-import math
-import cryptg
 
 # Import plugins
 from plugins.installer import initialize_bot
-from plugins.user_management import *
-from plugins.ui_components import *
-from plugins.file_operations import *
-from plugins.admin_commands import *
-from plugins.verification import send_verification_link
 from config import *
-from tools import is_user_on_chat
-import string
 
 # Initialize bot and get database collection
 collection = initialize_bot()
 ggg = os.getcwd()
 
-# Bot configuration
+# Bot configuration with Smart Plugins enabled
 time.sleep(2)
-app = Client('file_compressor_bot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, in_memory=True)
+plugins = dict(root="plugins")
+app = Client('file_compressor_bot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, in_memory=True, plugins=plugins)
 Conversation(app)
 
 # Global variables
@@ -57,12 +40,54 @@ async def timeout():
         next_file = premium_queue.get()
         dd -= 1
         user_ids.clear()
+        from plugins.file_handlers import download
         await download(next_file)
     elif not download_queue.empty():
         next_file = download_queue.get()
         dd -= 1
         user_ids.clear()
+        from plugins.file_handlers import download
         await download(next_file)
+
+# Make global variables accessible to plugins
+def get_globals():
+    return {
+        'collection': collection,
+        'ggg': ggg,
+        'dd': dd,
+        'download_queue': download_queue,
+        'premium_queue': premium_queue,
+        'zipping_in_progress': zipping_in_progress,
+        'download_in_progress': download_in_progress,
+        'user_ids': user_ids,
+        'active_user_id': active_user_id,
+        'time_left': time_left,
+        'timeout': timeout
+    }
+
+if __name__ == "__main__":
+    print("Bot starting with Smart Plugins...")
+    app.run()
+
+from pyrogram import filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.errors import FloodWait, UserIsBlocked
+import subprocess
+import shutil
+import requests
+import hashlib
+import aiohttp
+import datetime
+import asyncio
+import math
+import cryptg
+import string
+from tools import is_user_on_chat
+from plugins.user_management import *
+from plugins.ui_components import *
+from plugins.file_operations import *
+from plugins.admin_commands import *
+from plugins.verification import send_verification_link
 
 # Command handlers
 @app.on_message(filters.command("skip") & filters.regex("^!skip$"))
@@ -684,7 +709,7 @@ async def link_download(message):
                                     await progress_bar(current_size, content_length, start_time, message_obj, filename)
                             await message_obj.edit_text(f"File {filename} downloaded successfully\n/my_files to check all your files")
                         else:
-                            await message.reply_text("Download failed. Please check the URL.")
+                            await message.reply_text("Downloadfailed. Please check the URL.")
             else:
                 await message.reply_text("Not enough storage space.")
         else:
@@ -709,7 +734,7 @@ async def premium_info(client, message):
     contact_button = InlineKeyboardMarkup([[InlineKeyboardButton("Contact Admin", url="https://t.me/nub_coder_s")]])
     await message.reply_text(premium_benefits, reply_markup=contact_button)
 
-@app<on_message(filters.command("status"))
+@app.on_message(filters.command("status"))
 async def user_status(client, message):
     user_id = message.from_user.id
     current_time = int(time.time())
@@ -899,13 +924,11 @@ async def get_handler(client, message):
 async def handle_media(client, message):
     if not download_queue.empty() or not premium_queue.empty():
         await asyncio.sleep(5)
+    from plugins.file_handlers import download
     await download(message)
 
 @app.on_message(filters.private & filters.text & ~filters.command(["start", "help", "my_files", "clear", "del", "fzip", "premium", "status", "rst", "authorize", "users", "set", "ad", "get", "loud", "reboot", "skip"]))
 async def handle_links(client, message):
+    from plugins.file_handlers import link_download
     if message.text.startswith("http"):
         await link_download(message)
-
-if __name__ == "__main__":
-    print("Bot starting...")
-    app.run()
