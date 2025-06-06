@@ -47,13 +47,22 @@ async def timeout():
 # Update config timeout function
 config.timeout = timeout
 
-if __name__ == "__main__":
+async def start_bot():
+    """Start the bot and background tasks"""
     print("Bot starting with Smart Plugins...")
-    app.run()
+    
+    # Start the bot
+    await app.start()
     print("Bot components initialized...")
-    print("Bot starting with Smart Plugins...")
-    app.run(asyncio.create_task(process_queues()))
-    print("Bot started successfully!")
-
+    
     # Start queue processing in background
     asyncio.create_task(process_queues())
+    print("Queue processing started...")
+    
+    # Keep the bot running
+    await app.idle()
+    print("Bot started successfully!")
+
+if __name__ == "__main__":
+    # Run the bot with proper async handling
+    asyncio.run(start_bot())
