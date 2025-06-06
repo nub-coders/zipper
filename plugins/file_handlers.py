@@ -28,7 +28,6 @@ time_left = 0
 dd = 0
 timeout = None
 ggg = "."
-collection = None
 
 @Client.on_message(filters.command("my_files"))
 async def list_files_command(client: Client, message: Message):
