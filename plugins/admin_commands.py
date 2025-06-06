@@ -1,3 +1,4 @@
+from config import *
 
 import os
 import time

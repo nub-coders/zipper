@@ -1,3 +1,4 @@
+from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.user_management import store_userr, get_user_status

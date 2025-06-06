@@ -1,3 +1,4 @@
+from config import *
 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 

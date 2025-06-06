@@ -1,3 +1,4 @@
+from config import *
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
 from plugins.ui_components import home_buttons, back_buttons, pass_button
