@@ -1,3 +1,4 @@
+from config import *
 import urllib3
 urllib3.disable_warnings()
 import random

@@ -1,3 +1,4 @@
+from config import *
 import re
 from io import BytesIO
 from urllib.parse import parse_qs, urlparse

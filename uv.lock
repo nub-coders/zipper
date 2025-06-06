@@ -1,3 +1,4 @@
+from config import *
 version = 1
 requires-python = ">=3.11"
 

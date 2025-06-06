@@ -1,3 +1,4 @@
+from config import *
 
 import os
 import queue
@@ -11,8 +12,8 @@ BOT_TOKEN='6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
 
 # Initialize MongoDB
 try:
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client['file_compressor_bot']
+    client = MongoClient('mongodb+srv://ankitkr23835:air8858@cluster0.cxh2ryf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+    db = client['telegram_bot']
     collection = db['users']
     print("MongoDB initialized successfully")
 except Exception as e:
