@@ -47,22 +47,21 @@ async def timeout():
 # Update config timeout function
 config.timeout = timeout
 
-async def start_bot():
-    """Start the bot and background tasks"""
-    print("Bot starting with Smart Plugins...")
-    
-    # Start the bot
-    await app.start()
+async def start_background_tasks():
+    """Start background tasks after bot initialization"""
     print("Bot components initialized...")
+    print("Starting queue processing...")
     
     # Start queue processing in background
     asyncio.create_task(process_queues())
     print("Queue processing started...")
-    
-    # Keep the bot running
-    await app.idle()
     print("Bot started successfully!")
 
 if __name__ == "__main__":
-    # Run the bot with proper async handling
-    asyncio.run(start_bot())
+    print("Bot starting with Smart Plugins...")
+    
+    # Schedule background tasks to start after bot initialization
+    asyncio.get_event_loop().call_later(3, lambda: asyncio.create_task(start_background_tasks()))
+    
+    # Use Pyrogram's built-in event loop management
+    app.run()
