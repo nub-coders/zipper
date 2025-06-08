@@ -31,7 +31,7 @@ ggg = "."
 
 @Client.on_message(filters.command("my_files"))
 async def list_files_command(client: Client, message: Message):
-    await list_files(message)
+    await list_files(client, message)
 
 @Client.on_message(filters.command("del"))
 async def delete_file(client: Client, message: Message):
@@ -108,9 +108,8 @@ async def process_queues():
         
         await asyncio.sleep(1)
 
-async def list_files(event):
-    user_id = event.from_user.id
-    client = event._client if hasattr(event, '_client') else None
+async def list_files(client, message):
+    user_id = message.from_user.id
 
     check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
 
@@ -118,10 +117,10 @@ async def list_files(event):
         button = InlineKeyboardMarkup([[InlineKeyboardButton("Join", url="https://t.me/nub_coder_updates"),
        InlineKeyboardButton("Join", url="https://t.me/sheepra_cutie")]])
         message_text = "You need to join @nub_coder_updates and @sheepra_cutie in order to use this bot.\n\nClick below to Join!"
-        if hasattr(event, 'edit_message_text'):
-            return await event.edit_message_text(message_text, reply_markup=button)
+        if hasattr(message, 'edit_message_text'):
+            return await message.edit_message_text(message_text, reply_markup=button)
         else:
-            return await event.reply_text(message_text, reply_markup=button)
+            return await message.reply_text(message_text, reply_markup=button)
 
     is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
     user_dir = f"{ggg}/zipper/{user_id}"
@@ -165,16 +164,16 @@ async def list_files(event):
 
         for i, msg in enumerate(messages):
             reply_markup = file_buttons if i == len(messages) - 1 else None
-            if hasattr(event, 'edit_message_text') and i == 0:
-                await event.edit_message_text(msg, reply_markup=reply_markup)
+            if hasattr(message, 'edit_message_text') and i == 0:
+                await message.edit_message_text(msg, reply_markup=reply_markup)
             else:
-                await event.reply_text(msg, reply_markup=reply_markup)
+                await message.reply_text(msg, reply_markup=reply_markup)
     else:
-        message = "Your directory is empty, send me any file"
-        if hasattr(event, 'edit_message_text'):
-            await event.edit_message_text(message, reply_markup=nofile_buttons)
+        msg_text = "Your directory is empty, send me any file"
+        if hasattr(message, 'edit_message_text'):
+            await message.edit_message_text(msg_text, reply_markup=nofile_buttons)
         else:
-            await event.reply_text(message, reply_markup=nofile_buttons)
+            await message.reply_text(msg_text, reply_markup=nofile_buttons)
 
 async def download(message):
     global active_user_id, download_in_progress, dd

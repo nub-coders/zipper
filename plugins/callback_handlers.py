@@ -104,7 +104,7 @@ async def callback_help(client: Client, callback_query: CallbackQuery):
 @Client.on_callback_query(filters.regex("my_files"))
 async def callback_my_files(client: Client, callback_query: CallbackQuery):
     from plugins.file_handlers import list_files
-    await list_files(callback_query)
+    await list_files(client, callback_query)
 
 @Client.on_callback_query(filters.regex("clear"))
 async def callback_clear(client: Client, callback_query: CallbackQuery):
