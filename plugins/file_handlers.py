@@ -115,8 +115,9 @@ async def list_files(event):
     check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
 
     if not check_if:
-        button = InlineKeyboardMarkup([[InlineKeyboardButton("Join", url="https://t.me/nub_coder_updates")]])
-        message_text = "You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!"
+        button = InlineKeyboardMarkup([[InlineKeyboardButton("Join", url="https://t.me/nub_coder_updates"),
+       InlineKeyboardButton("Join", url="https://t.me/sheepra_cutie")]])
+        message_text = "You need to join @nub_coder_updates and @sheepra_cutie in order to use this bot.\n\nClick below to Join!"
         if hasattr(event, 'edit_message_text'):
             return await event.edit_message_text(message_text, reply_markup=button)
         else:

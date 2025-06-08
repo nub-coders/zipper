@@ -1,5 +1,4 @@
 from config import *
-
 import os
 import queue
 from pymongo import MongoClient
