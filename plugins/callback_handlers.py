@@ -57,15 +57,6 @@ async def callback_queue(client: Client, callback_query: CallbackQuery):
     except Exception:
         await callback_query.answer(f"your current queue {dd}", show_alert=True)
 
-@Client.on_callback_query()
-async def callback_query_handler(client: Client, callback_query: CallbackQuery):
-    data = callback_query.data
-    user_id = callback_query.from_user.id
-
-    if data == "bhad":  # Check queue callback
-        queue_status = get_queue_status(user_id)
-        await callback_query.answer()
-        await callback_query.edit_message_text(queue_status)
 
 def get_queue_status(user_id):
     """Get current queue status for user"""
@@ -270,3 +261,15 @@ async def create_zip(client, callback_query, pass_protect=None):
         if os.path.exists(user_dir):
             shutil.rmtree(user_dir, ignore_errors=True)
             os.makedirs(user_dir, exist_ok=True)
+
+
+
+@Client.on_callback_query()
+async def callback_query_handler(client: Client, callback_query: CallbackQuery):
+    data = callback_query.data
+    user_id = callback_query.from_user.id
+
+    if data == "bhad":  # Check queue callback
+        queue_status = get_queue_status(user_id)
+        await callback_query.answer()
+        await callback_query.edit_message_text(queue_status)
