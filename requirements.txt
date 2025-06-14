@@ -1,4 +1,4 @@
-from config import *
+
 pillow
 setuptools
 youtube-search-python
