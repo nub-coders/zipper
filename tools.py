@@ -76,7 +76,7 @@ def store_user(collection, user_id):
     }
     collection.update_one({"user_id": user_id}, {"$set": user_data}, upsert=True)
 
-def storre_user(collection, user_id, timestamp):
+def storre_user(user_id, timestamp):
     """Store user with specific timestamp"""
     user_data = {
         "user_id": user_id,
@@ -326,10 +326,6 @@ def store_code(collection, user_id, verifycode):
     user_data = {"user_id": user_id, "verifycode": verifycode}
     collection.update_one({"user_id": user_id}, {'$set': user_data}, upsert=True)
 
-def storre_user(collection, user_id, timestamp):
-    """Store user with custom timestamp"""
-    user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
 
 def generate_random_code(length=10):
     """Generate random verification code"""

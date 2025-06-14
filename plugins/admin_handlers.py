@@ -79,7 +79,7 @@ async def unauthorize_user(client: Client, message: Message):
 
     if target_user_id:
         timestamp = int(time.time()) - 12600
-        storre_user(collection, target_user_id, timestamp)
+        storre_user(target_user_id, timestamp)
         user_data = collection.find_one({"user_id": target_user_id})
         await message.reply_text(f"User resetted successfully.\nUserdata:{user_data}", quote=True, reply_to_message_id=message.id)
 
@@ -111,7 +111,7 @@ async def authorize_user(client: Client, message: Message):
 
     if target_user_id:
         timestamp = int(time.time()) + (30 * 24 * 60 * 60)
-        storre_user(collection, target_user_id, timestamp)
+        storre_user(target_user_id, timestamp)
         user_data = collection.find_one({"user_id": target_user_id})
         await message.reply_text(f"User authorized successfully.\nUserdata:{user_data}", quote=True, reply_to_message_id=message.id)
 
