@@ -104,7 +104,7 @@ async def create_zip(client, callback_query, pass_protect=None):
         return
 
     user_id = callback_query.from_user.id
-        file_size = os.path.getsize(zip_filename)
+    file_size = os.path.getsize(zip_filename)
         await callback_query.message.reply_text('compression completed now uploading file', quote=True, reply_to_message_id=callback_query.message.id)
 
         if file_size <= 2000000000:  # 2GB
