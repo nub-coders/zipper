@@ -1,4 +1,2 @@
-from config import *
 
-# All functions have been moved to tools.py
-# This file can now be deleted or kept as placeholder
+# This file has been removed - all functions are now in tools.py in the main directory
