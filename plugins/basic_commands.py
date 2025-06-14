@@ -1,7 +1,7 @@
 from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from tools import store_userr, get_user_status, store_user, send_verification_link
+from tools import store_userr, get_user_3lstatus, store_user, send_verification_link
 from plugins.ui_components import home_buttons, common_buttons
 from plugins.installer import get_database_collection
 import time
@@ -93,7 +93,7 @@ async def user_status(client: Client, message: Message):
 
     if user_data:
         stored_time = user_data.get("timestamp", 0)
-        time_difference = current_time - stored_time
+        time_difference = stored_time - current_time
 
         if time_difference > 0:
             status = "💎 Premium 💎"
