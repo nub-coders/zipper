@@ -1,9 +1,13 @@
 from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from tools import store_userr, get_user_status, Timer, upload_to_gofile, get_file_size_info, cleanup_user_directory, send_verification_link, is_user_on_chat
+from plugins.user_management import store_userr, get_user_status
 from plugins.ui_components import home_buttons, common_buttons, file_buttons, nofile_buttons, back_buttons, pass_button
+from plugins.file_operations import Timer, upload_to_gofile, get_file_size_info, cleanup_user_directory
+from plugins.verification import send_verification_link
 from plugins.installer import get_database_collection
+from tools import is_user_on_chat
+from config import *
 import os
 import shutil
 import subprocess
@@ -52,10 +56,16 @@ async def delete_file(client: Client, message: Message):
 
 @Client.on_message(filters.command("clear"))
 async def clear_files(client: Client, message: Message):
-    from tools import handle_clear_files
-    user_id = message.from_user.id
-    message_text = await handle_clear_files(user_id, back_buttons)
-    
+    user_id = str(message.from_user.id)
+    user_path = os.path.join("zipper", user_id)
+
+    if os.path.exists(user_path):
+        shutil.rmtree(user_path, ignore_errors=True)
+        os.makedirs(user_path, exist_ok=True)
+        message_text = "All files and directories in your directory have been removed."
+    else:
+        message_text = "Your directory does not exist."
+
     if hasattr(message, 'edit_message_text'):
         await message.edit_message_text(message_text, reply_markup=back_buttons)
     else:

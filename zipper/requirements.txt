@@ -1,0 +1,20 @@
+from config import *
+pillow
+setuptools
+youtube-search-python
+uvloop
+free-proxy
+certifi
+aiofiles
+https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
+aiohttp
+tgcrypto
+cryptg
+requests
+pymongo
+pymongo[srv]
+git+https://github.com/Ripeey/Conversation-Pyrogram
+fp
+pyrogram
+telethon
+urllib3

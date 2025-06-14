@@ -2,8 +2,11 @@ from config import *
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
 from plugins.ui_components import home_buttons, back_buttons, pass_button
-from tools import store_userr, get_user_status, Timer, upload_to_gofile, is_user_on_chat, get_queue_status
+from plugins.user_management import store_userr, get_user_status
+from plugins.file_operations import Timer, upload_to_gofile
 from plugins.installer import get_database_collection
+from tools import is_user_on_chat
+from config import *
 import os
 import subprocess
 import shutil
@@ -35,18 +38,53 @@ async def cancel_download(client: Client, callback_query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("bhad"))
 async def callback_queue(client: Client, callback_query: CallbackQuery):
-    from tools import get_queue_status
-    user_id = callback_query.from_user.id
-    response_text = get_queue_status(user_id)
-    
+    global dd, active_user_id, time_left
+    user_task_counts = {}
+
+    for download_event in list(download_queue.queue) + list(premium_queue.queue):
+        event_user_id = download_event.from_user.id
+        user_task_counts[event_user_id] = user_task_counts.get(event_user_id, 0) + 1
+
+    response_text = f"ACTIVE USER ⚡: {active_user_id}\n\n" if active_user_id else "No active downloads or uploads\n\n"
+    response_text += "DOWNLOAD IN QUEUE:\n"
+
+    for user_id, task_count in user_task_counts.items():
+        response_text += f"{user_id}:({task_count} tasks)\n\n"
+    response_text += f"\nNEXT QUEUE IN: {time_left} seconds"
+
     try:
         await callback_query.answer(response_text, show_alert=True)
     except Exception:
-        global dd
         await callback_query.answer(f"your current queue {dd}", show_alert=True)
 
 
+def get_queue_status(user_id):
+    """Get current queue status for user"""
+    regular_queue_size = download_queue.qsize()
+    premium_queue_size = premium_queue.qsize()
 
+    status = f"**Queue Status:**\n\n"
+
+    if download_in_progress:
+        status += f"🔄 **Currently downloading for user:** {active_user_id}\n\n"
+    else:
+        status += "✅ **No active downloads**\n\n"
+
+    status += f"📋 **DOWNLOAD IN QUEUE:**\n"
+    status += f"Regular users: {regular_queue_size} tasks\n"
+    status += f"Premium users: {premium_queue_size} tasks\n\n"
+
+    if user_id in user_ids:
+        if download_in_progress and active_user_id == user_id:
+            status += "🎯 **Your download is currently active!**"
+        else:
+            # Calculate position in queue
+            position = premium_queue_size + 1 if user_id not in user_ids else regular_queue_size
+            status += f"⏳ **Your position in queue:** {position}"
+    else:
+        status += "ℹ️ **You have no files in queue**"
+
+    return status
 
 @Client.on_callback_query(filters.regex("help"))
 async def callback_help(client: Client, callback_query: CallbackQuery):
@@ -70,9 +108,16 @@ async def callback_my_files(client: Client, callback_query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("clear"))
 async def callback_clear(client: Client, callback_query: CallbackQuery):
-    from tools import handle_clear_files
-    user_id = callback_query.from_user.id
-    message_text = await handle_clear_files(user_id, back_buttons)
+    user_id = str(callback_query.from_user.id)
+    user_path = os.path.join("zipper", user_id)
+
+    if os.path.exists(user_path):
+        shutil.rmtree(user_path, ignore_errors=True)
+        os.makedirs(user_path, exist_ok=True)
+        message_text = "All files and directories in your directory have been removed."
+    else:
+        message_text = "Your directory does not exist."
+
     await callback_query.edit_message_text(message_text, reply_markup=back_buttons)
 
 @Client.on_callback_query(filters.regex("home"))
@@ -97,13 +142,70 @@ async def callback_fzip(client: Client, callback_query: CallbackQuery):
     )
 
 async def create_zip(client, callback_query, pass_protect=None):
-    from tools import create_zip_file
-    zip_filename, message = await create_zip_file(client, callback_query, pass_protect)
-    
-    if not zip_filename or not os.path.exists(zip_filename):
+    user_id = callback_query.from_user.id
+
+    try:
+        await client.send_message(user_id, "Provide me a suitable filename for the zip file")
+        response = await client.listen.Message(filters.text, id=filters.user(user_id), timeout=120)
+
+        password = ''
+        com = ''
+        if pass_protect:
+            await client.send_message(user_id, "please type your password below.")
+            get_pass = await client.listen.Message(filters.text, id=filters.user(user_id), timeout=120)
+            password = get_pass.text
+            com = '--password'
+
+    except Exception as e:
+        await callback_query.message.reply_text(str(e))
         return
 
-    user_id = callback_query.from_user.id
+    file_name = response.text
+    if file_name.startswith("/") or file_name.startswith("http"):
+        return
+
+    check_if = await is_user_on_chat(client, "@nub_coder_updates", user_id)
+    if not check_if:
+        button = InlineKeyboardMarkup([[InlineKeyboardButton("Join", url="https://t.me/nub_coder_updates")]])
+        return await callback_query.message.reply_text(
+            "You need to join @nub_coder_updates in order to use this bot.\n\nClick below to Join!",
+            reply_markup=button
+        )
+
+    user_dir = f"{ggg}/zipper/{user_id}"
+    files = os.listdir(user_dir) if os.path.exists(user_dir) else []
+
+    if not files:
+        return await callback_query.message.reply_text(
+            "you don't have files to zip\nSend your files first",
+            reply_markup=back_buttons
+        )
+
+    if not file_name.endswith('.zip'):
+        file_name = f'{file_name}.zip'
+
+    zip_filename = os.path.join(user_dir, file_name)
+
+    try:
+        message = await callback_query.message.edit_text("Compressing files to zip please wait")
+    except:
+        message = await callback_query.message.reply_text("Compressing files to zip please wait")
+
+    # Create zip file
+    for filename in files:
+        command = ['zip', com, password, zip_filename, os.path.join(user_dir, filename)] if pass_protect else ['zip', zip_filename, os.path.join(user_dir, filename)]
+        output = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
+
+        for line in output.stdout:
+            line = line.strip()
+            if line:
+                line = line.replace(f"zipper/{user_id}/", "")
+                try:
+                    await message.edit_text(line)
+                except Exception:
+                    pass
+
+    if os.path.exists(zip_filename):
         file_size = os.path.getsize(zip_filename)
         await callback_query.message.reply_text('compression completed now uploading file', quote=True, reply_to_message_id=callback_query.message.id)
 

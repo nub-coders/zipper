@@ -1,9 +1,12 @@
 from config import *
+
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from tools import store_userr, get_user_status, store_user, send_verification_link
+from plugins.user_management import store_userr, get_user_status, store_user
 from plugins.ui_components import home_buttons, common_buttons
+from plugins.verification import send_verification_link
 from plugins.installer import get_database_collection
+from config import *
 import time
 
 @Client.on_message(filters.command("start"))

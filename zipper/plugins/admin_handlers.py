@@ -1,8 +1,9 @@
 from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from tools import storre_user
+from plugins.user_management import storre_user
 from plugins.installer import get_database_collection
+from config import *
 import os
 import time
 
