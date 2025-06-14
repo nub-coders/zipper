@@ -100,12 +100,13 @@ async def user_status(client: Client, message: Message):
             total_storage = "10 GB"
             file_size = "3.2 GB"
             ads = "✨ No ads! ✨"
+            time_difference *=-1
         elif time_difference < 21600:
             status = "🌟 Elite 🌟"
             total_storage = "4.5 GB"
             file_size = "2 GB"
             ads = "Some ads"
-            time_difference *= -1
+            time_difference *=-1
         else:
             status = "Not Verified"
             total_storage = "200MB"
