@@ -4,6 +4,7 @@ from io import BytesIO
 from urllib.parse import parse_qs, urlparse
 import os
 import time
+from pyrogram import Client, filters
 import string
 import random
 import shutil

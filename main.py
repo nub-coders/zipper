@@ -5,6 +5,7 @@ import random
 import os
 import time
 from pyrogram import Client
+from pyrogram import Client, filters
 from convopyro import Conversation
 import queue
 import asyncio
