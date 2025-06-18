@@ -5,20 +5,20 @@ from tools import store_userr, get_user_status, store_user, send_verification_li
 from plugins.ui_components import home_buttons, common_buttons
 from plugins.installer import get_database_collection
 import time
-import aiohttp
 import os
+import requests
 
-async def download_qr_image(url: str, user_id: int) -> str:
+def download_qr_image(url: str, user_id: int) -> str:
     """Download QR code image and return local path"""
-    os.makedirs(f"./qr_codes/{user_id}", exist_ok=True)
-    file_path = f"./qr_codes/{user_id}/payment_qr.png"
+    user_dir = f"./user_{user_id}"
+    os.makedirs(user_dir, exist_ok=True)
+    file_path = f"{user_dir}/razorpay_qr.png"
     
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            if response.status == 200:
-                with open(file_path, 'wb') as f:
-                    f.write(await response.read())
-                return file_path
+    qr_image_response = requests.get(url)
+    if qr_image_response.status_code == 200:
+        with open(file_path, "wb") as file:
+            file.write(qr_image_response.content)
+        return file_path
     raise Exception("Failed to download QR image")
 
 @Client.on_message(filters.command("start"))
