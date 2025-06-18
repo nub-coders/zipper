@@ -217,8 +217,8 @@ def authorize_premium_user(collection, user_id, days=30):
     return collection.find_one({"user_id": user_id})
 
 async def create_payment_order(amount, user_id, plan_type):
-    """Create Razorpay payment order with QR code"""
-#    try:
+        """Create Razorpay payment order with QR code"""
+        #    try:
         order_data = {
             "amount": amount * 100,  # Amount in paise
             "currency": "INR",
