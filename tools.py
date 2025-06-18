@@ -244,7 +244,7 @@ async def create_payment_order(amount, user_id, plan_type):
             "close_by": int(time.time()) + 900  # 15 minutes
         }
         
-        qr_code = razor_client.qr_code.create(data=qr_data)
+        qr_code = razor_client.qrcode.create(data=qr_data)
         
         # Store order details
         payment_orders[order_id] = {
