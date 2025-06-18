@@ -10,16 +10,33 @@ import requests
 
 def download_qr_image(url: str, user_id: int) -> str:
     """Download QR code image and return local path"""
+    if not url or url == "qr_url" or not url.startswith("http"):
+        # Create a simple text file instead of QR if URL is invalid
+        user_dir = f"./user_{user_id}"
+        os.makedirs(user_dir, exist_ok=True)
+        file_path = f"{user_dir}/payment_info.txt"
+        with open(file_path, "w") as file:
+            file.write("Payment QR code not available. Please use the payment link.")
+        return file_path
+    
     user_dir = f"./user_{user_id}"
     os.makedirs(user_dir, exist_ok=True)
     file_path = f"{user_dir}/razorpay_qr.png"
     
-    qr_image_response = requests.get(url)
-    if qr_image_response.status_code == 200:
-        with open(file_path, "wb") as file:
-            file.write(qr_image_response.content)
-        return file_path
-    raise Exception("Failed to download QR image")
+    try:
+        qr_image_response = requests.get(url)
+        if qr_image_response.status_code == 200:
+            with open(file_path, "wb") as file:
+                file.write(qr_image_response.content)
+            return file_path
+    except Exception as e:
+        print(f"Error downloading QR image: {e}")
+    
+    # Fallback to text file
+    file_path = f"{user_dir}/payment_info.txt"
+    with open(file_path, "w") as file:
+        file.write("Payment QR code not available. Please use the payment link.")
+    return file_path
 
 @Client.on_message(filters.command("start"))
 async def start_command(client: Client, message: Message):
@@ -136,11 +153,63 @@ async def create_payment_order(amount, user_id, plan_type):
     }
     qr_code = razor_client.qrcode.create(data=qr_data)
     
-    return {
-        "order_id": order["id"],
-        "payment_link": f"https://razorpay.me/@{order['id']}",
-        "qr_url": qr_code["image_url"]
+    return order["id"], f"https://razorpay.me/@{order['id']}", qr_code["image_url"]
+
+# Add missing imports
+import asyncio
+
+# Add missing helper functions
+async def start_payment_monitor(client, payment_msg, order_id, user_id, plan):
+    """Monitor payment status for 15 minutes"""
+    for _ in range(90):  # Check every 10 seconds for 15 minutes
+        await asyncio.sleep(10)
+        try:
+            status = await check_payment_status(order_id)
+            if status == "paid":
+                await payment_msg.edit_caption(
+                    "✅ Payment verified! You are now Premium!",
+                    reply_markup=home_buttons
+                )
+                authorize_premium_user(collection, user_id, plan["days"])
+                return
+        except:
+            continue
+    
+    # Payment expired
+    await payment_msg.edit_caption(
+        "⏰ Payment expired. Please try again with /premium",
+        reply_markup=home_buttons
+    )
+
+async def check_payment_status(order_id):
+    """Check if payment is completed"""
+    try:
+        payments = razor_client.order.payments(order_id)
+        for payment in payments.get("items", []):
+            if payment["status"] == "captured":
+                return "paid"
+        return "pending"
+    except:
+        return "pending"
+
+async def get_plan_from_order(order_id):
+    """Get plan info from order"""
+    order = razor_client.order.fetch(order_id)
+    plan_type = order["notes"]["plan_type"]
+    plans = {
+        "weekly": {"days": 7},
+        "monthly": {"days": 30}
     }
+    return plans.get(plan_type, {"days": 7})
+
+def authorize_premium_user(collection, user_id, days):
+    """Authorize user as premium"""
+    timestamp = int(time.time()) - (days * 24 * 3600)
+    collection.update_one(
+        {"user_id": user_id},
+        {"$set": {"timestamp": timestamp}},
+        upsert=True
+    )
 
 # Payment callback handlers moved from callback_handlers.py
 @Client.on_callback_query(filters.regex("plan_"))
@@ -158,7 +227,7 @@ async def handle_plan_selection(client: Client, callback_query: CallbackQuery):
 
     plan = plans[plan_type]
     order_id, payment_link, qr_image_url = await create_payment_order(plan["amount"], user_id, plan_type)
-    qr_path = await download_qr_image(qr_image_url, user_id)
+    qr_path = download_qr_image(qr_image_url, user_id)
 
     payment_message = f"""
 💳 **Payment for {plan_type.title()} Premium Plan**
@@ -178,12 +247,23 @@ async def handle_plan_selection(client: Client, callback_query: CallbackQuery):
     ])
 
     await callback_query.message.delete()
-    payment_msg = await client.send_photo(
-        callback_query.message.chat.id,
-        qr_path,
-        caption=payment_message,
-        reply_markup=verify_button
-    )
+    
+    # Check if QR path is an image or text file
+    if qr_path.endswith('.png'):
+        payment_msg = await client.send_photo(
+            callback_query.message.chat.id,
+            qr_path,
+            caption=payment_message,
+            reply_markup=verify_button
+        )
+    else:
+        # Send as text message if QR not available
+        payment_msg = await client.send_message(
+            callback_query.message.chat.id,
+            payment_message,
+            reply_markup=verify_button
+        )
+    
     asyncio.create_task(start_payment_monitor(client, payment_msg, order_id, user_id, plan))
 
 @Client.on_callback_query(filters.regex("verify_"))
