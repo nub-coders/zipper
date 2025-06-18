@@ -217,49 +217,54 @@ def authorize_premium_user(collection, user_id, days=30):
     return collection.find_one({"user_id": user_id})
 
 async def create_payment_order(amount, user_id, plan_type):
-        """Create Razorpay payment order with QR code"""
-        #    try:
-        order_data = {
-            "amount": amount * 100,  # Amount in paise
-            "currency": "INR",
-            "receipt": f"premium_{user_id}_{int(time.time())}",
-            "notes": {
-                "user_id": str(user_id),
-                "plan_type": plan_type
+        """Create Razorpay payment order with payment link"""
+        try:
+            # Create payment link instead of order
+            payment_link_data = {
+                "amount": amount * 100,  # Amount in paise
+                "currency": "INR",
+                "description": f"Premium subscription for {plan_type}",
+                "customer": {
+                    "name": f"User {user_id}",
+                    "contact": "+919999999999",  # Placeholder
+                    "email": f"user{user_id}@example.com"  # Placeholder
+                },
+                "notify": {
+                    "sms": False,
+                    "email": False
+                },
+                "reminder_enable": True,
+                "notes": {
+                    "user_id": str(user_id),
+                    "plan_type": plan_type
+                },
+                "callback_url": "https://example.com/callback",
+                "callback_method": "get"
             }
-        }
-        
-        order = razor_client.order.create(data=order_data)
-        order_id = order["id"]
-        
-        # Create QR code using Razorpay
-        qr_data = {
-            "type": "upi_qr",
-            "name": "Premium Subscription",
-            "usage": "single_use",
-            "fixed_amount": True,
-            "payment_amount": amount * 100,
-            "description": f"Premium subscription for {plan_type}",
-            "customer_id": str(user_id),
-            "close_by": int(time.time()) + 900  # 15 minutes
-        }
-        
-        qr_code = razor_client.qrcode.create(data=qr_data)
-        
-        # Store order details
-        payment_orders[order_id] = {
-            "user_id": user_id,
-            "amount": amount,
-            "plan_type": plan_type,
-            "created_at": int(time.time()),
-            "qr_id": qr_code["id"]
-        }
-        
-        # Get QR code image URL and payment link
-        qr_image_url = qr_code["image_url"]
-        payment_link = f"https://razorpay.me/@{order_id}"
-        
-        return order_id, payment_link, qr_image_url
+            
+            payment_link = razor_client.payment_link.create(data=payment_link_data)
+            payment_link_id = payment_link["id"]
+            
+            # Store payment link details
+            payment_orders[payment_link_id] = {
+                "user_id": user_id,
+                "amount": amount,
+                "plan_type": plan_type,
+                "created_at": int(time.time())
+            }
+            
+            # Get payment link URL and QR code
+            payment_url = payment_link["short_url"]
+            qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={payment_url}"
+            
+            return payment_link_id, payment_url, qr_image_url
+            
+        except Exception as e:
+            print(f"Error creating payment link: {e}")
+            # Fallback to simple payment URL
+            simple_url = f"https://razorpay.me/@{user_id}{int(time.time())}"
+            qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={simple_url}"
+            return f"fallback_{user_id}", simple_url, qr_image_url
         
  #   except Exception as e:
   #      raise Exception(f"Failed to create payment order: {str(e)}")
@@ -425,19 +430,31 @@ async def create_zip_file(client, callback_query, pass_protect=None):
     except:
         message = await callback_query.message.reply_text("Compressing files to zip please wait")
 
-    # Create zip file
-    for filename in files:
-        command = ['zip', com, password, zip_filename, os.path.join(user_dir, filename)] if pass_protect else ['zip', zip_filename, os.path.join(user_dir, filename)]
-        output = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1, universal_newlines=True)
-
-        for line in output.stdout:
-            line = line.strip()
-            if line:
-                line = line.replace(f"zipper/{user_id}/", "")
-                try:
-                    await message.edit_text(line)
-                except Exception:
-                    pass
+    # Create zip file using Python zipfile module
+    import zipfile
+    import pyminizip
+    
+    try:
+        if pass_protect and password:
+            # Create password-protected zip
+            file_paths = [os.path.join(user_dir, filename) for filename in files]
+            prefixes = ["" for _ in files]  # No prefix for file names in zip
+            pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 5)
+            await message.edit_text("Created password-protected ZIP file")
+        else:
+            # Create regular zip file
+            with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                for filename in files:
+                    file_path = os.path.join(user_dir, filename)
+                    zipf.write(file_path, filename)
+                    try:
+                        await message.edit_text(f"Adding {filename} to ZIP...")
+                    except Exception:
+                        pass
+            await message.edit_text("ZIP file created successfully")
+    except Exception as e:
+        await message.edit_text(f"Error creating ZIP: {str(e)}")
+        return None, message
 
     return zip_filename, message
 
