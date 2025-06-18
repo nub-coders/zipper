@@ -121,95 +121,233 @@ async def premium_info(client: Client, message: Message):
 
     await message.reply_text(premium_benefits, reply_markup=plans_keyboard, quote=True, reply_to_message_id=message.id)
 
-# Payment functions moved from tools.py
+# Payment system imports
 import razorpay
+import qrcode
+import io
+import asyncio
+from PIL import Image
 from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
+
+# Razorpay configuration
 razor_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
+# Store payment orders
+payment_orders = {}
+
+def storre_user(collection, user_id, timestamp=None):
+    """Store user with timestamp"""
+    if timestamp is None:
+        timestamp = int(time.time())
+    
+    user_data = {"user_id": user_id, "timestamp": timestamp}
+    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
+    return collection.find_one({"user_id": user_id})
+
+def authorize_premium_user(collection, user_id, days=30):
+    """Authorize user as premium for specified days (additive)"""
+    current_time = int(time.time())
+    user_data = collection.find_one({"user_id": user_id})
+    
+    if user_data and user_data.get("timestamp", 0) > current_time:
+        # User has existing premium time, add to it
+        existing_timestamp = user_data["timestamp"]
+        new_timestamp = existing_timestamp + (days * 24 * 60 * 60)
+    else:
+        # User has no premium time or it's expired, start from now
+        new_timestamp = current_time + (days * 24 * 60 * 60)
+    
+    storre_user(collection, user_id, new_timestamp)
+    return collection.find_one({"user_id": user_id})
+
 async def create_payment_order(amount, user_id, plan_type):
-    """Create Razorpay payment order with QR code"""
-    order_data = {
-        "amount": amount * 100,  # Amount in paise
-        "currency": "INR",
-        "receipt": f"premium_{user_id}_{int(time.time())}",
-        "notes": {
-            "user_id": str(user_id),
-            "plan_type": plan_type
-        }
-    }
-
-    order = razor_client.order.create(data=order_data)
-    if not order or "id" not in order:
-        raise Exception("Invalid response from Razorpay")
-
-    # Create simplified QR code
-    qr_data = {
-        "type": "upi_qr",
-        "name": "Premium",
-        "usage": "single_use",
-        "fixed_amount": True,
-        "payment_amount": amount * 100,
-        "description": "Premium Plan"
-    }
-    qr_code = razor_client.qrcode.create(data=qr_data)
-
-    return order["id"], f"https://razorpay.me/@{order['id']}", qr_code["image_url"]
-
-# Add missing imports
-
-
-# Add missing helper functions
-async def start_payment_monitor(client, payment_msg, order_id, user_id, plan):
-    """Monitor payment status for 15 minutes"""
-    for _ in range(90):  # Check every 10 seconds for 15 minutes
-        await asyncio.sleep(10)
-        try:
-            status = await check_payment_status(order_id)
-            if status == "paid":
-                await payment_msg.edit_caption(
-                    "✅ Payment verified! You are now Premium!",
-                    reply_markup=home_buttons
-                )
-                authorize_premium_user(collection, user_id, plan["days"])
-                return
-        except:
-            continue
-
-    # Payment expired
-    await payment_msg.edit_caption(
-        "⏰ Payment expired. Please try again with /premium",
-        reply_markup=home_buttons
-    )
-
-async def check_payment_status(order_id):
-    """Check if payment is completed"""
+    """Create Razorpay payment order with payment link"""
     try:
-        payments = razor_client.order.payments(order_id)
-        for payment in payments.get("items", []):
-            if payment["status"] == "captured":
-                return "paid"
-        return "pending"
-    except:
-        return "pending"
+        # Create payment link
+        payment_link_data = {
+            "amount": amount * 100,  # Amount in paise
+            "currency": "INR",
+            "description": f"Premium subscription for {plan_type}",
+            "customer": {
+                "name": f"User {user_id}",
+                "contact": "+919999999999",  # Placeholder
+                "email": f"user{user_id}@example.com"  # Placeholder
+            },
+            "notify": {
+                "sms": False,
+                "email": False
+            },
+            "reminder_enable": True,
+            "notes": {
+                "user_id": str(user_id),
+                "plan_type": plan_type
+            },
+            "callback_url": f"https://{BOT_USERNAME}.replit.app/payment_callback",
+            "callback_method": "get"
+        }
+        
+        payment_link = razor_client.payment_link.create(data=payment_link_data)
+        payment_link_id = payment_link["id"]
+        
+        # Store payment link details
+        payment_orders[payment_link_id] = {
+            "user_id": user_id,
+            "amount": amount,
+            "plan_type": plan_type,
+            "created_at": int(time.time()),
+            "days": 7 if plan_type == "weekly" else 30
+        }
+        
+        # Get payment link URL and QR code
+        payment_url = payment_link["short_url"]
+        qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={payment_url}"
+        
+        return payment_link_id, payment_url, qr_image_url
+        
+    except Exception as e:
+        print(f"Error creating payment link: {e}")
+        # Fallback to simple payment URL
+        simple_url = f"https://razorpay.me/@nubcoder/{amount}"
+        qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={simple_url}"
+        return f"fallback_{user_id}_{int(time.time())}", simple_url, qr_image_url
+
+async def download_qr_image(qr_image_url, user_id):
+    """Download QR image from Razorpay"""
+    try:
+        import aiohttp
+        async with aiohttp.ClientSession() as session:
+            async with session.get(qr_image_url) as response:
+                if response.status == 200:
+                    qr_path = f"payment_qr_{user_id}.png"
+                    with open(qr_path, 'wb') as f:
+                        f.write(await response.read())
+                    return qr_path
+                else:
+                    raise Exception(f"Failed to download QR image: {response.status}")
+        
+    except Exception as e:
+        raise Exception(f"Failed to download QR code: {str(e)}")
+
+async def check_payment_status(payment_link_id):
+    """Check payment status from Razorpay"""
+    try:
+        # Check if it's a fallback payment
+        if payment_link_id.startswith("fallback_"):
+            return "pending"
+            
+        # Get payment link details
+        payment_link = razor_client.payment_link.fetch(payment_link_id)
+        status = payment_link.get("status", "created")
+        
+        # Check if any payments were made to this link
+        if status == "paid":
+            return "paid"
+        elif status == "partially_paid":
+            return "paid"  # Accept partial payments as well
+        else:
+            return "pending"
+        
+    except Exception as e:
+        print(f"Error checking payment status: {e}")
+        return "error"
 
 async def get_plan_from_order(order_id):
-    """Get plan info from order"""
-    order = razor_client.order.fetch(order_id)
-    plan_type = order["notes"]["plan_type"]
-    plans = {
-        "weekly": {"days": 7},
-        "monthly": {"days": 30}
-    }
-    return plans.get(plan_type, {"days": 7})
+    """Get plan details from order"""
+    return payment_orders.get(order_id, {"days": 30, "amount": 50})
 
-def authorize_premium_user(collection, user_id, days):
-    """Authorize user as premium"""
-    timestamp = int(time.time()) - (days * 24 * 3600)
-    collection.update_one(
-        {"user_id": user_id},
-        {"$set": {"timestamp": timestamp}},
-        upsert=True
-    )
+async def start_payment_monitor(client, message, payment_link_id, user_id, plan_details):
+    """Monitor payment status and update message"""
+    start_time = time.time()
+    timeout_minutes = 30  # Increased timeout
+    check_interval = 15  # Check every 15 seconds for better responsiveness
+    
+    print(f"Starting payment monitor for user {user_id}, payment_link_id: {payment_link_id}")
+    
+    while time.time() - start_time < timeout_minutes * 60:
+        try:
+            status = await check_payment_status(payment_link_id)
+            print(f"Payment status for {payment_link_id}: {status}")
+            
+            if status == "paid":
+                # Authorize user as premium
+                days = plan_details.get("days", 30)
+                authorize_premium_user(collection, user_id, days)
+                
+                success_message = f"""
+✅ **Payment Successful!**
+
+🎉 **Congratulations!** You are now a Premium user for {days} days!
+
+🌟 **Your Premium Benefits:**
+- Per file size limit: 3.2GB
+- Storage limit: 10GB
+- No ads for {days} days
+- Priority downloads
+- Fast processing
+
+Thank you for your purchase! 🚀
+                """
+                
+                try:
+                    await message.edit_text(
+                        success_message,
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home")]])
+                    )
+                except:
+                    await message.edit_caption(
+                        success_message,
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home")]])
+                    )
+                
+                # Clean up payment order
+                if payment_link_id in payment_orders:
+                    del payment_orders[payment_link_id]
+                    
+                print(f"Payment successful for user {user_id}")
+                break
+                
+        except Exception as e:
+            print(f"Error in payment monitor: {e}")
+            
+        await asyncio.sleep(check_interval)
+    
+    else:
+        # Payment timeout
+        timeout_message = f"""
+⏰ **Payment Timeout**
+
+Your payment session has expired after {timeout_minutes} minutes.
+
+The payment link is no longer being monitored. If you completed the payment, please contact support with your payment details.
+
+You can try again with /premium command.
+        """
+        
+        try:
+            await message.edit_text(
+                timeout_message,
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("🏠 Home", callback_data="home")],
+                    [InlineKeyboardButton("💬 Contact Support", url="https://t.me/nub_coder_s")]
+                ])
+            )
+        except:
+            try:
+                await message.edit_caption(
+                    timeout_message,
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("🏠 Home", callback_data="home")],
+                        [InlineKeyboardButton("💬 Contact Support", url="https://t.me/nub_coder_s")]
+                    ])
+                )
+            except:
+                pass
+        
+        # Clean up payment order
+        if payment_link_id in payment_orders:
+            del payment_orders[payment_link_id]
+            
+        print(f"Payment timeout for user {user_id}, payment_link_id: {payment_link_id}")
 
 # Payment callback handlers moved from callback_handlers.py
 @Client.on_callback_query(filters.regex("plan_"))
