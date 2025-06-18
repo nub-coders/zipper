@@ -127,7 +127,7 @@ import qrcode
 import io
 import asyncio
 from PIL import Image
-from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
+from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, WEBHOOK_URL
 
 # Razorpay configuration
 razor_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
@@ -163,7 +163,7 @@ def authorize_premium_user(collection, user_id, days=30):
 async def create_payment_order(amount, user_id, plan_type):
     """Create Razorpay payment order with payment link"""
     try:
-        # Create payment link
+        # Create simplified payment link
         payment_link_data = {
             "amount": amount * 100,  # Amount in paise
             "currency": "INR",
@@ -173,19 +173,19 @@ async def create_payment_order(amount, user_id, plan_type):
                 "contact": "+919999999999",  # Placeholder
                 "email": f"user{user_id}@example.com"  # Placeholder
             },
-            "notify": {
-                "sms": False,
-                "email": False
-            },
-            "reminder_enable": True,
             "notes": {
                 "user_id": str(user_id),
                 "plan_type": plan_type
             }
         }
         
-        payment_link = razor_client.payment_link.create(data=payment_link_data)
-        payment_link_id = payment_link["id"]
+        try:
+            payment_link = razor_client.payment_link.create(data=payment_link_data)
+            payment_link_id = payment_link["id"]
+            if "short_url" not in payment_link:
+                payment_link["short_url"] = f"https://rzp.io/i/{payment_link_id}"
+        except Exception as e:
+            raise Exception(f"Payment link creation failed: {str(e)}")
         
         # Store payment link details
         payment_orders[payment_link_id] = {
@@ -237,13 +237,10 @@ async def check_payment_status(payment_link_id):
         payment_link = razor_client.payment_link.fetch(payment_link_id)
         status = payment_link.get("status", "created")
         
-        # Check if any payments were made to this link
+        # Check if payment is fully completed
         if status == "paid":
             return "paid"
-        elif status == "partially_paid":
-            return "paid"  # Accept partial payments as well
-        else:
-            return "pending"
+        return "pending"
         
     except Exception as e:
         print(f"Error checking payment status: {e}")
