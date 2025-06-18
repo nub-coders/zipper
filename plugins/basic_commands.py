@@ -5,6 +5,21 @@ from tools import store_userr, get_user_status, store_user, send_verification_li
 from plugins.ui_components import home_buttons, common_buttons
 from plugins.installer import get_database_collection
 import time
+import aiohttp
+import os
+
+async def download_qr_image(url: str, user_id: int) -> str:
+    """Download QR code image and return local path"""
+    os.makedirs(f"./qr_codes/{user_id}", exist_ok=True)
+    file_path = f"./qr_codes/{user_id}/payment_qr.png"
+    
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                with open(file_path, 'wb') as f:
+                    f.write(await response.read())
+                return file_path
+    raise Exception("Failed to download QR image")
 
 @Client.on_message(filters.command("start"))
 async def start_command(client: Client, message: Message):
