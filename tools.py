@@ -218,7 +218,7 @@ def authorize_premium_user(collection, user_id, days=30):
 
 async def create_payment_order(amount, user_id, plan_type):
     """Create Razorpay payment order with QR code"""
-    try:
+#    try:
         order_data = {
             "amount": amount * 100,  # Amount in paise
             "currency": "INR",
@@ -261,8 +261,8 @@ async def create_payment_order(amount, user_id, plan_type):
         
         return order_id, payment_link, qr_image_url
         
-    except Exception as e:
-        raise Exception(f"Failed to create payment order: {str(e)}")
+ #   except Exception as e:
+  #      raise Exception(f"Failed to create payment order: {str(e)}")
 
 async def download_qr_image(qr_image_url, user_id):
     """Download QR image from Razorpay"""
