@@ -99,12 +99,12 @@ async def callback_fzip(client: Client, callback_query: CallbackQuery):
 
 async def create_zip(client, callback_query, pass_protect=None):
         from tools import create_zip_file
+        user_id = callback_query.from_user.id
+        user_dir = f"./zipper/{user_id}"  # Define user directory path
         zip_filename, message = await create_zip_file(client, callback_query, pass_protect)
 
         if not zip_filename or not os.path.exists(zip_filename):
             return
-
-        user_id = callback_query.from_user.id
         file_size = os.path.getsize(zip_filename)
         await callback_query.message.reply_text('compression completed now uploading file', quote=True, reply_to_message_id=callback_query.message.id)
 
