@@ -8,7 +8,7 @@ import os
 import requests
 import asyncio
 
-def download_qr_image(url: str, user_id: int) -> str:
+async def download_qr_image(url: str, user_id: int) -> str:
     """Download QR code image and return local path"""
     if not url or url == "qr_url" or not url.startswith("http"):
         # Create a simple text file instead of QR if URL is invalid
@@ -62,7 +62,7 @@ async def start_command(client: Client, message: Message):
         stored_time = user_data["timestamp"]
         time_difference = current_time - stored_time
         if time_difference < 21600:
-            return await message.reply_text("You are already verified", quote=True, reply_to_message_id=message.id)
+            return await message.reply_text("You are already verified", quote=True, reply_parameters={"message_id": message.id})
 
     # Check verification codes
     if user_data and "verifycode" in user_data:
@@ -98,7 +98,7 @@ async def help_command(client: Client, message: Message):
         "Enjoy using the bot! 🚀"
     )
 
-    await message.reply_text(help_message, reply_markup=common_buttons, quote=True, reply_to_message_id=message.id)
+    await message.reply_text(help_message, reply_markup=common_buttons, quote=True, reply_parameters={"message_id": message.id})
 
 @Client.on_message(filters.command("premium"))
 async def premium_info(client: Client, message: Message):
@@ -119,7 +119,7 @@ async def premium_info(client: Client, message: Message):
         [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")]
     ])
 
-    await message.reply_text(premium_benefits, reply_markup=plans_keyboard, quote=True, reply_to_message_id=message.id)
+    await message.reply_text(premium_benefits, reply_markup=plans_keyboard, quote=True, reply_parameters={"message_id": message.id})
 
 # Payment system imports
 import razorpay
@@ -181,9 +181,7 @@ async def create_payment_order(amount, user_id, plan_type):
             "notes": {
                 "user_id": str(user_id),
                 "plan_type": plan_type
-            },
-            "callback_url": f"https://{BOT_USERNAME}.replit.app/payment_callback",
-            "callback_method": "get"
+            }
         }
         
         payment_link = razor_client.payment_link.create(data=payment_link_data)
@@ -198,8 +196,8 @@ async def create_payment_order(amount, user_id, plan_type):
             "days": 7 if plan_type == "weekly" else 30
         }
         
-        # Get payment link URL and QR code
-        payment_url = payment_link["short_url"]
+        # Get payment link URL - updated format
+        payment_url = payment_link.get("short_url", f"https://rzp.io/rzp/{payment_link_id}")
         qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={payment_url}"
         
         return payment_link_id, payment_url, qr_image_url
@@ -365,7 +363,7 @@ async def handle_plan_selection(client: Client, callback_query: CallbackQuery):
 
     plan = plans[plan_type]
     order_id, payment_link, qr_image_url = await create_payment_order(plan["amount"], user_id, plan_type)
-    qr_path = download_qr_image(qr_image_url, user_id)
+    qr_path = await download_qr_image(qr_image_url, user_id)
 
     payment_message = f"""
 💳 **Payment for {plan_type.title()} Premium Plan**
@@ -497,4 +495,4 @@ async def user_status(client: Client, message: Message):
     else:
         status_message = "You are Not Verified"
 
-    await message.reply_text(status_message, quote=True, reply_to_message_id=message.id)
+    await message.reply_text(status_message, quote=True, reply_parameters={"message_id": message.id})

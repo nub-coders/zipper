@@ -57,6 +57,7 @@ async def callback_help(client: Client, callback_query: CallbackQuery):
         def __init__(self, callback_query):
             self.from_user = callback_query.from_user
             self.edit_message_text = callback_query.edit_message_text
+            self.id = callback_query.message.id
 
         async def reply_text(self, text, reply_markup=None):
             await self.edit_message_text(text, reply_markup=reply_markup)
