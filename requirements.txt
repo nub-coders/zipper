@@ -18,3 +18,9 @@ fp
 pyrogram
 telethon
 urllib3
+pillow
+qrcode
+razorpay
+pillow
+qrcode
+razorpay

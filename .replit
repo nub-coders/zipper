@@ -3,7 +3,7 @@ modules = ["python-3.11"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["cacert", "cargo", "freetype", "lcms2", "libiconv", "libimagequant", "libjpeg", "libtiff", "libuv", "libwebp", "libxcrypt", "openjpeg", "openssl", "rustc", "tcl", "tk", "zlib"]
+packages = ["cacert", "cargo", "freetype", "gir-rs", "lcms2", "libiconv", "libimagequant", "libjpeg", "libtiff", "libuv", "libwebp", "libxcrypt", "openjpeg", "openssl", "rustc", "saw-tools", "tcl", "tk", "zlib"]
 
 [unitTest]
 language = "python3"

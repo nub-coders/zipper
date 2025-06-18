@@ -71,19 +71,23 @@ async def help_command(client: Client, message: Message):
 @Client.on_message(filters.command("premium"))
 async def premium_info(client: Client, message: Message):
     premium_benefits = """
-    Premium Benefits:
-<blockquote>- Per file size limit increased to 3GB.
-- Storage limit increased to 10GB.
-- No ads for 30 days.
-- Priority downloads.
-- fast downloads and uploads.</blockquote>
+🌟 **Premium Benefits:**
+<blockquote>- Per file size limit increased to 3GB
+- Storage limit increased to 10GB
+- No ads for 30 days
+- Priority downloads
+- Fast downloads and uploads</blockquote>
 
-    Get Premium for just ₹50 (approximately $0.6).
-
-    Contact any admin to get premium.
+💰 **Choose Your Plan:**
     """
-    contact_button = InlineKeyboardMarkup([[InlineKeyboardButton("Contact Admin", url="https://t.me/nub_coder_s")]])
-    await message.reply_text(premium_benefits, reply_markup=contact_button, quote=True, reply_to_message_id=message.id)
+    
+    plans_keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("📅 Weekly Plan - ₹15 ($0.18)", callback_data="plan_weekly")],
+        [InlineKeyboardButton("📆 Monthly Plan - ₹50 ($0.60)", callback_data="plan_monthly")],
+        [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")]
+    ])
+    
+    await message.reply_text(premium_benefits, reply_markup=plans_keyboard, quote=True, reply_to_message_id=message.id)
 
 @Client.on_message(filters.command("status"))
 async def user_status(client: Client, message: Message):
