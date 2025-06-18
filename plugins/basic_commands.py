@@ -110,15 +110,14 @@ async def create_payment_order(amount, user_id, plan_type):
     if not order or "id" not in order:
         raise Exception("Invalid response from Razorpay")
         
-    # Create QR code
+    # Create simplified QR code
     qr_data = {
         "type": "upi_qr",
-        "name": "Premium Subscription",
+        "name": "Premium",
         "usage": "single_use",
         "fixed_amount": True,
         "payment_amount": amount * 100,
-        "description": f"Premium {plan_type} plan",
-        "customer_id": str(user_id)
+        "description": "Premium Plan"
     }
     qr_code = razor_client.qrcode.create(data=qr_data)
     
