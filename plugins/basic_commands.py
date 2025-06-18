@@ -1,6 +1,6 @@
 from config import *
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from tools import store_userr, get_user_status, store_user, send_verification_link
 from plugins.ui_components import home_buttons, common_buttons
 from plugins.installer import get_database_collection
