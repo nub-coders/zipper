@@ -89,6 +89,49 @@ async def premium_info(client: Client, message: Message):
     
     await message.reply_text(premium_benefits, reply_markup=plans_keyboard, quote=True, reply_to_message_id=message.id)
 
+# Payment functions moved from tools.py
+import razorpay
+from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
+razor_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+
+async def create_payment_order(amount, user_id, plan_type):
+    """Create Razorpay payment order with QR code"""
+    try:
+        order_data = {
+            "amount": amount * 100,  # Amount in paise
+            "currency": "INR",
+            "receipt": f"premium_{user_id}_{int(time.time())}",
+            "notes": {
+                "user_id": str(user_id),
+                "plan_type": plan_type
+            }
+        }
+        
+        order = razor_client.order.create(data=order_data)
+        if not order or "id" not in order:
+            raise Exception("Invalid response from Razorpay")
+            
+        # Create QR code
+        qr_data = {
+            "type": "upi_qr",
+            "name": "Premium Subscription",
+            "usage": "single_use",
+            "fixed_amount": True,
+            "payment_amount": amount * 100,
+            "description": f"Premium {plan_type} plan",
+            "customer_id": str(user_id)
+        }
+        qr_code = razor_client.qrcode.create(data=qr_data)
+        
+        return {
+            "order_id": order["id"],
+            "payment_link": f"https://razorpay.me/@{order['id']}",
+            "qr_url": qr_code["image_url"]
+        }
+        
+    except Exception as e:
+        raise Exception(f"Payment creation failed: {str(e)}")
+
 @Client.on_message(filters.command("status"))
 async def user_status(client: Client, message: Message):
     user_id = message.from_user.id
