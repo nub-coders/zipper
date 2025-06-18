@@ -9,7 +9,7 @@ API_HASH = '31ec80a4adad7aaad9262e894e3654e6'
 #BOT_TOKEN='7571416784:AAEJJK9bINObGk96VuC6JLR2CzwclVUOXbE'
 BOT_TOKEN='6239906461:AAFrz8NvMpG5o9oXGIx_XDEl34ulTK18wtY'
 
-# Razorpay configuration (production)
+# Razorpay configuration
 RAZORPAY_KEY_ID = "rzp_live_whGnMZeGzeGe2l"
 RAZORPAY_KEY_SECRET = "QBzrGMNofkapxcHZfd7nt160"
 

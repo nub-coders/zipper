@@ -3,10 +3,10 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from tools import store_userr, get_user_status, store_user, send_verification_link
 from plugins.ui_components import home_buttons, common_buttons
-from plugins.installer import get_database_collection
 import time
 import os
 import requests
+import asyncio
 
 def download_qr_image(url: str, user_id: int) -> str:
     """Download QR code image and return local path"""
@@ -18,11 +18,11 @@ def download_qr_image(url: str, user_id: int) -> str:
         with open(file_path, "w") as file:
             file.write("Payment QR code not available. Please use the payment link.")
         return file_path
-    
+
     user_dir = f"./user_{user_id}"
     os.makedirs(user_dir, exist_ok=True)
     file_path = f"{user_dir}/razorpay_qr.png"
-    
+
     try:
         qr_image_response = requests.get(url)
         if qr_image_response.status_code == 200:
@@ -31,7 +31,7 @@ def download_qr_image(url: str, user_id: int) -> str:
             return file_path
     except Exception as e:
         print(f"Error downloading QR image: {e}")
-    
+
     # Fallback to text file
     file_path = f"{user_dir}/payment_info.txt"
     with open(file_path, "w") as file:
@@ -112,13 +112,13 @@ async def premium_info(client: Client, message: Message):
 
 💰 **Choose Your Plan:**
     """
-    
+
     plans_keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("📅 Weekly Plan - ₹15 ($0.18)", callback_data="plan_weekly")],
         [InlineKeyboardButton("📆 Monthly Plan - ₹50 ($0.60)", callback_data="plan_monthly")],
         [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")]
     ])
-    
+
     await message.reply_text(premium_benefits, reply_markup=plans_keyboard, quote=True, reply_to_message_id=message.id)
 
 # Payment functions moved from tools.py
@@ -137,11 +137,11 @@ async def create_payment_order(amount, user_id, plan_type):
             "plan_type": plan_type
         }
     }
-    
+
     order = razor_client.order.create(data=order_data)
     if not order or "id" not in order:
         raise Exception("Invalid response from Razorpay")
-        
+
     # Create simplified QR code
     qr_data = {
         "type": "upi_qr",
@@ -152,11 +152,11 @@ async def create_payment_order(amount, user_id, plan_type):
         "description": "Premium Plan"
     }
     qr_code = razor_client.qrcode.create(data=qr_data)
-    
+
     return order["id"], f"https://razorpay.me/@{order['id']}", qr_code["image_url"]
 
 # Add missing imports
-import asyncio
+
 
 # Add missing helper functions
 async def start_payment_monitor(client, payment_msg, order_id, user_id, plan):
@@ -174,7 +174,7 @@ async def start_payment_monitor(client, payment_msg, order_id, user_id, plan):
                 return
         except:
             continue
-    
+
     # Payment expired
     await payment_msg.edit_caption(
         "⏰ Payment expired. Please try again with /premium",
@@ -247,7 +247,7 @@ async def handle_plan_selection(client: Client, callback_query: CallbackQuery):
     ])
 
     await callback_query.message.delete()
-    
+
     # Check if QR path is an image or text file
     if qr_path.endswith('.png'):
         payment_msg = await client.send_photo(
@@ -263,7 +263,7 @@ async def handle_plan_selection(client: Client, callback_query: CallbackQuery):
             payment_message,
             reply_markup=verify_button
         )
-    
+
     asyncio.create_task(start_payment_monitor(client, payment_msg, order_id, user_id, plan))
 
 @Client.on_callback_query(filters.regex("verify_"))
@@ -275,7 +275,7 @@ async def verify_payment(client: Client, callback_query: CallbackQuery):
     if payment_status == "paid":
         plan_info = await get_plan_from_order(order_id)
         authorize_premium_user(collection, user_id, plan_info["days"])
-        
+
         success_message = f"""
 ✅ **Payment Successful!**
 

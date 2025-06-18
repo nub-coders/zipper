@@ -182,11 +182,10 @@ import io
 import os
 import asyncio
 from PIL import Image
+from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
 
 # Razorpay configuration
-KEY_ID = "rzp_live_whGnMZeGzeGe2l"
-KEY_SECRET = "QBzrGMNofkapxcHZfd7nt160"
-razor_client = razorpay.Client(auth=(KEY_ID, KEY_SECRET))
+razor_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 
 # Store payment orders
 payment_orders = {}
@@ -217,57 +216,55 @@ def authorize_premium_user(collection, user_id, days=30):
     return collection.find_one({"user_id": user_id})
 
 async def create_payment_order(amount, user_id, plan_type):
-        """Create Razorpay payment order with payment link"""
-        try:
-            # Create payment link instead of order
-            payment_link_data = {
-                "amount": amount * 100,  # Amount in paise
-                "currency": "INR",
-                "description": f"Premium subscription for {plan_type}",
-                "customer": {
-                    "name": f"User {user_id}",
-                    "contact": "+919999999999",  # Placeholder
-                    "email": f"user{user_id}@example.com"  # Placeholder
-                },
-                "notify": {
-                    "sms": False,
-                    "email": False
-                },
-                "reminder_enable": True,
-                "notes": {
-                    "user_id": str(user_id),
-                    "plan_type": plan_type
-                },
-                "callback_url": "https://example.com/callback",
-                "callback_method": "get"
-            }
-            
-            payment_link = razor_client.payment_link.create(data=payment_link_data)
-            payment_link_id = payment_link["id"]
-            
-            # Store payment link details
-            payment_orders[payment_link_id] = {
-                "user_id": user_id,
-                "amount": amount,
-                "plan_type": plan_type,
-                "created_at": int(time.time())
-            }
-            
-            # Get payment link URL and QR code
-            payment_url = payment_link["short_url"]
-            qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={payment_url}"
-            
-            return payment_link_id, payment_url, qr_image_url
-            
-        except Exception as e:
-            print(f"Error creating payment link: {e}")
-            # Fallback to simple payment URL
-            simple_url = f"https://razorpay.me/@{user_id}{int(time.time())}"
-            qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={simple_url}"
-            return f"fallback_{user_id}", simple_url, qr_image_url
+    """Create Razorpay payment order with payment link"""
+    try:
+        # Create payment link
+        payment_link_data = {
+            "amount": amount * 100,  # Amount in paise
+            "currency": "INR",
+            "description": f"Premium subscription for {plan_type}",
+            "customer": {
+                "name": f"User {user_id}",
+                "contact": "+919999999999",  # Placeholder
+                "email": f"user{user_id}@example.com"  # Placeholder
+            },
+            "notify": {
+                "sms": False,
+                "email": False
+            },
+            "reminder_enable": True,
+            "notes": {
+                "user_id": str(user_id),
+                "plan_type": plan_type
+            },
+            "callback_url": f"https://{BOT_USERNAME}.replit.app/payment_callback",
+            "callback_method": "get"
+        }
         
- #   except Exception as e:
-  #      raise Exception(f"Failed to create payment order: {str(e)}")
+        payment_link = razor_client.payment_link.create(data=payment_link_data)
+        payment_link_id = payment_link["id"]
+        
+        # Store payment link details
+        payment_orders[payment_link_id] = {
+            "user_id": user_id,
+            "amount": amount,
+            "plan_type": plan_type,
+            "created_at": int(time.time()),
+            "days": 7 if plan_type == "weekly" else 30
+        }
+        
+        # Get payment link URL and QR code
+        payment_url = payment_link["short_url"]
+        qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={payment_url}"
+        
+        return payment_link_id, payment_url, qr_image_url
+        
+    except Exception as e:
+        print(f"Error creating payment link: {e}")
+        # Fallback to simple payment URL
+        simple_url = f"https://razorpay.me/@nubcoder/{amount}"
+        qr_image_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data={simple_url}"
+        return f"fallback_{user_id}_{int(time.time())}", simple_url, qr_image_url
 
 async def download_qr_image(qr_image_url, user_id):
     """Download QR image from Razorpay"""
@@ -285,11 +282,24 @@ async def download_qr_image(qr_image_url, user_id):
     except Exception as e:
         raise Exception(f"Failed to download QR code: {str(e)}")
 
-async def check_payment_status(order_id):
+async def check_payment_status(payment_link_id):
     """Check payment status from Razorpay"""
     try:
-        order = razor_client.order.fetch(order_id)
-        return order.get("status", "created")
+        # Check if it's a fallback payment
+        if payment_link_id.startswith("fallback_"):
+            return "pending"
+            
+        # Get payment link details
+        payment_link = razor_client.payment_link.fetch(payment_link_id)
+        status = payment_link.get("status", "created")
+        
+        # Check if any payments were made to this link
+        if status == "paid":
+            return "paid"
+        elif status == "partially_paid":
+            return "paid"  # Accept partial payments as well
+        else:
+            return "pending"
         
     except Exception as e:
         print(f"Error checking payment status: {e}")
@@ -299,63 +309,100 @@ async def get_plan_from_order(order_id):
     """Get plan details from order"""
     return payment_orders.get(order_id, {"days": 30, "amount": 50})
 
-async def start_payment_monitor(client, message, order_id, user_id, plan):
+async def start_payment_monitor(client, message, payment_link_id, user_id, plan_details):
     """Monitor payment status and update message"""
     start_time = time.time()
-    timeout_minutes = 15
+    timeout_minutes = 30  # Increased timeout
+    check_interval = 15  # Check every 15 seconds for better responsiveness
+    
+    print(f"Starting payment monitor for user {user_id}, payment_link_id: {payment_link_id}")
     
     while time.time() - start_time < timeout_minutes * 60:
         try:
-            status = await check_payment_status(order_id)
+            status = await check_payment_status(payment_link_id)
+            print(f"Payment status for {payment_link_id}: {status}")
             
             if status == "paid":
                 # Authorize user as premium
                 from config import collection
-                authorize_premium_user(collection, user_id, plan["days"])
+                days = plan_details.get("days", 30)
+                authorize_premium_user(collection, user_id, days)
                 
                 success_message = f"""
 ✅ **Payment Successful!**
 
-🎉 **Congratulations!** You are now a Premium user for {plan["days"]} days!
+🎉 **Congratulations!** You are now a Premium user for {days} days!
 
 🌟 **Your Premium Benefits:**
-- Per file size limit: 3GB
+- Per file size limit: 3.2GB
 - Storage limit: 10GB
-- No ads
+- No ads for {days} days
 - Priority downloads
 - Fast processing
 
 Thank you for your purchase! 🚀
                 """
                 
-                await message.edit_caption(
-                    success_message,
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home")]])
-                )
+                try:
+                    await message.edit_text(
+                        success_message,
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home")]])
+                    )
+                except:
+                    await message.edit_caption(
+                        success_message,
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home")]])
+                    )
+                
+                # Clean up payment order
+                if payment_link_id in payment_orders:
+                    del payment_orders[payment_link_id]
+                    
+                print(f"Payment successful for user {user_id}")
                 break
                 
         except Exception as e:
             print(f"Error in payment monitor: {e}")
             
-        await asyncio.sleep(30)  # Check every 30 seconds
+        await asyncio.sleep(check_interval)
     
     else:
         # Payment timeout
         timeout_message = f"""
 ⏰ **Payment Timeout**
 
-Your payment session has expired. The payment link is no longer valid.
+Your payment session has expired after {timeout_minutes} minutes.
+
+The payment link is no longer being monitored. If you completed the payment, please contact support with your payment details.
 
 You can try again with /premium command.
         """
         
         try:
-            await message.edit_caption(
+            await message.edit_text(
                 timeout_message,
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🏠 Home", callback_data="home")]])
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("🏠 Home", callback_data="home")],
+                    [InlineKeyboardButton("💬 Contact Support", url="https://t.me/nub_coder_s")]
+                ])
             )
         except:
-            pass
+            try:
+                await message.edit_caption(
+                    timeout_message,
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("🏠 Home", callback_data="home")],
+                        [InlineKeyboardButton("💬 Contact Support", url="https://t.me/nub_coder_s")]
+                    ])
+                )
+            except:
+                pass
+        
+        # Clean up payment order
+        if payment_link_id in payment_orders:
+            del payment_orders[payment_link_id]
+            
+        print(f"Payment timeout for user {user_id}, payment_link_id: {payment_link_id}")
 
 def reset_user(collection, user_id):
     """Reset user verification status"""
