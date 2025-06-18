@@ -128,6 +128,88 @@ async def create_payment_order(amount, user_id, plan_type):
         "qr_url": qr_code["image_url"]
     }
 
+# Payment callback handlers moved from callback_handlers.py
+@Client.on_callback_query(filters.regex("plan_"))
+async def handle_plan_selection(client: Client, callback_query: CallbackQuery):
+    plan_type = callback_query.data.split("_")[1]
+    user_id = callback_query.from_user.id
+
+    plans = {
+        "weekly": {"amount": 15, "days": 7, "usd": 0.18},
+        "monthly": {"amount": 50, "days": 30, "usd": 0.60}
+    }
+
+    if plan_type not in plans:
+        return await callback_query.answer("Invalid plan selected!", show_alert=True)
+
+    plan = plans[plan_type]
+    order_id, payment_link, qr_image_url = await create_payment_order(plan["amount"], user_id, plan_type)
+    qr_path = await download_qr_image(qr_image_url, user_id)
+
+    payment_message = f"""
+💳 **Payment for {plan_type.title()} Premium Plan**
+
+💰 **Amount:** ₹{plan['amount']} (${plan['usd']})
+⏰ **Validity:** {plan['days']} days
+🕒 **Payment expires in:** 15 minutes
+
+🔗 **Payment Link:** {payment_link}
+
+⚡ **Scan QR or click link to pay**
+    """
+
+    verify_button = InlineKeyboardMarkup([
+        [InlineKeyboardButton("✅ Verify Payment", callback_data=f"verify_{order_id}")],
+        [InlineKeyboardButton("❌ Cancel", callback_data="cancel_payment")]
+    ])
+
+    await callback_query.message.delete()
+    payment_msg = await client.send_photo(
+        callback_query.message.chat.id,
+        qr_path,
+        caption=payment_message,
+        reply_markup=verify_button
+    )
+    asyncio.create_task(start_payment_monitor(client, payment_msg, order_id, user_id, plan))
+
+@Client.on_callback_query(filters.regex("verify_"))
+async def verify_payment(client: Client, callback_query: CallbackQuery):
+    order_id = callback_query.data.split("_", 1)[1]
+    user_id = callback_query.from_user.id
+
+    payment_status = await check_payment_status(order_id)
+    if payment_status == "paid":
+        plan_info = await get_plan_from_order(order_id)
+        authorize_premium_user(collection, user_id, plan_info["days"])
+        
+        success_message = f"""
+✅ **Payment Successful!**
+
+🎉 **Congratulations!** You are now a Premium user for {plan_info["days"]} days!
+
+🌟 **Your Premium Benefits:**
+- Per file size limit: 3GB
+- Storage limit: 10GB
+- No ads
+- Priority downloads
+- Fast processing
+
+Thank you for your purchase! 🚀
+        """
+        await callback_query.edit_message_caption(
+            success_message,
+            reply_markup=home_buttons
+        )
+    else:
+        await callback_query.answer("Payment not found or still pending. Please try again.", show_alert=True)
+
+@Client.on_callback_query(filters.regex("cancel_payment"))
+async def cancel_payment(client: Client, callback_query: CallbackQuery):
+    await callback_query.edit_message_caption(
+        "❌ Payment cancelled. You can try again anytime with /premium command.",
+        reply_markup=home_buttons
+    )
+
 @Client.on_message(filters.command("status"))
 async def user_status(client: Client, message: Message):
     user_id = message.from_user.id
