@@ -1,0 +1,13 @@
+services:
+  bot:
+    build: .
+    container_name: zipper_bot
+    restart: always
+    volumes:
+      - ./zipper:/app/zipper
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
