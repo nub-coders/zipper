@@ -16,8 +16,8 @@ async def skip_handler(client: Client, message: Message):
             await timeout()
 
 
-@Client.on_message(filters.private & filters.command("loud"))
-async def loud_message(client: Client, message: Message):
+@Client.on_message(filters.private & filters.command("broadcast"))
+async def broadcast_message(client: Client, message: Message):
     if not is_admin(message.from_user.id):
         return
 

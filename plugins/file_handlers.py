@@ -179,7 +179,7 @@ async def handle_media(client: Client, message: Message):
     & filters.text
     & ~filters.command([
         "start", "help", "my_files", "clear", "del", "fzip", "unzip", "premium",
-        "status", "rst", "authorize", "users", "set", "ad", "get", "loud",
+        "status", "rst", "authorize", "users", "set", "ad", "get", "broadcast",
         "reboot", "skip",
     ])
 )
