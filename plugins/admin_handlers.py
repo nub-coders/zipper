@@ -3,6 +3,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from tools import is_admin, get_admin_ids
 import os
+import asyncio
 
 
 @Client.on_message(filters.private & filters.command("skip") & filters.regex("^!skip$"))
@@ -21,20 +22,40 @@ async def broadcast_message(client: Client, message: Message):
     if not is_admin(message.from_user.id):
         return
 
-    stored_user_ids = [u["user_id"] for u in collection.find({}, {"user_id": 1})]
-    sent = 0
+    if not message.reply_to_message:
+        return await message.reply_text("Please reply to a message you want to broadcast.")
 
-    if message.reply_to_message:
-        for uid in stored_user_ids:
+    stored_user_ids = [u["user_id"] for u in collection.find({}, {"user_id": 1})]
+    
+    if not stored_user_ids:
+        return await message.reply_text("No users found in the database.")
+
+    msg = await message.reply_text(f"Starting broadcast to {len(stored_user_ids)} users...")
+    
+    sent = 0
+    failed = 0
+    
+    for uid in stored_user_ids:
+        try:
+            await message.reply_to_message.copy(uid)
+            sent += 1
+        except Exception as e:
+            failed += 1
+            print(f"Failed to copy message to {uid}: {e}")
+        
+        # Avoid hitting rate limits
+        await asyncio.sleep(0.05)
+        
+        # Update progress every 20 messages
+        if (sent + failed) % 20 == 0:
             try:
-                await message.reply_to_message.forward(uid)
-                sent += 1
-            except Exception as e:
-                print(f"Failed to forward message: {e}")
-        await message.reply_text(
-            f"Broadcasted to {sent} users",
-            quote=True, reply_to_message_id=message.id,
-        )
+                await msg.edit_text(f"Broadcast in progress...\n\n✅ Sent: {sent}\n❌ Failed: {failed}\n\nTotal Users: {len(stored_user_ids)}")
+            except Exception:
+                pass
+
+    await msg.edit_text(
+        f"**Broadcast Completed!**\n\n✅ Successfully sent to: {sent}\n❌ Failed: {failed}\n\nTotal Users Processed: {sent + failed}"
+    )
 
 
 @Client.on_message(filters.private & filters.command("reboot"))
