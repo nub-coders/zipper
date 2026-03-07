@@ -9,6 +9,32 @@ import time
 from datetime import datetime
 
 
+@Client.on_message(filters.private & filters.command("ping"))
+async def ping_handler(client: Client, message: Message):
+    import config as cfg
+    start = time.time()
+    reply = await message.reply_text("🏓 Pong!", quote=True, reply_to_message_id=message.id)
+    latency = (time.time() - start) * 1000
+
+    # Calculate uptime
+    uptime_secs = int(time.time() - cfg.START_TIME)
+    d, rem = divmod(uptime_secs, 86400)
+    h, rem = divmod(rem, 3600)
+    m, s = divmod(rem, 60)
+    uptime_str = (
+        (f"{d}d " if d else "") +
+        (f"{h}h " if h else "") +
+        (f"{m}m " if m else "") +
+        f"{s}s"
+    )
+
+    await reply.edit_text(
+        f"🏓 **Pong!**\n"
+        f"⚡ Latency: `{latency:.2f} ms`\n"
+        f"🕐 Uptime: `{uptime_str}`"
+    )
+
+
 @Client.on_message(filters.private & filters.command("skip") & filters.regex("^!skip$"))
 async def skip_handler(client: Client, message: Message):
     if is_admin(message.from_user.id):

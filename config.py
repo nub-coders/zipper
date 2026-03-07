@@ -23,6 +23,9 @@ except Exception as e:
     print(f"MongoDB initialization failed: {e}")
     collection = None
 
+# Bot start time (for uptime calculation)
+START_TIME = __import__("time").time()
+
 # Global runtime state
 ggg = os.getcwd()
 dd = 0
