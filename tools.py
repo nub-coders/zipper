@@ -12,6 +12,8 @@ from pyrogram import Client, filters
 
 # ─── Channel Membership Check ────────────────────────────────────────────────
 
+from pyrogram.errors import UserNotParticipant
+
 async def is_user_on_chat(client: Client, user_id: int) -> bool:
     """Return True if user is a member of required channels; fallback to True if checks fail.
 
@@ -22,9 +24,12 @@ async def is_user_on_chat(client: Client, user_id: int) -> bool:
         for chan in ("nub_coders", "nub_coder_s"):
             try:
                 member = await client.get_chat_member(chan, user_id)
-                if member is None:
+                if member.status in ("left", "kicked", "banned"):
                     return False
+            except UserNotParticipant:
+                return False
             except Exception:
+                # E.g. bot not admin, ChatAdminRequired, or PeerIdInvalid
                 continue
         return True
     except Exception:

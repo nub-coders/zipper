@@ -2,8 +2,11 @@ from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from tools import is_admin, get_admin_ids
+from stats_manager import stats_manager
 import os
 import asyncio
+import time
+from datetime import datetime
 
 
 @Client.on_message(filters.private & filters.command("skip") & filters.regex("^!skip$"))
@@ -85,42 +88,74 @@ async def list_users(client: Client, message: Message):
         )
 
 
-@Client.on_message(filters.private & filters.command("set"))
-async def set_handler(client: Client, message: Message):
+
+@Client.on_message(filters.private & filters.command("stats"))
+async def stats_handler(client: Client, message: Message):
     if not is_admin(message.from_user.id):
         return
 
-    try:
-        value = message.text.split("/set ", 1)[1].strip()
-        collection.update_one({}, {"$set": {"ad": value}}, upsert=True)
-        await message.reply_text("Value saved successfully!", quote=True, reply_to_message_id=message.id)
-    except IndexError:
-        await message.reply_text("Please provide a value after /set", quote=True, reply_to_message_id=message.id)
+    # ── Today's date range ──────────────────────────────────────────
+    today = datetime.now().date()
+    day_start_ts = int(time.mktime(today.timetuple()))
 
+    # ── Aggregate across all user documents ─────────────────────────
+    all_users = list(collection.find({}, {"stats": 1, "user_id": 1}))
+    total_users = collection.count_documents({"user_id": {"$exists": True}})
 
-@Client.on_message(filters.private & filters.command("ad"))
-async def ad_handler(client: Client, message: Message):
-    if not is_admin(message.from_user.id):
-        return
+    overall = {"files_sent": 0, "zip_with_pass": 0, "zip_without_pass": 0, "external_uploads": 0}
+    today_stats = {"files_sent": 0, "zip_with_pass": 0, "zip_without_pass": 0, "external_uploads": 0}
+    active_today = 0
 
-    try:
-        is_ad_value = message.text.split()[1]
-        collection.update_one({}, {"$set": {"is_ad": is_ad_value}}, upsert=True)
-        await message.reply_text(
-            f'Updated "is_ad" field with: {is_ad_value}',
-            quote=True, reply_to_message_id=message.id,
-        )
-    except IndexError:
-        await message.reply_text(
-            "Please provide a value (true/false)",
-            quote=True, reply_to_message_id=message.id,
-        )
+    for user in all_users:
+        s = user.get("stats", {})
+        if not s:
+            continue
+        for key in overall:
+            overall[key] += s.get(key, 0)
+        # Count as "today" only if the user's counters were reset today
+        if s.get("last_reset", 0) >= day_start_ts:
+            active_today += 1
+            for key in today_stats:
+                today_stats[key] += s.get(key, 0)
 
-
-@Client.on_message(filters.private & filters.command("get"))
-async def get_handler(client: Client, message: Message):
-    result = collection.find_one({})
-    if result and "ad" in result:
-        await message.reply_text(f'The value is: {result["ad"]}', quote=True, reply_to_message_id=message.id)
+    # ── Current live state ───────────────────────────────────────────
+    import config as cfg
+    queue_size = cfg.download_queue.qsize()
+    if cfg.download_in_progress:
+        current_state = "⬇️ Downloading"
+    elif cfg.zipping_in_progress:
+        current_state = "🗜️ Zipping"
+    elif cfg.uploading_in_progress:
+        current_state = "⬆️ Uploading"
     else:
-        await message.reply_text("No value found", quote=True, reply_to_message_id=message.id)
+        current_state = "💤 Idle"
+
+    active_uid = cfg.active_user_id
+    active_str = f"`{active_uid}`" if active_uid else "None"
+
+    # ── Format ───────────────────────────────────────────────────────
+    text = (
+        f"📊 **Bot Usage Statistics**\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+
+        f"🔴 **Current Status**\n"
+        f"  State: {current_state}\n"
+        f"  Active user: {active_str}\n"
+        f"  Queue length: `{queue_size}`\n\n"
+
+        f"📅 **Today  ({today.strftime('%d %b %Y')})** — {active_today} active user(s)\n"
+        f"  📁 Files sent:        `{today_stats['files_sent']}`\n"
+        f"  🔐 Zips w/ password:  `{today_stats['zip_with_pass']}`\n"
+        f"  📦 Zips w/o password: `{today_stats['zip_without_pass']}`\n"
+        f"  ☁️  External uploads:  `{today_stats['external_uploads']}`\n"
+        f"  ➕ Total zips:        `{today_stats['zip_with_pass'] + today_stats['zip_without_pass']}`\n\n"
+
+        f"🌐 **All-Time Totals** — {total_users} registered user(s)\n"
+        f"  📁 Files sent:        `{overall['files_sent']}`\n"
+        f"  🔐 Zips w/ password:  `{overall['zip_with_pass']}`\n"
+        f"  📦 Zips w/o password: `{overall['zip_without_pass']}`\n"
+        f"  ☁️  External uploads:  `{overall['external_uploads']}`\n"
+        f"  ➕ Total zips:        `{overall['zip_with_pass'] + overall['zip_without_pass']}`"
+    )
+
+    await message.reply_text(text, quote=True, reply_to_message_id=message.id)

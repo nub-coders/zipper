@@ -20,6 +20,37 @@ app = Client(
 )
 Conversation(app)
 
+from pyrogram.handlers import MessageHandler, CallbackQueryHandler
+from pyrogram import StopPropagation
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from tools import is_user_on_chat, is_admin
+
+async def check_membership_middleware(client, update):
+    user = update.from_user
+    if not user:
+        return
+    user_id = user.id
+    if is_admin(user_id):
+        return
+        
+    if not await is_user_on_chat(client, user_id):
+        button = InlineKeyboardMarkup([
+            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders")],
+            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s")]
+        ])
+        text = "You need to join both @nub_coders and @nub_coder_s channels to use this bot.\n\nClick below to Join!"
+        
+        try:
+            if hasattr(update, "reply_text"):
+                await update.reply_text(text, reply_markup=button)
+            elif hasattr(update, "message"):
+                await update.message.reply_text(text, reply_markup=button)
+        except Exception:
+            pass
+        raise StopPropagation()
+
+app.add_handler(MessageHandler(check_membership_middleware), group=-1)
+app.add_handler(CallbackQueryHandler(check_membership_middleware), group=-1)
 
 async def timeout():
     """Process next file in queue after a download completes."""

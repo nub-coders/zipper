@@ -304,11 +304,7 @@ async def create_zip(client, callback_query, pass_protect=None):
         config.active_user_id = None
         config.cancel_requested.discard(user_id)
 
-    if not cancelled:
-        # Show ad if enabled
-        ad_data = collection.find_one({})
-        if ad_data and ad_data.get("is_ad") == "true" and ad_data.get("ad"):
-            await callback_query.message.reply_text(ad_data["ad"])
+
 
     # Clean up
     if os.path.exists(user_dir):
