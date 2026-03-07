@@ -29,10 +29,16 @@ async def check_membership_middleware(client, update):
     user = update.from_user
     if not user:
         return
+
+    # Only enforce membership check in private chats — never reply in groups
+    chat = getattr(update, "chat", None) or getattr(getattr(update, "message", None), "chat", None)
+    if chat and chat.type.value != "private":
+        return
+
     user_id = user.id
     if is_admin(user_id):
         return
-        
+
     if not await is_user_on_chat(client, user_id):
         button = InlineKeyboardMarkup([
             [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders")],
