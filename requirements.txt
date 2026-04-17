@@ -5,7 +5,7 @@ uvloop
 free-proxy
 certifi
 aiofiles
-https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
+pyrogram==2.0.158
 aiohttp
 tgcrypto
 cryptg
