@@ -36,6 +36,14 @@
     "RAZORPAY_KEY_SECRET": {
       "description": "Razorpay API Key Secret (for premium payments)",
       "required": false
+    },
+    "BINANCE_API_KEY": {
+      "description": "Binance API Key (for crypto payments)",
+      "required": false
+    },
+    "BINANCE_API_SECRET": {
+      "description": "Binance API Secret (for crypto payments)",
+      "required": false
     }
   },
   "formation": {

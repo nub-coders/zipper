@@ -12,6 +12,16 @@ BOT_USERNAME = os.getenv("BOT_USERNAME", "")
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
 
+# Binance configuration for crypto payments
+BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "")
+BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET", "")
+
+# Crypto payment amounts (USDT)
+CRYPTO_USDT_AMOUNTS = {
+    "weekly": 0.18,  # Approximately ₹15 equivalent
+    "monthly": 0.60  # Approximately ₹50 equivalent
+}
+
 # Initialize MongoDB (single connection for the entire app)
 MONGO_URL = os.getenv("MONGO_URL", "")
 try:
