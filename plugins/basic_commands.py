@@ -79,7 +79,6 @@ async def premium_info(client: Client, message: Message):
     plans_keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("📅 Weekly Plan - ₹15 ($0.18)", callback_data="plan_weekly")],
         [InlineKeyboardButton("📆 Monthly Plan - ₹50 ($0.60)", callback_data="plan_monthly")],
-        [InlineKeyboardButton("🪙 Pay with Crypto (USDT)", callback_data="crypto_choose_plan")],
         [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")],
     ])
     await message.reply_text(
@@ -389,22 +388,47 @@ def get_binance_deposit_address(coin: str = "USDT", network: str = "BSC") -> tup
     return False, {"error": f"Unexpected response: {j}"}
 
 
-# ─── Crypto Payment Handlers ─────────────────────────────────────────────────
+# ─── Plan → Payment Method Selection ────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex(r"^crypto_choose_plan$"))
-async def crypto_choose_plan_handler(client: Client, callback_query):
-    weekly_usdt = CRYPTO_USDT_AMOUNTS["weekly"]
-    monthly_usdt = CRYPTO_USDT_AMOUNTS["monthly"]
+@Client.on_callback_query(filters.regex(r"^plan_(weekly|monthly)$"))
+async def plan_choose_method(client: Client, callback_query):
+    plan_type = callback_query.matches[0].group(1)
+    amount = 15 if plan_type == "weekly" else 50
+    days = 7 if plan_type == "weekly" else 30
     await callback_query.edit_message_text(
-        "🪙 Choose a Crypto Plan (USDT via Binance Deposit)",
+        f"💎 **{plan_type.capitalize()} Premium Plan**\n"
+        f"📅 Duration: {days} days | 💰 Amount: ₹{amount}\n\n"
+        f"💳 **Choose Payment Method:**",
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton(f"Weekly (7 Days — {weekly_usdt} USDT ≈ ₹15)", callback_data="crypto_plan:weekly", style="primary")],
-            [InlineKeyboardButton(f"Monthly (30 Days — {monthly_usdt} USDT ≈ ₹50)", callback_data="crypto_plan:monthly", style="primary")],
+            [InlineKeyboardButton("🏦 Pay via Razorpay (UPI/Card)", callback_data=f"pay_rzp:{plan_type}")],
+            [InlineKeyboardButton("🪙 Pay with Crypto (USDT)", callback_data=f"pay_crypto:{plan_type}")],
+            [InlineKeyboardButton("🔙 Back", callback_data="back_to_plans")],
         ])
     )
 
 
-@Client.on_callback_query(filters.regex(r"^crypto_plan:(weekly|monthly)$"))
+@Client.on_callback_query(filters.regex(r"^back_to_plans$"))
+async def back_to_plans_handler(client: Client, callback_query):
+    plans_keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("📅 Weekly Plan - ₹15 ($0.18)", callback_data="plan_weekly")],
+        [InlineKeyboardButton("📆 Monthly Plan - ₹50 ($0.60)", callback_data="plan_monthly")],
+        [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")],
+    ])
+    await callback_query.edit_message_text(
+        "🌟 **Premium Benefits:**\n"
+        "<blockquote>- Per file size limit increased to 3GB\n"
+        "- Storage limit increased to 10GB\n"
+        "- No ads for 30 days\n"
+        "- Priority downloads\n"
+        "- Fast downloads and uploads</blockquote>\n\n"
+        "💰 **Choose Your Plan:**",
+        reply_markup=plans_keyboard,
+    )
+
+
+# ─── Crypto Payment Handlers ─────────────────────────────────────────────────
+
+@Client.on_callback_query(filters.regex(r"^pay_crypto:(weekly|monthly)$"))
 async def crypto_plan_handler(client: Client, callback_query):
     plan_type = callback_query.matches[0].group(1)
     await callback_query.edit_message_text(
@@ -413,6 +437,7 @@ async def crypto_plan_handler(client: Client, callback_query):
             [InlineKeyboardButton("Network: BSC (BEP20)", callback_data=f"binance_plan:BSC:{plan_type}")],
             [InlineKeyboardButton("Network: TRC20 (TRON)", callback_data=f"binance_plan:TRX:{plan_type}")],
             [InlineKeyboardButton("Network: ERC20 (Ethereum)", callback_data=f"binance_plan:ETH:{plan_type}")],
+            [InlineKeyboardButton("🔙 Back", callback_data=f"plan_{plan_type}")],
         ])
     )
 
@@ -511,7 +536,7 @@ async def binance_plan_handler(client: Client, callback_query):
 
 # ─── Razorpay Payment Handlers ───────────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex(r"^plan_(weekly|monthly)$"))
+@Client.on_callback_query(filters.regex(r"^pay_rzp:(weekly|monthly)$"))
 async def plan_handler(client: Client, callback_query):
     plan_type = callback_query.matches[0].group(1)
     amount = 15 if plan_type == "weekly" else 50
@@ -522,23 +547,24 @@ async def plan_handler(client: Client, callback_query):
         pl_id, payment_url, qr_url = await create_payment_order(amount, user_id, plan_type)
         plan_details = {"days": days, "amount": amount}
 
-        text = (
+        caption = (
             f"💎 **{plan_type.capitalize()} Premium Plan**\n\n"
             f"📅 Duration: {days} days\n"
             f"💰 Amount: ₹{amount}\n\n"
             f"🔗 Pay here: {payment_url}\n\n"
+            f"📲 Scan the QR or use the link to pay\n"
             f"⏰ You have 30 minutes to complete payment."
         )
 
-        await callback_query.edit_message_text(text)
-        await client.send_photo(
+        await callback_query.edit_message_text("Processing your payment...")
+        msg = await client.send_photo(
             callback_query.message.chat.id,
             qr_url,
-            caption="Scan QR code to pay"
+            caption=caption
         )
 
         # Start payment monitoring
-        asyncio.create_task(start_payment_monitor(client, callback_query.message, pl_id, user_id, plan_details))
+        asyncio.create_task(start_payment_monitor(client, msg, pl_id, user_id, plan_details))
 
     except Exception as e:
         print(f"Error creating payment: {e}")

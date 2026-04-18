@@ -232,10 +232,9 @@ async def create_zip(client, callback_query, pass_protect=None):
         return
 
     file_size = os.path.getsize(zip_filename)
-    await callback_query.message.reply_text(
-        "Compression completed, now uploading file",
-        quote=True, reply_to_message_id=callback_query.message.id,
-    )
+
+    # Reuse the single status message for upload progress (no new messages)
+    msg = message
 
     # Set uploading flag
     config.uploading_in_progress = True
@@ -245,10 +244,10 @@ async def create_zip(client, callback_query, pass_protect=None):
     try:
         if file_size <= 2_000_000_000:  # 2 GB Telegram limit
             timer = Timer()
-            msg = await callback_query.message.reply_text(
-                "Uploading started",
-                quote=True, reply_to_message_id=callback_query.message.id,
-            )
+            try:
+                await msg.edit_text("⬆️ Upload starting…")
+            except Exception:
+                pass
 
             async def progress_bar(current, total, start_time=time.time()):
                 # Check for cancellation

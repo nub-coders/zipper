@@ -17,6 +17,20 @@ import random
 import requests
 
 
+# ─── Size Formatter ───────────────────────────────────────────────────────────
+
+def _fmt_size(size_bytes: int) -> str:
+    """Return a human-readable size string picking the best unit."""
+    if size_bytes < 1024:
+        return f"{size_bytes} B"
+    elif size_bytes < 1024 ** 2:
+        return f"{size_bytes / 1024:.2f} KB"
+    elif size_bytes < 1024 ** 3:
+        return f"{size_bytes / (1024 ** 2):.2f} MB"
+    else:
+        return f"{size_bytes / (1024 ** 3):.2f} GB"
+
+
 # ─── Commands ─────────────────────────────────────────────────────────────────
 
 @Client.on_message(filters.private & filters.command("my_files"))
@@ -230,14 +244,14 @@ async def list_files(client, message):
         return await message.reply_text(msg_text, reply_markup=nofile_buttons)
 
     file_entries = [
-        f"{i+1}. {f} - {os.path.getsize(os.path.join(user_dir, f)) / (1024*1024):.2f} MB"
+        f"{i+1}. {f} - {_fmt_size(os.path.getsize(os.path.join(user_dir, f)))}"
         for i, f in enumerate(files)
     ]
 
     header = (
         f"📊 **Storage Overview**\n\n"
-        f"💾 Used Space: {total_size / (1024*1024):.2f} MB\n"
-        f"💿 Available Space: {remaining_storage / (1024**3):.2f} GB\n"
+        f"💾 Used Space: {_fmt_size(total_size)}\n"
+        f"💿 Available Space: {_fmt_size(remaining_storage)}\n"
         f"📁 Total Files: {len(files)}\n\n"
         f"📋 **Your Files:**\n"
         f"• Use /del <number> to remove a file\n"
@@ -416,6 +430,9 @@ async def download(message):
         
         if file_path and is_compressed(file_path):
             filename_only = os.path.basename(file_path)
+            dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else size
+            _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
+            total_size_used = max_storage - remaining_storage
             cb_data = f"unzip|{filename_only}"
             if len(cb_data.encode('utf-8')) > 64:
                 cb_data = f"unzip|{filename_only[-50:]}"
@@ -424,11 +441,25 @@ async def download(message):
                  InlineKeyboardButton("dismiss", callback_data="dismiss")]
             ])
             await msg.edit_text(
-                "Finished downloading\n/my_files to see your files\n\n🗜️ **Compressed file detected!**\nWould you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
+                f"✅ **Finished downloading**\n"
+                f"📄 `{filename_only}` — {_fmt_size(dl_size)}\n"
+                f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage)}\n"
+                f"/my_files to see your files\n\n"
+                f"🗜️ **Compressed file detected!**\n"
+                f"Would you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
                 reply_markup=uncompress_btn
             )
         else:
-            await msg.edit_text("Finished downloading\n/my_files to see your files")
+            filename_only = os.path.basename(file_path) if file_path else "file"
+            dl_size = os.path.getsize(file_path) if file_path and os.path.exists(file_path) else size
+            _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
+            total_size_used = max_storage - remaining_storage
+            await msg.edit_text(
+                f"✅ **Finished downloading**\n"
+                f"📄 `{filename_only}` — {_fmt_size(dl_size)}\n"
+                f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage)}\n"
+                f"/my_files to see your files"
+            )
     except StopTransmission:
         cancelled = True
         if msg:
@@ -563,6 +594,9 @@ async def link_download(message):
 
                 if is_compressed(file_path):
                     filename_only = os.path.basename(file_path)
+                    dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
+                    _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
+                    total_size_used = max_storage - remaining_storage_now
                     cb_data = f"unzip|{filename_only}"
                     if len(cb_data.encode('utf-8')) > 64:
                         cb_data = f"unzip|{filename_only[-50:]}"
@@ -571,12 +605,23 @@ async def link_download(message):
                          InlineKeyboardButton("dismiss", callback_data="dismiss")]
                     ])
                     await msg_obj.edit_text(
-                        f"File {filename} downloaded successfully\n/my_files to check all your files\n\n🗜️ **Compressed file detected!**\nWould you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
+                        f"✅ **Downloaded successfully**\n"
+                        f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
+                        f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
+                        f"/my_files to check all your files\n\n"
+                        f"🗜️ **Compressed file detected!**\n"
+                        f"Would you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
                         reply_markup=uncompress_btn
                     )
                 else:
+                    dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
+                    _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
+                    total_size_used = max_storage - remaining_storage_now
                     await msg_obj.edit_text(
-                        f"File {filename} downloaded successfully\n/my_files to check all your files"
+                        f"✅ **Downloaded successfully**\n"
+                        f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
+                        f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
+                        f"/my_files to check all your files"
                     )
 
         config.download_in_progress = False
