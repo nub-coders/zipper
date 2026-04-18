@@ -349,6 +349,13 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
     zip_filename = os.path.join(user_dir, file_name)
 
+    # Calculate total size of original files before compression
+    original_size = sum(
+        os.path.getsize(os.path.join(user_dir, fn))
+        for fn in files
+        if os.path.isfile(os.path.join(user_dir, fn))
+    )
+
     try:
         message = await callback_query.message.edit_text("Compressing files to zip, please wait…")
     except Exception:
@@ -357,24 +364,45 @@ async def create_zip_file(client, callback_query, pass_protect=None):
     import zipfile
     import pyminizip
 
+    def _fmt(size_bytes):
+        """Human-readable file size."""
+        for unit in ("B", "KB", "MB", "GB"):
+            if size_bytes < 1024:
+                return f"{size_bytes:.2f} {unit}"
+            size_bytes /= 1024
+        return f"{size_bytes:.2f} TB"
+
     try:
         if pass_protect and password:
+            # Level 9 = maximum compression for password-protected ZIPs
             file_paths = [os.path.join(user_dir, fn) for fn in files]
             prefixes = [""] * len(files)
-            pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 5)
-            await message.edit_text("Created password-protected ZIP file")
+            pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 9)
         else:
-            with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED) as zipf:
+            # ZIP_LZMA (method 14) gives significantly better ratio than Deflate
+            with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_LZMA) as zipf:
                 for i, fn in enumerate(files, 1):
                     zipf.write(os.path.join(user_dir, fn), fn)
                     try:
                         await message.edit_text(f"Adding {fn} to ZIP… ({i}/{len(files)})")
                     except Exception:
                         pass
-            await message.edit_text("ZIP file created successfully")
     except Exception as e:
         await message.edit_text(f"Error creating ZIP: {e}")
         return None, message
+
+    # Report compression results
+    compressed_size = os.path.getsize(zip_filename) if os.path.exists(zip_filename) else 0
+    savings_pct = (1 - compressed_size / original_size) * 100 if original_size > 0 else 0
+    lock_icon = "🔐 " if pass_protect and password else ""
+
+    result_text = (
+        f"✅ {lock_icon}**ZIP created successfully!**\n\n"
+        f"📂 Original size:   `{_fmt(original_size)}`\n"
+        f"📦 Compressed size: `{_fmt(compressed_size)}`\n"
+        f"💾 Space saved:     `{savings_pct:.1f}%`"
+    )
+    await message.edit_text(result_text)
 
     return zip_filename, message
 
