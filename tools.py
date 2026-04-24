@@ -374,13 +374,13 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
     try:
         if pass_protect and password:
-            # Level 9 = maximum compression for password-protected ZIPs
+            # Level 4 = faster compression to prevent bot freezing
             file_paths = [os.path.join(user_dir, fn) for fn in files]
             prefixes = [""] * len(files)
-            pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 9)
+            pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 4)
         else:
-            # ZIP_LZMA (method 14) gives significantly better ratio than Deflate
-            with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_LZMA) as zipf:
+            # ZIP_DEFLATED is much faster than LZMA and won't freeze the bot
+            with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED, compresslevel=5) as zipf:
                 for i, fn in enumerate(files, 1):
                     zipf.write(os.path.join(user_dir, fn), fn)
                     try:

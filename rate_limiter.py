@@ -30,4 +30,4 @@ class GlobalRateLimiter:
         return True
 
 
-rate_limiter = GlobalRateLimiter(max_actions=5, window_seconds=60)
+rate_limiter = GlobalRateLimiter(max_actions=40, window_seconds=60)

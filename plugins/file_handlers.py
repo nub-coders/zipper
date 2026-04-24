@@ -326,6 +326,17 @@ def _get_filename(message: Message, user_id) -> str:
 async def download(message):
     user_id = message.from_user.id
 
+    user_queue_count = sum(1 for item in list(config.download_queue.queue) if item.from_user.id == user_id)
+    if config.active_user_id == user_id and config.download_in_progress:
+        user_queue_count += 1
+
+    if user_queue_count >= 40:
+        return await message.reply_text(
+            "You can only have 40 files in the queue at a time. Please wait for some files to finish.",
+            reply_markup=common_buttons,
+            reply_to_message_id=message.id,
+        )
+
     # Rate limiting
     if not rate_limiter.is_allowed(user_id):
         return await message.reply_text(
