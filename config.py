@@ -1,6 +1,10 @@
 import os
 import queue
+from dotenv import load_dotenv
 from pymongo import MongoClient
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Bot configuration
 API_ID = int(os.getenv("API_ID", 0))
@@ -12,14 +16,17 @@ BOT_USERNAME = os.getenv("BOT_USERNAME", "")
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
 
-# Binance configuration for crypto payments
-BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "")
-BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET", "")
+# Binance API credentials for deposit verification
+BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "hweQxPU2UWbiAcMWpKE5GTrXoVsXQHBk0v5noi5Zyu7uCVg1IOhnMSARUyuylAU0")
+BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET", "nMiwBvePEWxSJVJak09Jk6KS4EFCI7TEJwzdpRm1pMNOb7tMmrrJxeNVzd1eJwRD")
+
+# Dynamic conversion based on env var (default 95)
+USDT_TO_INR = float(os.getenv("USDT_TO_INR", "95"))
 
 # Crypto payment amounts (USDT)
 CRYPTO_USDT_AMOUNTS = {
-    "weekly": 0.18,  # Approximately ₹15 equivalent
-    "monthly": 0.60  # Approximately ₹50 equivalent
+    "weekly": round(15 / USDT_TO_INR, 2),
+    "monthly": round(50 / USDT_TO_INR, 2)
 }
 
 # Initialize MongoDB (single connection for the entire app)

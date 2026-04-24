@@ -19,3 +19,4 @@ urllib3
 qrcode
 razorpay
 pyminizip
+python-dotenv

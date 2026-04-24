@@ -436,7 +436,10 @@ async def download(message):
     cancelled = False
     try:
         msg = await message.reply_text("Downloading started", quote=True, reply_to_message_id=message.id)
-        file_path = await message.download(file_name=f"zipper/{user_id}/", progress=progress_bar)
+        file_path = await asyncio.wait_for(
+            message.download(file_name=f"zipper/{user_id}/", progress=progress_bar),
+            timeout=1500  # 25 minutes auto-cancel
+        )
         await stats_manager.update_stats(user_id, "files_sent")
         
         if file_path and is_compressed(file_path):
@@ -471,6 +474,10 @@ async def download(message):
                 f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage)}\n"
                 f"/my_files to see your files"
             )
+    except asyncio.TimeoutError:
+        cancelled = True
+        if msg:
+            await msg.edit_text("❌ **Download timed out**\n\nThis file took more than 25 minutes and was auto-cancelled to free the queue.")
     except StopTransmission:
         cancelled = True
         if msg:
@@ -574,7 +581,8 @@ async def link_download(message):
         start_time = time.time()
         file_path = os.path.join(user_dir, filename)
 
-        async with aiohttp.ClientSession() as session:
+        timeout = aiohttp.ClientTimeout(total=1500)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get(link) as resp:
                 if resp.status != 200:
                     config.download_in_progress = False
@@ -638,6 +646,11 @@ async def link_download(message):
         config.download_in_progress = False
         config.active_user_id = None
 
+    except asyncio.TimeoutError:
+        config.download_in_progress = False
+        config.active_user_id = None
+        if 'msg_obj' in dir():
+            await msg_obj.edit_text("❌ **Download timed out**\n\nThis file took more than 25 minutes and was auto-cancelled to free the queue.")
     except asyncio.CancelledError:
         config.download_in_progress = False
         config.active_user_id = None

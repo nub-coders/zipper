@@ -77,8 +77,8 @@ async def help_command(client: Client, message: Message):
 @Client.on_message(filters.private & filters.command("premium"))
 async def premium_info(client: Client, message: Message):
     plans_keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("📅 Weekly Plan - ₹15 ($0.18)", callback_data="plan_weekly")],
-        [InlineKeyboardButton("📆 Monthly Plan - ₹50 ($0.60)", callback_data="plan_monthly")],
+        [InlineKeyboardButton(f"📅 Weekly Plan - ₹15 (${CRYPTO_USDT_AMOUNTS['weekly']})", callback_data="plan_weekly")],
+        [InlineKeyboardButton(f"📆 Monthly Plan - ₹50 (${CRYPTO_USDT_AMOUNTS['monthly']})", callback_data="plan_monthly")],
         [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")],
     ])
     await message.reply_text(
@@ -410,8 +410,8 @@ async def plan_choose_method(client: Client, callback_query):
 @Client.on_callback_query(filters.regex(r"^back_to_plans$"))
 async def back_to_plans_handler(client: Client, callback_query):
     plans_keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("📅 Weekly Plan - ₹15 ($0.18)", callback_data="plan_weekly")],
-        [InlineKeyboardButton("📆 Monthly Plan - ₹50 ($0.60)", callback_data="plan_monthly")],
+        [InlineKeyboardButton(f"📅 Weekly Plan - ₹15 (${CRYPTO_USDT_AMOUNTS['weekly']})", callback_data="plan_weekly")],
+        [InlineKeyboardButton(f"📆 Monthly Plan - ₹50 (${CRYPTO_USDT_AMOUNTS['monthly']})", callback_data="plan_monthly")],
         [InlineKeyboardButton("📞 Contact Admin", url="https://t.me/nub_coder_s")],
     ])
     await callback_query.edit_message_text(
