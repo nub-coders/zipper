@@ -118,12 +118,12 @@ async def _build_status_message(user_id):
 
     # Show activity info and cancel button if user has an active task
     markup = home_buttons
-    if config.active_user_id == user_id:
-        if config.download_in_progress:
+    if user_id in config.downloading_users or user_id in config.zipping_users or user_id in config.uploading_users:
+        if user_id in config.downloading_users:
             text += "\n\n🔄 **Status:** Downloading a file…"
-        elif config.zipping_in_progress:
+        elif user_id in config.zipping_users:
             text += "\n\n🔄 **Status:** Compressing files…"
-        elif config.uploading_in_progress:
+        elif user_id in config.uploading_users:
             text += "\n\n🔄 **Status:** Uploading file…"
 
         markup = InlineKeyboardMarkup([

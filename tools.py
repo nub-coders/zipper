@@ -231,51 +231,42 @@ class Timer:
 # ─── Queue Status ─────────────────────────────────────────────────────────────
 
 def get_queue_status(user_id):
-    """Build a human-readable queue-status string."""
-    from config import (
-        active_user_id,
-        time_left,
-        dd,
-        user_ids,
-        download_queue,
-        premium_queue,
-    )
+    """Build a human-readable queue-status string from MongoDB."""
+    from task_manager import task_mgr
 
-    regular_size = download_queue.qsize()
-    premium_size = premium_queue.qsize()
+    pending_tasks = list(task_mgr.tasks.find({"status": "pending"}).sort("created_at", 1))
+    active_tasks = list(task_mgr.tasks.find({
+        "status": {"$in": ["claimed", "processing", "downloading", "uploading", "zipping"]}
+    }))
 
-    # Count per-user tasks
-    user_task_counts = {}
-    for item in list(download_queue.queue) + list(premium_queue.queue):
-        uid = item.from_user.id
-        user_task_counts[uid] = user_task_counts.get(uid, 0) + 1
+    queue_size = len(pending_tasks)
+    active_users = len(set(t["user_id"] for t in active_tasks))
 
     lines = []
-    if active_user_id:
-        lines.append(f"🔄 **Active download:** user {active_user_id}")
+    if active_users > 0:
+        lines.append(f"🔄 **Active tasks:** {active_users} user(s)")
     else:
-        lines.append("✅ **No active downloads**")
+        lines.append("✅ **No active tasks**")
 
     lines.append("")
-    lines.append("📋 **Queue:**")
-    lines.append(f"Regular: {regular_size} tasks")
-    lines.append(f"Premium: {premium_size} tasks")
+    lines.append(f"📋 **Queue:** {queue_size} task(s)")
+
+    user_task_counts = {}
+    for t in pending_tasks:
+        uid = t["user_id"]
+        user_task_counts[uid] = user_task_counts.get(uid, 0) + 1
 
     if user_task_counts:
         lines.append("")
         for uid, cnt in user_task_counts.items():
             lines.append(f"  {uid}: {cnt} task(s)")
 
-    lines.append(f"\n⏳ Next in: {time_left:.0f}s")
-
-    if user_id in user_ids:
-        if active_user_id == user_id:
-            lines.append("🎯 **Your download is currently active!**")
-        else:
-            position = sum(1 for _ in list(download_queue.queue) + list(premium_queue.queue))
-            lines.append(f"⏳ **Your position:** ~{position}")
+    if any(t["user_id"] == user_id for t in active_tasks):
+        lines.append("\n🎯 **Your task is currently active!**")
+    elif user_id in user_task_counts:
+        lines.append(f"\n⏳ **Your queued files:** {user_task_counts[user_id]}")
     else:
-        lines.append("ℹ️ You have no files in queue")
+        lines.append("\nℹ️ You have no files in queue")
 
     return "\n".join(lines)
 
@@ -333,7 +324,8 @@ async def create_zip_file(client, callback_query, pass_protect=None):
         )
         return None, None
 
-    user_dir = os.path.join(".", "zipper", str(user_id))
+    import config
+    user_dir = f"{config.ggg}/zipper/{user_id}"
     files = os.listdir(user_dir) if os.path.exists(user_dir) else []
 
     if not files:

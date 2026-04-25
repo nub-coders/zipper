@@ -147,17 +147,27 @@ async def stats_handler(client: Client, message: Message):
     # ── Current live state ───────────────────────────────────────────
     import config as cfg
     queue_size = cfg.download_queue.qsize()
-    if cfg.download_in_progress:
-        current_state = "⬇️ Downloading"
-    elif cfg.zipping_in_progress:
-        current_state = "🗜️ Zipping"
-    elif cfg.uploading_in_progress:
-        current_state = "⬆️ Uploading"
+    if cfg.downloading_users:
+        current_state = f"⬇️ Downloading ({len(cfg.downloading_users)} user(s))"
+    elif cfg.zipping_users:
+        current_state = f"🗜️ Zipping ({len(cfg.zipping_users)} user(s))"
+    elif cfg.uploading_users:
+        current_state = f"⬆️ Uploading ({len(cfg.uploading_users)} user(s))"
     else:
         current_state = "💤 Idle"
 
-    active_uid = cfg.active_user_id
-    active_str = f"`{active_uid}`" if active_uid else "None"
+    active_uids = cfg.downloading_users | cfg.zipping_users | cfg.uploading_users
+    active_str = ", ".join(f"`{uid}`" for uid in active_uids) if active_uids else "None"
+
+    # Worker info
+    try:
+        from worker import worker_manager
+        worker_count = len(worker_manager.workers)
+        worker_status = f"✅ {worker_count} worker(s)" if worker_manager.available else "❌ None"
+        channel_str = f"`{worker_manager.active_channel}`" if worker_manager.active_channel else "None"
+    except Exception:
+        worker_status = "N/A"
+        channel_str = "N/A"
 
     # ── Format ───────────────────────────────────────────────────────
     text = (
@@ -167,7 +177,9 @@ async def stats_handler(client: Client, message: Message):
         f"🔴 **Current Status**\n"
         f"  State: {current_state}\n"
         f"  Active user: {active_str}\n"
-        f"  Queue length: `{queue_size}`\n\n"
+        f"  Queue length: `{queue_size}`\n"
+        f"  Workers: {worker_status}\n"
+        f"  Channel: {channel_str}\n\n"
 
         f"📅 **Today  ({today.strftime('%d %b %Y')})** — {active_today} active user(s)\n"
         f"  📁 Files sent:        `{today_stats['files_sent']}`\n"

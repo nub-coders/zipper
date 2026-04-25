@@ -1,5 +1,5 @@
 import config
-from config import collection, premium_queue
+from config import collection
 from pyrogram import Client, filters, StopTransmission
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.ui_components import home_buttons, back_buttons, pass_button, common_buttons
@@ -16,17 +16,18 @@ import tempfile
 
 # ─── ZIP Creation Callbacks ──────────────────────────────────────────────────
 
-def _is_busy():
-    """Check if download or upload is in progress."""
-    return config.download_in_progress or config.uploading_in_progress
+def _is_busy(user_id):
+    """Check if THIS user has a download or upload in progress."""
+    return user_id in config.downloading_users or user_id in config.uploading_users
 
 
 @Client.on_callback_query(filters.regex("no_password"))
 async def without_pass(client: Client, callback_query: CallbackQuery):
-    if _is_busy():
-        reason = "downloading" if config.download_in_progress else "uploading"
+    user_id = callback_query.from_user.id
+    if _is_busy(user_id):
+        reason = "downloading" if user_id in config.downloading_users else "uploading"
         return await callback_query.answer(
-            f"⏳ Can't zip now — a file is being {reason}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {reason}. Try after it finishes.",
             show_alert=True,
         )
 
@@ -42,10 +43,11 @@ async def without_pass(client: Client, callback_query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("set_password"))
 async def with_pass(client: Client, callback_query: CallbackQuery):
-    if _is_busy():
-        reason = "downloading" if config.download_in_progress else "uploading"
+    user_id = callback_query.from_user.id
+    if _is_busy(user_id):
+        reason = "downloading" if user_id in config.downloading_users else "uploading"
         return await callback_query.answer(
-            f"⏳ Can't zip now — a file is being {reason}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {reason}. Try after it finishes.",
             show_alert=True,
         )
 
@@ -66,7 +68,8 @@ async def with_pass(client: Client, callback_query: CallbackQuery):
 async def cancel_task(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
 
-    if config.active_user_id == user_id:
+    if (user_id in config.downloading_users or user_id in config.zipping_users
+            or user_id in config.uploading_users):
         config.cancel_requested.add(user_id)
         await callback_query.answer("🛑 Cancellation requested for current task…", show_alert=True)
         try:
@@ -98,7 +101,8 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
 
     config.user_ids.pop(user_id, None)
 
-    if config.active_user_id == user_id:
+    if (user_id in config.downloading_users or user_id in config.zipping_users
+            or user_id in config.uploading_users):
         config.cancel_requested.add(user_id)
         msg_text = f"🛑 **Cancellation requested**\n\nThe active operation and {removed} queued task(s) will be stopped."
     else:
@@ -193,10 +197,11 @@ async def callback_home(client: Client, callback_query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex("fzip"))
 async def callback_fzip(client: Client, callback_query: CallbackQuery):
-    if _is_busy():
-        reason = "downloading" if config.download_in_progress else "uploading"
+    user_id = callback_query.from_user.id
+    if _is_busy(user_id):
+        reason = "downloading" if user_id in config.downloading_users else "uploading"
         return await callback_query.answer(
-            f"⏳ Can't zip now — a file is being {reason}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {reason}. Try after it finishes.",
             show_alert=True,
         )
 
@@ -206,29 +211,80 @@ async def callback_fzip(client: Client, callback_query: CallbackQuery):
     )
 
 
+# ─── Worker ZIP Dispatch ─────────────────────────────────────────────────────
+
+async def _try_worker_zip_dispatch(callback_query, pass_protect) -> bool:
+    """Try to dispatch zip task to a worker bot.
+
+    Returns True if dispatched, False if fallback needed.
+    """
+    from worker import worker_manager
+
+    if not worker_manager.available:
+        return False
+
+    user_id = callback_query.from_user.id
+    
+    # Premium users are handled directly by main bot
+    is_verified, _, _ = get_user_status(collection, user_id)
+    if is_verified:
+        return False
+        
+    user_dir = f"{config.ggg}/zipper/{user_id}"
+
+    if not os.path.exists(user_dir) or not os.listdir(user_dir):
+        return False  # Let local handler show the "no files" error
+
+    try:
+        from task_manager import task_mgr
+        from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+        await callback_query.edit_message_text(
+            "🗜️ **ZIP task queued**",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("📊 Queue", callback_data="bhad")]
+            ])
+        )
+        
+        worker_id = worker_manager.get_next_worker_id()
+        task_mgr.create_zip_task(
+            user_id=user_id,
+            pass_protect=bool(pass_protect),
+            password=pass_protect if isinstance(pass_protect, str) else None,
+            main_bot_reply_id=callback_query.message.id,
+            worker_id=worker_id,
+        )
+        return True
+
+    except Exception as e:
+        print(f"Worker zip dispatch failed: {e}. Falling back.")
+        return False
+
+
 # ─── ZIP Creation + Upload Logic ─────────────────────────────────────────────
 
 async def create_zip(client, callback_query, pass_protect=None):
     from tools import create_zip_file
     user_id = callback_query.from_user.id
-    user_dir = f"./zipper/{user_id}"
+    user_dir = f"{config.ggg}/zipper/{user_id}"
 
-    # Set zipping flag
-    config.zipping_in_progress = True
-    config.active_user_id = user_id
+    # Try to dispatch to worker bot
+    if await _try_worker_zip_dispatch(callback_query, pass_protect):
+        return
+
+    # Fallback: process locally
+    # Set zipping flag for THIS user
+    config.zipping_users.add(user_id)
 
     try:
         zip_filename, message = await create_zip_file(client, callback_query, pass_protect)
     except Exception as e:
-        config.zipping_in_progress = False
-        config.active_user_id = None
+        config.zipping_users.discard(user_id)
         await callback_query.message.reply_text(f"Error creating ZIP: {e}")
         return
     finally:
-        config.zipping_in_progress = False
+        config.zipping_users.discard(user_id)
 
     if not zip_filename or not os.path.exists(zip_filename):
-        config.active_user_id = None
         return
 
     file_size = os.path.getsize(zip_filename)
@@ -236,9 +292,8 @@ async def create_zip(client, callback_query, pass_protect=None):
     # Reuse the single status message for upload progress (no new messages)
     msg = message
 
-    # Set uploading flag
-    config.uploading_in_progress = True
-    config.active_user_id = user_id
+    # Set uploading flag for THIS user
+    config.uploading_users.add(user_id)
     cancelled = False
 
     try:
@@ -299,8 +354,7 @@ async def create_zip(client, callback_query, pass_protect=None):
         else:
             await upload_to_gofile(callback_query, zip_filename, message)
     finally:
-        config.uploading_in_progress = False
-        config.active_user_id = None
+        config.uploading_users.discard(user_id)
         config.cancel_requested.discard(user_id)
 
 

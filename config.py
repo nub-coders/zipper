@@ -11,14 +11,28 @@ API_ID = int(os.getenv("API_ID", 0))
 API_HASH = os.getenv("API_HASH", "")
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 BOT_USERNAME = os.getenv("BOT_USERNAME", "")
+FORCE_SUBSCRIBE = os.getenv("FORCE_SUBSCRIBE", "true").lower() == "true"
+
+# Worker bots (comma-separated tokens)
+WORKER_BOT_TOKENS = [t.strip() for t in os.getenv("WORKER_BOT_TOKENS", "").split(",") if t.strip()]
+
+# Processing channel IDs (comma-separated, e.g. -1001234567890,-1009876543210)
+PROCESS_CHANNEL_IDS = []
+for _ch in os.getenv("PROCESS_CHANNEL_IDS", "").split(","):
+    _ch = _ch.strip()
+    if _ch:
+        try:
+            PROCESS_CHANNEL_IDS.append(int(_ch))
+        except ValueError:
+            pass
 
 # Razorpay configuration
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
 
 # Binance API credentials for deposit verification
-BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "hweQxPU2UWbiAcMWpKE5GTrXoVsXQHBk0v5noi5Zyu7uCVg1IOhnMSARUyuylAU0")
-BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET", "nMiwBvePEWxSJVJak09Jk6KS4EFCI7TEJwzdpRm1pMNOb7tMmrrJxeNVzd1eJwRD")
+BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "")
+BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET", "")
 
 # Dynamic conversion based on env var (default 95)
 USDT_TO_INR = float(os.getenv("USDT_TO_INR", "95"))
@@ -47,12 +61,12 @@ START_TIME = __import__("time").time()
 ggg = os.getcwd()
 dd = 0
 download_queue = queue.Queue()
-premium_queue = queue.Queue()
-zipping_in_progress = False
-download_in_progress = False
-uploading_in_progress = False
+# Per-user state tracking (sets of user_ids)
+downloading_users = set()
+zipping_users = set()
+uploading_users = set()
 user_ids = {}
-active_user_id = None
 time_left = 0
 timeout = None
 cancel_requested = set()  # set of user_ids requesting cancellation
+active_channel = None     # processing channel ID (set at startup after validation)
