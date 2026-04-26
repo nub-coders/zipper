@@ -65,6 +65,7 @@ def store_user(collection, user_id):
     user_data = {
         "user_id": user_id,
         "timestamp": current_time,
+        "lang": "en",
         "stats": {
             "files_sent": 0,
             "zip_with_pass": 0,
@@ -74,6 +75,7 @@ def store_user(collection, user_id):
         },
     }
     collection.update_one({"user_id": user_id}, {"$setOnInsert": user_data}, upsert=True)
+
 
 
 def store_userr(collection, user_id):
@@ -130,9 +132,15 @@ def reset_user(collection, user_id):
     """Reset user stats and set timestamp to the past (unverified)."""
     timestamp = int(time.time()) - 12600
     current_time = int(time.time())
+    
+    # Retrieve current user to preserve lang
+    user = collection.find_one({"user_id": user_id})
+    current_lang = user.get("lang", "en") if user else "en"
+    
     user_data = {
         "user_id": user_id,
         "timestamp": timestamp,
+        "lang": current_lang,
         "stats": {
             "files_sent": 0,
             "zip_with_pass": 0,
@@ -143,6 +151,32 @@ def reset_user(collection, user_id):
     }
     collection.replace_one({"user_id": user_id}, user_data, upsert=True)
     return collection.find_one({"user_id": user_id})
+
+
+def get_user_lang(collection, user_id):
+    """Get the user's language preference from the database."""
+    user = collection.find_one({"user_id": user_id})
+    if user and "lang" in user:
+        return user["lang"]
+    return "en"
+
+
+def set_user_lang(collection, user_id, lang_code):
+    """Update the user's language preference."""
+    collection.update_one(
+        {"user_id": user_id},
+        {"$set": {"lang": lang_code}},
+        upsert=True
+    )
+
+
+def get_text(collection, user_id, text_key):
+    """Fetch a translated string based on the user's language."""
+    from i18n import TEXTS
+    lang = get_user_lang(collection, user_id)
+    if lang not in TEXTS:
+        lang = "en"
+    return TEXTS[lang].get(text_key, TEXTS["en"].get(text_key, text_key))
 
 
 def authorize_premium_user(collection, user_id, days):

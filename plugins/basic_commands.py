@@ -2,7 +2,7 @@ import config
 from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from tools import get_user_status, get_file_size_info, authorize_premium_user
+from tools import get_user_status, get_file_size_info, authorize_premium_user, get_text, set_user_lang
 from plugins.ui_components import home_buttons, common_buttons
 from stats_manager import stats_manager
 import time
@@ -28,17 +28,35 @@ from config import BINANCE_API_KEY, BINANCE_API_SECRET, CRYPTO_USDT_AMOUNTS, db
 
 @Client.on_message(filters.private & filters.command("start"))
 async def start_command(client: Client, message: Message):
+    text = get_text(collection, message.from_user.id, "start_msg")
     await message.reply_text(
-        "👋 **Welcome to File Zipper Bot!**\n\n"
-        "I can help you:\n"
-        "📁 Compress files into ZIP archives\n"
-        "🔐 Create password-protected ZIPs\n"
-        "📥 Download files from direct links\n"
-        "📦 Manage your uploaded files\n\n"
-        "🚀 Send me any files or direct download links to get started!\n"
-        "❔ Use /help for detailed instructions",
+        text,
         reply_markup=home_buttons,
     )
+
+
+@Client.on_message(filters.private & filters.command("lang"))
+async def lang_command(client: Client, message: Message):
+    user_id = message.from_user.id
+    lang_text = get_text(collection, user_id, "choose_lang")
+    btn_en = get_text(collection, user_id, "lang_btn_en")
+    btn_fa = get_text(collection, user_id, "lang_btn_fa")
+    
+    markup = InlineKeyboardMarkup([
+        [InlineKeyboardButton(btn_en, callback_data="setlang_en")],
+        [InlineKeyboardButton(btn_fa, callback_data="setlang_fa")]
+    ])
+    await message.reply_text(lang_text, reply_markup=markup)
+
+
+@Client.on_callback_query(filters.regex(r"^setlang_(en|fa)$"))
+async def set_lang_handler(client: Client, callback_query):
+    user_id = callback_query.from_user.id
+    lang_code = callback_query.matches[0].group(1)
+    set_user_lang(collection, user_id, lang_code)
+    
+    success_msg = get_text(collection, user_id, "lang_set")
+    await callback_query.edit_message_text(success_msg, reply_markup=home_buttons)
 
 
 @Client.on_message(filters.private & filters.command("help"))

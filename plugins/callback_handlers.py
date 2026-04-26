@@ -148,6 +148,22 @@ async def callback_queue(client: Client, callback_query: CallbackQuery):
 
 # ─── Navigation Callbacks ────────────────────────────────────────────────────
 
+@Client.on_callback_query(filters.regex("lang_menu"))
+async def callback_lang_menu(client: Client, callback_query: CallbackQuery):
+    from tools import get_text
+    user_id = callback_query.from_user.id
+    lang_text = get_text(collection, user_id, "choose_lang")
+    btn_en = get_text(collection, user_id, "lang_btn_en")
+    btn_fa = get_text(collection, user_id, "lang_btn_fa")
+    
+    markup = InlineKeyboardMarkup([
+        [InlineKeyboardButton(btn_en, callback_data="setlang_en")],
+        [InlineKeyboardButton(btn_fa, callback_data="setlang_fa")]
+    ])
+    await callback_query.edit_message_text(lang_text, reply_markup=markup)
+
+
+
 @Client.on_callback_query(filters.regex("help"))
 async def callback_help(client: Client, callback_query: CallbackQuery):
     from plugins.basic_commands import help_command

@@ -282,10 +282,12 @@ async def _try_worker_dispatch(client: Client, message: Message) -> bool:
         forwarded = await message.copy(config.active_channel)
         print(f"[MAIN BOT] Copied message {message.id} successfully! New message ID in channel: {forwarded.id}")
 
+        queue_button = InlineKeyboardMarkup([[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]])
         status_msg = await message.reply_text(
             f"📥 **File queued for processing**\n"
             f"📄 `{file_name}`\n\n"
             f"⏳ Waiting in queue...",
+            reply_markup=queue_button,
             quote=True,
             reply_to_message_id=message.id,
         )
@@ -373,10 +375,12 @@ async def _try_worker_link_dispatch(client: Client, message: Message) -> bool:
             )
             return True  # handled
 
+        queue_button = InlineKeyboardMarkup([[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]])
         status_msg = await message.reply_text(
             f"📥 **Link queued for processing**\n"
             f"🔗 `{link}`\n\n"
             f"⏳ Waiting in queue...",
+            reply_markup=queue_button,
             quote=True,
             reply_to_message_id=message.id,
         )
@@ -588,16 +592,15 @@ async def download(message):
     if user_id in config.downloading_users:
         # This user already has an active download — enqueue
         config.dd += 1
-        if user_id not in config.user_ids:
-            config.user_ids[user_id] = True
-            queue_button = InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Check your queue", callback_data="bhad")]]
-            )
-            await message.reply_text(
-                "I have added your file in queue to download",
-                reply_markup=queue_button,
-                reply_to_message_id=message.id,
-            )
+        config.user_ids[user_id] = True
+        queue_button = InlineKeyboardMarkup(
+            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
+        )
+        await message.reply_text(
+            "I have added your file in queue to download",
+            reply_markup=queue_button,
+            reply_to_message_id=message.id,
+        )
         config.download_queue.put(message)
         return
 
@@ -764,16 +767,15 @@ async def link_download(message):
 
     if user_id in config.downloading_users:
         config.dd += 1
-        if user_id not in config.user_ids:
-            config.user_ids[user_id] = True
-            queue_button = InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Check your queue", callback_data="bhad")]]
-            )
-            await message.reply_text(
-                "I have added your link in queue to download",
-                reply_markup=queue_button,
-                reply_to_message_id=message.id,
-            )
+        config.user_ids[user_id] = True
+        queue_button = InlineKeyboardMarkup(
+            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
+        )
+        await message.reply_text(
+            "I have added your link in queue to download",
+            reply_markup=queue_button,
+            reply_to_message_id=message.id,
+        )
         config.download_queue.put(message)
         return
 

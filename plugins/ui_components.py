@@ -9,13 +9,13 @@ common_buttons = InlineKeyboardMarkup([
      InlineKeyboardButton("❌ Clear My Files", callback_data="clear")],
     [InlineKeyboardButton("🏠 Home", callback_data="home"),
      InlineKeyboardButton("🗜️📑 Compress files", callback_data="fzip")],
-    [help_button],
+    [help_button, InlineKeyboardButton("🌐 Language / زبان", callback_data="lang_menu")],
 ])
 
 home_buttons = InlineKeyboardMarkup([
     [InlineKeyboardButton("🗂️ List My Files", callback_data="my_files"),
      InlineKeyboardButton("❌ Clear My Files", callback_data="clear")],
-    [help_button],
+    [help_button, InlineKeyboardButton("🌐 Language / زبان", callback_data="lang_menu")],
 ])
 
 back_buttons = InlineKeyboardMarkup([
