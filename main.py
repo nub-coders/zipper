@@ -1,7 +1,9 @@
 from config import *
 import os
 import asyncio
+import random
 from pyrogram import Client
+from pyrogram.errors import MessageNotModified
 from convopyro import Conversation
 from plugins.file_handlers import process_queues
 
@@ -137,6 +139,8 @@ async def channel_result_watcher(client: Client, channel_id: int):
                                 await client.edit_message_text(user_id, reply_id, result_text)
                             else:
                                 await client.send_message(user_id, result_text)
+                        except MessageNotModified:
+                            pass
                         except Exception as e:
                             print(f"  Channel watcher: failed to send text to {user_id}: {e}")
 
@@ -147,7 +151,7 @@ async def channel_result_watcher(client: Client, channel_id: int):
                             await client.edit_message_text(user_id, reply_id, error_msg)
                         else:
                             await client.send_message(user_id, error_msg)
-                    except Exception:
+                    except (MessageNotModified, Exception):
                         pass
                 
                 # Try to delete the original input file from the channel if it exists
@@ -208,17 +212,21 @@ async def progress_watcher(client: Client):
                     else:
                         text = f"{action_text}\n\n{_fmt_size(current)} processed"
                 
-                # Check if we should edit (only if text changed)
+                # Check if we should edit (only if text changed and random skip)
                 last_text = task.get("last_progress_text", "")
                 if text != last_text:
-                    try:
-                        await client.edit_message_text(user_id, reply_id, text)
-                        task_mgr.tasks.update_one(
-                            {"_id": task["_id"]},
-                            {"$set": {"last_progress_text": text}}
-                        )
-                    except Exception:
-                        pass
+                    # Only edit 1 in 10 times to avoid rate limits and MESSAGE_NOT_MODIFIED
+                    if random.randint(1, 10) == 1:
+                        try:
+                            await client.edit_message_text(user_id, reply_id, text)
+                            task_mgr.tasks.update_one(
+                                {"_id": task["_id"]},
+                                {"$set": {"last_progress_text": text}}
+                            )
+                        except MessageNotModified:
+                            pass
+                        except Exception:
+                            pass
 
         except Exception as e:
             print(f"  Progress watcher error: {e}")
