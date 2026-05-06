@@ -1,5 +1,4 @@
 import config
-from config import *
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from tools import get_user_status, get_file_size_info, authorize_premium_user, get_text, set_user_lang
@@ -11,7 +10,8 @@ import asyncio
 
 # Razorpay setup
 import razorpay
-from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET
+from config import RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, CRYPTO_USDT_AMOUNTS
+from config import BINANCE_API_KEY, BINANCE_API_SECRET
 
 razor_client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
 payment_orders = {}
@@ -88,7 +88,7 @@ async def help_command(client: Client, message: Message):
         help_text,
         reply_markup=common_buttons,
         quote=True,
-        reply_parameters={"message_id": message.id},
+        reply_to_message_id=message.id,
     )
 
 
@@ -172,15 +172,6 @@ async def user_status(client: Client, message: Message):
 
 
 # ─── Payment System ──────────────────────────────────────────────────────────
-
-def storre_user(collection, user_id, timestamp=None):
-    """Store user with timestamp."""
-    if timestamp is None:
-        timestamp = int(time.time())
-    user_data = {"user_id": user_id, "timestamp": timestamp}
-    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
-    return collection.find_one({"user_id": user_id})
-
 
 async def create_payment_order(amount, user_id, plan_type):
     """Create Razorpay payment order with payment link."""

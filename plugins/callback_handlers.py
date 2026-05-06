@@ -3,7 +3,7 @@ from config import collection
 from pyrogram import Client, filters, StopTransmission
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.ui_components import home_buttons, back_buttons, pass_button, common_buttons
-from tools import get_user_status, Timer, upload_to_gofile, get_queue_status
+from tools import Timer, upload_to_gofile, get_queue_status
 from stats_manager import stats_manager
 import os
 import shutil
@@ -227,67 +227,12 @@ async def callback_fzip(client: Client, callback_query: CallbackQuery):
     )
 
 
-# ─── Worker ZIP Dispatch ─────────────────────────────────────────────────────
-
-async def _try_worker_zip_dispatch(callback_query, pass_protect) -> bool:
-    """Try to dispatch zip task to a worker bot.
-
-    Returns True if dispatched, False if fallback needed.
-    """
-    from worker import worker_manager
-
-    if not worker_manager.available:
-        return False
-
-    user_id = callback_query.from_user.id
-    
-    # Premium users are handled directly by main bot
-    is_verified, _, _ = get_user_status(collection, user_id)
-    if is_verified:
-        return False
-        
-    user_dir = f"{config.ggg}/zipper/{user_id}"
-
-    if not os.path.exists(user_dir) or not os.listdir(user_dir):
-        return False  # Let local handler show the "no files" error
-
-    try:
-        from task_manager import task_mgr
-        from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-        await callback_query.edit_message_text(
-            "🗜️ **ZIP task queued**",
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("📊 Queue", callback_data="bhad")]
-            ])
-        )
-        
-        worker_id = worker_manager.get_next_worker_id()
-        task_mgr.create_zip_task(
-            user_id=user_id,
-            pass_protect=bool(pass_protect),
-            password=pass_protect if isinstance(pass_protect, str) else None,
-            main_bot_reply_id=callback_query.message.id,
-            worker_id=worker_id,
-        )
-        return True
-
-    except Exception as e:
-        print(f"Worker zip dispatch failed: {e}. Falling back.")
-        return False
-
-
 # ─── ZIP Creation + Upload Logic ─────────────────────────────────────────────
 
 async def create_zip(client, callback_query, pass_protect=None):
     from tools import create_zip_file
     user_id = callback_query.from_user.id
     user_dir = f"{config.ggg}/zipper/{user_id}"
-
-    # Try to dispatch to worker bot
-    if await _try_worker_zip_dispatch(callback_query, pass_protect):
-        return
-
-    # Fallback: process locally
     # Set zipping flag for THIS user
     config.zipping_users.add(user_id)
 
@@ -448,7 +393,7 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
             sz = int(size)
             total_size += sz
             size_str = f"{sz / 1024:.1f} KB" if sz < 1024 * 1024 else f"{sz / (1024**2):.2f} MB"
-        except:
+        except Exception:
             size_str = size
         file_lines.append(f"📄 `{path}` — {size_str}")
 
@@ -531,7 +476,7 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
                     if line.startswith("Size = "):
                         try:
                             total_size += int(line.split("=")[1].strip())
-                        except:
+                        except Exception:
                             pass
                 if total_size > 2 * 1024 * 1024 * 1024:
                     return await callback_query.edit_message_text("❌ Uncompressed files exceed 2 GB limit.")
@@ -625,7 +570,7 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
     except Exception as e:
         try:
             await status_msg.edit_text(f"Error during uncompression: {e}")
-        except:
+        except Exception:
             await callback_query.message.reply_text(f"Error during uncompression: {e}")
 
 

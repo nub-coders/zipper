@@ -1,8 +1,9 @@
-from config import *
+import config
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from tools import is_admin, get_admin_ids
 from stats_manager import stats_manager
+from config import collection
 import os
 import asyncio
 import time
@@ -35,7 +36,7 @@ async def ping_handler(client: Client, message: Message):
     )
 
 
-@Client.on_message(filters.private & filters.command("skip") & filters.regex("^!skip$"))
+@Client.on_message(filters.private & filters.command("skip"))
 async def skip_handler(client: Client, message: Message):
     if is_admin(message.from_user.id):
         await message.reply_text(
@@ -159,16 +160,6 @@ async def stats_handler(client: Client, message: Message):
     active_uids = cfg.downloading_users | cfg.zipping_users | cfg.uploading_users
     active_str = ", ".join(f"`{uid}`" for uid in active_uids) if active_uids else "None"
 
-    # Worker info
-    try:
-        from worker import worker_manager
-        worker_count = len(worker_manager.workers)
-        worker_status = f"✅ {worker_count} worker(s)" if worker_manager.available else "❌ None"
-        channel_str = f"`{worker_manager.active_channel}`" if worker_manager.active_channel else "None"
-    except Exception:
-        worker_status = "N/A"
-        channel_str = "N/A"
-
     # ── Format ───────────────────────────────────────────────────────
     text = (
         f"📊 **Bot Usage Statistics**\n"
@@ -177,9 +168,7 @@ async def stats_handler(client: Client, message: Message):
         f"🔴 **Current Status**\n"
         f"  State: {current_state}\n"
         f"  Active user: {active_str}\n"
-        f"  Queue length: `{queue_size}`\n"
-        f"  Workers: {worker_status}\n"
-        f"  Channel: {channel_str}\n\n"
+        f"  Queue length: `{queue_size}`\n\n"
 
         f"📅 **Today  ({today.strftime('%d %b %Y')})** — {active_today} active user(s)\n"
         f"  📁 Files sent:        `{today_stats['files_sent']}`\n"
