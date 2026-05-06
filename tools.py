@@ -265,16 +265,14 @@ class Timer:
 # ─── Queue Status ─────────────────────────────────────────────────────────────
 
 def get_queue_status(user_id):
-    """Build a human-readable queue-status string from MongoDB."""
-    from task_manager import task_mgr
+    """Build a human-readable queue-status string from the local queue."""
+    import config
 
-    pending_tasks = list(task_mgr.tasks.find({"status": "pending"}).sort("created_at", 1))
-    active_tasks = list(task_mgr.tasks.find({
-        "status": {"$in": ["claimed", "processing", "downloading", "uploading", "zipping"]}
-    }))
+    pending_tasks = list(config.download_queue.queue)
+    active_users = len(config.downloading_users | config.zipping_users | config.uploading_users)
+    active_task_users = config.downloading_users | config.zipping_users | config.uploading_users
 
     queue_size = len(pending_tasks)
-    active_users = len(set(t["user_id"] for t in active_tasks))
 
     lines = []
     if active_users > 0:
@@ -287,7 +285,7 @@ def get_queue_status(user_id):
 
     user_task_counts = {}
     for t in pending_tasks:
-        uid = t["user_id"]
+        uid = t.from_user.id
         user_task_counts[uid] = user_task_counts.get(uid, 0) + 1
 
     if user_task_counts:
@@ -295,7 +293,7 @@ def get_queue_status(user_id):
         for uid, cnt in user_task_counts.items():
             lines.append(f"  {uid}: {cnt} task(s)")
 
-    if any(t["user_id"] == user_id for t in active_tasks):
+    if user_id in active_task_users:
         lines.append("\n🎯 **Your task is currently active!**")
     elif user_id in user_task_counts:
         lines.append(f"\n⏳ **Your queued files:** {user_task_counts[user_id]}")

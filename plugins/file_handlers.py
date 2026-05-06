@@ -31,6 +31,16 @@ def _fmt_size(size_bytes: int) -> str:
         return f"{size_bytes / (1024 ** 3):.2f} GB"
 
 
+async def _sleep_after_download(size_bytes: int, queued: bool = False):
+    """Pause after a successful queued download based on file size."""
+    if not queued:
+        return
+
+    delay = (size_bytes / (1024 * 1024)) / 10
+    if delay > 0:
+        await asyncio.sleep(delay)
+
+
 # ─── Commands ─────────────────────────────────────────────────────────────────
 
 @Client.on_message(filters.private & filters.command("my_files"))
@@ -48,13 +58,13 @@ async def delete_file(client: Client, message: Message):
     except (IndexError, ValueError):
         return await message.reply_text(
             "Invalid file number. Use /del <file_number> to delete a file.",
-            quote=True, reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     if not os.path.exists(user_dir):
         return await message.reply_text(
             "Your directory doesn't exist. Send me any file to create your directory.",
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     files = os.listdir(user_dir)
@@ -63,9 +73,9 @@ async def delete_file(client: Client, message: Message):
         os.remove(target)
         return await message.reply_text(
             f"File '{files[file_number]}' has been deleted.",
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
-    return await message.reply_text("Invalid file number.", reply_to_message_id=message.id)
+    return await message.reply_text("Invalid file number.", reply_parameters={"message_id": message.id})
 
 
 @Client.on_message(filters.private & filters.command("clear"))
@@ -91,8 +101,7 @@ async def zip_files_command(client: Client, message: Message):
             f"You can zip your files once it's done.\n\n"
             f"Use /status to check progress or cancel.",
             reply_markup=common_buttons,
-            quote=True,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     await message.reply_text(
@@ -102,8 +111,7 @@ async def zip_files_command(client: Client, message: Message):
         "• Regular ZIP for easy access\n\n"
         "Select your preference below:",
         reply_markup=pass_button,
-        quote=True,
-        reply_to_message_id=message.id,
+        reply_parameters={"message_id": message.id},
     )
 
 @Client.on_message(filters.private & filters.command("unzip"))
@@ -124,8 +132,7 @@ async def unzip_command(client: Client, message: Message):
             f"You can use /unzip once it's done.\n\n"
             f"Use /status to check progress or cancel.",
             reply_markup=common_buttons,
-            quote=True,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     user_dir = f"{config.ggg}/zipper/{user_id}"
@@ -133,10 +140,10 @@ async def unzip_command(client: Client, message: Message):
     if not os.path.exists(user_dir):
         return await message.reply_text(
             "Your directory is empty. Send me a compressed file first.",
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
-    msg = await message.reply_text("Scanning your files for compressed archives...", quote=True)
+    msg = await message.reply_text("Scanning your files for compressed archives...")
     files = os.listdir(user_dir)
     compressed_files = []
     
@@ -181,15 +188,8 @@ async def handle_media(client: Client, message: Message):
             f"Please send your files after the current process finishes.\n\n"
             f"Use /status to check progress or cancel.",
             reply_markup=common_buttons,
-            quote=True,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
-
-    # Try to dispatch to worker bots
-    if await _try_worker_dispatch(client, message):
-        return
-
-    # Fallback: direct download by main bot
     await download(message)
 
 
@@ -213,195 +213,9 @@ async def handle_links(client: Client, message: Message):
                 f"Please send your links after the current process finishes.\n\n"
                 f"Use /status to check progress or cancel.",
                 reply_markup=common_buttons,
-                quote=True,
-                reply_to_message_id=message.id,
+                reply_parameters={"message_id": message.id},
             )
-
-        # Try worker dispatch for link downloads
-        if await _try_worker_link_dispatch(client, message):
-            return
-        # Fallback: direct download by main bot
         await link_download(message)
-
-
-# ─── Worker Dispatch Helpers ─────────────────────────────────────────────────
-
-async def _try_worker_dispatch(client: Client, message: Message) -> bool:
-    """Forward file to processing channel and create a worker task.
-
-    Returns True if dispatched to a worker, False if fallback needed.
-    """
-    from worker import worker_manager
-
-    if not worker_manager.available or not config.active_channel:
-        return False
-
-    user_id = message.from_user.id
-    is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
-    
-    if is_verified:
-        return False  # Premium users are handled directly by main bot
-
-    from task_manager import task_mgr
-    user_queue_count = task_mgr.get_user_pending_count(user_id)
-    if user_queue_count >= 40:
-        await message.reply_text(
-            "You can only have 40 files in the queue at a time. Please wait for some files to finish.",
-            reply_markup=common_buttons,
-            reply_to_message_id=message.id,
-        )
-        return True  # handled (rejected), don't fallback
-
-    user_dir = f"{config.ggg}/zipper/{user_id}"
-    os.makedirs(user_dir, exist_ok=True)
-
-    _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
-    size, enforce_limit = _get_media_size(message)
-
-    if enforce_limit and size > max_file_size:
-        size_gb = max_file_size / (1024 ** 3)
-        await message.reply_text(
-            f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
-            reply_markup=common_buttons,
-            reply_to_message_id=message.id,
-        )
-        return True  # handled (rejected), don't fallback
-
-    if size > remaining_storage:
-        await message.reply_text(
-            "Not enough storage space to download this file.",
-            reply_markup=common_buttons, quote=True,
-            reply_to_message_id=message.id,
-        )
-        return True  # handled (rejected)
-
-    try:
-        # Forward file to processing channel
-        file_name = _get_filename(message, user_id)
-        print(f"[MAIN BOT] Copying message {message.id} to channel {config.active_channel}...")
-        forwarded = await message.copy(config.active_channel)
-        print(f"[MAIN BOT] Copied message {message.id} successfully! New message ID in channel: {forwarded.id}")
-
-        queue_button = InlineKeyboardMarkup([[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]])
-        status_msg = await message.reply_text(
-            f"📥 **File queued for processing**\n"
-            f"📄 `{file_name}`\n\n"
-            f"⏳ Waiting in queue...",
-            reply_markup=queue_button,
-            quote=True,
-            reply_to_message_id=message.id,
-        )
-
-        # Create task in MongoDB
-        from task_manager import task_mgr
-        worker_id = worker_manager.get_next_worker_id()
-        task_mgr.create_download_task(
-            user_id=user_id,
-            channel_msg_id=forwarded.id,
-            channel_id=config.active_channel,
-            file_name=file_name,
-            file_size=size,
-            max_storage=max_storage,
-            max_file_size=max_file_size,
-            is_verified=is_verified,
-            main_bot_reply_id=status_msg.id,
-            worker_id=worker_id,
-        )
-        return True
-
-    except Exception as e:
-        print(f"Worker dispatch failed: {e}. Falling back to direct download.")
-        return False
-
-
-async def _try_worker_link_dispatch(client: Client, message: Message) -> bool:
-    """Create a worker task for a URL download.
-
-    Returns True if dispatched, False if fallback needed.
-    """
-    from worker import worker_manager
-
-    if not worker_manager.available or not config.active_channel:
-        return False
-
-    user_id = message.from_user.id
-    link = message.text
-    is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
-
-    if is_verified:
-        return False  # Premium users are handled directly by main bot
-
-    from task_manager import task_mgr
-    user_queue_count = task_mgr.get_user_pending_count(user_id)
-    if user_queue_count >= 40:
-        await message.reply_text(
-            "You can only have 40 files in the queue at a time. Please wait for some files to finish.",
-            reply_markup=common_buttons,
-            reply_to_message_id=message.id,
-        )
-        return True  # handled (rejected), don't fallback
-
-    user_dir = f"{config.ggg}/zipper/{user_id}"
-    os.makedirs(user_dir, exist_ok=True)
-    _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
-
-    try:
-        import aiohttp
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.head(link) as response:
-                if "content-length" not in response.headers:
-                    await message.reply_text(
-                        "Content length not found in headers. Cannot determine file size.",
-                        quote=True, reply_to_message_id=message.id,
-                    )
-                    return True  # handled
-
-                content_length = int(response.headers["content-length"])
-
-        if content_length > max_file_size:
-            size_gb = max_file_size / (1024**3)
-            await message.reply_text(
-                f"Please send a link smaller than {size_gb:.1f}GB.",
-                reply_markup=common_buttons,
-                reply_to_message_id=message.id,
-            )
-            return True  # handled
-
-        if content_length > remaining_storage:
-            await message.reply_text(
-                "Not enough storage space.",
-                quote=True, reply_to_message_id=message.id,
-            )
-            return True  # handled
-
-        queue_button = InlineKeyboardMarkup([[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]])
-        status_msg = await message.reply_text(
-            f"📥 **Link queued for processing**\n"
-            f"🔗 `{link}`\n\n"
-            f"⏳ Waiting in queue...",
-            reply_markup=queue_button,
-            quote=True,
-            reply_to_message_id=message.id,
-        )
-
-        from task_manager import task_mgr
-        worker_id = worker_manager.get_next_worker_id()
-        task_mgr.create_link_download_task(
-            user_id=user_id,
-            url=link,
-            content_length=content_length,
-            max_storage=max_storage,
-            max_file_size=max_file_size,
-            is_verified=is_verified,
-            main_bot_reply_id=status_msg.id,
-            worker_id=worker_id,
-        )
-        return True
-
-    except Exception as e:
-        print(f"Worker link dispatch failed: {e}. Falling back to direct download.")
-        return False
 
 
 # ─── Queue Processor ─────────────────────────────────────────────────────────
@@ -430,9 +244,9 @@ async def process_queues():
                         config.download_queue.put(r)
                     if found:
                         if getattr(item, "text", None) and item.text.startswith("http"):
-                            await link_download(item)
+                            await link_download(item, queued=True)
                         else:
-                            await download(item)
+                            await download(item, queued=True)
                     break
         await asyncio.sleep(1)
 
@@ -544,7 +358,7 @@ def _get_filename(message: Message, user_id) -> str:
 
 # ─── Download Handler ─────────────────────────────────────────────────────────
 
-async def download(message):
+async def download(message, queued: bool = False):
     user_id = message.from_user.id
 
     user_queue_count = sum(1 for item in list(config.download_queue.queue) if item.from_user.id == user_id)
@@ -563,7 +377,7 @@ async def download(message):
         return await message.reply_text(
             "You are sending files too frequently. Please wait before sending more files.",
             reply_markup=common_buttons,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
@@ -578,14 +392,14 @@ async def download(message):
         return await message.reply_text(
             f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
             reply_markup=common_buttons,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     if size > remaining_storage:
         await message.reply_text(
             "Not enough storage space to download this file.",
-            reply_markup=common_buttons, quote=True,
-            reply_to_message_id=message.id,
+            reply_markup=common_buttons,
+            reply_parameters={"message_id": message.id},
         )
         return
 
@@ -599,7 +413,7 @@ async def download(message):
         await message.reply_text(
             "I have added your file in queue to download",
             reply_markup=queue_button,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
         config.download_queue.put(message)
         return
@@ -652,7 +466,7 @@ async def download(message):
 
     cancelled = False
     try:
-        msg = await message.reply_text("Downloading started", quote=True, reply_to_message_id=message.id)
+        msg = await message.reply_text("Downloading started", reply_parameters={"message_id": message.id})
         file_path = await asyncio.wait_for(
             message.download(file_name=f"zipper/{user_id}/", progress=progress_bar),
             timeout=1500  # 25 minutes auto-cancel
@@ -691,6 +505,8 @@ async def download(message):
                 f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage)}\n"
                 f"/my_files to see your files"
             )
+
+        await _sleep_after_download(dl_size, queued=queued)
     except asyncio.TimeoutError:
         cancelled = True
         if msg:
@@ -704,7 +520,7 @@ async def download(message):
         if msg:
             await msg.edit_text(error_text)
         else:
-            await message.reply_text(error_text, quote=True, reply_to_message_id=message.id)
+            await message.reply_text(error_text, reply_parameters={"message_id": message.id})
 
     config.downloading_users.discard(user_id)
     config.user_ids.pop(user_id, None)
@@ -717,7 +533,7 @@ async def download(message):
 
 # ─── Link Download ────────────────────────────────────────────────────────────
 
-async def link_download(message):
+async def link_download(message, queued: bool = False):
     user_id = message.from_user.id
 
     user_queue_count = sum(1 for item in list(config.download_queue.queue) if item.from_user.id == user_id)
@@ -735,7 +551,7 @@ async def link_download(message):
         return await message.reply_text(
             "You are sending links too frequently. Please wait before sending more links.",
             reply_markup=common_buttons,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     link = message.text
@@ -750,19 +566,19 @@ async def link_download(message):
         if "content-length" not in response.headers:
             return await message.reply_text(
                 "Content length not found in headers. Cannot determine file size.",
-                quote=True, reply_to_message_id=message.id,
+                reply_parameters={"message_id": message.id},
             )
 
         content_length = int(response.headers["content-length"])
         if content_length > remaining_storage:
             return await message.reply_text(
                 "Not enough storage space.",
-                quote=True, reply_to_message_id=message.id,
+                reply_parameters={"message_id": message.id},
             )
     except Exception as e:
         return await message.reply_text(
             f"Download failed. Please check the URL. Error: {e}",
-            quote=True, reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
 
     if user_id in config.downloading_users:
@@ -774,7 +590,7 @@ async def link_download(message):
         await message.reply_text(
             "I have added your link in queue to download",
             reply_markup=queue_button,
-            reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
         config.download_queue.put(message)
         return
@@ -782,7 +598,7 @@ async def link_download(message):
     filename = link.split("/")[-1] or f"download_{int(time.time())}"
     msg_obj = await message.reply_text(
         f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download",
-        quote=True, reply_to_message_id=message.id,
+        reply_parameters={"message_id": message.id},
     )
 
     config.user_ids[user_id] = True
@@ -800,7 +616,7 @@ async def link_download(message):
                     config.downloading_users.discard(user_id)
                     return await message.reply_text(
                         "Download failed. Please check the URL.",
-                        quote=True, reply_to_message_id=message.id,
+                        reply_parameters={"message_id": message.id},
                     )
                 with open(file_path, "wb") as f:
                     while True:
@@ -853,6 +669,11 @@ async def link_download(message):
                         f"/my_files to check all your files"
                     )
 
+                await _sleep_after_download(
+                    os.path.getsize(file_path) if os.path.exists(file_path) else content_length,
+                    queued=queued,
+                )
+
         config.downloading_users.discard(user_id)
         config.user_ids.pop(user_id, None)
 
@@ -870,4 +691,4 @@ async def link_download(message):
     except Exception as e:
         config.downloading_users.discard(user_id)
         config.user_ids.pop(user_id, None)
-        await message.reply_text(str(e), quote=True, reply_to_message_id=message.id)
+        await message.reply_text(str(e), reply_parameters={"message_id": message.id})

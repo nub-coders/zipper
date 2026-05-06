@@ -14,7 +14,7 @@ from datetime import datetime
 async def ping_handler(client: Client, message: Message):
     import config as cfg
     start = time.time()
-    reply = await message.reply_text("🏓 Pong!", quote=True, reply_to_message_id=message.id)
+    reply = await message.reply_text("🏓 Pong!", reply_parameters={"message_id": message.id})
     latency = (time.time() - start) * 1000
 
     # Calculate uptime
@@ -41,7 +41,7 @@ async def skip_handler(client: Client, message: Message):
     if is_admin(message.from_user.id):
         await message.reply_text(
             "Admin command received. Skipping the task…",
-            quote=True, reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
         if timeout:
             await timeout()
@@ -55,6 +55,7 @@ async def broadcast_message(client: Client, message: Message):
     if not message.reply_to_message:
         return await message.reply_text("Please reply to a message you want to broadcast.")
 
+    from config import collection
     stored_user_ids = [u["user_id"] for u in collection.find({}, {"user_id": 1})]
     
     if not stored_user_ids:
@@ -93,27 +94,27 @@ async def reboot_handler(client: Client, message: Message):
     if is_admin(message.from_user.id):
         await message.reply_text(
             "Admin command received. Stopping the bot…",
-            quote=True, reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
         os.system(f"kill -9 {os.getpid()}")
 
 
 @Client.on_message(filters.private & filters.command("users"))
 async def list_users(client: Client, message: Message):
+    from config import collection
     if not is_admin(message.from_user.id):
         return
 
     user_ids_list = [str(u["user_id"]) for u in collection.find({}, {"user_id": 1})]
     if not user_ids_list:
-        return await message.reply_text("No users found.", quote=True, reply_to_message_id=message.id)
+        return await message.reply_text("No users found.", reply_parameters={"message_id": message.id})
 
     user_list = "\n".join(user_ids_list) + f"\nTotal users: {len(user_ids_list)}"
     for i in range(0, len(user_list), 4000):
         await message.reply_text(
             user_list[i:i + 4000],
-            quote=True, reply_to_message_id=message.id,
+            reply_parameters={"message_id": message.id},
         )
-
 
 
 @Client.on_message(filters.private & filters.command("stats"))
@@ -122,6 +123,7 @@ async def stats_handler(client: Client, message: Message):
         return
 
     # ── Today's date range ──────────────────────────────────────────
+    from config import collection
     today = datetime.now().date()
     day_start_ts = int(time.mktime(today.timetuple()))
 
@@ -185,4 +187,4 @@ async def stats_handler(client: Client, message: Message):
         f"  ➕ Total zips:        `{overall['zip_with_pass'] + overall['zip_without_pass']}`"
     )
 
-    await message.reply_text(text, quote=True, reply_to_message_id=message.id)
+    await message.reply_text(text, reply_parameters={"message_id": message.id})

@@ -13,19 +13,6 @@ BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 BOT_USERNAME = os.getenv("BOT_USERNAME", "")
 FORCE_SUBSCRIBE = os.getenv("FORCE_SUBSCRIBE", "true").lower() == "true"
 
-# Worker bots (comma-separated tokens)
-WORKER_BOT_TOKENS = [t.strip() for t in os.getenv("WORKER_BOT_TOKENS", "").split(",") if t.strip()]
-
-# Processing channel IDs (comma-separated, e.g. -1001234567890,-1009876543210)
-PROCESS_CHANNEL_IDS = []
-for _ch in os.getenv("PROCESS_CHANNEL_IDS", "").split(","):
-    _ch = _ch.strip()
-    if _ch:
-        try:
-            PROCESS_CHANNEL_IDS.append(int(_ch))
-        except ValueError:
-            pass
-
 # Razorpay configuration
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
@@ -69,4 +56,3 @@ user_ids = {}
 time_left = 0
 timeout = None
 cancel_requested = set()  # set of user_ids requesting cancellation
-active_channel = None     # processing channel ID (set at startup after validation)

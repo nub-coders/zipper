@@ -29,6 +29,10 @@
       "description": "MongoDB connection URI",
       "required": true
     },
+    "FORCE_SUBSCRIBE": {
+      "description": "Require users to join the support channels before using the bot",
+      "required": false
+    },
     "RAZORPAY_KEY_ID": {
       "description": "Razorpay API Key ID (for premium payments)",
       "required": false
@@ -44,12 +48,10 @@
     "BINANCE_API_SECRET": {
       "description": "Binance API Secret (for crypto payments)",
       "required": false
-    }
-  },
-  "formation": {
-    "worker": {
-      "quantity": 1,
-      "size": "eco"
+    },
+    "USDT_TO_INR": {
+      "description": "USDT to INR conversion rate used for crypto pricing",
+      "required": false
     }
   },
   "stack": "heroku-24"

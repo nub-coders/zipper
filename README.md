@@ -70,10 +70,9 @@ A powerful Telegram bot that helps users compress, manage, and uncompress files 
    heroku config:set RAZORPAY_KEY_SECRET=your_razorpay_secret # optional
    ```
 
-4. Deploy and scale the worker:
+4. Deploy the app:
    ```bash
    git push heroku main
-   heroku ps:scale worker=1
    ```
 
 ---
