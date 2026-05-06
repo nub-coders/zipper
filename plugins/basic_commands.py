@@ -1,6 +1,6 @@
 import config
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyParameters
 from tools import get_user_status, get_file_size_info, authorize_premium_user, get_text, set_user_lang
 from plugins.ui_components import home_buttons, common_buttons
 from stats_manager import stats_manager
@@ -88,7 +88,7 @@ async def help_command(client: Client, message: Message):
     await message.reply_text(
         help_text,
         reply_markup=common_buttons,
-        reply_parameters={"message_id": message.id},
+        reply_parameters=ReplyParameters(message_id=message.id),
     )
 
 
@@ -108,7 +108,7 @@ async def premium_info(client: Client, message: Message):
         "- Fast downloads and uploads</blockquote>\n\n"
         "💰 **Choose Your Plan:**",
         reply_markup=plans_keyboard,
-        reply_parameters={"message_id": message.id},
+        reply_parameters=ReplyParameters(message_id=message.id),
     )
 
 
@@ -168,7 +168,7 @@ async def status_handler(client: Client, callback_query):
 @Client.on_message(filters.private & filters.command("status"))
 async def user_status(client: Client, message: Message):
     text, markup = await _build_status_message(message.from_user.id)
-    await message.reply_text(text, reply_markup=markup, reply_parameters={"message_id": message.id})
+    await message.reply_text(text, reply_markup=markup, reply_parameters=ReplyParameters(message_id=message.id))
 
 
 # ─── Payment System ──────────────────────────────────────────────────────────

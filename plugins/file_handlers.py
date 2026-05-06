@@ -2,7 +2,7 @@ import config
 from config import collection
 from rate_limiter import rate_limiter
 from pyrogram import Client, filters, StopTransmission
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyParameters
 from tools import get_user_status, Timer, get_file_size_info, is_user_on_chat, is_compressed
 from plugins.ui_components import (
     home_buttons, common_buttons, file_buttons,
@@ -58,13 +58,13 @@ async def delete_file(client: Client, message: Message):
     except (IndexError, ValueError):
         return await message.reply_text(
             "Invalid file number. Use /del <file_number> to delete a file.",
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     if not os.path.exists(user_dir):
         return await message.reply_text(
             "Your directory doesn't exist. Send me any file to create your directory.",
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     files = os.listdir(user_dir)
@@ -73,9 +73,9 @@ async def delete_file(client: Client, message: Message):
         os.remove(target)
         return await message.reply_text(
             f"File '{files[file_number]}' has been deleted.",
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
-    return await message.reply_text("Invalid file number.", reply_parameters={"message_id": message.id})
+    return await message.reply_text("Invalid file number.", reply_parameters=ReplyParameters(message_id=message.id))
 
 
 @Client.on_message(filters.private & filters.command("clear"))
@@ -101,7 +101,7 @@ async def zip_files_command(client: Client, message: Message):
             f"You can zip your files once it's done.\n\n"
             f"Use /status to check progress or cancel.",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     await message.reply_text(
@@ -111,7 +111,7 @@ async def zip_files_command(client: Client, message: Message):
         "• Regular ZIP for easy access\n\n"
         "Select your preference below:",
         reply_markup=pass_button,
-        reply_parameters={"message_id": message.id},
+        reply_parameters=ReplyParameters(message_id=message.id),
     )
 
 @Client.on_message(filters.private & filters.command("unzip"))
@@ -132,7 +132,7 @@ async def unzip_command(client: Client, message: Message):
             f"You can use /unzip once it's done.\n\n"
             f"Use /status to check progress or cancel.",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     user_dir = f"{config.ggg}/zipper/{user_id}"
@@ -140,7 +140,7 @@ async def unzip_command(client: Client, message: Message):
     if not os.path.exists(user_dir):
         return await message.reply_text(
             "Your directory is empty. Send me a compressed file first.",
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     msg = await message.reply_text("Scanning your files for compressed archives...")
@@ -188,7 +188,7 @@ async def handle_media(client: Client, message: Message):
             f"Please send your files after the current process finishes.\n\n"
             f"Use /status to check progress or cancel.",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
     await download(message)
 
@@ -213,7 +213,7 @@ async def handle_links(client: Client, message: Message):
                 f"Please send your links after the current process finishes.\n\n"
                 f"Use /status to check progress or cancel.",
                 reply_markup=common_buttons,
-                reply_parameters={"message_id": message.id},
+                reply_parameters=ReplyParameters(message_id=message.id),
             )
         await link_download(message)
 
@@ -377,7 +377,7 @@ async def download(message, queued: bool = False):
         return await message.reply_text(
             "You are sending files too frequently. Please wait before sending more files.",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
@@ -392,14 +392,14 @@ async def download(message, queued: bool = False):
         return await message.reply_text(
             f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     if size > remaining_storage:
         await message.reply_text(
             "Not enough storage space to download this file.",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
         return
 
@@ -413,7 +413,7 @@ async def download(message, queued: bool = False):
         await message.reply_text(
             "I have added your file in queue to download",
             reply_markup=queue_button,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
         config.download_queue.put(message)
         return
@@ -466,7 +466,7 @@ async def download(message, queued: bool = False):
 
     cancelled = False
     try:
-        msg = await message.reply_text("Downloading started", reply_parameters={"message_id": message.id})
+        msg = await message.reply_text("Downloading started", reply_parameters=ReplyParameters(message_id=message.id))
         file_path = await asyncio.wait_for(
             message.download(file_name=f"zipper/{user_id}/", progress=progress_bar),
             timeout=1500  # 25 minutes auto-cancel
@@ -520,7 +520,7 @@ async def download(message, queued: bool = False):
         if msg:
             await msg.edit_text(error_text)
         else:
-            await message.reply_text(error_text, reply_parameters={"message_id": message.id})
+            await message.reply_text(error_text, reply_parameters=ReplyParameters(message_id=message.id))
 
     config.downloading_users.discard(user_id)
     config.user_ids.pop(user_id, None)
@@ -551,7 +551,7 @@ async def link_download(message, queued: bool = False):
         return await message.reply_text(
             "You are sending links too frequently. Please wait before sending more links.",
             reply_markup=common_buttons,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     link = message.text
@@ -566,19 +566,19 @@ async def link_download(message, queued: bool = False):
         if "content-length" not in response.headers:
             return await message.reply_text(
                 "Content length not found in headers. Cannot determine file size.",
-                reply_parameters={"message_id": message.id},
+                reply_parameters=ReplyParameters(message_id=message.id),
             )
 
         content_length = int(response.headers["content-length"])
         if content_length > remaining_storage:
             return await message.reply_text(
                 "Not enough storage space.",
-                reply_parameters={"message_id": message.id},
+                reply_parameters=ReplyParameters(message_id=message.id),
             )
     except Exception as e:
         return await message.reply_text(
             f"Download failed. Please check the URL. Error: {e}",
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     if user_id in config.downloading_users:
@@ -590,7 +590,7 @@ async def link_download(message, queued: bool = False):
         await message.reply_text(
             "I have added your link in queue to download",
             reply_markup=queue_button,
-            reply_parameters={"message_id": message.id},
+            reply_parameters=ReplyParameters(message_id=message.id),
         )
         config.download_queue.put(message)
         return
@@ -598,7 +598,7 @@ async def link_download(message, queued: bool = False):
     filename = link.split("/")[-1] or f"download_{int(time.time())}"
     msg_obj = await message.reply_text(
         f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download",
-        reply_parameters={"message_id": message.id},
+        reply_parameters=ReplyParameters(message_id=message.id),
     )
 
     config.user_ids[user_id] = True
@@ -616,7 +616,7 @@ async def link_download(message, queued: bool = False):
                     config.downloading_users.discard(user_id)
                     return await message.reply_text(
                         "Download failed. Please check the URL.",
-                        reply_parameters={"message_id": message.id},
+                        reply_parameters=ReplyParameters(message_id=message.id),
                     )
                 with open(file_path, "wb") as f:
                     while True:
@@ -691,4 +691,4 @@ async def link_download(message, queued: bool = False):
     except Exception as e:
         config.downloading_users.discard(user_id)
         config.user_ids.pop(user_id, None)
-        await message.reply_text(str(e), reply_parameters={"message_id": message.id})
+        await message.reply_text(str(e), reply_parameters=ReplyParameters(message_id=message.id))
