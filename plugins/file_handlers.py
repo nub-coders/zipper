@@ -223,31 +223,34 @@ async def handle_links(client: Client, message: Message):
 async def process_queues():
     """Continuously process the download queue."""
     while True:
-        if not config.download_queue.empty():
-            # Peek at the next item — only process if that user is free
-            items = list(config.download_queue.queue)
-            for item in items:
-                uid = item.from_user.id
-                if (uid not in config.downloading_users
-                        and uid not in config.zipping_users
-                        and uid not in config.uploading_users):
-                    # Remove this specific item from the queue
-                    remaining = []
-                    found = False
-                    while not config.download_queue.empty():
-                        q_item = config.download_queue.get()
-                        if q_item is item and not found:
-                            found = True  # take this one
-                        else:
-                            remaining.append(q_item)
-                    for r in remaining:
-                        config.download_queue.put(r)
-                    if found:
-                        if getattr(item, "text", None) and item.text.startswith("http"):
-                            await link_download(item, queued=True)
-                        else:
-                            await download(item, queued=True)
-                    break
+        try:
+            if not config.download_queue.empty():
+                # Peek at the next item — only process if that user is free
+                items = list(config.download_queue.queue)
+                for item in items:
+                    uid = item.from_user.id
+                    if (uid not in config.downloading_users
+                            and uid not in config.zipping_users
+                            and uid not in config.uploading_users):
+                        # Remove this specific item from the queue
+                        remaining = []
+                        found = False
+                        while not config.download_queue.empty():
+                            q_item = config.download_queue.get()
+                            if q_item is item and not found:
+                                found = True  # take this one
+                            else:
+                                remaining.append(q_item)
+                        for r in remaining:
+                            config.download_queue.put(r)
+                        if found:
+                            if getattr(item, "text", None) and item.text.startswith("http"):
+                                await link_download(item, queued=True)
+                            else:
+                                await download(item, queued=True)
+                        break
+        except Exception as e:
+            print(f"Error in process_queues: {e}")
         await asyncio.sleep(1)
 
 
@@ -372,8 +375,8 @@ async def download(message, queued: bool = False):
             reply_to_message_id=message.id,
         )
 
-    # Rate limiting
-    if not rate_limiter.is_allowed(user_id):
+    # Rate limiting (bypassed for queued files)
+    if not queued and not rate_limiter.is_allowed(user_id):
         return await message.reply_text(
             "You are sending files too frequently. Please wait before sending more files.",
             reply_markup=common_buttons,
@@ -547,7 +550,8 @@ async def link_download(message, queued: bool = False):
             reply_to_message_id=message.id,
         )
 
-    if not rate_limiter.is_allowed(user_id):
+    # Rate limiting (bypassed for queued links)
+    if not queued and not rate_limiter.is_allowed(user_id):
         return await message.reply_text(
             "You are sending links too frequently. Please wait before sending more links.",
             reply_markup=common_buttons,
@@ -607,6 +611,43 @@ async def link_download(message, queued: bool = False):
     file_path = os.path.join(user_dir, filename)
 
     timer = Timer()
+
+    async def progress_bar(current, total, start_time, msg, fi_encoded):
+        # Check for cancellation
+        if user_id in config.cancel_requested:
+            config.cancel_requested.discard(user_id)
+            raise asyncio.CancelledError()
+
+        if not (timer.can_send() and total and msg):
+            return
+
+        config.time_left = 0
+        pct = current * 100 / total
+        bar_len = 30
+        ticks = int(pct / (100 / bar_len))
+        bar = "█" * ticks + "░" * (bar_len - ticks)
+
+        elapsed = time.time() - start_time
+        speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
+        config.time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
+
+        text = (
+            f"⏬ **Downloading: {fi_encoded}**\n\n"
+            f"📊 Progress: {pct:.1f}%\n"
+            f"⚡ Speed: {speed:.1f} MB/s\n"
+            f"⏱️ Remaining: {config.time_left:.1f}s\n"
+            f"📦 Size: {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
+            f"{bar}\n\n"
+            f"Please wait while I process your file…"
+        )
+        if not is_verified:
+            text += "\n\n**Slow download?** Use /premium to boost download speed"
+            
+        cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
+        try:
+            await msg.edit_text(text, reply_markup=cancel_markup)
+        except Exception as e:
+            print(e)
 
     try:
         timeout = aiohttp.ClientTimeout(total=1500)

@@ -44,10 +44,32 @@ except Exception as e:
 # Bot start time (for uptime calculation)
 START_TIME = __import__("time").time()
 
+class SafeQueue:
+    def __init__(self):
+        self._list = []
+
+    def put(self, item):
+        self._list.append(item)
+
+    def get(self, *args, **kwargs):
+        if self._list:
+            return self._list.pop(0)
+        raise IndexError("pop from empty queue")
+
+    def empty(self) -> bool:
+        return len(self._list) == 0
+
+    def qsize(self) -> int:
+        return len(self._list)
+
+    @property
+    def queue(self):
+        return self._list
+
 # Global runtime state
 ggg = os.getcwd()
 dd = 0
-download_queue = queue.Queue()
+download_queue = SafeQueue()
 # Per-user state tracking (sets of user_ids)
 downloading_users = set()
 zipping_users = set()
