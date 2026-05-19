@@ -221,34 +221,35 @@ async def handle_links(client: Client, message: Message):
 # ─── Queue Processor ─────────────────────────────────────────────────────────
 
 async def process_queues():
-    """Continuously process the download queue."""
+    """Continuously process the download queue.
+    
+    Atomically dequeues items before any async operations to prevent:
+    - Queue corruption from overlapping iterations
+    - Duplicate processing of the same item
+    - Lost items due to concurrent modifications
+    
+    Uses create_task() to prevent the queue loop from blocking during long downloads.
+    """
     while True:
         try:
             if not config.download_queue.empty():
-                # Peek at the next item — only process if that user is free
                 items = list(config.download_queue.queue)
                 for item in items:
                     uid = item.from_user.id
+                    # Check: user is not already active AND not in cancellation queue
                     if (uid not in config.downloading_users
                             and uid not in config.zipping_users
-                            and uid not in config.uploading_users):
-                        # Remove this specific item from the queue
-                        remaining = []
-                        found = False
-                        while not config.download_queue.empty():
-                            q_item = config.download_queue.get()
-                            if q_item is item and not found:
-                                found = True  # take this one
-                            else:
-                                remaining.append(q_item)
-                        for r in remaining:
-                            config.download_queue.put(r)
-                        if found:
+                            and uid not in config.uploading_users
+                            and uid not in config.cancel_requested):
+                        # Atomically remove BEFORE any await to prevent races
+                        removed = await config.download_queue.async_remove(item)
+                        if removed:
+                            # Now safe to dispatch async tasks (won't block the queue loop)
                             if getattr(item, "text", None) and item.text.startswith("http"):
-                                await link_download(item, queued=True)
+                                asyncio.create_task(link_download(item, queued=True))
                             else:
-                                await download(item, queued=True)
-                        break
+                                asyncio.create_task(download(item, queued=True))
+                            break  # Process one item per iteration to prevent starvation
         except Exception as e:
             print(f"Error in process_queues: {e}")
         await asyncio.sleep(1)
@@ -653,6 +654,7 @@ async def link_download(message, queued: bool = False):
             async with session.get(link) as resp:
                 if resp.status != 200:
                     config.downloading_users.discard(user_id)
+                    config.user_ids.pop(user_id, None)
                     return await message.reply_text(
                         "Download failed. Please check the URL.",
                         reply_parameters=ReplyParameters(message_id=message.id),

@@ -87,6 +87,7 @@ async def cancel_task(client: Client, callback_query: CallbackQuery):
 async def cancel_all(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     
+    # Atomically drain all queue items for this user
     removed = 0
     new_queue_items = []
     while not config.download_queue.empty():
@@ -99,11 +100,14 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
     for item in new_queue_items:
         config.download_queue.put(item)
 
+    # Mark user as cancelled so process_queues won't pick up any remaining items
+    config.cancel_requested.add(user_id)
+    
+    # Clean up user state (do this after adding to cancel_requested to prevent races)
     config.user_ids.pop(user_id, None)
 
     if (user_id in config.downloading_users or user_id in config.zipping_users
             or user_id in config.uploading_users):
-        config.cancel_requested.add(user_id)
         msg_text = f"🛑 **Cancellation requested**\n\nThe active operation and {removed} queued task(s) will be stopped."
     else:
         msg_text = f"✅ Removed {removed} file(s) from the download queue."

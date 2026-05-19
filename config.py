@@ -1,4 +1,5 @@
 import os
+import asyncio
 import queue
 from dotenv import load_dotenv
 from pymongo import MongoClient
@@ -45,26 +46,47 @@ except Exception as e:
 START_TIME = __import__("time").time()
 
 class SafeQueue:
+    """Thread-safe and async-safe queue with locking."""
     def __init__(self):
         self._list = []
+        self._lock = asyncio.Lock()
 
     def put(self, item):
+        """Add item to queue (sync method)."""
         self._list.append(item)
 
     def get(self, *args, **kwargs):
+        """Remove and return item from front of queue."""
         if self._list:
             return self._list.pop(0)
         raise IndexError("pop from empty queue")
 
     def empty(self) -> bool:
+        """Check if queue is empty."""
         return len(self._list) == 0
 
     def qsize(self) -> int:
+        """Return queue size."""
         return len(self._list)
 
     @property
     def queue(self):
+        """Return underlying list for iteration."""
         return self._list
+
+    async def async_remove(self, item):
+        """Atomically remove an item from queue (async-safe)."""
+        async with self._lock:
+            try:
+                self._list.remove(item)
+                return True
+            except ValueError:
+                return False
+
+    async def async_get_snapshot(self):
+        """Get a snapshot of queue items (async-safe)."""
+        async with self._lock:
+            return list(self._list)
 
 # Global runtime state
 ggg = os.getcwd()
