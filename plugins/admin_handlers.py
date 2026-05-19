@@ -43,8 +43,6 @@ async def skip_handler(client: Client, message: Message):
             "Admin command received. Skipping the task…",
             reply_parameters=ReplyParameters(message_id=message.id),
         )
-        if timeout:
-            await timeout()
 
 
 @Client.on_message(filters.private & filters.command("broadcast"))

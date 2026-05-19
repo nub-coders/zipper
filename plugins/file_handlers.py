@@ -408,7 +408,6 @@ async def download(message, queued: bool = False):
 
     if user_id in config.downloading_users:
         # This user already has an active download — enqueue
-        config.dd += 1
         config.user_ids[user_id] = True
         queue_button = InlineKeyboardMarkup(
             [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
@@ -586,7 +585,6 @@ async def link_download(message, queued: bool = False):
         )
 
     if user_id in config.downloading_users:
-        config.dd += 1
         config.user_ids[user_id] = True
         queue_button = InlineKeyboardMarkup(
             [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]

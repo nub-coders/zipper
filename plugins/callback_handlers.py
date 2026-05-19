@@ -140,10 +140,7 @@ async def cancel_download(client: Client, callback_query: CallbackQuery):
 async def callback_queue(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     response_text = get_queue_status(user_id)
-    try:
-        await callback_query.answer(response_text, show_alert=True)
-    except Exception:
-        await callback_query.answer(f"Your current queue: {config.dd}", show_alert=True)
+    await callback_query.answer(response_text, show_alert=True)
 
 
 # ─── Navigation Callbacks ────────────────────────────────────────────────────
