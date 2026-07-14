@@ -26,8 +26,8 @@
       "required": true
     },
     "MONGO_URL": {
-      "description": "MongoDB connection URI",
-      "required": true
+      "description": "MongoDB connection URI (optional — leave blank to use in-memory storage that resets on restart)",
+      "required": false
     },
     "FORCE_SUBSCRIBE": {
       "description": "Require users to join the support channels before using the bot",
