@@ -4,7 +4,7 @@
 A powerful Telegram bot that helps users compress, manage, and uncompress files — with support for password protection, large file handling, and direct link downloads.
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nub-coders/zipper)
-[![Deploy to Deplox](https://app.nubcoder.com/deploy/button.svg)](https://app.nubcoder.com/deploy?template=https://github.com/nub-coders/zipper)
+[![Deploy to Deplox](https://deplox.nubcoders.com/deploy/button.svg)](https://app.nubcoders.com/deploy?template=https://github.com/nub-coders/zipper)
 
 ---
 
@@ -44,7 +44,7 @@ A powerful Telegram bot that helps users compress, manage, and uncompress files 
 ### One-Click Deploy
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/nub-coders/zipper)
-[![Deploy to Deplox](https://app.nubcoder.com/deploy/button.svg)](https://app.nubcoder.com/deploy?template=https://github.com/nub-coders/zipper)
+[![Deploy to Deplox](https://deplox.nubcoders.com/deploy/button.svg)](https://app.nubcoders.com/deploy?template=https://github.com/nub-coders/zipper)
 
 ### Manual Heroku Deploy
 
