@@ -1,5 +1,3 @@
-import string
-import random
 import shutil
 import subprocess
 import requests
@@ -88,21 +86,6 @@ def store_userr(collection, user_id):
     )
 
 
-def store_code(collection, user_id, verifycode):
-    """Store verification code for user."""
-    collection.update_one(
-        {"user_id": user_id},
-        {"$set": {"verifycode": verifycode}},
-        upsert=True,
-    )
-
-
-def generate_random_code(length=10):
-    """Generate random alphanumeric verification code."""
-    chars = string.ascii_letters + string.digits
-    return "".join(random.choice(chars) for _ in range(length))
-
-
 def get_user_status(collection, user_id):
     """Get user verification status and storage / file-size limits.
 
@@ -120,37 +103,10 @@ def get_user_status(collection, user_id):
         stored_time = user_data.get("timestamp", 0)
         time_diff = current_time - stored_time
 
-        if time_diff < 0:  # Premium user (timestamp in the future)
-            return True, 10 * 1024**3, int(3.2 * 1024**3)  # 10 GB, 3.2 GB
         if time_diff < 21600:  # Verified / elite user (within 6 h)
             return True, int(4.5 * 1024**3), 2 * 1024**3  # 4.5 GB, 2 GB
 
     return False, 2 * 1024**3, 2 * 1024**3  # 2 GB, 2 GB
-
-
-def reset_user(collection, user_id):
-    """Reset user stats and set timestamp to the past (unverified)."""
-    timestamp = int(time.time()) - 12600
-    current_time = int(time.time())
-    
-    # Retrieve current user to preserve lang
-    user = collection.find_one({"user_id": user_id})
-    current_lang = user.get("lang", "en") if user else "en"
-    
-    user_data = {
-        "user_id": user_id,
-        "timestamp": timestamp,
-        "lang": current_lang,
-        "stats": {
-            "files_sent": 0,
-            "zip_with_pass": 0,
-            "zip_without_pass": 0,
-            "external_uploads": 0,
-            "last_reset": current_time,
-        },
-    }
-    collection.replace_one({"user_id": user_id}, user_data, upsert=True)
-    return collection.find_one({"user_id": user_id})
 
 
 def get_user_lang(collection, user_id):
@@ -177,16 +133,6 @@ def get_text(collection, user_id, text_key):
     if lang not in TEXTS:
         lang = "en"
     return TEXTS[lang].get(text_key, TEXTS["en"].get(text_key, text_key))
-
-
-def authorize_premium_user(collection, user_id, days):
-    """Authorize user as premium by setting their timestamp into the future."""
-    future_ts = int(time.time()) + (days * 86400)
-    collection.update_one(
-        {"user_id": user_id},
-        {"$set": {"timestamp": future_ts}},
-        upsert=True,
-    )
 
 
 # ─── File / Directory Utilities ───────────────────────────────────────────────
@@ -305,22 +251,6 @@ def get_queue_status(user_id):
 
 # ─── Broadcast ────────────────────────────────────────────────────────────────
 
-async def broadcast_message(client, message, collection):
-    """Broadcast a replied message to all users."""
-    if not message.reply_to_message:
-        return 0
-
-    stored_user_ids = [u["user_id"] for u in collection.find({}, {"user_id": 1})]
-    success = 0
-    for uid in stored_user_ids:
-        try:
-            await message.reply_to_message.forward(uid)
-            success += 1
-        except Exception as e:
-            print(f"Broadcast failed for {uid}: {e}")
-    return success
-
-
 # ─── ZIP Creation ─────────────────────────────────────────────────────────────
 
 async def create_zip_file(client, callback_query, pass_protect=None):
@@ -436,8 +366,8 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 async def upload_to_gofile(callback_query, zip_filename, message):
     """Upload large files to gofile.io and return a download link."""
     try:
-        from stats_manager import stats_manager
-        await stats_manager.update_stats(callback_query.from_user.id, "external_uploads")
+        from stats_manager import update_stats
+        await update_stats(callback_query.from_user.id, "external_uploads")
 
         resp = requests.get("https://api.gofile.io/servers")
         server = resp.json()["data"]["servers"][0]["name"]
@@ -472,34 +402,3 @@ async def upload_to_gofile(callback_query, zip_filename, message):
         )
     except Exception as e:
         print(f"Error uploading to gofile: {e}")
-
-
-# ─── Verification ─────────────────────────────────────────────────────────────
-
-async def send_verification_link(message, collection):
-    """Send a shortened verification link to the user."""
-    code = generate_random_code()
-    store_code(collection, message.from_user.id, code)
-    long_url = f"http://t.me/FILEs_COMPRESSOR_BOT?start=verifycodeis{code}"
-    api_url = f"https://api.cuty.io/quick?token=b09763cdea0deb0cc373ca5eb&url={long_url}"
-
-    try:
-        resp = requests.get(api_url, verify=False)
-        data = resp.json()
-        verify_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Click to verify", url=data["shortenedUrl"])]]
-        )
-        await message.reply_text(
-            "🔐 **Quick Verification Required**\n\n"
-            "To ensure the best experience for all users:\n"
-            "• Click the button below to verify\n"
-            "• Verification is quick and easy\n"
-            "• Access all features instantly\n\n"
-            "📦 Get access to:\n"
-            "• 10 GB storage space\n"
-            "• 3.5 GB file size limit\n"
-            "• Unlimited compression",
-            reply_markup=verify_button,
-        )
-    except Exception as e:
-        print(f"Error in send_verification_link: {e}")

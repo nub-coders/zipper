@@ -8,7 +8,7 @@ from plugins.ui_components import (
     home_buttons, common_buttons, file_buttons,
     nofile_buttons, back_buttons, pass_button,
 )
-from stats_manager import stats_manager
+from stats_manager import update_stats
 import os
 import time
 import asyncio
@@ -197,8 +197,8 @@ async def handle_media(client: Client, message: Message):
     filters.private
     & filters.text
     & ~filters.command([
-        "start", "help", "my_files", "clear", "del", "fzip", "unzip", "premium",
-        "status", "rst", "authorize", "users", "set", "ad", "get", "broadcast",
+        "start", "help", "my_files", "clear", "del", "fzip", "unzip",
+        "status", "rst", "users", "set", "ad", "get", "broadcast",
         "reboot", "skip",
     ])
 )
@@ -458,9 +458,7 @@ async def download(message, queued: bool = False):
             f"{bar}\n\n"
             f"Please wait while I process your file…"
         )
-        if not is_verified:
-            text += "\n\n**Slow download?** Use /premium to boost download speed"
-            
+
         cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
         try:
             await msg.edit_text(text, reply_markup=cancel_markup)
@@ -474,7 +472,7 @@ async def download(message, queued: bool = False):
             message.download(file_name=f"zipper/{user_id}/", progress=progress_bar),
             timeout=1500  # 25 minutes auto-cancel
         )
-        await stats_manager.update_stats(user_id, "files_sent")
+        await update_stats(user_id, "files_sent")
         
         if file_path and is_compressed(file_path):
             filename_only = os.path.basename(file_path)
@@ -639,9 +637,7 @@ async def link_download(message, queued: bool = False):
             f"{bar}\n\n"
             f"Please wait while I process your file…"
         )
-        if not is_verified:
-            text += "\n\n**Slow download?** Use /premium to boost download speed"
-            
+
         cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
         try:
             await msg.edit_text(text, reply_markup=cancel_markup)

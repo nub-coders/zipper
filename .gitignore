@@ -89,6 +89,9 @@ Thumbs.db
 *.swo
 *~
 
+# Claude Code local tooling
+.claude/
+
 # Replit specific (keep these)
 # .replit
 # replit.nix

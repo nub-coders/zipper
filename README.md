@@ -15,11 +15,10 @@ A powerful Telegram bot that helps users compress, manage, and uncompress files 
 - 🔐 Password-protected ZIP creation & encrypted archive support
 - 📥 Download files from direct links
 - 📦 File previews before uncompressing
-- 💾 Per-user storage management (up to 10 GB for premium)
+- 💾 Per-user storage management
 - 🔄 Queue system for managing multiple requests
 - 📊 User statistics tracking
 - 🛑 Cancel individual or all tasks mid-operation
-- 💳 Razorpay premium subscription system
 
 ---
 
@@ -35,7 +34,6 @@ A powerful Telegram bot that helps users compress, manage, and uncompress files 
 | `/del` | Delete a file by number |
 | `/clear` | Clear all your files |
 | `/status` | View stats and active tasks |
-| `/premium` | View premium plans |
 
 ---
 
@@ -68,8 +66,6 @@ A powerful Telegram bot that helps users compress, manage, and uncompress files 
    heroku config:set BOT_TOKEN=your_bot_token
    heroku config:set BOT_USERNAME=your_bot_username
    heroku config:set MONGO_URL=your_mongodb_uri
-   heroku config:set RAZORPAY_KEY_ID=your_razorpay_key      # optional
-   heroku config:set RAZORPAY_KEY_SECRET=your_razorpay_secret # optional
    ```
 
 4. Deploy the app:
@@ -99,8 +95,6 @@ docker compose up --build -d
 | `BOT_TOKEN` | ✅ | Bot token from [@BotFather](https://t.me/BotFather) |
 | `BOT_USERNAME` | ✅ | Bot username (without @) |
 | `MONGO_URL` | ✅ | MongoDB connection URI |
-| `RAZORPAY_KEY_ID` | ❌ | Razorpay Key ID (for payments) |
-| `RAZORPAY_KEY_SECRET` | ❌ | Razorpay Key Secret |
 
 ---
 
@@ -110,7 +104,6 @@ docker compose up --build -d
 - **Pyrogram** (KurimuzonAkuma fork)
 - **MongoDB** (via PyMongo)
 - **7-Zip** (`p7zip-full`) for archive operations
-- **Razorpay** for payments
 
 ---
 

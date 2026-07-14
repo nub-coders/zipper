@@ -39,10 +39,3 @@ nofile_buttons = InlineKeyboardMarkup([
      InlineKeyboardButton("🏠 Home", callback_data="home")],
     [help_button],
 ])
-
-
-def get_verification_buttons():
-    """Get verification button markup (URL set dynamically)."""
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("Click to verify", url="")],
-    ])

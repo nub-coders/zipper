@@ -1,10 +1,3 @@
-pillow
-setuptools
-youtube-search-python
-uvloop
-free-proxy
-certifi
-aiofiles
 kurigram
 aiohttp
 tgcrypto
@@ -13,10 +6,5 @@ requests
 pymongo
 pymongo[srv]
 git+https://github.com/Ripeey/Conversation-Pyrogram
-fp
-telethon
-urllib3
-qrcode
-razorpay
 pyminizip
 python-dotenv

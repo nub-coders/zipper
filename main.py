@@ -62,17 +62,6 @@ async def check_membership_middleware(client, update):
 app.add_handler(MessageHandler(check_membership_middleware), group=-1)
 app.add_handler(CallbackQueryHandler(check_membership_middleware), group=-1)
 
-async def timeout():
-    """No-op kept for backwards compatibility.
-
-    Per-user flags are cleared by download() itself, and
-    process_queues() handles picking up the next queued item.
-    """
-    pass
-
-
-# Update config timeout function
-config.timeout = timeout
 async def start_background_tasks():
     """Start background tasks after bot initialization."""
     print("Bot components initialized…")

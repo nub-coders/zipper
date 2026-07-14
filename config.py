@@ -1,8 +1,6 @@
 import os
 import asyncio
-import queue
 from dotenv import load_dotenv
-from pymongo import MongoClient
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,33 +12,34 @@ BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 BOT_USERNAME = os.getenv("BOT_USERNAME", "")
 FORCE_SUBSCRIBE = os.getenv("FORCE_SUBSCRIBE", "true").lower() == "true"
 
-# Razorpay configuration
-RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
-RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
-
-# Binance API credentials for deposit verification
-BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "")
-BINANCE_API_SECRET = os.getenv("BINANCE_API_SECRET", "")
-
-# Dynamic conversion based on env var (default 95)
-USDT_TO_INR = float(os.getenv("USDT_TO_INR", "95"))
-
-# Crypto payment amounts (USDT)
-CRYPTO_USDT_AMOUNTS = {
-    "weekly": round(15 / USDT_TO_INR, 2),
-    "monthly": round(50 / USDT_TO_INR, 2)
-}
-
-# Initialize MongoDB (single connection for the entire app)
+# ── Storage backend ───────────────────────────────────────────────────────────
+# MongoDB is optional. When MONGO_URL is unset or unreachable we fall back to an
+# in-memory collection so the bot can run without any database. In-memory data
+# is not persisted across restarts.
 MONGO_URL = os.getenv("MONGO_URL", "")
-try:
-    client = MongoClient(MONGO_URL)
-    db = client['telegram_bot']
-    collection = db['users']
-    print("MongoDB initialized successfully")
-except Exception as e:
-    print(f"MongoDB initialization failed: {e}")
-    collection = None
+
+
+def _init_collection():
+    if not MONGO_URL:
+        from memory_db import InMemoryCollection
+        print("No MONGO_URL set — using in-memory storage (data will not persist).")
+        return InMemoryCollection()
+
+    try:
+        from pymongo import MongoClient
+        client = MongoClient(MONGO_URL, serverSelectionTimeoutMS=5000)
+        # Force a round-trip so an unreachable server fails fast instead of
+        # blowing up on the first query.
+        client.admin.command("ping")
+        print("MongoDB initialized successfully")
+        return client["telegram_bot"]["users"]
+    except Exception as e:
+        from memory_db import InMemoryCollection
+        print(f"MongoDB unavailable ({e}) — falling back to in-memory storage.")
+        return InMemoryCollection()
+
+
+collection = _init_collection()
 
 # Bot start time (for uptime calculation)
 START_TIME = __import__("time").time()
@@ -83,14 +82,8 @@ class SafeQueue:
             except ValueError:
                 return False
 
-    async def async_get_snapshot(self):
-        """Get a snapshot of queue items (async-safe)."""
-        async with self._lock:
-            return list(self._list)
-
 # Global runtime state
 ggg = os.getcwd()
-dd = 0
 download_queue = SafeQueue()
 # Per-user state tracking (sets of user_ids)
 downloading_users = set()

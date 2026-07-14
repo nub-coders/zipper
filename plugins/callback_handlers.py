@@ -4,7 +4,7 @@ from pyrogram import Client, filters, StopTransmission
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.ui_components import home_buttons, back_buttons, pass_button, common_buttons
 from tools import Timer, upload_to_gofile, get_queue_status
-from stats_manager import stats_manager
+from stats_manager import update_stats
 import os
 import shutil
 import time
@@ -37,7 +37,7 @@ async def without_pass(client: Client, callback_query: CallbackQuery):
         "• Please provide a name for your ZIP file"
     )
     user_id = callback_query.from_user.id
-    await stats_manager.update_stats(user_id, "zip_without_pass")
+    await update_stats(user_id, "zip_without_pass")
     await create_zip(client, callback_query, None)
 
 
@@ -58,7 +58,7 @@ async def with_pass(client: Client, callback_query: CallbackQuery):
         "• You'll be asked for a password next"
     )
     user_id = callback_query.from_user.id
-    await stats_manager.update_stats(user_id, "zip_with_pass")
+    await update_stats(user_id, "zip_with_pass")
     await create_zip(client, callback_query, True)
 
 

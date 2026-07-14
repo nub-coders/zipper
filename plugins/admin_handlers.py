@@ -2,7 +2,6 @@ import config
 from pyrogram import Client, filters
 from pyrogram.types import Message, ReplyParameters
 from tools import is_admin, get_admin_ids
-from stats_manager import stats_manager
 from config import collection
 import os
 import asyncio
