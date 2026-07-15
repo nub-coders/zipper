@@ -1,0 +1,10 @@
+# Prevents secrets from being committed. Install with:
+#   pip install pre-commit
+#   pre-commit install
+# Run against all history once:
+#   pre-commit run --all-files
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks

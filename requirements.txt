@@ -1,0 +1,10 @@
+kurigram
+aiohttp
+tgcrypto
+cryptg
+requests
+pymongo
+pymongo[srv]
+git+https://github.com/Ripeey/Conversation-Pyrogram
+pyminizip
+python-dotenv

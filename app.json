@@ -1,0 +1,38 @@
+{
+  "name": "File Zipper Bot",
+  "description": "A Telegram bot that compresses, manages, and uncompresses files.",
+  "repository": "https://github.com/nub-coders/zipper",
+  "logo": "https://www.herokucdn.com/deploy/button.svg",
+  "keywords": ["telegram", "bot", "zip", "file-manager", "python"],
+  "buildpacks": [
+    { "url": "https://github.com/heroku/heroku-buildpack-apt" },
+    { "url": "heroku/python" }
+  ],
+  "env": {
+    "API_ID": {
+      "description": "Your Telegram API ID from my.telegram.org",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Your Telegram API Hash from my.telegram.org",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Your Telegram Bot Token from @BotFather",
+      "required": true
+    },
+    "BOT_USERNAME": {
+      "description": "Your bot's username (without @)",
+      "required": true
+    },
+    "MONGO_URL": {
+      "description": "MongoDB connection URI (optional — leave blank to use in-memory storage that resets on restart)",
+      "required": false
+    },
+    "FORCE_SUBSCRIBE": {
+      "description": "Require users to join the support channels before using the bot",
+      "required": false
+    }
+  },
+  "stack": "heroku-24"
+}
