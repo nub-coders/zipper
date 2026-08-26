@@ -3,7 +3,8 @@ from config import collection
 from pyrogram import Client, filters, StopTransmission
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.ui_components import home_buttons, back_buttons, pass_button, common_buttons
-from tools import Timer, upload_to_gofile, get_queue_status
+from tools import Timer, get_queue_status
+from nuloader_upload import upload_to_nuloader
 from rate_limiter import extract_limiter
 from safe_archive import (
     ArchiveError,
@@ -337,7 +338,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                     reply_markup=home_buttons,
                 )
         else:
-            await upload_to_gofile(callback_query, zip_filename, message)
+            await upload_to_nuloader(callback_query, zip_filename, message)
     finally:
         await set_uploading(user_id, False)
         await clear_cancel(user_id)
