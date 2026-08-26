@@ -31,3 +31,8 @@ class GlobalRateLimiter:
 
 
 rate_limiter = GlobalRateLimiter(max_actions=40, window_seconds=60)
+
+# Extraction spawns a child process and can write gigabytes, so it gets a much
+# tighter budget than ordinary file/link submissions. Callback queries were
+# previously unthrottled entirely.
+extract_limiter = GlobalRateLimiter(max_actions=5, window_seconds=60)

@@ -4,30 +4,53 @@ from pyrogram import Client, filters, StopTransmission
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.ui_components import home_buttons, back_buttons, pass_button, common_buttons
 from tools import Timer, upload_to_gofile, get_queue_status
+from rate_limiter import extract_limiter
+from safe_archive import (
+    ArchiveError,
+    ArchiveFailed,
+    ArchiveTimeout,
+    ArchiveTooLarge,
+    collect_safe_files,
+    extract_archive,
+    list_archive,
+    looks_encrypted,
+)
 from stats_manager import update_stats
+from user_state import (
+    is_user_busy,
+    get_busy_reason,
+    set_zipping,
+    set_uploading,
+    set_extracting,
+    request_cancel,
+    clear_cancel,
+    is_cancel_requested,
+)
 import os
 import shutil
 import time
 import random
 import asyncio
-import subprocess
 import tempfile
 
 
 # ─── ZIP Creation Callbacks ──────────────────────────────────────────────────
 
-def _is_busy(user_id):
-    """Check if THIS user has a download or upload in progress."""
-    return user_id in config.downloading_users or user_id in config.uploading_users
+async def _is_busy(user_id):
+    """Check whether THIS user already has a long-running operation in flight."""
+    return await is_user_busy(user_id)
 
 
-@Client.on_callback_query(filters.regex("no_password"))
+async def _busy_reason(user_id):
+    return await get_busy_reason(user_id)
+
+
+@Client.on_callback_query(filters.regex(r"^no_password$"))
 async def without_pass(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if _is_busy(user_id):
-        reason = "downloading" if user_id in config.downloading_users else "uploading"
         return await callback_query.answer(
-            f"⏳ Can't zip now — your file is {reason}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {_busy_reason(user_id)}. Try after it finishes.",
             show_alert=True,
         )
 
@@ -36,18 +59,16 @@ async def without_pass(client: Client, callback_query: CallbackQuery):
         "• Starting compression process\n"
         "• Please provide a name for your ZIP file"
     )
-    user_id = callback_query.from_user.id
     await update_stats(user_id, "zip_without_pass")
     await create_zip(client, callback_query, None)
 
 
-@Client.on_callback_query(filters.regex("set_password"))
+@Client.on_callback_query(filters.regex(r"^set_password$"))
 async def with_pass(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if _is_busy(user_id):
-        reason = "downloading" if user_id in config.downloading_users else "uploading"
         return await callback_query.answer(
-            f"⏳ Can't zip now — your file is {reason}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {_busy_reason(user_id)}. Try after it finishes.",
             show_alert=True,
         )
 
@@ -57,33 +78,31 @@ async def with_pass(client: Client, callback_query: CallbackQuery):
         "• Please provide a name for your ZIP file\n"
         "• You'll be asked for a password next"
     )
-    user_id = callback_query.from_user.id
     await update_stats(user_id, "zip_with_pass")
     await create_zip(client, callback_query, True)
 
 
 # ─── Cancel Callback ─────────────────────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex("cancel_task"))
+@Client.on_callback_query(filters.regex(r"^cancel_task$"))
 async def cancel_task(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
 
-    if (user_id in config.downloading_users or user_id in config.zipping_users
-            or user_id in config.uploading_users):
-        config.cancel_requested.add(user_id)
+    if await is_user_busy(user_id):
+        await request_cancel(user_id)
         await callback_query.answer("🛑 Cancellation requested for current task…", show_alert=True)
         try:
             await callback_query.edit_message_text(
                 "🛑 **Cancellation requested**\n\n"
                 "The current operation will be stopped shortly.",
-                reply_markup=home_buttons,
+                reply_markup=None,
             )
         except Exception:
             pass
     else:
-        await callback_query.answer("No active task to cancel right now.", show_alert=True)
+        await callback_query.answer("No active task to cancel.", show_alert=True)
 
-@Client.on_callback_query(filters.regex("cancel_all"))
+@Client.on_callback_query(filters.regex(r"^cancel_all$"))
 async def cancel_all(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     
@@ -121,7 +140,7 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
 
 # ─── Queue / Cancel Callbacks ─────────────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex("cancel_download"))
+@Client.on_callback_query(filters.regex(r"^cancel_download$"))
 async def cancel_download(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if user_id in config.user_ids:
@@ -140,7 +159,7 @@ async def cancel_download(client: Client, callback_query: CallbackQuery):
         await callback_query.edit_message_text("No ongoing download to cancel.")
 
 
-@Client.on_callback_query(filters.regex("bhad"))
+@Client.on_callback_query(filters.regex(r"^bhad$"))
 async def callback_queue(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     response_text = get_queue_status(user_id)
@@ -149,7 +168,7 @@ async def callback_queue(client: Client, callback_query: CallbackQuery):
 
 # ─── Navigation Callbacks ────────────────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex("lang_menu"))
+@Client.on_callback_query(filters.regex(r"^lang_menu$"))
 async def callback_lang_menu(client: Client, callback_query: CallbackQuery):
     from tools import get_text
     user_id = callback_query.from_user.id
@@ -165,7 +184,7 @@ async def callback_lang_menu(client: Client, callback_query: CallbackQuery):
 
 
 
-@Client.on_callback_query(filters.regex("help"))
+@Client.on_callback_query(filters.regex(r"^help$"))
 async def callback_help(client: Client, callback_query: CallbackQuery):
     from plugins.basic_commands import help_command
 
@@ -183,13 +202,13 @@ async def callback_help(client: Client, callback_query: CallbackQuery):
     await help_command(client, _MessageLike(callback_query))
 
 
-@Client.on_callback_query(filters.regex("my_files"))
+@Client.on_callback_query(filters.regex(r"^my_files$"))
 async def callback_my_files(client: Client, callback_query: CallbackQuery):
     from plugins.file_handlers import list_files
     await list_files(client, callback_query)
 
 
-@Client.on_callback_query(filters.regex("clear"))
+@Client.on_callback_query(filters.regex(r"^clear$"))
 async def callback_clear(client: Client, callback_query: CallbackQuery):
     from tools import handle_clear_files
     user_id = callback_query.from_user.id
@@ -197,7 +216,7 @@ async def callback_clear(client: Client, callback_query: CallbackQuery):
     await callback_query.edit_message_text(text, reply_markup=back_buttons)
 
 
-@Client.on_callback_query(filters.regex("home"))
+@Client.on_callback_query(filters.regex(r"^home$"))
 async def callback_home(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if not collection.find_one({"user_id": user_id}):
@@ -212,13 +231,12 @@ async def callback_home(client: Client, callback_query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("fzip"))
+@Client.on_callback_query(filters.regex(r"^fzip$"))
 async def callback_fzip(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if _is_busy(user_id):
-        reason = "downloading" if user_id in config.downloading_users else "uploading"
         return await callback_query.answer(
-            f"⏳ Can't zip now — your file is {reason}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {_busy_reason(user_id)}. Try after it finishes.",
             show_alert=True,
         )
 
@@ -235,16 +253,18 @@ async def create_zip(client, callback_query, pass_protect=None):
     user_id = callback_query.from_user.id
     user_dir = f"{config.ggg}/zipper/{user_id}"
     # Set zipping flag for THIS user
-    config.zipping_users.add(user_id)
+    if not await set_zipping(user_id, True):
+        await callback_query.answer("Already zipping. Please wait.", show_alert=True)
+        return
 
     try:
         zip_filename, message = await create_zip_file(client, callback_query, pass_protect)
     except Exception as e:
-        config.zipping_users.discard(user_id)
+        await set_zipping(user_id, False)
         await callback_query.message.reply_text(f"Error creating ZIP: {e}")
         return
     finally:
-        config.zipping_users.discard(user_id)
+        await set_zipping(user_id, False)
 
     if not zip_filename or not os.path.exists(zip_filename):
         return
@@ -255,7 +275,10 @@ async def create_zip(client, callback_query, pass_protect=None):
     msg = message
 
     # Set uploading flag for THIS user
-    config.uploading_users.add(user_id)
+    if not await set_uploading(user_id, True):
+        await set_zipping(user_id, False)
+        await callback_query.message.reply_text("Already uploading. Please wait.")
+        return
     cancelled = False
 
     try:
@@ -268,8 +291,8 @@ async def create_zip(client, callback_query, pass_protect=None):
 
             async def progress_bar(current, total, start_time=time.time()):
                 # Check for cancellation
-                if user_id in config.cancel_requested:
-                    config.cancel_requested.discard(user_id)
+                if await is_cancel_requested(user_id):
+                    await clear_cancel(user_id)
                     raise StopTransmission()
 
                 if not timer.can_send():
@@ -316,8 +339,8 @@ async def create_zip(client, callback_query, pass_protect=None):
         else:
             await upload_to_gofile(callback_query, zip_filename, message)
     finally:
-        config.uploading_users.discard(user_id)
-        config.cancel_requested.discard(user_id)
+        await set_uploading(user_id, False)
+        await clear_cancel(user_id)
 
 
 
@@ -329,7 +352,7 @@ async def create_zip(client, callback_query, pass_protect=None):
 
 # ─── Uncompress / Dismiss Callbacks ──────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex("dismiss"))
+@Client.on_callback_query(filters.regex(r"^dismiss$"))
 async def dismiss_callback(client: Client, callback_query: CallbackQuery):
     try:
         await callback_query.edit_message_reply_markup(reply_markup=None)
@@ -357,17 +380,18 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
     await callback_query.edit_message_text(f"🔍 Reading contents of `{os.path.basename(target_file)}`...")
 
     try:
-        out = subprocess.check_output(
-            ['7z', 'l', '-slt', '-p""', target_file],
-            text=True, stderr=subprocess.STDOUT
-        )
-    except subprocess.CalledProcessError as e:
-        out = e.output
+        listing, exited_ok = await list_archive(target_file)
+    except ArchiveTimeout:
+        return await callback_query.edit_message_text("❌ Archive listing timed out.")
+    except ArchiveFailed as e:
+        return await callback_query.edit_message_text(f"❌ Failed to list archive: {e}")
 
-    # Parse file entries
+    is_encrypted = looks_encrypted(listing)
+
+    # Parse entries for display
     entries = []
     current = {}
-    for line in out.splitlines():
+    for line in listing.splitlines():
         line = line.strip()
         if line.startswith("----------"):
             if current:
@@ -379,9 +403,6 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
     if current:
         entries.append(current)
 
-    is_encrypted = any(e.get("Encrypted") == "+" for e in entries)
-
-    # Build listing text
     file_lines = []
     total_size = 0
     for e in entries:
@@ -407,16 +428,16 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
     )
 
     enc_note = "\n\n🔐 _This archive is **encrypted** — you will be asked for a password._" if is_encrypted else ""
-    size_warn = "\n\n⚠️ _Total size exceeds 2 GB — extraction will be blocked._" if total_size > 2 * 1024 * 1024 * 1024 else ""
+    size_warn = "\n\n⚠️ _Total declared size exceeds extraction limit — extraction will be blocked._" if total_size > config.MAX_EXTRACT_BYTES else ""
 
-    listing = "\n".join(file_lines[:30])
+    listing_text = "\n".join(file_lines[:30])
     if len(file_lines) > 30:
-        listing += f"\n_...and {len(file_lines) - 30} more files_"
+        listing_text += f"\n_...and {len(file_lines) - 30} more files_"
 
     text = (
         f"🗜️ **Archive:** `{os.path.basename(target_file)}`\n"
         f"📦 **Files inside ({len(file_lines)}):** Total ~{total_str}\n\n"
-        f"{listing}"
+        f"{listing_text}"
         f"{enc_note}{size_warn}\n\n"
         f"Would you like to uncompress and receive these files?"
     )
@@ -446,8 +467,24 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^unzip_confirm\|"))
 async def uncompress_callback(client: Client, callback_query: CallbackQuery):
-    """Step 2: Actually extract and send the files."""
+    """Step 2: Actually extract and send the files under resource limits."""
     user_id = callback_query.from_user.id
+
+    # Rate-limit this expensive operation (callbacks were previously unthrottled)
+    if not extract_limiter.is_allowed(user_id):
+        return await callback_query.answer(
+            "⏳ Too many extraction requests. Please wait before trying again.",
+            show_alert=True,
+        )
+
+    # Busy flag prevents parallel extractions and stops queue workers from
+    # picking this user's items.
+    if await _is_busy(user_id):
+        return await callback_query.answer(
+            f"⏳ Can't uncompress now — your file is {await _busy_reason(user_id)}.",
+            show_alert=True,
+        )
+
     data = callback_query.data
     filename_end = data.split("|", 1)[1]
     user_dir = f"{config.ggg}/zipper/{user_id}"
@@ -462,30 +499,23 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
     if not target_file or not os.path.exists(target_file):
         return await callback_query.answer("File not found.", show_alert=True)
 
-    await callback_query.edit_message_text(f"⏳ Preparing to uncompress `{os.path.basename(target_file)}`...")
+    # Mark extracting BEFORE any await so concurrent presses see it
+    if not await set_extracting(user_id, True):
+        return await callback_query.answer(
+            "Already extracting. Please wait.",
+            show_alert=True,
+        )
 
     try:
-        is_encrypted = False
+        await callback_query.edit_message_text(f"⏳ Preparing to uncompress `{os.path.basename(target_file)}`...")
+
         password = ""
+        # Listing (async, no block) to detect encryption
         try:
-            out = subprocess.check_output(['7z', 'l', '-slt', '-p""', target_file], text=True, stderr=subprocess.STDOUT)
-            if "Encrypted = +" in out:
-                is_encrypted = True
-            else:
-                total_size = 0
-                for line in out.splitlines():
-                    if line.startswith("Size = "):
-                        try:
-                            total_size += int(line.split("=")[1].strip())
-                        except Exception:
-                            pass
-                if total_size > 2 * 1024 * 1024 * 1024:
-                    return await callback_query.edit_message_text("❌ Uncompressed files exceed 2 GB limit.")
-        except subprocess.CalledProcessError as e:
-            if "Encrypted = +" in e.output or "Wrong password" in e.output:
-                is_encrypted = True
-        except Exception:
-            pass
+            listing, _ = await list_archive(target_file)
+            is_encrypted = looks_encrypted(listing)
+        except (ArchiveTimeout, ArchiveFailed) as e:
+            return await callback_query.edit_message_text(f"❌ Failed to inspect archive: {e}")
 
         if is_encrypted:
             await callback_query.edit_message_text("🔐 **This archive is encrypted.**\nPlease reply with the password to uncompress it:")
@@ -498,81 +528,85 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
         else:
             status_msg = callback_query.message
 
-        with tempfile.TemporaryDirectory() as tmpdir:
-            try:
-                subprocess.check_call(['7z', 'x', f'-o{tmpdir}', f'-p{password}', '-y', target_file], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            except subprocess.CalledProcessError:
-                if is_encrypted:
-                    return await status_msg.edit_text("❌ Failed to uncompress. It might be an incorrect password or unsupported format.")
-                else:
-                    return await status_msg.edit_text("❌ Failed to uncompress. Unsupported format or corrupted archive.")
+        # Extract with hard resource limits enforced during the process
+        try:
+            with tempfile.TemporaryDirectory() as tmpdir:
+                result = await extract_archive(
+                    target_file,
+                    tmpdir,
+                    password=password,
+                    max_bytes=config.MAX_EXTRACT_BYTES,
+                    max_entries=config.MAX_EXTRACT_ENTRIES,
+                    timeout=config.MAX_EXTRACT_SECONDS,
+                )
+        except ArchiveTooLarge as e:
+            return await status_msg.edit_text(f"❌ {e}")
+        except ArchiveTimeout:
+            return await status_msg.edit_text("❌ Extraction timed out.")
+        except ArchiveFailed as e:
+            if is_encrypted:
+                return await status_msg.edit_text("❌ Failed to uncompress. It might be an incorrect password or unsupported format.")
+            else:
+                return await status_msg.edit_text(f"❌ Failed to uncompress: {e}")
 
-            extracted_files = []
-            for root, dirs, files in os.walk(tmpdir):
-                for file in files:
-                    extracted_files.append(os.path.join(root, file))
+        if not result.files:
+            return await status_msg.edit_text("❌ No readable files found after uncompressing.")
 
-            if not extracted_files:
-                return await status_msg.edit_text("❌ No files found after uncompressing.")
+        await status_msg.edit_text(f"⏳ Sending {len(result.files)} extracted file(s)...")
 
-            total_extracted_size = sum(os.path.getsize(f) for f in extracted_files)
-            if total_extracted_size > 2 * 1024 * 1024 * 1024:
-                return await status_msg.edit_text("❌ Uncompressed files exceed 2 GB limit.")
+        upload_timer = Timer()
 
-            await status_msg.edit_text(f"⏳ Sending {len(extracted_files)} extracted file(s)...")
+        for idx, ext_file in enumerate(result.files, 1):
+            file_name_only = os.path.basename(ext_file)
+            file_size = os.path.getsize(ext_file)
 
-            upload_timer = Timer()
+            if file_size > config.MAX_EXTRACT_BYTES:
+                await callback_query.message.reply_text(f"Skipping {file_name_only}: exceeds size limit.")
+                continue
 
-            for idx, ext_file in enumerate(extracted_files, 1):
-                file_name_only = os.path.basename(ext_file)
-                file_size = os.path.getsize(ext_file)
+            upload_start = time.time()
 
-                if file_size > 2 * 1024 * 1024 * 1024:
-                    await callback_query.message.reply_text(f"Skipping {file_name_only}: exceeds 2 GB limit.")
-                    continue
-
-                upload_start = time.time()
-
-                async def upload_progress(current, total, fname=file_name_only, fidx=idx, start=upload_start):
-                    if not upload_timer.can_send() or not total:
-                        return
-                    pct = current * 100 / total
-                    bar_len = 20
-                    ticks = int(pct / (100 / bar_len))
-                    bar = "█" * ticks + "░" * (bar_len - ticks)
-                    elapsed = time.time() - start
-                    speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
-                    eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
-                    text = (
-                        f"⬆️ **Uploading file {fidx}/{len(extracted_files)}**\n"
-                        f"📄 `{fname}`\n\n"
-                        f"📊 Progress: {pct:.1f}%\n"
-                        f"⚡ Speed: {speed:.1f} MB/s\n"
-                        f"⏱️ ETA: {eta:.0f}s\n"
-                        f"📦 {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
-                        f"[{bar}]"
-                    )
-                    try:
-                        await status_msg.edit_text(text)
-                    except Exception:
-                        pass
-
+            async def upload_progress(current, total, fname=file_name_only, fidx=idx, start=upload_start):
+                # Check for cancellation
+                if await is_cancel_requested(user_id):
+                    await clear_cancel(user_id)
+                    return
+                if not upload_timer.can_send() or not total:
+                    return
+                pct = current * 100 / total
+                bar_len = 20
+                ticks = int(pct / (100 / bar_len))
+                bar = "█" * ticks + "░" * (bar_len - ticks)
+                elapsed = time.time() - start
+                speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
+                eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
+                text = (
+                    f"⬆️ **Uploading file {fidx}/{len(result.files)}**\n"
+                    f"📄 `{fname}`\n\n"
+                    f"📊 Progress: {pct:.1f}%\n"
+                    f"⚡ Speed: {speed:.1f} MB/s\n"
+                    f"⏱️ ETA: {eta:.0f}s\n"
+                    f"📦 {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
+                    f"[{bar}]"
+                )
                 try:
-                    await client.send_document(
-                        callback_query.message.chat.id,
-                        ext_file,
-                        caption=f"Extracted: {file_name_only}",
-                        progress=upload_progress,
-                    )
+                    await status_msg.edit_text(text)
                 except Exception:
-                    await callback_query.message.reply_text(f"Failed to send {file_name_only}")
+                    pass
+
+            try:
+                await client.send_document(
+                    callback_query.message.chat.id,
+                    ext_file,
+                    caption=f"Extracted: {file_name_only}",
+                    progress=upload_progress,
+                )
+            except Exception:
+                await callback_query.message.reply_text(f"Failed to send {file_name_only}")
 
         await status_msg.edit_text("✅ All files extracted and sent.")
-    except Exception as e:
-        try:
-            await status_msg.edit_text(f"Error during uncompression: {e}")
-        except Exception:
-            await callback_query.message.reply_text(f"Error during uncompression: {e}")
+    finally:
+        await set_extracting(user_id, False)
 
 
 # ─── Catch-all Callback (must be last) ───────────────────────────────────────

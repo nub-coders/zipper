@@ -1,11 +1,11 @@
 import shutil
-import subprocess
-import requests
-import aiohttp
 import os
 import time
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from pyrogram import Client, filters
+
+from safe_paths import UnsafePathError, resolve_in_user_dir
+from safe_archive import list_archive, looks_encrypted
 
 
 # ─── Channel Membership Check ────────────────────────────────────────────────
@@ -42,7 +42,14 @@ def _get_admin_file_path():
 
 
 def get_admin_ids():
-    """Get list of admin IDs from admin.txt."""
+    """Get list of admin IDs from ADMIN_IDS env var, with fallback to admin.txt.
+
+    ADMIN_IDS can be a comma-separated string of user IDs.
+    If unset or empty, falls back to admin.txt (which is public in git).
+    """
+    env = os.getenv("ADMIN_IDS", "").strip()
+    if env:
+        return [int(x.strip()) for x in env.split(",") if x.strip()]
     admin_file = _get_admin_file_path()
     if os.path.exists(admin_file):
         with open(admin_file, "r") as f:
@@ -137,30 +144,15 @@ def get_text(collection, user_id, text_key):
 
 # ─── File / Directory Utilities ───────────────────────────────────────────────
 
-def is_compressed(file_path):
-    """Check if a file is a compressed archive using the 'file' and '7z' commands."""
+async def is_compressed(file_path):
+    """Check if a file is a compressed archive using 7z listing."""
     if not os.path.exists(file_path):
         return False
     try:
-        out = subprocess.check_output(['file', '-b', file_path], text=True, stderr=subprocess.STDOUT).lower()
-        if "symmetric key encrypted" in out:
-            return True
-        if any(x in out for x in ['zip', '7-zip', 'bzip2', 'gzip', 'xz', 'tar', 'rar']):
-            return True
+        listing, _ = await list_archive(file_path)
+        return looks_encrypted(listing) or "Path =" in listing
     except Exception:
-        pass
-        
-    try:
-        out_7z = subprocess.check_output(['7z', 'l', '-slt', '-p""', file_path], stderr=subprocess.STDOUT, text=True)
-        if "Encrypted = +" in out_7z or "Wrong password" in out_7z:
-            return True
-    except subprocess.CalledProcessError as e:
-        if "Encrypted = +" in e.output or "Wrong password" in e.output:
-            return True
-    except Exception:
-        pass
-
-    return False
+        return False
 
 def get_file_size_info(user_dir, max_storage):
     """Return (total_size, remaining_storage, file_list) for a user directory."""
@@ -271,8 +263,6 @@ async def create_zip_file(client, callback_query, pass_protect=None):
         return None, None
 
     file_name = response.text
-    if file_name.startswith("/") or file_name.startswith("http"):
-        return None, None
 
     # Check channel membership
     if not await is_user_on_chat(client, user_id):
@@ -298,17 +288,43 @@ async def create_zip_file(client, callback_query, pass_protect=None):
         )
         return None, None
 
-    if not file_name.endswith(".zip"):
-        file_name = f"{file_name}.zip"
+    # SECURITY (Z-05): file_name is typed by the user in chat. The previous guard
+    # only rejected names starting with "/" or "http", so "../../../x" passed and
+    # both writers below (zipfile / pyminizip) happily wrote outside the user's
+    # directory -- and outside the cleanup that only rmtree's user_dir.
+    try:
+        zip_filename = resolve_in_user_dir(
+            user_dir, file_name, fallback="archive", force_suffix=".zip"
+        )
+    except UnsafePathError:
+        await callback_query.message.reply_text(
+            "❌ That filename isn't allowed. Please choose a simple name like `backup.zip`."
+        )
+        return None, None
 
-    zip_filename = os.path.join(user_dir, file_name)
+    # The archive must not include itself, nor any other pre-existing archive
+    # target, if a name collides.
+    files = [fn for fn in files if os.path.join(user_dir, fn) != zip_filename]
+
+    # Only archive regular files. os.listdir() can surface directories or symlinks;
+    # os.path.isfile() follows links, so a link planted in the user's directory
+    # would otherwise be read through and its target embedded in the archive.
+    files = [
+        fn for fn in files
+        if os.path.isfile(os.path.join(user_dir, fn))
+        and not os.path.islink(os.path.join(user_dir, fn))
+    ]
+
+    if not files:
+        from plugins.ui_components import back_buttons
+        await callback_query.message.reply_text(
+            "You don't have files to zip\nSend your files first",
+            reply_markup=back_buttons,
+        )
+        return None, None
 
     # Calculate total size of original files before compression
-    original_size = sum(
-        os.path.getsize(os.path.join(user_dir, fn))
-        for fn in files
-        if os.path.isfile(os.path.join(user_dir, fn))
-    )
+    original_size = sum(os.path.getsize(os.path.join(user_dir, fn)) for fn in files)
 
     try:
         message = await callback_query.message.edit_text("Compressing files to zip, please wait…")
@@ -336,7 +352,9 @@ async def create_zip_file(client, callback_query, pass_protect=None):
             # ZIP_DEFLATED is much faster than LZMA and won't freeze the bot
             with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED, compresslevel=5) as zipf:
                 for i, fn in enumerate(files, 1):
-                    zipf.write(os.path.join(user_dir, fn), fn)
+                    # arcname is the sanitised basename: entry names are what a
+                    # victim's extractor later trusts, so never emit a path.
+                    zipf.write(os.path.join(user_dir, fn), os.path.basename(fn))
                     try:
                         await message.edit_text(f"Adding {fn} to ZIP… ({i}/{len(files)})")
                     except Exception:
@@ -365,33 +383,51 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
 async def upload_to_gofile(callback_query, zip_filename, message):
     """Upload large files to gofile.io and return a download link."""
+    import aiohttp
     try:
         from stats_manager import update_stats
         await update_stats(callback_query.from_user.id, "external_uploads")
 
-        resp = requests.get("https://api.gofile.io/servers")
-        server = resp.json()["data"]["servers"][0]["name"]
+        async with aiohttp.ClientSession() as session:
+            # Get server
+            async with session.get("https://api.gofile.io/servers") as resp:
+                if resp.status != 200:
+                    return await callback_query.message.reply_text(
+                        "Failed to get gofile server."
+                    )
+                data = await resp.json()
+                server = data["data"]["servers"][0]["name"]
 
-        if not server:
-            return await callback_query.message.reply_text(
-                "No storage available on gofile.io — please try again later."
-            )
+            if not server:
+                return await callback_query.message.reply_text(
+                    "No storage available on gofile.io — please try again later."
+                )
 
-        transfer_url = f"https://{server}.gofile.io/uploadFile"
-        proc = subprocess.Popen(
-            ["curl", "-F", f"file=@{zip_filename}", transfer_url],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-        )
+            transfer_url = f"https://{server}.gofile.io/uploadFile"
 
-        line = ""
-        for line in proc.stdout:
-            line = line.strip()
+            # Upload file using aiohttp multipart
+            with open(zip_filename, "rb") as f:
+                form = aiohttp.FormData()
+                form.add_field("file", f, filename=os.path.basename(zip_filename))
+                async with session.post(transfer_url, data=form) as resp:
+                    if resp.status != 200:
+                        return await callback_query.message.reply_text(
+                            "Upload to gofile.io failed."
+                        )
+                    text = await resp.text()
 
-        start_idx = line.find("https://gofile.io")
-        end_idx = line.find('"', start_idx)
-        link = line[start_idx:end_idx]
+        # Parse download link from response
+        import json
+        try:
+            result = json.loads(text)
+            link = result["data"]["downloadPage"]
+        except Exception:
+            # Fallback: try to extract from raw text
+            start_idx = text.find("https://gofile.io")
+            if start_idx == -1:
+                return await callback_query.message.reply_text("Failed to parse gofile response.")
+            end_idx = text.find('"', start_idx)
+            link = text[start_idx:end_idx]
 
         download_button = InlineKeyboardMarkup(
             [[InlineKeyboardButton("Download File", url=link)]]

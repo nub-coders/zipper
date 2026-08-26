@@ -1,5 +1,41 @@
+# Build-context exclusions.
+#
+# SECURITY: anything not excluded here is baked into an immutable image layer by
+# `COPY . .` in the Dockerfile. Secrets in the build context are recoverable by
+# anyone who can pull the image or `docker history` it -- deleting the file in a
+# later layer does NOT remove it. Keep this list ahead of new tooling configs.
+
+# Runtime data / build artefacts
 zipper
 __pycache__
 *.pyc
+*.pyo
 .git
+.gitignore
+
+# Secrets and credentials
 .env
+.env.*
+!.env.example
+*.session
+*.session-journal
+# NOTE: admin.txt is deliberately NOT excluded -- tools.get_admin_ids() reads it
+# at runtime and an absent file silently disables every admin command. It is
+# already public in git, so excluding it buys no confidentiality. The real fix
+# is to move the admin list into validated env config (audit finding Z-18);
+# exclude it here only once that lands.
+
+# Local tooling configs (may embed API keys)
+.claude/
+.vscode/
+.idea/
+
+# Dev-only files that need not ship in the runtime image
+.pre-commit-config.yaml
+.python-version
+README.md
+LICENSE
+app.json
+docker-compose.yml
+tests
+pytest.ini

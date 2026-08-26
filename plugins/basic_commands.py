@@ -121,7 +121,7 @@ async def _build_status_message(user_id):
     return text, markup
 
 
-@Client.on_callback_query(filters.regex("status"))
+@Client.on_callback_query(filters.regex(r"^status$"))
 async def status_handler(client: Client, callback_query):
     text, markup = await _build_status_message(callback_query.from_user.id)
     await callback_query.edit_message_text(text, reply_markup=markup)

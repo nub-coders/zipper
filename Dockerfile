@@ -30,6 +30,7 @@ ENV API_ID=""
 ENV API_HASH=""
 ENV BOT_USERNAME=""
 ENV MONGO_URL=""
+ENV ADMIN_IDS=""
 
 # Command to run the bot
 CMD ["python", "main.py"]

@@ -4,6 +4,8 @@ from rate_limiter import rate_limiter
 from pyrogram import Client, filters, StopTransmission
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyParameters
 from tools import get_user_status, Timer, get_file_size_info, is_user_on_chat, is_compressed
+from safe_paths import UnsafePathError, resolve_in_user_dir
+from safe_download import safe_download, safe_head, SSRFBlocked, DownloadTooLarge, DownloadFailed, RedirectLimitExceeded
 from plugins.ui_components import (
     home_buttons, common_buttons, file_buttons,
     nofile_buttons, back_buttons, pass_button,
@@ -12,9 +14,7 @@ from stats_manager import update_stats
 import os
 import time
 import asyncio
-import aiohttp
 import random
-import requests
 
 
 # ─── Size Formatter ───────────────────────────────────────────────────────────
@@ -339,7 +339,12 @@ def _get_media_size(message: Message):
 
 
 def _get_filename(message: Message, user_id) -> str:
-    """Determine the filename for the downloaded media."""
+    """Determine the *untrusted* display name for the downloaded media.
+
+    The returned value is attacker-controlled for documents/videos/audio (it is
+    a client-supplied MTProto attribute) and must never be used as a filesystem
+    path without passing through ``resolve_in_user_dir``.
+    """
     ts = int(time.time())
     if message.document and message.document.file_name:
         return message.document.file_name
@@ -407,7 +412,7 @@ async def download(message, queued: bool = False):
         )
         return
 
-    if user_id in config.downloading_users:
+    if await is_user_busy(user_id):
         # This user already has an active download — enqueue
         config.user_ids[user_id] = True
         queue_button = InlineKeyboardMarkup(
@@ -421,12 +426,45 @@ async def download(message, queued: bool = False):
         config.download_queue.put(message)
         return
 
-    # Start downloading
-    config.user_ids[user_id] = True
-    config.downloading_users.add(user_id)
+    raw_name = _get_filename(message, user_id)
+
+    # SECURITY (Z-01): never hand a bare directory to message.download(). Pyrogram
+    # would then derive the filename from the client-supplied MTProto attribute and
+    # os.path.join/abspath would honour "../" and absolute paths, allowing writes
+    # anywhere the process can reach. Compute a contained absolute path ourselves.
+    #
+    # Resolved before the busy flags are set: an early return after
+    # downloading_users.add() would leak the flag and lock the user out until
+    # restart, since only the download's own completion path clears it.
+    try:
+        dest_path = resolve_in_user_dir(user_dir, raw_name)
+    except UnsafePathError:
+        return await message.reply_text(
+            "❌ That file's name isn't usable. Please rename it and send it again.",
+            reply_markup=common_buttons,
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+
+    # Start downloading - use async state manager
+    if not await set_downloading(user_id, True):
+        # This should not happen since we checked is_user_busy above
+        config.user_ids[user_id] = True
+        queue_button = InlineKeyboardMarkup(
+            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
+        )
+        await message.reply_text(
+            "I have added your file in queue to download",
+            reply_markup=queue_button,
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+        config.download_queue.put(message)
+        return
 
     timer = Timer()
-    fi_encoded = _get_filename(message, user_id)
+
+    # Display name only -- kept separate from the path so a hostile name cannot
+    # break message formatting or be mistaken for a real location.
+    fi_encoded = os.path.basename(dest_path)
     msg = None
 
     async def progress_bar(current, total, start_time=time.time()):
@@ -469,7 +507,7 @@ async def download(message, queued: bool = False):
     try:
         msg = await message.reply_text("Downloading started", reply_parameters=ReplyParameters(message_id=message.id))
         file_path = await asyncio.wait_for(
-            message.download(file_name=f"zipper/{user_id}/", progress=progress_bar),
+            message.download(file_name=dest_path, progress=progress_bar),
             timeout=1500  # 25 minutes auto-cancel
         )
         await update_stats(user_id, "files_sent")
@@ -523,9 +561,9 @@ async def download(message, queued: bool = False):
         else:
             await message.reply_text(error_text, reply_parameters=ReplyParameters(message_id=message.id))
 
-    config.downloading_users.discard(user_id)
+    await set_downloading(user_id, False)
     config.user_ids.pop(user_id, None)
-    config.cancel_requested.discard(user_id)
+    await clear_cancel(user_id)
 
     if cancelled:
         # Clean up partially downloaded file
@@ -538,7 +576,7 @@ async def link_download(message, queued: bool = False):
     user_id = message.from_user.id
 
     user_queue_count = sum(1 for item in list(config.download_queue.queue) if item.from_user.id == user_id)
-    if user_id in config.downloading_users:
+    if await is_user_busy(user_id):
         user_queue_count += 1
 
     if user_queue_count >= 40:
@@ -563,23 +601,30 @@ async def link_download(message, queued: bool = False):
     os.makedirs(user_dir, exist_ok=True)
     _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
 
+    # Pre-flight HEAD check using safe_download's validation (SSRF + size + redirects)
     try:
-        response = requests.head(link, timeout=10)
-        if "content-length" not in response.headers:
-            return await message.reply_text(
-                "Content length not found in headers. Cannot determine file size.",
-                reply_parameters=ReplyParameters(message_id=message.id),
-            )
-
-        content_length = int(response.headers["content-length"])
-        if content_length > remaining_storage:
-            return await message.reply_text(
-                "Not enough storage space.",
-                reply_parameters=ReplyParameters(message_id=message.id),
-            )
-    except Exception as e:
+        declared_length, final_url = safe_head(link, max_bytes=remaining_storage)
+    except SSRFBlocked as e:
         return await message.reply_text(
-            f"Download failed. Please check the URL. Error: {e}",
+            f"❌ Blocked: {e}",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    except DownloadTooLarge as e:
+        return await message.reply_text(
+            f"❌ {e}",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    except (DownloadFailed, RedirectLimitExceeded) as e:
+        return await message.reply_text(
+            f"Download failed: {e}",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+
+    # Use the declared length for queue decision and progress reporting
+    content_length = declared_length if declared_length is not None else 0
+    if content_length and content_length > remaining_storage:
+        return await message.reply_text(
+            "Not enough storage space.",
             reply_parameters=ReplyParameters(message_id=message.id),
         )
 
@@ -596,23 +641,48 @@ async def link_download(message, queued: bool = False):
         config.download_queue.put(message)
         return
 
-    filename = link.split("/")[-1] or f"download_{int(time.time())}"
+    # SECURITY (Z-20): the URL's last path segment is untrusted. It cannot contain
+    # "/", but it can be "..", exceed NAME_MAX, carry a query string or control
+    # characters, or silently overwrite an existing file. Contain it and make it
+    # unique so concurrent jobs cannot target the same path (Z-12).
+    raw_filename = link.split("?")[0].split("#")[0].split("/")[-1]
+    try:
+        file_path = resolve_in_user_dir(user_dir, raw_filename, fallback="download")
+    except UnsafePathError:
+        return await message.reply_text(
+            "❌ Could not derive a safe filename from that URL.",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    filename = os.path.basename(file_path)
+
     msg_obj = await message.reply_text(
-        f"Downloading {filename}\nFile size: {content_length} bytes\nStarting download",
+        f"Downloading {filename}\nFile size: {content_length or 'unknown'} bytes\nStarting download",
         reply_parameters=ReplyParameters(message_id=message.id),
     )
 
+    if not await set_downloading(user_id, True):
+        # Should not happen since we checked above, but fall back to queue
+        config.user_ids[user_id] = True
+        queue_button = InlineKeyboardMarkup(
+            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
+        )
+        await message.reply_text(
+            "I have added your link in queue to download",
+            reply_markup=queue_button,
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+        config.download_queue.put(message)
+        return
+
     config.user_ids[user_id] = True
-    config.downloading_users.add(user_id)
     start_time = time.time()
-    file_path = os.path.join(user_dir, filename)
 
     timer = Timer()
 
     async def progress_bar(current, total, start_time, msg, fi_encoded):
         # Check for cancellation
-        if user_id in config.cancel_requested:
-            config.cancel_requested.discard(user_id)
+        if await is_cancel_requested(user_id):
+            await clear_cancel(user_id)
             raise asyncio.CancelledError()
 
         if not (timer.can_send() and total and msg):
@@ -635,7 +705,7 @@ async def link_download(message, queued: bool = False):
             f"⏱️ Remaining: {config.time_left:.1f}s\n"
             f"📦 Size: {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
             f"{bar}\n\n"
-            f"Please wait while I process your file…"
+            f"Please wait while I process your file..."
         )
 
         cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
@@ -645,87 +715,87 @@ async def link_download(message, queued: bool = False):
             print(e)
 
     try:
-        timeout = aiohttp.ClientTimeout(total=1500)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(link) as resp:
-                if resp.status != 200:
-                    config.downloading_users.discard(user_id)
-                    config.user_ids.pop(user_id, None)
-                    return await message.reply_text(
-                        "Download failed. Please check the URL.",
-                        reply_parameters=ReplyParameters(message_id=message.id),
-                    )
-                with open(file_path, "wb") as f:
-                    while True:
-                        # Check cancellation in the read loop
-                        if user_id in config.cancel_requested:
-                            config.cancel_requested.discard(user_id)
-                            f.close()
-                            if os.path.exists(file_path):
-                                os.remove(file_path)
-                            config.downloading_users.discard(user_id)
-                            await msg_obj.edit_text("❌ **Download cancelled**\n\nYour download has been stopped.")
-                            return
-
-                        chunk = await resp.content.read(8192)
-                        if not chunk:
-                            break
-                        f.write(chunk)
-                        current_size = os.path.getsize(file_path)
-                        await progress_bar(current_size, content_length, start_time, msg_obj, filename)
-
-                if is_compressed(file_path):
-                    filename_only = os.path.basename(file_path)
-                    dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
-                    _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
-                    total_size_used = max_storage - remaining_storage_now
-                    cb_data = f"unzip|{filename_only}"
-                    if len(cb_data.encode('utf-8')) > 64:
-                        cb_data = f"unzip|{filename_only[-50:]}"
-                    uncompress_btn = InlineKeyboardMarkup([
-                        [InlineKeyboardButton("uncompress", callback_data=cb_data),
-                         InlineKeyboardButton("dismiss", callback_data="dismiss")]
-                    ])
-                    await msg_obj.edit_text(
-                        f"✅ **Downloaded successfully**\n"
-                        f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
-                        f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
-                        f"/my_files to check all your files\n\n"
-                        f"🗜️ **Compressed file detected!**\n"
-                        f"Would you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
-                        reply_markup=uncompress_btn
-                    )
-                else:
-                    dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
-                    _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
-                    total_size_used = max_storage - remaining_storage_now
-                    await msg_obj.edit_text(
-                        f"✅ **Downloaded successfully**\n"
-                        f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
-                        f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
-                        f"/my_files to check all your files"
-                    )
-
-                await _sleep_after_download(
-                    os.path.getsize(file_path) if os.path.exists(file_path) else content_length,
-                    queued=queued,
-                )
-
-        config.downloading_users.discard(user_id)
+        await safe_download(
+            link,
+            file_path,
+            max_bytes=max(remaining_storage, config.MAX_EXTRACT_BYTES),
+            progress_callback=lambda c, t: asyncio.create_task(progress_bar(c, t, start_time, msg_obj, filename)),
+        )
+    except SSRFBlocked as e:
+        await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
-
+        return await message.reply_text(
+            f"❌ Blocked: {e}",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    except DownloadTooLarge as e:
+        await set_downloading(user_id, False)
+        config.user_ids.pop(user_id, None)
+        return await message.reply_text(
+            f"❌ {e}",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    except (DownloadFailed, RedirectLimitExceeded) as e:
+        await set_downloading(user_id, False)
+        config.user_ids.pop(user_id, None)
+        return await message.reply_text(
+            f"Download failed: {e}",
+            reply_parameters=ReplyParameters(message_id=message.id),
+        )
+    except asyncio.CancelledError:
+        # Already handled in progress_bar
+        return
     except asyncio.TimeoutError:
-        config.downloading_users.discard(user_id)
+        await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
         if 'msg_obj' in dir():
             await msg_obj.edit_text("❌ **Download timed out**\n\nThis file took more than 25 minutes and was auto-cancelled to free the queue.")
-    except asyncio.CancelledError:
-        config.downloading_users.discard(user_id)
-        config.cancel_requested.discard(user_id)
-        config.user_ids.pop(user_id, None)
-        if 'msg_obj' in dir():
-            await msg_obj.edit_text("❌ **Download cancelled**\n\nYour download has been stopped.")
+        return
     except Exception as e:
-        config.downloading_users.discard(user_id)
+        await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
         await message.reply_text(str(e), reply_parameters=ReplyParameters(message_id=message.id))
+        return
+
+    if is_compressed(file_path):
+        filename_only = os.path.basename(file_path)
+        dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
+        _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
+        total_size_used = max_storage - remaining_storage_now
+        cb_data = f"unzip|{filename_only}"
+        if len(cb_data.encode('utf-8')) > 64:
+            cb_data = f"unzip|{filename_only[-50:]}"
+        uncompress_btn = InlineKeyboardMarkup([
+            [InlineKeyboardButton("uncompress", callback_data=cb_data),
+             InlineKeyboardButton("dismiss", callback_data="dismiss")]
+        ])
+        await msg_obj.edit_text(
+            f"✅ **Downloaded successfully**\n"
+            f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
+            f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
+            f"/my_files to check all your files\n\n"
+            f"🗜️ **Compressed file detected!**\n"
+            f"Would you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
+            reply_markup=uncompress_btn
+        )
+    else:
+        dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
+        _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
+        total_size_used = max_storage - remaining_storage_now
+        await msg_obj.edit_text(
+            f"✅ **Downloaded successfully**\n"
+            f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
+            f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
+            f"/my_files to check all your files"
+        )
+
+    await _sleep_after_download(
+        os.path.getsize(file_path) if os.path.exists(file_path) else content_length,
+        queued,
+    )
+    config.downloading_users.discard(user_id)
+    config.user_ids.pop(user_id, None)
+    config.cancel_requested.discard(user_id)
+
+    if not queued:
+        await update_stats(user_id, "link_downloads")

@@ -18,6 +18,15 @@ FORCE_SUBSCRIBE = os.getenv("FORCE_SUBSCRIBE", "true").lower() == "true"
 # is not persisted across restarts.
 MONGO_URL = os.getenv("MONGO_URL", "")
 
+# ── Extraction resource ceilings ──────────────────────────────────────────────
+# Enforced *during* extraction by safe_archive, not inferred from archive
+# headers (which are attacker-controlled). The default is well below the 2 GB
+# upload ceiling because the runtime's ephemeral disk is much smaller than that
+# and a decompression bomb otherwise fills it before anything notices.
+MAX_EXTRACT_BYTES = int(os.getenv("MAX_EXTRACT_BYTES", 1024 * 1024 * 1024))
+MAX_EXTRACT_ENTRIES = int(os.getenv("MAX_EXTRACT_ENTRIES", 2000))
+MAX_EXTRACT_SECONDS = int(os.getenv("MAX_EXTRACT_SECONDS", 600))
+
 
 def _init_collection():
     if not MONGO_URL:
@@ -85,11 +94,32 @@ class SafeQueue:
 # Global runtime state
 ggg = os.getcwd()
 download_queue = SafeQueue()
-# Per-user state tracking (sets of user_ids)
-downloading_users = set()
-zipping_users = set()
-uploading_users = set()
+
+# Import and expose the new user state manager
+from user_state import (
+    get_state_manager,
+    set_downloading,
+    set_zipping,
+    set_uploading,
+    set_extracting,
+    is_user_busy,
+    get_busy_reason,
+    request_cancel,
+    clear_cancel,
+    is_cancel_requested,
+    enqueue_item,
+    dequeue_item,
+    get_user_queue_size,
+    get_total_queue_size,
+    get_next_fair_user,
+    # Backward-compat sets (kept in sync by the state manager)
+    downloading_users,
+    zipping_users,
+    uploading_users,
+    extracting_users,
+    cancel_requested,
+)
+
 user_ids = {}
 time_left = 0
 timeout = None
-cancel_requested = set()  # set of user_ids requesting cancellation
