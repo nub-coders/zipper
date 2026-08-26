@@ -343,12 +343,17 @@ async def create_zip(client, callback_query, pass_protect=None):
         await set_uploading(user_id, False)
         await clear_cancel(user_id)
 
-
-
-    # Clean up
-    if os.path.exists(user_dir):
-        shutil.rmtree(user_dir, ignore_errors=True)
-        os.makedirs(user_dir, exist_ok=True)
+        # Cleanup belongs in the finally: upload_to_nuloader swallows Exception,
+        # but asyncio.CancelledError is a BaseException and passes straight
+        # through. Left outside, a cancelled dyno restart stranded a multi-GB
+        # archive on the ephemeral disk with nothing to reclaim it.
+        try:
+            if os.path.exists(user_dir):
+                shutil.rmtree(user_dir, ignore_errors=True)
+                os.makedirs(user_dir, exist_ok=True)
+        except OSError as exc:
+            # Never let a cleanup failure replace the original exception.
+            print(f"Failed to clean {user_dir}: {exc}")
 
 
 # ─── Uncompress / Dismiss Callbacks ──────────────────────────────────────────

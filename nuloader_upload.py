@@ -150,10 +150,19 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
         [[InlineKeyboardButton("Join @nub_coder_s", url="https://t.me/nub_coder_s")]]
     )
 
-    async def fail(reason):
-        return await message.edit_text(
-            f"❌ **Upload failed**\n\n{reason}", reply_markup=home_buttons
-        )
+    async def fail(reason, detail=None):
+        """Report a failure to the user.
+
+        ``reason`` is a trusted literal from this module. ``detail`` is
+        untrusted -- an exception string, or a message chosen by the storage
+        server -- and is escaped and wrapped in a code span here rather than at
+        each call site, so a value cannot reach the Markdown parser unescaped
+        just because a caller forgot to call _md_code.
+        """
+        text = f"❌ **Upload failed**\n\n{reason}"
+        if detail is not None:
+            text += f"\n\n`{_md_code(detail)}`"
+        return await message.edit_text(text, reply_markup=home_buttons)
 
     if not API_KEY:
         # Not configured: keep the previous behaviour rather than failing.
@@ -168,7 +177,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
     try:
         file_size = os.path.getsize(zip_filename)
     except OSError as exc:
-        return await fail(f"Archive is gone: `{_md_code(exc)}`")
+        return await fail("The archive is no longer on disk.", exc)
 
     if file_size > NULOADER_MAX_BYTES:
         return await message.edit_text(
@@ -253,7 +262,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
                 if resp.status != 201:
                     # NuLoader's error envelope is {"error": ..., "message": ...}.
                     reason = payload.get("message") or f"HTTP {resp.status}"
-                    return await fail(f"`{_md_code(reason)}`")
+                    return await fail("The storage server rejected the upload.", reason)
 
         link = payload.get("download_page_url")
         if not link:
