@@ -1,11 +1,20 @@
-import config
-import os
 import asyncio
-from pyrogram import Client
+import os
+import config
+from config import API_HASH, API_ID, BOT_TOKEN, FORCE_SUBSCRIBE
 from convopyro import Conversation
 from plugins.file_handlers import process_queues
+from pyrogram import Client, StopPropagation, idle
+from pyrogram.enums import ButtonStyle
+from pyrogram.handlers import CallbackQueryHandler, MessageHandler
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from tools import is_admin, is_user_on_chat
+from utils.emoji import Emoji, EmojiTag
+from utils.premium_emoji import patch_pyrogram_for_custom_emojis
+from utils.rich_ui import rich_reply, rich_send
 
-from config import API_ID, API_HASH, BOT_TOKEN, FORCE_SUBSCRIBE
+# Apply Bot API 10.3 custom emoji and button styling patches
+patch_pyrogram_for_custom_emojis()
 
 config.ggg = os.getcwd()
 
@@ -21,10 +30,6 @@ app = Client(
 )
 Conversation(app)
 
-from pyrogram.handlers import MessageHandler, CallbackQueryHandler
-from pyrogram import StopPropagation
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from tools import is_user_on_chat, is_admin
 
 async def check_membership_middleware(client, update):
     if not config.FORCE_SUBSCRIBE:
@@ -34,9 +39,8 @@ async def check_membership_middleware(client, update):
     if not user:
         return
 
-    # Only enforce membership check in private chats — never reply in groups
     chat = getattr(update, "chat", None) or getattr(getattr(update, "message", None), "chat", None)
-    if chat and chat.type.value != "private":
+    if chat and getattr(chat.type, "value", str(chat.type)) != "private":
         return
 
     user_id = user.id
@@ -45,43 +49,43 @@ async def check_membership_middleware(client, update):
 
     if not await is_user_on_chat(client, user_id):
         button = InlineKeyboardMarkup([
-            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders")],
-            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s")]
+            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
+            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)]
         ])
-        text = "You need to join both @nub_coders and @nub_coder_s channels to use this bot.\n\nClick below to Join!"
-        
+        text = (
+            f"{EmojiTag.LOCK} <b>Channel Membership Required</b>\n\n"
+            f"You need to join both @nub_coders and @nub_coder_s channels to use this bot.\n\n"
+            f"<i>Click the buttons below to join and then return here.</i>"
+        )
+
         try:
-            if hasattr(update, "reply_text"):
-                await update.reply_text(text, reply_markup=button)
-            elif hasattr(update, "message"):
-                await update.message.reply_text(text, reply_markup=button)
+            target = update.message if hasattr(update, "message") else update
+            await rich_reply(target, text, reply_markup=button, client=client)
         except Exception:
             pass
         raise StopPropagation()
 
+
 app.add_handler(MessageHandler(check_membership_middleware), group=-1)
 app.add_handler(CallbackQueryHandler(check_membership_middleware), group=-1)
+
 
 async def start_background_tasks():
     """Start background tasks after bot initialization."""
     print("Bot components initialized…")
-
-    # ── Start queue processing (fallback for direct processing) ────────
     print("Starting queue processing…")
     asyncio.create_task(process_queues())
     print("Queue processing started…")
-    print("Bot started successfully!")
+    print("Zipper Bot started successfully with Bot API 10.2 & 10.3 Rich UI!")
 
-
-from pyrogram import idle
-import asyncio
 
 async def main():
-    print("Bot starting with Smart Plugins…")
+    print("Bot starting with Smart Plugins and Bot API 10.3 UI…")
     await app.start()
     await start_background_tasks()
     await idle()
     await app.stop()
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

@@ -1,10 +1,26 @@
+"""plugins/callback_handlers.py — Callback Query Handlers with Bot API 10.2 & 10.3 Rich UI."""
+
+import asyncio
+import os
+import random
+import shutil
+import tempfile
+import time
+
 import config
 from config import collection
-from pyrogram import Client, filters, StopTransmission
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from plugins.ui_components import home_buttons, back_buttons, pass_button, common_buttons
-from tools import Timer, get_queue_status
 from nuloader_upload import upload_to_nuloader
+from plugins.ui_components import (
+    back_buttons,
+    cancel_markup,
+    common_buttons,
+    home_buttons,
+    lang_markup,
+    pass_button,
+)
+from pyrogram import Client, StopTransmission, filters
+from pyrogram.enums import ButtonStyle
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from rate_limiter import extract_limiter
 from safe_archive import (
     ArchiveError,
@@ -17,28 +33,35 @@ from safe_archive import (
     looks_encrypted,
 )
 from stats_manager import update_stats
+from tools import Timer, get_queue_status
 from user_state import (
-    is_user_busy,
-    get_busy_reason,
-    set_zipping,
-    set_uploading,
-    set_extracting,
-    request_cancel,
     clear_cancel,
+    get_busy_reason,
     is_cancel_requested,
+    is_user_busy,
+    request_cancel,
+    set_extracting,
+    set_uploading,
+    set_zipping,
 )
-import os
-import shutil
-import time
-import random
-import asyncio
-import tempfile
+from utils.emoji import Emoji, EmojiTag
+from utils.rich_ui import (
+    rich_answer,
+    rich_details,
+    rich_edit,
+    rich_esc,
+    rich_heading,
+    rich_kv_table,
+    rich_note,
+    rich_reply,
+    rich_send,
+    rich_table,
+)
 
 
-# ─── ZIP Creation Callbacks ──────────────────────────────────────────────────
+# ─── Busy Check Helpers ───────────────────────────────────────────────────────
 
 async def _is_busy(user_id):
-    """Check whether THIS user already has a long-running operation in flight."""
     return await is_user_busy(user_id)
 
 
@@ -46,19 +69,23 @@ async def _busy_reason(user_id):
     return await get_busy_reason(user_id)
 
 
+# ─── ZIP Creation Callbacks ──────────────────────────────────────────────────
+
 @Client.on_callback_query(filters.regex(r"^no_password$"))
 async def without_pass(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
-    if _is_busy(user_id):
+    if await _is_busy(user_id):
         return await callback_query.answer(
-            f"⏳ Can't zip now — your file is {_busy_reason(user_id)}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {await _busy_reason(user_id)}. Try after it finishes.",
             show_alert=True,
         )
 
-    await callback_query.edit_message_text(
-        "📦 **Creating Regular ZIP**\n\n"
-        "• Starting compression process\n"
-        "• Please provide a name for your ZIP file"
+    await rich_edit(
+        callback_query,
+        f"{EmojiTag.ZIP} {rich_heading('Creating Regular ZIP Archive', level=2)}\n\n"
+        f"• Starting fast compression process\n"
+        f"• Please provide a name for your ZIP file in chat",
+        client=client,
     )
     await update_stats(user_id, "zip_without_pass")
     await create_zip(client, callback_query, None)
@@ -67,23 +94,25 @@ async def without_pass(client: Client, callback_query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^set_password$"))
 async def with_pass(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
-    if _is_busy(user_id):
+    if await _is_busy(user_id):
         return await callback_query.answer(
-            f"⏳ Can't zip now — your file is {_busy_reason(user_id)}. Try after it finishes.",
+            f"⏳ Can't zip now — your file is {await _busy_reason(user_id)}. Try after it finishes.",
             show_alert=True,
         )
 
-    await callback_query.edit_message_text(
-        "🔐 **Creating Protected ZIP**\n\n"
-        "• Starting secure compression process\n"
-        "• Please provide a name for your ZIP file\n"
-        "• You'll be asked for a password next"
+    await rich_edit(
+        callback_query,
+        f"{EmojiTag.LOCK} {rich_heading('Creating Protected ZIP Archive', level=2)}\n\n"
+        f"• Starting secure encryption process\n"
+        f"• Please provide a name for your ZIP file\n"
+        f"• You'll be asked for a password next",
+        client=client,
     )
     await update_stats(user_id, "zip_with_pass")
     await create_zip(client, callback_query, True)
 
 
-# ─── Cancel Callback ─────────────────────────────────────────────────────────
+# ─── Cancel Callbacks ─────────────────────────────────────────────────────────
 
 @Client.on_callback_query(filters.regex(r"^cancel_task$"))
 async def cancel_task(client: Client, callback_query: CallbackQuery):
@@ -93,21 +122,23 @@ async def cancel_task(client: Client, callback_query: CallbackQuery):
         await request_cancel(user_id)
         await callback_query.answer("🛑 Cancellation requested for current task…", show_alert=True)
         try:
-            await callback_query.edit_message_text(
-                "🛑 **Cancellation requested**\n\n"
-                "The current operation will be stopped shortly.",
+            await rich_edit(
+                callback_query,
+                f"{EmojiTag.CANCEL} {rich_heading('Cancellation Requested', level=2)}\n\n"
+                f"The active operation will be stopped shortly.",
                 reply_markup=None,
+                client=client,
             )
         except Exception:
             pass
     else:
         await callback_query.answer("No active task to cancel.", show_alert=True)
 
+
 @Client.on_callback_query(filters.regex(r"^cancel_all$"))
 async def cancel_all(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
-    
-    # Atomically drain all queue items for this user
+
     removed = 0
     new_queue_items = []
     while not config.download_queue.empty():
@@ -116,36 +147,36 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
             removed += 1
         else:
             new_queue_items.append(item)
-            
+
     for item in new_queue_items:
         config.download_queue.put(item)
 
-    # Mark user as cancelled so process_queues won't pick up any remaining items
     config.cancel_requested.add(user_id)
-    
-    # Clean up user state (do this after adding to cancel_requested to prevent races)
     config.user_ids.pop(user_id, None)
 
     if (user_id in config.downloading_users or user_id in config.zipping_users
             or user_id in config.uploading_users):
-        msg_text = f"🛑 **Cancellation requested**\n\nThe active operation and {removed} queued task(s) will be stopped."
+        msg_text = (
+            f"{EmojiTag.CANCEL} {rich_heading('Cancellation In Progress', level=2)}\n\n"
+            f"The active operation and <code>{removed}</code> queued task(s) will be stopped."
+        )
     else:
-        msg_text = f"✅ Removed {removed} file(s) from the download queue."
+        msg_text = (
+            f"{EmojiTag.SUCCESS} {rich_heading('Queue Cleared', level=2)}\n\n"
+            f"Removed <code>{removed}</code> file(s) from the download queue."
+        )
 
     await callback_query.answer("Action processed.", show_alert=True)
     try:
-        await callback_query.edit_message_text(msg_text, reply_markup=home_buttons)
+        await rich_edit(callback_query, msg_text, reply_markup=home_buttons, client=client)
     except Exception:
         pass
 
-
-# ─── Queue / Cancel Callbacks ─────────────────────────────────────────────────
 
 @Client.on_callback_query(filters.regex(r"^cancel_download$"))
 async def cancel_download(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if user_id in config.user_ids:
-        # Remove user's items from queue
         new_items = []
         while not config.download_queue.empty():
             item = config.download_queue.get()
@@ -155,96 +186,29 @@ async def cancel_download(client: Client, callback_query: CallbackQuery):
             config.download_queue.put(item)
 
         config.user_ids.pop(user_id, None)
-        await callback_query.edit_message_text("Download canceled.")
+        await rich_edit(callback_query, f"{EmojiTag.CANCEL} <b>Download cancelled.</b>", reply_markup=home_buttons, client=client)
     else:
-        await callback_query.edit_message_text("No ongoing download to cancel.")
+        await rich_edit(callback_query, f"{EmojiTag.INFO} <b>No ongoing download to cancel.</b>", reply_markup=home_buttons, client=client)
 
 
 @Client.on_callback_query(filters.regex(r"^bhad$"))
 async def callback_queue(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     response_text = get_queue_status(user_id)
-    await callback_query.answer(response_text, show_alert=True)
+    await rich_edit(callback_query, response_text, reply_markup=home_buttons, client=client)
 
 
 # ─── Navigation Callbacks ────────────────────────────────────────────────────
 
-@Client.on_callback_query(filters.regex(r"^lang_menu$"))
-async def callback_lang_menu(client: Client, callback_query: CallbackQuery):
-    from tools import get_text
-    user_id = callback_query.from_user.id
-    lang_text = get_text(collection, user_id, "choose_lang")
-    btn_en = get_text(collection, user_id, "lang_btn_en")
-    btn_fa = get_text(collection, user_id, "lang_btn_fa")
-    
-    markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton(btn_en, callback_data="setlang_en")],
-        [InlineKeyboardButton(btn_fa, callback_data="setlang_fa")]
-    ])
-    await callback_query.edit_message_text(lang_text, reply_markup=markup)
-
-
-
-@Client.on_callback_query(filters.regex(r"^help$"))
-async def callback_help(client: Client, callback_query: CallbackQuery):
-    from plugins.basic_commands import help_command
-
-    class _MessageLike:
-        """Adapter so help_command can work with callback queries."""
-        def __init__(self, cq):
-            self.from_user = cq.from_user
-            self.edit_message_text = cq.edit_message_text
-            self.id = cq.message.id
-
-        async def reply_text(self, text, **kwargs):
-            markup = kwargs.get("reply_markup")
-            await self.edit_message_text(text, reply_markup=markup)
-
-    await help_command(client, _MessageLike(callback_query))
-
-
-@Client.on_callback_query(filters.regex(r"^my_files$"))
-async def callback_my_files(client: Client, callback_query: CallbackQuery):
-    from plugins.file_handlers import list_files
-    await list_files(client, callback_query)
-
-
-@Client.on_callback_query(filters.regex(r"^clear$"))
-async def callback_clear(client: Client, callback_query: CallbackQuery):
-    from tools import handle_clear_files
-    user_id = callback_query.from_user.id
-    text = await handle_clear_files(user_id, back_buttons)
-    await callback_query.edit_message_text(text, reply_markup=back_buttons)
-
-
-@Client.on_callback_query(filters.regex(r"^home$"))
-async def callback_home(client: Client, callback_query: CallbackQuery):
-    user_id = callback_query.from_user.id
-    if not collection.find_one({"user_id": user_id}):
-        from tools import store_user
-        store_user(collection, user_id)
-
-    await callback_query.edit_message_text(
-        "Hello! This is the File-to-ZIP bot.\n"
-        "Send me any files or direct download link and I will compress them to a zip\n"
-        "/help to get more details",
-        reply_markup=home_buttons,
-    )
-
-
-@Client.on_callback_query(filters.regex(r"^fzip$"))
-async def callback_fzip(client: Client, callback_query: CallbackQuery):
-    user_id = callback_query.from_user.id
-    if _is_busy(user_id):
-        return await callback_query.answer(
-            f"⏳ Can't zip now — your file is {_busy_reason(user_id)}. Try after it finishes.",
-            show_alert=True,
-        )
-
-    await callback_query.edit_message_text(
-        "Would you like to protect your zip file with a secure password?",
-        reply_markup=pass_button,
-    )
+@Client.on_callback_query(filters.regex(r"^dismiss$"))
+async def dismiss_callback(client: Client, callback_query: CallbackQuery):
+    try:
+        await callback_query.message.delete()
+    except Exception:
+        try:
+            await callback_query.edit_message_reply_markup(reply_markup=None)
+        except Exception:
+            pass
 
 
 # ─── ZIP Creation + Upload Logic ─────────────────────────────────────────────
@@ -253,7 +217,7 @@ async def create_zip(client, callback_query, pass_protect=None):
     from tools import create_zip_file
     user_id = callback_query.from_user.id
     user_dir = f"{config.ggg}/zipper/{user_id}"
-    # Set zipping flag for THIS user
+
     if not await set_zipping(user_id, True):
         await callback_query.answer("Already zipping. Please wait.", show_alert=True)
         return
@@ -262,7 +226,7 @@ async def create_zip(client, callback_query, pass_protect=None):
         zip_filename, message = await create_zip_file(client, callback_query, pass_protect)
     except Exception as e:
         await set_zipping(user_id, False)
-        await callback_query.message.reply_text(f"Error creating ZIP: {e}")
+        await rich_reply(callback_query, f"{EmojiTag.ERROR} <b>Error creating ZIP:</b> <code>{rich_esc(e)}</code>")
         return
     finally:
         await set_zipping(user_id, False)
@@ -271,52 +235,52 @@ async def create_zip(client, callback_query, pass_protect=None):
         return
 
     file_size = os.path.getsize(zip_filename)
-
-    # Reuse the single status message for upload progress (no new messages)
     msg = message
 
-    # Set uploading flag for THIS user
     if not await set_uploading(user_id, True):
         await set_zipping(user_id, False)
-        await callback_query.message.reply_text("Already uploading. Please wait.")
+        await rich_reply(callback_query, f"{EmojiTag.WARNING} <b>Already uploading. Please wait.</b>")
         return
-    cancelled = False
 
+    cancelled = False
     try:
         if file_size <= 2_000_000_000:  # 2 GB Telegram limit
             timer = Timer()
             try:
-                await msg.edit_text("⬆️ Upload starting…")
+                await rich_edit(msg, f"{EmojiTag.UPLOAD} <b>Preparing upload to Telegram…</b>", reply_markup=cancel_markup, client=client)
             except Exception:
                 pass
 
-            async def progress_bar(current, total, start_time=time.time()):
-                # Check for cancellation
+            start_time = time.time()
+
+            async def progress_bar(current, total):
                 if await is_cancel_requested(user_id):
                     await clear_cancel(user_id)
                     raise StopTransmission()
 
-                if not timer.can_send():
+                if not timer.can_send() or not total:
                     return
+
                 pct = current * 100 / total
                 elapsed = time.time() - start_time
                 speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
                 eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
 
-                bar_len = int(pct / 5)
-                bar = "█" * bar_len + "░" * (20 - bar_len)
+                bar_len = 16
+                ticks = int(pct / (100 / bar_len))
+                bar = "█" * ticks + "░" * (bar_len - ticks)
 
                 text = (
-                    f"⬆️ **Uploading:** {pct:.2f}%\n"
-                    f"Speed: {speed:.2f} MB/s\n"
-                    f"Time left: {eta:.2f} seconds\n"
-                    f"Size: {current / (1024*1024):.2f} MB / {total / (1024*1024):.2f} MB\n"
-                    f"[{bar}]"
+                    f"{EmojiTag.UPLOAD} {rich_heading('Uploading Archive to Telegram', level=2)}\n"
+                    f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
+                    + rich_kv_table([
+                        ("Transferred", f"<code>{current / (1024*1024):.2f} MB / {total / (1024*1024):.2f} MB</code>"),
+                        ("Speed", f"<code>{speed:.2f} MB/s</code>"),
+                        ("ETA", f"<code>{eta:.1f}s</code>"),
+                    ])
                 )
-                cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
                 try:
-                    if random.choices([True, False], weights=[1, 999])[0]:
-                        await msg.edit_text(text, reply_markup=cancel_markup)
+                    await rich_edit(msg, text, reply_markup=cancel_markup, client=client)
                 except Exception:
                     pass
 
@@ -324,18 +288,23 @@ async def create_zip(client, callback_query, pass_protect=None):
                 await client.send_document(
                     callback_query.message.chat.id,
                     zip_filename,
-                    caption="zip by @FILEs_COMPRESSOR_BOT",
+                    caption=f"📦 Compressed archive created by @FILEs_COMPRESSOR_BOT",
                     progress=progress_bar,
                 )
-                await msg.edit_text(
-                    "Uploaded successfully\n\nPlease join @nub_coder_s",
+                await rich_edit(
+                    msg,
+                    f"{EmojiTag.SUCCESS} {rich_heading('Archive Uploaded Successfully', level=1)}\n\n"
+                    f"{rich_note('Your compressed archive has been sent above.<br>Join our support community: @nub_coder_s')}",
                     reply_markup=home_buttons,
+                    client=client,
                 )
             except StopTransmission:
                 cancelled = True
-                await msg.edit_text(
-                    "❌ **Upload cancelled**\n\nYour upload has been stopped.",
+                await rich_edit(
+                    msg,
+                    f"{EmojiTag.CANCEL} {rich_heading('Upload Cancelled', level=2)}\n\nYour upload was cancelled.",
                     reply_markup=home_buttons,
+                    client=client,
                 )
         else:
             await upload_to_nuloader(callback_query, zip_filename, message)
@@ -343,31 +312,19 @@ async def create_zip(client, callback_query, pass_protect=None):
         await set_uploading(user_id, False)
         await clear_cancel(user_id)
 
-        # Cleanup belongs in the finally: upload_to_nuloader swallows Exception,
-        # but asyncio.CancelledError is a BaseException and passes straight
-        # through. Left outside, a cancelled dyno restart stranded a multi-GB
-        # archive on the ephemeral disk with nothing to reclaim it.
         try:
             if os.path.exists(user_dir):
                 shutil.rmtree(user_dir, ignore_errors=True)
                 os.makedirs(user_dir, exist_ok=True)
         except OSError as exc:
-            # Never let a cleanup failure replace the original exception.
             print(f"Failed to clean {user_dir}: {exc}")
 
 
-# ─── Uncompress / Dismiss Callbacks ──────────────────────────────────────────
-
-@Client.on_callback_query(filters.regex(r"^dismiss$"))
-async def dismiss_callback(client: Client, callback_query: CallbackQuery):
-    try:
-        await callback_query.edit_message_reply_markup(reply_markup=None)
-    except Exception:
-        pass
+# ─── Uncompress Callbacks ────────────────────────────────────────────────────
 
 @Client.on_callback_query(filters.regex(r"^unzip\|"))
 async def uncompress_preview(client: Client, callback_query: CallbackQuery):
-    """Step 1: Show the file listing inside the archive before extracting."""
+    """Step 1: Show the rich file listing inside the archive before extracting."""
     user_id = callback_query.from_user.id
     data = callback_query.data
     filename_end = data.split("|", 1)[1]
@@ -381,20 +338,23 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
                 break
 
     if not target_file or not os.path.exists(target_file):
-        return await callback_query.answer("File not found.", show_alert=True)
+        return await callback_query.answer("File not found in storage.", show_alert=True)
 
-    await callback_query.edit_message_text(f"🔍 Reading contents of `{os.path.basename(target_file)}`...")
+    await rich_edit(
+        callback_query,
+        f"{EmojiTag.LOADING} <b>Inspecting archive contents:</b> <code>{rich_esc(os.path.basename(target_file))}</code>…",
+        client=client,
+    )
 
     try:
         listing, exited_ok = await list_archive(target_file)
     except ArchiveTimeout:
-        return await callback_query.edit_message_text("❌ Archive listing timed out.")
+        return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Archive listing timed out.</b>", client=client)
     except ArchiveFailed as e:
-        return await callback_query.edit_message_text(f"❌ Failed to list archive: {e}")
+        return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Failed to list archive:</b> <code>{rich_esc(e)}</code>", client=client)
 
     is_encrypted = looks_encrypted(listing)
 
-    # Parse entries for display
     entries = []
     current = {}
     for line in listing.splitlines():
@@ -409,13 +369,13 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
     if current:
         entries.append(current)
 
-    file_lines = []
+    table_rows = []
     total_size = 0
-    for e in entries:
+    for idx, e in enumerate(entries):
         path = e.get("Path", "")
         size = e.get("Size", "0")
         attr = e.get("Attributes", "")
-        if not path or attr.startswith("D"):   # skip dirs
+        if not path or attr.startswith("D"):
             continue
         try:
             sz = int(size)
@@ -423,68 +383,63 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
             size_str = f"{sz / 1024:.1f} KB" if sz < 1024 * 1024 else f"{sz / (1024**2):.2f} MB"
         except Exception:
             size_str = size
-        file_lines.append(f"📄 `{path}` — {size_str}")
 
-    if not file_lines:
-        file_lines.append("_(No readable file list — may be encrypted or unsupported format)_")
+        if len(table_rows) < 15:
+            table_rows.append((
+                f"<code>{len(table_rows)+1}</code>",
+                f"<code>{rich_esc(path[:20] + '...' if len(path) > 23 else path)}</code>",
+                f"<code>{size_str}</code>",
+            ))
 
     total_str = (
         f"{total_size / 1024:.1f} KB" if total_size < 1024 * 1024
         else f"{total_size / (1024**2):.2f} MB"
     )
 
-    enc_note = "\n\n🔐 _This archive is **encrypted** — you will be asked for a password._" if is_encrypted else ""
-    size_warn = "\n\n⚠️ _Total declared size exceeds extraction limit — extraction will be blocked._" if total_size > config.MAX_EXTRACT_BYTES else ""
+    enc_status = "🔐 Encrypted (Password Required)" if is_encrypted else "🔓 Unencrypted"
 
-    listing_text = "\n".join(file_lines[:30])
-    if len(file_lines) > 30:
-        listing_text += f"\n_...and {len(file_lines) - 30} more files_"
+    metadata_table = rich_kv_table([
+        ("Archive Name", f"<code>{rich_esc(os.path.basename(target_file))}</code>"),
+        ("Total Files", f"<code>{len(entries)}</code>"),
+        ("Total Size", f"<code>{total_str}</code>"),
+        ("Encryption", f"<code>{enc_status}</code>"),
+    ], headers=["Archive Info", "Details"])
 
-    text = (
-        f"🗜️ **Archive:** `{os.path.basename(target_file)}`\n"
-        f"📦 **Files inside ({len(file_lines)}):** Total ~{total_str}\n\n"
-        f"{listing_text}"
-        f"{enc_note}{size_warn}\n\n"
-        f"Would you like to uncompress and receive these files?"
-    )
+    files_inside_table = rich_table(["#", "Path", "Size"], table_rows) if table_rows else ""
 
-    # Confirm callback reuses the same filename_end
     cb_confirm = f"unzip_confirm|{filename_end}"
     if len(cb_confirm.encode("utf-8")) > 64:
         cb_confirm = f"unzip_confirm|{filename_end[-45:]}"
 
     markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton("✅ Proceed", callback_data=cb_confirm),
-         InlineKeyboardButton("❌ Dismiss", callback_data="dismiss")]
+        [
+            InlineKeyboardButton("✅ Extract Files", callback_data=cb_confirm, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.EXTRACT),
+            InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CLOSE),
+        ]
     ])
 
-    try:
-        await callback_query.edit_message_text(text, reply_markup=markup)
-    except Exception:
-        # message too long — trim
-        short_text = (
-            f"🗜️ **Archive:** `{os.path.basename(target_file)}`\n"
-            f"📦 **{len(file_lines)} file(s)** inside, total ~{total_str}"
-            f"{enc_note}{size_warn}\n\n"
-            f"Would you like to uncompress and receive these files?"
-        )
-        await callback_query.edit_message_text(short_text, reply_markup=markup)
+    text = (
+        f"{EmojiTag.EXTRACT} {rich_heading('Archive Inspection', level=1)}\n"
+        f"{metadata_table}\n\n"
+        f"<b>📋 Contained Files (Preview):</b>\n"
+        f"{files_inside_table}\n\n"
+        f"<i>Would you like to extract and receive these files?</i>"
+    )
+
+    await rich_edit(callback_query, text, reply_markup=markup, client=client)
 
 
 @Client.on_callback_query(filters.regex(r"^unzip_confirm\|"))
 async def uncompress_callback(client: Client, callback_query: CallbackQuery):
-    """Step 2: Actually extract and send the files under resource limits."""
+    """Step 2: Extract and send the files with rich status tracking."""
     user_id = callback_query.from_user.id
 
-    # Rate-limit this expensive operation (callbacks were previously unthrottled)
     if not extract_limiter.is_allowed(user_id):
         return await callback_query.answer(
             "⏳ Too many extraction requests. Please wait before trying again.",
             show_alert=True,
         )
 
-    # Busy flag prevents parallel extractions and stops queue workers from
-    # picking this user's items.
     if await _is_busy(user_id):
         return await callback_query.answer(
             f"⏳ Can't uncompress now — your file is {await _busy_reason(user_id)}.",
@@ -505,36 +460,41 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
     if not target_file or not os.path.exists(target_file):
         return await callback_query.answer("File not found.", show_alert=True)
 
-    # Mark extracting BEFORE any await so concurrent presses see it
     if not await set_extracting(user_id, True):
-        return await callback_query.answer(
-            "Already extracting. Please wait.",
-            show_alert=True,
-        )
+        return await callback_query.answer("Already extracting. Please wait.", show_alert=True)
 
     try:
-        await callback_query.edit_message_text(f"⏳ Preparing to uncompress `{os.path.basename(target_file)}`...")
+        await rich_edit(
+            callback_query,
+            f"{EmojiTag.LOADING} <b>Extracting archive:</b> <code>{rich_esc(os.path.basename(target_file))}</code>…",
+            client=client,
+        )
 
         password = ""
-        # Listing (async, no block) to detect encryption
         try:
             listing, _ = await list_archive(target_file)
             is_encrypted = looks_encrypted(listing)
         except (ArchiveTimeout, ArchiveFailed) as e:
-            return await callback_query.edit_message_text(f"❌ Failed to inspect archive: {e}")
+            return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Failed to inspect archive:</b> <code>{rich_esc(e)}</code>", client=client)
 
         if is_encrypted:
-            await callback_query.edit_message_text("🔐 **This archive is encrypted.**\nPlease reply with the password to uncompress it:")
+            await rich_edit(
+                callback_query,
+                f"{EmojiTag.LOCK} <b>Archive is Password Protected</b>\n\nPlease reply with the password to extract:",
+                client=client,
+            )
             try:
                 get_pass = await client.listen.Message(filters.text, id=filters.user(user_id), timeout=120)
                 password = get_pass.text
-                status_msg = await callback_query.message.reply_text(f"Uncompressing {os.path.basename(target_file)}...")
+                status_msg = await rich_reply(
+                    callback_query.message,
+                    f"{EmojiTag.LOADING} <b>Uncompressing</b> <code>{rich_esc(os.path.basename(target_file))}</code>…",
+                )
             except Exception:
-                return await callback_query.message.reply_text("❌ No password provided in time. Cancelled unzip operation.")
+                return await rich_reply(callback_query.message, f"{EmojiTag.CANCEL} <b>No password provided in time. Operation cancelled.</b>")
         else:
             status_msg = callback_query.message
 
-        # Extract with hard resource limits enforced during the process
         try:
             with tempfile.TemporaryDirectory() as tmpdir:
                 result = await extract_archive(
@@ -546,19 +506,17 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
                     timeout=config.MAX_EXTRACT_SECONDS,
                 )
         except ArchiveTooLarge as e:
-            return await status_msg.edit_text(f"❌ {e}")
+            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>{rich_esc(e)}</b>", client=client)
         except ArchiveTimeout:
-            return await status_msg.edit_text("❌ Extraction timed out.")
+            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Extraction timed out.</b>", client=client)
         except ArchiveFailed as e:
-            if is_encrypted:
-                return await status_msg.edit_text("❌ Failed to uncompress. It might be an incorrect password or unsupported format.")
-            else:
-                return await status_msg.edit_text(f"❌ Failed to uncompress: {e}")
+            msg_fail = "Incorrect password or unsupported archive format." if is_encrypted else str(e)
+            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Failed to extract:</b> <code>{rich_esc(msg_fail)}</code>", client=client)
 
         if not result.files:
-            return await status_msg.edit_text("❌ No readable files found after uncompressing.")
+            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>No extractable files found in archive.</b>", client=client)
 
-        await status_msg.edit_text(f"⏳ Sending {len(result.files)} extracted file(s)...")
+        await rich_edit(status_msg, f"{EmojiTag.UPLOAD} <b>Sending {len(result.files)} extracted file(s)…</b>", client=client)
 
         upload_timer = Timer()
 
@@ -567,36 +525,36 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
             file_size = os.path.getsize(ext_file)
 
             if file_size > config.MAX_EXTRACT_BYTES:
-                await callback_query.message.reply_text(f"Skipping {file_name_only}: exceeds size limit.")
+                await rich_reply(callback_query.message, f"{EmojiTag.WARNING} Skipping <code>{rich_esc(file_name_only)}</code> (exceeds size limit).")
                 continue
 
             upload_start = time.time()
 
             async def upload_progress(current, total, fname=file_name_only, fidx=idx, start=upload_start):
-                # Check for cancellation
                 if await is_cancel_requested(user_id):
                     await clear_cancel(user_id)
                     return
                 if not upload_timer.can_send() or not total:
                     return
                 pct = current * 100 / total
-                bar_len = 20
+                bar_len = 16
                 ticks = int(pct / (100 / bar_len))
                 bar = "█" * ticks + "░" * (bar_len - ticks)
                 elapsed = time.time() - start
                 speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
                 eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
                 text = (
-                    f"⬆️ **Uploading file {fidx}/{len(result.files)}**\n"
-                    f"📄 `{fname}`\n\n"
-                    f"📊 Progress: {pct:.1f}%\n"
-                    f"⚡ Speed: {speed:.1f} MB/s\n"
-                    f"⏱️ ETA: {eta:.0f}s\n"
-                    f"📦 {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
-                    f"[{bar}]"
+                    f"{EmojiTag.UPLOAD} {rich_heading(f'Sending Extracted File ({fidx}/{len(result.files)})', level=2)}\n"
+                    f"<b>File:</b> <code>{rich_esc(fname)}</code>\n"
+                    f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
+                    + rich_kv_table([
+                        ("Size", f"<code>{current/(1024*1024):.1f} / {total/(1024*1024):.1f} MB</code>"),
+                        ("Speed", f"<code>{speed:.2f} MB/s</code>"),
+                        ("ETA", f"<code>{eta:.0f}s</code>"),
+                    ])
                 )
                 try:
-                    await status_msg.edit_text(text)
+                    await rich_edit(status_msg, text, client=client)
                 except Exception:
                     pass
 
@@ -608,21 +566,14 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
                     progress=upload_progress,
                 )
             except Exception:
-                await callback_query.message.reply_text(f"Failed to send {file_name_only}")
+                await rich_reply(callback_query.message, f"{EmojiTag.ERROR} Failed to send <code>{rich_esc(file_name_only)}</code>")
 
-        await status_msg.edit_text("✅ All files extracted and sent.")
+        await rich_edit(
+            status_msg,
+            f"{EmojiTag.SUCCESS} {rich_heading('Extraction Complete', level=1)}\n\n"
+            f"{rich_note('All files extracted and uploaded to chat successfully.')}",
+            reply_markup=home_buttons,
+            client=client,
+        )
     finally:
         await set_extracting(user_id, False)
-
-
-# ─── Catch-all Callback (must be last) ───────────────────────────────────────
-
-@Client.on_callback_query()
-async def callback_query_handler(client: Client, callback_query: CallbackQuery):
-    data = callback_query.data
-    user_id = callback_query.from_user.id
-
-    if data == "bhad":
-        status = get_queue_status(user_id)
-        await callback_query.answer()
-        await callback_query.edit_message_text(status)

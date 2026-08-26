@@ -1,23 +1,30 @@
-import shutil
 import os
+import shutil
 import time
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from pyrogram import Client, filters
-
-from safe_paths import UnsafePathError, resolve_in_user_dir
+from pyrogram.enums import ButtonStyle
+from pyrogram.errors import UserNotParticipant
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 from safe_archive import list_archive, looks_encrypted
+from safe_paths import UnsafePathError, resolve_in_user_dir
+from utils.emoji import Emoji, EmojiTag
+from utils.rich_ui import (
+    rich_details,
+    rich_edit,
+    rich_esc,
+    rich_heading,
+    rich_kv_table,
+    rich_note,
+    rich_reply,
+    rich_send,
+    rich_table,
+)
 
 
 # ─── Channel Membership Check ────────────────────────────────────────────────
 
-from pyrogram.errors import UserNotParticipant
-
 async def is_user_on_chat(client: Client, user_id: int) -> bool:
-    """Return True if user is a member of required channels; fallback to True if checks fail.
-
-    We check membership in @nub_coders and @nub_coder_s. If the API call fails (e.g., bot not admin),
-    we allow access to avoid blocking legit users.
-    """
+    """Return True if user is a member of required channels; fallback to True if checks fail."""
     try:
         for chan in ("nub_coders", "nub_coder_s"):
             try:
@@ -27,7 +34,6 @@ async def is_user_on_chat(client: Client, user_id: int) -> bool:
             except UserNotParticipant:
                 return False
             except Exception:
-                # E.g. bot not admin, ChatAdminRequired, or PeerIdInvalid
                 continue
         return True
     except Exception:
@@ -42,11 +48,7 @@ def _get_admin_file_path():
 
 
 def get_admin_ids():
-    """Get list of admin IDs from ADMIN_IDS env var, with fallback to admin.txt.
-
-    ADMIN_IDS can be a comma-separated string of user IDs.
-    If unset or empty, falls back to admin.txt (which is public in git).
-    """
+    """Get list of admin IDs from ADMIN_IDS env var, with fallback to admin.txt."""
     env = os.getenv("ADMIN_IDS", "").strip()
     if env:
         return [int(x.strip()) for x in env.split(",") if x.strip()]
@@ -91,10 +93,9 @@ def get_user_status(collection, user_id):
     user_data = collection.find_one({"user_id": user_id})
 
     if not user_data:
-        # Auto-register the user so they exist in DB
         store_user(collection, user_id)
 
-    return True, int(4.5 * 1024**3), 2 * 1024**3  # 4.5 GB storage, 2 GB single file size limit
+    return True, int(4.5 * 1024**3), 2 * 1024**3
 
 
 def get_user_lang(collection, user_id):
@@ -110,7 +111,7 @@ def set_user_lang(collection, user_id, lang_code):
     collection.update_one(
         {"user_id": user_id},
         {"$set": {"lang": lang_code}},
-        upsert=True
+        upsert=True,
     )
 
 
@@ -134,6 +135,7 @@ async def is_compressed(file_path):
         return looks_encrypted(listing) or "Path =" in listing
     except Exception:
         return False
+
 
 def get_file_size_info(user_dir, max_storage):
     """Return (total_size, remaining_storage, file_list) for a user directory."""
@@ -160,8 +162,8 @@ async def handle_clear_files(user_id, reply_markup=None):
     if os.path.exists(user_path):
         shutil.rmtree(user_path, ignore_errors=True)
         os.makedirs(user_path, exist_ok=True)
-        return "All files and directories in your directory have been removed."
-    return "Your directory does not exist."
+        return "All files and directories in your storage have been cleared."
+    return "Your storage directory is currently empty."
 
 
 # ─── Timer (progress bar throttle) ───────────────────────────────────────────
@@ -184,45 +186,37 @@ class Timer:
 # ─── Queue Status ─────────────────────────────────────────────────────────────
 
 def get_queue_status(user_id):
-    """Build a human-readable queue-status string from the local queue."""
+    """Build a rich formatted queue-status string."""
     import config
 
     pending_tasks = list(config.download_queue.queue)
     active_users = len(config.downloading_users | config.zipping_users | config.uploading_users)
     active_task_users = config.downloading_users | config.zipping_users | config.uploading_users
-
     queue_size = len(pending_tasks)
-
-    lines = []
-    if active_users > 0:
-        lines.append(f"🔄 **Active tasks:** {active_users} user(s)")
-    else:
-        lines.append("✅ **No active tasks**")
-
-    lines.append("")
-    lines.append(f"📋 **Queue:** {queue_size} task(s)")
 
     user_task_counts = {}
     for t in pending_tasks:
         uid = t.from_user.id
         user_task_counts[uid] = user_task_counts.get(uid, 0) + 1
 
-    if user_task_counts:
-        lines.append("")
-        for uid, cnt in user_task_counts.items():
-            lines.append(f"  {uid}: {cnt} task(s)")
+    queue_pairs = [
+        ("Active Workers", f"<code>{active_users} user(s)</code>"),
+        ("Queue Backlog", f"<code>{queue_size} task(s)</code>"),
+    ]
+    if user_id in user_task_counts:
+        queue_pairs.append(("Your Queued Files", f"<code>{user_task_counts[user_id]}</code>"))
+
+    table = rich_kv_table(queue_pairs, headers=["Queue Metrics", "Status"])
 
     if user_id in active_task_users:
-        lines.append("\n🎯 **Your task is currently active!**")
+        note = rich_note(f"{EmojiTag.ROCKET} <b>Your task is actively processing right now!</b>")
     elif user_id in user_task_counts:
-        lines.append(f"\n⏳ **Your queued files:** {user_task_counts[user_id]}")
+        note = rich_note(f"{EmojiTag.CLOCK} <b>You have {user_task_counts[user_id]} task(s) waiting in queue.</b>")
     else:
-        lines.append("\nℹ️ You have no files in queue")
+        note = rich_note(f"{EmojiTag.INFO} You have no files in queue.")
 
-    return "\n".join(lines)
+    return f"{EmojiTag.STATS} {rich_heading('Download Queue Monitor', level=2)}\n{table}\n\n{note}"
 
-
-# ─── Broadcast ────────────────────────────────────────────────────────────────
 
 # ─── ZIP Creation ─────────────────────────────────────────────────────────────
 
@@ -231,28 +225,36 @@ async def create_zip_file(client, callback_query, pass_protect=None):
     user_id = callback_query.from_user.id
 
     try:
-        await client.send_message(user_id, "Provide me a suitable filename for the zip file")
+        await rich_send(
+            client,
+            user_id,
+            f"{EmojiTag.FILE} <b>Please reply with a name for your ZIP file</b> (e.g. <code>my_archive.zip</code>):",
+        )
         response = await client.listen.Message(filters.text, id=filters.user(user_id), timeout=120)
 
         password = ""
         if pass_protect:
-            await client.send_message(user_id, "Please type your password below.")
+            await rich_send(
+                client,
+                user_id,
+                f"{EmojiTag.LOCK} <b>Please reply with your desired ZIP password:</b>",
+            )
             get_pass = await client.listen.Message(filters.text, id=filters.user(user_id), timeout=120)
             password = get_pass.text
     except Exception as e:
-        await callback_query.message.reply_text(str(e))
+        await rich_reply(callback_query, f"{EmojiTag.ERROR} <b>Operation timed out or failed:</b> <code>{rich_esc(e)}</code>")
         return None, None
 
     file_name = response.text
 
-    # Check channel membership
     if not await is_user_on_chat(client, user_id):
         button = InlineKeyboardMarkup([
-            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders")],
-            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s")],
+            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
+            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
         ])
-        await callback_query.message.reply_text(
-            "You need to join both @nub_coders and @nub_coder_s channels to use this bot.\n\nClick below to Join!",
+        await rich_reply(
+            callback_query,
+            f"{EmojiTag.LOCK} <b>Channel Membership Required</b>\n\nPlease join @nub_coders and @nub_coder_s to use this bot.",
             reply_markup=button,
         )
         return None, None
@@ -263,33 +265,25 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
     if not files:
         from plugins.ui_components import back_buttons
-        await callback_query.message.reply_text(
-            "You don't have files to zip\nSend your files first",
+        await rich_reply(
+            callback_query,
+            f"{EmojiTag.INFO} <b>No files found to compress.</b> Send files first.",
             reply_markup=back_buttons,
         )
         return None, None
 
-    # SECURITY (Z-05): file_name is typed by the user in chat. The previous guard
-    # only rejected names starting with "/" or "http", so "../../../x" passed and
-    # both writers below (zipfile / pyminizip) happily wrote outside the user's
-    # directory -- and outside the cleanup that only rmtree's user_dir.
     try:
         zip_filename = resolve_in_user_dir(
             user_dir, file_name, fallback="archive", force_suffix=".zip"
         )
     except UnsafePathError:
-        await callback_query.message.reply_text(
-            "❌ That filename isn't allowed. Please choose a simple name like `backup.zip`."
+        await rich_reply(
+            callback_query,
+            f"{EmojiTag.ERROR} <b>Filename not allowed.</b> Please choose a simple name like <code>backup.zip</code>.",
         )
         return None, None
 
-    # The archive must not include itself, nor any other pre-existing archive
-    # target, if a name collides.
     files = [fn for fn in files if os.path.join(user_dir, fn) != zip_filename]
-
-    # Only archive regular files. os.listdir() can surface directories or symlinks;
-    # os.path.isfile() follows links, so a link planted in the user's directory
-    # would otherwise be read through and its target embedded in the archive.
     files = [
         fn for fn in files
         if os.path.isfile(os.path.join(user_dir, fn))
@@ -298,25 +292,25 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
     if not files:
         from plugins.ui_components import back_buttons
-        await callback_query.message.reply_text(
-            "You don't have files to zip\nSend your files first",
+        await rich_reply(
+            callback_query,
+            f"{EmojiTag.INFO} <b>No files found to compress.</b> Send files first.",
             reply_markup=back_buttons,
         )
         return None, None
 
-    # Calculate total size of original files before compression
     original_size = sum(os.path.getsize(os.path.join(user_dir, fn)) for fn in files)
 
-    try:
-        message = await callback_query.message.edit_text("Compressing files to zip, please wait…")
-    except Exception:
-        message = await callback_query.message.reply_text("Compressing files to zip, please wait…")
+    message = await rich_send(
+        client,
+        user_id,
+        f"{EmojiTag.COMPRESS} <b>Packing {len(files)} file(s) into ZIP archive…</b>",
+    )
 
-    import zipfile
     import pyminizip
+    import zipfile
 
     def _fmt(size_bytes):
-        """Human-readable file size."""
         for unit in ("B", "KB", "MB", "GB"):
             if size_bytes < 1024:
                 return f"{size_bytes:.2f} {unit}"
@@ -325,37 +319,39 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
     try:
         if pass_protect and password:
-            # Level 4 = faster compression to prevent bot freezing
             file_paths = [os.path.join(user_dir, fn) for fn in files]
             prefixes = [""] * len(files)
             pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 4)
         else:
-            # ZIP_DEFLATED is much faster than LZMA and won't freeze the bot
             with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED, compresslevel=5) as zipf:
                 for i, fn in enumerate(files, 1):
-                    # arcname is the sanitised basename: entry names are what a
-                    # victim's extractor later trusts, so never emit a path.
                     zipf.write(os.path.join(user_dir, fn), os.path.basename(fn))
                     try:
-                        await message.edit_text(f"Adding {fn} to ZIP… ({i}/{len(files)})")
+                        await rich_edit(message, f"{EmojiTag.COMPRESS} <b>Compressing:</b> <code>{rich_esc(fn)}</code> ({i}/{len(files)})…")
                     except Exception:
                         pass
     except Exception as e:
-        await message.edit_text(f"Error creating ZIP: {e}")
+        await rich_edit(message, f"{EmojiTag.ERROR} <b>Error creating ZIP:</b> <code>{rich_esc(e)}</code>")
         return None, message
 
-    # Report compression results
     compressed_size = os.path.getsize(zip_filename) if os.path.exists(zip_filename) else 0
     savings_pct = (1 - compressed_size / original_size) * 100 if original_size > 0 else 0
-    lock_icon = "🔐 " if pass_protect and password else ""
+    lock_status = "🔐 Password Protected" if pass_protect and password else "📦 Standard ZIP"
+
+    summary_pairs = [
+        ("Archive Name", f"<code>{rich_esc(os.path.basename(zip_filename))}</code>"),
+        ("Original Size", f"<code>{_fmt(original_size)}</code>"),
+        ("Compressed Size", f"<code>{_fmt(compressed_size)}</code>"),
+        ("Space Saved", f"<code>{savings_pct:.1f}%</code>"),
+        ("Security", f"<code>{lock_status}</code>"),
+    ]
+    summary_table = rich_kv_table(summary_pairs, headers=["Compression Result", "Value"])
 
     result_text = (
-        f"✅ {lock_icon}**ZIP created successfully!**\n\n"
-        f"📂 Original size:   `{_fmt(original_size)}`\n"
-        f"📦 Compressed size: `{_fmt(compressed_size)}`\n"
-        f"💾 Space saved:     `{savings_pct:.1f}%`"
+        f"{EmojiTag.SUCCESS} {rich_heading('ZIP Created Successfully!', level=1)}\n"
+        f"{summary_table}"
     )
-    await message.edit_text(result_text)
+    await rich_edit(message, result_text)
 
     return zip_filename, message
 
@@ -370,51 +366,53 @@ async def upload_to_gofile(callback_query, zip_filename, message):
         await update_stats(callback_query.from_user.id, "external_uploads")
 
         async with aiohttp.ClientSession() as session:
-            # Get server
             async with session.get("https://api.gofile.io/servers") as resp:
                 if resp.status != 200:
-                    return await callback_query.message.reply_text(
-                        "Failed to get gofile server."
+                    return await rich_reply(
+                        callback_query,
+                        f"{EmojiTag.ERROR} <b>Failed to get gofile server.</b>",
                     )
                 data = await resp.json()
                 server = data["data"]["servers"][0]["name"]
 
             if not server:
-                return await callback_query.message.reply_text(
-                    "No storage available on gofile.io — please try again later."
+                return await rich_reply(
+                    callback_query,
+                    f"{EmojiTag.WARNING} <b>No storage available on gofile.io — please try again later.</b>",
                 )
 
             transfer_url = f"https://{server}.gofile.io/uploadFile"
 
-            # Upload file using aiohttp multipart
             with open(zip_filename, "rb") as f:
                 form = aiohttp.FormData()
                 form.add_field("file", f, filename=os.path.basename(zip_filename))
                 async with session.post(transfer_url, data=form) as resp:
                     if resp.status != 200:
-                        return await callback_query.message.reply_text(
-                            "Upload to gofile.io failed."
+                        return await rich_reply(
+                            callback_query,
+                            f"{EmojiTag.ERROR} <b>Upload to gofile.io failed.</b>",
                         )
                     text = await resp.text()
 
-        # Parse download link from response
         import json
         try:
             result = json.loads(text)
             link = result["data"]["downloadPage"]
         except Exception:
-            # Fallback: try to extract from raw text
             start_idx = text.find("https://gofile.io")
             if start_idx == -1:
-                return await callback_query.message.reply_text("Failed to parse gofile response.")
+                return await rich_reply(callback_query, f"{EmojiTag.ERROR} <b>Failed to parse gofile response.</b>")
             end_idx = text.find('"', start_idx)
             link = text[start_idx:end_idx]
 
-        download_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Download File", url=link)]]
-        )
-        await message.edit_text(
-            "Not able to upload files more than 2 GB here\nSo I provided this download link:",
+        download_button = InlineKeyboardMarkup([
+            [InlineKeyboardButton("⬇️ Download File", url=link, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.DOWNLOAD)],
+            [InlineKeyboardButton("🏠 Main Menu", callback_data="home", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.HOME)],
+        ])
+        await rich_edit(
+            message,
+            f"{EmojiTag.CLOUD} {rich_heading('Uploaded to Cloud Storage', level=1)}\n\n"
+            f"{rich_note('File exceeds Telegram 2.00 GB limit. Access your archive via the cloud download link below.')}",
             reply_markup=download_button,
         )
     except Exception as e:

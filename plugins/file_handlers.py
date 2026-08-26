@@ -1,26 +1,76 @@
+"""plugins/file_handlers.py — File Management, Downloads, and Directory Actions with Bot API 10.2 & 10.3 Rich UI."""
+
+import asyncio
+import os
+import random
+import time
+
 import config
 from config import collection
-from rate_limiter import rate_limiter
-from pyrogram import Client, filters, StopTransmission
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyParameters
-from tools import get_user_status, Timer, get_file_size_info, is_user_on_chat, is_compressed
-from safe_paths import UnsafePathError, resolve_in_user_dir
-from safe_download import safe_download, safe_head, SSRFBlocked, DownloadTooLarge, DownloadFailed, RedirectLimitExceeded
 from plugins.ui_components import (
-    home_buttons, common_buttons, file_buttons,
-    nofile_buttons, back_buttons, pass_button,
+    back_buttons,
+    cancel_markup,
+    common_buttons,
+    file_buttons,
+    home_buttons,
+    nofile_buttons,
+    pass_button,
 )
+from pyrogram import Client, StopTransmission, filters
+from pyrogram.enums import ButtonStyle
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    ReplyParameters,
+)
+from rate_limiter import rate_limiter
+from safe_download import (
+    DownloadFailed,
+    DownloadTooLarge,
+    RedirectLimitExceeded,
+    SSRFBlocked,
+    safe_download,
+    safe_head,
+)
+from safe_paths import UnsafePathError, resolve_in_user_dir
 from stats_manager import update_stats
-import os
-import time
-import asyncio
-import random
+from tools import (
+    Timer,
+    get_file_size_info,
+    get_user_status,
+    is_compressed,
+    is_user_on_chat,
+)
+from user_state import (
+    clear_cancel,
+    is_cancel_requested,
+    is_user_busy,
+    request_cancel,
+    set_downloading,
+    set_extracting,
+    set_uploading,
+    set_zipping,
+)
+from utils.emoji import Emoji, EmojiTag
+from utils.rich_ui import (
+    rich_details,
+    rich_edit,
+    rich_esc,
+    rich_heading,
+    rich_kv_table,
+    rich_note,
+    rich_reply,
+    rich_send,
+    rich_table,
+)
 
 
 # ─── Size Formatter ───────────────────────────────────────────────────────────
 
 def _fmt_size(size_bytes: int) -> str:
-    """Return a human-readable size string picking the best unit."""
+    """Return a human-readable size string."""
     if size_bytes < 1024:
         return f"{size_bytes} B"
     elif size_bytes < 1024 ** 2:
@@ -29,6 +79,24 @@ def _fmt_size(size_bytes: int) -> str:
         return f"{size_bytes / (1024 ** 2):.2f} MB"
     else:
         return f"{size_bytes / (1024 ** 3):.2f} GB"
+
+
+def _detect_file_badge(filename: str) -> str:
+    """Return an icon badge for the file type."""
+    lower = filename.lower()
+    if lower.endswith((".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz")):
+        return f"{EmojiTag.ZIP} ZIP"
+    elif lower.endswith((".mp4", ".mkv", ".mov", ".avi", ".webm")):
+        return f"{EmojiTag.VIDEO} Video"
+    elif lower.endswith((".mp3", ".flac", ".ogg", ".wav", ".m4a")):
+        return f"{EmojiTag.AUDIO} Audio"
+    elif lower.endswith((".jpg", ".jpeg", ".png", ".webp", ".gif")):
+        return f"{EmojiTag.IMAGE} Image"
+    elif lower.endswith((".py", ".js", ".html", ".css", ".json", ".sh", ".c", ".cpp")):
+        return f"{EmojiTag.CODE} Code"
+    elif lower.endswith((".pdf", ".docx", ".doc", ".txt")):
+        return f"{EmojiTag.DOCUMENT} Doc"
+    return f"{EmojiTag.FILE} File"
 
 
 async def _sleep_after_download(size_bytes: int, queued: bool = False):
@@ -48,6 +116,11 @@ async def list_files_command(client: Client, message: Message):
     await list_files(client, message)
 
 
+@Client.on_callback_query(filters.regex(r"^my_files$"))
+async def list_files_callback(client: Client, callback_query: CallbackQuery):
+    await list_files(client, callback_query)
+
+
 @Client.on_message(filters.private & filters.command("del"))
 async def delete_file(client: Client, message: Message):
     user_id = str(message.from_user.id)
@@ -56,26 +129,39 @@ async def delete_file(client: Client, message: Message):
     try:
         file_number = int(message.text.split("/del ")[1]) - 1
     except (IndexError, ValueError):
-        return await message.reply_text(
-            "Invalid file number. Use /del <file_number> to delete a file.",
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.WARNING} <b>Invalid file number.</b>\n\nUsage: <code>/del &lt;number&gt;</code> (check numbers via <code>/my_files</code>)",
+            reply_markup=file_buttons,
+            client=client,
         )
 
     if not os.path.exists(user_dir):
-        return await message.reply_text(
-            "Your directory doesn't exist. Send me any file to create your directory.",
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.INFO} <b>Your directory is empty.</b> Send me any file to get started.",
+            reply_markup=nofile_buttons,
+            client=client,
         )
 
     files = os.listdir(user_dir)
     if 0 <= file_number < len(files):
         target = os.path.join(user_dir, files[file_number])
+        deleted_name = files[file_number]
         os.remove(target)
-        return await message.reply_text(
-            f"File '{files[file_number]}' has been deleted.",
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.SUCCESS} <b>File deleted successfully!</b>\n\n🗑️ Removed: <code>{rich_esc(deleted_name)}</code>",
+            reply_markup=file_buttons,
+            client=client,
         )
-    return await message.reply_text("Invalid file number.", reply_parameters=ReplyParameters(message_id=message.id))
+
+    return await rich_reply(
+        message,
+        f"{EmojiTag.ERROR} <b>Invalid file number.</b> Use <code>/my_files</code> to view valid indices.",
+        reply_markup=file_buttons,
+        client=client,
+    )
 
 
 @Client.on_message(filters.private & filters.command("clear"))
@@ -83,42 +169,101 @@ async def clear_files(client: Client, message: Message):
     from tools import handle_clear_files
     user_id = message.from_user.id
     message_text = await handle_clear_files(user_id, back_buttons)
-    if hasattr(message, "edit_message_text"):
-        await message.edit_message_text(message_text, reply_markup=back_buttons)
-    else:
-        await message.reply_text(message_text, reply_markup=back_buttons)
+    formatted = f"{EmojiTag.TRASH} <b>{message_text}</b>"
+    await rich_reply(message, formatted, reply_markup=back_buttons, client=client)
+
+
+@Client.on_callback_query(filters.regex(r"^clear$"))
+async def clear_files_callback(client: Client, callback_query: CallbackQuery):
+    from tools import handle_clear_files
+    user_id = callback_query.from_user.id
+    message_text = await handle_clear_files(user_id, back_buttons)
+    formatted = f"{EmojiTag.TRASH} <b>{message_text}</b>"
+    await rich_edit(callback_query, formatted, reply_markup=back_buttons, client=client)
 
 
 @Client.on_message(filters.private & filters.command("fzip"))
 async def zip_files_command(client: Client, message: Message):
     user_id = message.from_user.id
-    # Block zipping only if THIS user is downloading or uploading
     if user_id in config.downloading_users or user_id in config.uploading_users:
         reason = "downloading" if user_id in config.downloading_users else "uploading"
-        return await message.reply_text(
-            f"⏳ **Please wait**\n\n"
-            f"Your file is currently {reason}.\n"
-            f"You can zip your files once it's done.\n\n"
-            f"Use /status to check progress or cancel.",
-            reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nYou can zip your files once it finishes.",
+            reply_markup=cancel_markup,
+            client=client,
         )
 
-    await message.reply_text(
-        "🔐 **ZIP File Creation**\n\n"
-        "Choose your ZIP security option:\n"
-        "• Password-protected ZIP for extra security\n"
-        "• Regular ZIP for easy access\n\n"
-        "Select your preference below:",
-        reply_markup=pass_button,
-        reply_parameters=ReplyParameters(message_id=message.id),
+    user_dir = f"{config.ggg}/zipper/{user_id}"
+    files = [f for f in os.listdir(user_dir) if os.path.isfile(os.path.join(user_dir, f))] if os.path.exists(user_dir) else []
+
+    if not files:
+        return await rich_reply(
+            message,
+            f"{EmojiTag.INFO} <b>You don't have files to zip yet.</b>\n\nSend me any files or direct links first, then use <code>/fzip</code>.",
+            reply_markup=back_buttons,
+            client=client,
+        )
+
+    total_bytes = sum(os.path.getsize(os.path.join(user_dir, f)) for f in files)
+
+    html_content = (
+        f"{EmojiTag.LOCK} {rich_heading('ZIP Archive Creation', level=1)}\n"
+        f"<b>Files to bundle:</b> <code>{len(files)}</code>\n"
+        f"<b>Total uncompressed size:</b> <code>{_fmt_size(total_bytes)}</code>\n\n"
+        + rich_note(
+            "<b>Select your ZIP security preference:</b>\n"
+            "• <b>Protected ZIP:</b> Encrypted with custom password\n"
+            "• <b>Regular ZIP:</b> Standard fast archive without password",
+            expandable=False,
+        )
     )
+    await rich_reply(message, html_content, reply_markup=pass_button, client=client)
+
+
+@Client.on_callback_query(filters.regex(r"^fzip$"))
+async def zip_files_callback(client: Client, callback_query: CallbackQuery):
+    user_id = callback_query.from_user.id
+    if user_id in config.downloading_users or user_id in config.uploading_users:
+        reason = "downloading" if user_id in config.downloading_users else "uploading"
+        return await rich_edit(
+            callback_query,
+            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nYou can zip your files once it finishes.",
+            reply_markup=cancel_markup,
+            client=client,
+        )
+
+    user_dir = f"{config.ggg}/zipper/{user_id}"
+    files = [f for f in os.listdir(user_dir) if os.path.isfile(os.path.join(user_dir, f))] if os.path.exists(user_dir) else []
+
+    if not files:
+        return await rich_edit(
+            callback_query,
+            f"{EmojiTag.INFO} <b>You don't have files to zip yet.</b>\n\nSend me any files or direct links first, then use <code>/fzip</code>.",
+            reply_markup=back_buttons,
+            client=client,
+        )
+
+    total_bytes = sum(os.path.getsize(os.path.join(user_dir, f)) for f in files)
+
+    html_content = (
+        f"{EmojiTag.LOCK} {rich_heading('ZIP Archive Creation', level=1)}\n"
+        f"<b>Files to bundle:</b> <code>{len(files)}</code>\n"
+        f"<b>Total uncompressed size:</b> <code>{_fmt_size(total_bytes)}</code>\n\n"
+        + rich_note(
+            "<b>Select your ZIP security preference:</b>\n"
+            "• <b>Protected ZIP:</b> Encrypted with custom password\n"
+            "• <b>Regular ZIP:</b> Standard fast archive without password",
+            expandable=False,
+        )
+    )
+    await rich_edit(callback_query, html_content, reply_markup=pass_button, client=client)
+
 
 @Client.on_message(filters.private & filters.command("unzip"))
 async def unzip_command(client: Client, message: Message):
     user_id = message.from_user.id
 
-    # Block only if THIS user has a task in progress
     if user_id in config.downloading_users or user_id in config.zipping_users or user_id in config.uploading_users:
         if user_id in config.downloading_users:
             reason = "downloading"
@@ -126,51 +271,59 @@ async def unzip_command(client: Client, message: Message):
             reason = "compressing"
         else:
             reason = "uploading"
-        return await message.reply_text(
-            f"⏳ **Please wait**\n\n"
-            f"Your file is currently {reason}.\n"
-            f"You can use /unzip once it's done.\n\n"
-            f"Use /status to check progress or cancel.",
-            reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nYou can use <code>/unzip</code> once it finishes.",
+            reply_markup=cancel_markup,
+            client=client,
         )
 
     user_dir = f"{config.ggg}/zipper/{user_id}"
-    
     if not os.path.exists(user_dir):
-        return await message.reply_text(
-            "Your directory is empty. Send me a compressed file first.",
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.INFO} <b>Your directory is empty.</b> Send me a compressed file first.",
+            reply_markup=nofile_buttons,
+            client=client,
         )
 
-    msg = await message.reply_text("Scanning your files for compressed archives...")
     files = os.listdir(user_dir)
     compressed_files = []
-    
+
     for f in files:
-        if is_compressed(os.path.join(user_dir, f)):
+        if await is_compressed(os.path.join(user_dir, f)):
             compressed_files.append(f)
-            
+
     if not compressed_files:
-        return await msg.edit_text("No compressed files found in your directory.")
-        
+        return await rich_reply(
+            message,
+            f"{EmojiTag.WARNING} <b>No compressed archive found in your storage.</b>",
+            reply_markup=nofile_buttons,
+            client=client,
+        )
+
     buttons = []
     for f in compressed_files:
         cb_data = f"unzip|{f}"
-        if len(cb_data.encode('utf-8')) > 64:
+        if len(cb_data.encode("utf-8")) > 64:
             cb_data = f"unzip|{f[-50:]}"
-        buttons.append([InlineKeyboardButton(f"📦 {f}", callback_data=cb_data)])
-        
-    buttons.append([InlineKeyboardButton("❌ Dismiss", callback_data="dismiss")])
+        buttons.append([
+            InlineKeyboardButton(f"📦 {f}", callback_data=cb_data, style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.ZIP)
+        ])
+
+    buttons.append([InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE)])
     markup = InlineKeyboardMarkup(buttons)
-    
-    await msg.edit_text(
-        "🗜️ **Select a compressed file to uncompress:**",
-        reply_markup=markup
+
+    await rich_reply(
+        message,
+        f"{EmojiTag.EXTRACT} {rich_heading('Select Archive to Extract', level=2)}\n\n"
+        f"Select a compressed archive from your storage below:",
+        reply_markup=markup,
+        client=client,
     )
 
 
-# ─── Media Handler ────────────────────────────────────────────────────────────
+# ─── Media & Link Dispatchers ─────────────────────────────────────────────────
 
 @Client.on_message(
     filters.private
@@ -179,16 +332,13 @@ async def unzip_command(client: Client, message: Message):
 )
 async def handle_media(client: Client, message: Message):
     user_id = message.from_user.id
-    # Block file sending only if THIS user is zipping or uploading
     if user_id in config.zipping_users or user_id in config.uploading_users:
         reason = "compressing" if user_id in config.zipping_users else "uploading"
-        return await message.reply_text(
-            f"⏳ **Please wait**\n\n"
-            f"Your file is currently {reason}.\n"
-            f"Please send your files after the current process finishes.\n\n"
-            f"Use /status to check progress or cancel.",
-            reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send files after the current process finishes.",
+            reply_markup=cancel_markup,
+            client=client,
         )
     await download(message)
 
@@ -199,7 +349,7 @@ async def handle_media(client: Client, message: Message):
     & ~filters.command([
         "start", "help", "my_files", "clear", "del", "fzip", "unzip",
         "status", "rst", "users", "set", "ad", "get", "broadcast",
-        "reboot", "skip", "ping", "stats",
+        "reboot", "skip", "ping", "stats", "lang",
     ])
 )
 async def handle_links(client: Client, message: Message):
@@ -207,13 +357,11 @@ async def handle_links(client: Client, message: Message):
         user_id = message.from_user.id
         if user_id in config.zipping_users or user_id in config.uploading_users:
             reason = "compressing" if user_id in config.zipping_users else "uploading"
-            return await message.reply_text(
-                f"⏳ **Please wait**\n\n"
-                f"Your file is currently {reason}.\n"
-                f"Please send your links after the current process finishes.\n\n"
-                f"Use /status to check progress or cancel.",
-                reply_markup=common_buttons,
-                reply_parameters=ReplyParameters(message_id=message.id),
+            return await rich_reply(
+                message,
+                f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send links after the current process finishes.",
+                reply_markup=cancel_markup,
+                client=client,
             )
         await link_download(message)
 
@@ -221,35 +369,24 @@ async def handle_links(client: Client, message: Message):
 # ─── Queue Processor ─────────────────────────────────────────────────────────
 
 async def process_queues():
-    """Continuously process the download queue.
-    
-    Atomically dequeues items before any async operations to prevent:
-    - Queue corruption from overlapping iterations
-    - Duplicate processing of the same item
-    - Lost items due to concurrent modifications
-    
-    Uses create_task() to prevent the queue loop from blocking during long downloads.
-    """
+    """Continuously process the download queue atomically."""
     while True:
         try:
             if not config.download_queue.empty():
                 items = list(config.download_queue.queue)
                 for item in items:
                     uid = item.from_user.id
-                    # Check: user is not already active AND not in cancellation queue
                     if (uid not in config.downloading_users
                             and uid not in config.zipping_users
                             and uid not in config.uploading_users
                             and uid not in config.cancel_requested):
-                        # Atomically remove BEFORE any await to prevent races
                         removed = await config.download_queue.async_remove(item)
                         if removed:
-                            # Now safe to dispatch async tasks (won't block the queue loop)
                             if getattr(item, "text", None) and item.text.startswith("http"):
                                 asyncio.create_task(link_download(item, queued=True))
                             else:
                                 asyncio.create_task(download(item, queued=True))
-                            break  # Process one item per iteration to prevent starvation
+                            break
         except Exception as e:
             print(f"Error in process_queues: {e}")
         await asyncio.sleep(1)
@@ -262,13 +399,11 @@ async def list_files(client, message):
 
     if not await is_user_on_chat(client, user_id):
         button = InlineKeyboardMarkup([
-            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders")],
-            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s")],
+            [InlineKeyboardButton("Join Main Channel", url="https://t.me/nub_coders", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
+            [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
         ])
-        text = "You need to join both @nub_coders and @nub_coder_s channels to use this bot.\n\nClick below to Join!"
-        if hasattr(message, "edit_message_text"):
-            return await message.edit_message_text(text, reply_markup=button)
-        return await message.reply_text(text, reply_markup=button)
+        text = f"{EmojiTag.LOCK} <b>Membership Required</b>\n\nYou must join @nub_coders and @nub_coder_s to use this bot."
+        return await rich_reply(message, text, reply_markup=button, client=client)
 
     _, max_storage, _ = get_user_status(collection, user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
@@ -277,51 +412,51 @@ async def list_files(client, message):
     total_size, remaining_storage, files = get_file_size_info(user_dir, max_storage)
 
     if not files:
-        msg_text = "Your directory is empty, send me any file"
-        if hasattr(message, "edit_message_text"):
-            return await message.edit_message_text(msg_text, reply_markup=nofile_buttons)
-        return await message.reply_text(msg_text, reply_markup=nofile_buttons)
+        msg_text = (
+            f"{EmojiTag.FOLDER} {rich_heading('Your Storage Directory', level=2)}\n\n"
+            f"{rich_note('Your storage is currently empty. Send any document, photo, video, or direct HTTP link to get started!')}"
+        )
+        return await rich_reply(message, msg_text, reply_markup=nofile_buttons, client=client)
 
-    file_entries = [
-        f"{i+1}. {f} - {_fmt_size(os.path.getsize(os.path.join(user_dir, f)))}"
-        for i, f in enumerate(files)
+    # Build native rich table
+    table_rows = []
+    for i, f in enumerate(files):
+        f_path = os.path.join(user_dir, f)
+        f_size = os.path.getsize(f_path) if os.path.exists(f_path) else 0
+        badge = _detect_file_badge(f)
+        table_rows.append((
+            f"<code>{i+1}</code>",
+            f"<code>{rich_esc(f[:24] + '...' if len(f) > 27 else f)}</code>",
+            f"<code>{_fmt_size(f_size)}</code>",
+            badge,
+        ))
+
+    headers = ["#", "File Name", "Size", "Type"]
+    files_table = rich_table(headers, table_rows)
+
+    used_gb = total_size / (1024 ** 3)
+    free_gb = remaining_storage / (1024 ** 3)
+
+    summary_pairs = [
+        ("Total Files", f"<code>{len(files)}</code>"),
+        ("Used Space", f"<code>{used_gb:.2f} GB</code>"),
+        ("Available Space", f"<code>{free_gb:.2f} GB</code>"),
     ]
+    summary_table = rich_kv_table(summary_pairs, headers=["Storage Overview", "Value"])
 
-    header = (
-        f"📊 **Storage Overview**\n\n"
-        f"💾 Used Space: {_fmt_size(total_size)}\n"
-        f"💿 Available Space: {_fmt_size(remaining_storage)}\n"
-        f"📁 Total Files: {len(files)}\n\n"
-        f"📋 **Your Files:**\n"
-        f"• Use /del <number> to remove a file\n"
-        f"• Use /fzip to compress files\n"
-        f"• Use /clear to remove all files\n\n"
+    content = (
+        f"{EmojiTag.FOLDER} {rich_heading('Your Files in Storage', level=1)}\n"
+        f"{files_table}\n\n"
+        f"{summary_table}\n\n"
+        f"{rich_note('💡 <b>Quick Tips:</b><br>• Use <code>/del &lt;number&gt;</code> to delete a specific file<br>• Click <b>Compress Files</b> to pack into a ZIP archive')}"
     )
 
-    # Split long messages to stay within Telegram's 4096-char limit
-    chunks = []
-    current = header
-    for entry in file_entries:
-        line = f"<blockquote>{entry}</blockquote>\n"
-        if len(current) + len(line) > 4096:
-            chunks.append(current)
-            current = line
-        else:
-            current += line
-    chunks.append(current)
-
-    for i, chunk in enumerate(chunks):
-        markup = file_buttons if i == len(chunks) - 1 else None
-        if hasattr(message, "edit_message_text") and i == 0:
-            await message.edit_message_text(chunk, reply_markup=markup)
-        else:
-            await message.reply_text(chunk, reply_markup=markup)
+    await rich_reply(message, content, reply_markup=file_buttons, client=client)
 
 
 # ─── File Size Helper ─────────────────────────────────────────────────────────
 
 def _get_media_size(message: Message):
-    """Extract file size and determine if it should be size-checked."""
     checks = [
         ("document", lambda m: m.document.file_size if m.document else None, True),
         ("photo", lambda m: getattr(m.photo, "file_size", 100), False),
@@ -339,12 +474,6 @@ def _get_media_size(message: Message):
 
 
 def _get_filename(message: Message, user_id) -> str:
-    """Determine the *untrusted* display name for the downloaded media.
-
-    The returned value is attacker-controlled for documents/videos/audio (it is
-    a client-supplied MTProto attribute) and must never be used as a filesystem
-    path without passing through ``resolve_in_user_dir``.
-    """
     ts = int(time.time())
     if message.document and message.document.file_name:
         return message.document.file_name
@@ -365,7 +494,7 @@ def _get_filename(message: Message, user_id) -> str:
     return f"file_{user_id}_{ts}"
 
 
-# ─── Download Handler ─────────────────────────────────────────────────────────
+# ─── Download Handlers with Rich Progress ─────────────────────────────────────
 
 async def download(message, queued: bool = False):
     user_id = message.from_user.id
@@ -375,18 +504,17 @@ async def download(message, queued: bool = False):
         user_queue_count += 1
 
     if user_queue_count >= 40:
-        return await message.reply_text(
-            "You can only have 40 files in the queue at a time. Please wait for some files to finish.",
+        return await rich_reply(
+            message,
+            f"{EmojiTag.WARNING} <b>Queue limit reached.</b> You can have maximum 40 files in queue.",
             reply_markup=common_buttons,
-            reply_to_message_id=message.id,
         )
 
-    # Rate limiting (bypassed for queued files)
     if not queued and not rate_limiter.is_allowed(user_id):
-        return await message.reply_text(
-            "You are sending files too frequently. Please wait before sending more files.",
+        return await rich_reply(
+            message,
+            f"{EmojiTag.WARNING} <b>Sending files too frequently.</b> Please slow down.",
             reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     is_verified, max_storage, max_file_size = get_user_status(collection, user_id)
@@ -397,79 +525,55 @@ async def download(message, queued: bool = False):
     size, enforce_limit = _get_media_size(message)
 
     if enforce_limit and size > max_file_size:
-        size_gb = max_file_size / (1024**3)
-        return await message.reply_text(
-            f"Please send a file smaller than {size_gb:.1f}GB.\n/my_files to show your files",
+        size_gb = max_file_size / (1024 ** 3)
+        return await rich_reply(
+            message,
+            f"{EmojiTag.ERROR} <b>File exceeds limit.</b> Maximum single file size is <code>{size_gb:.1f} GB</code>.",
             reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     if size > remaining_storage:
-        await message.reply_text(
-            "Not enough storage space to download this file.",
+        return await rich_reply(
+            message,
+            f"{EmojiTag.ERROR} <b>Not enough storage quota remaining.</b>\nRequired: <code>{_fmt_size(size)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
             reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
-        return
 
     if await is_user_busy(user_id):
-        # This user already has an active download — enqueue
         config.user_ids[user_id] = True
-        queue_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
-        )
-        await message.reply_text(
-            "I have added your file in queue to download",
+        queue_button = InlineKeyboardMarkup([
+            [InlineKeyboardButton("📊 Check Queue Status", callback_data="status", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.STATS)]
+        ])
+        await rich_reply(
+            message,
+            f"{EmojiTag.CLOCK} <b>File added to download queue.</b>\nIt will start processing automatically when your turn arrives.",
             reply_markup=queue_button,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
         config.download_queue.put(message)
         return
 
     raw_name = _get_filename(message, user_id)
-
-    # SECURITY (Z-01): never hand a bare directory to message.download(). Pyrogram
-    # would then derive the filename from the client-supplied MTProto attribute and
-    # os.path.join/abspath would honour "../" and absolute paths, allowing writes
-    # anywhere the process can reach. Compute a contained absolute path ourselves.
-    #
-    # Resolved before the busy flags are set: an early return after
-    # downloading_users.add() would leak the flag and lock the user out until
-    # restart, since only the download's own completion path clears it.
     try:
         dest_path = resolve_in_user_dir(user_dir, raw_name)
     except UnsafePathError:
-        return await message.reply_text(
-            "❌ That file's name isn't usable. Please rename it and send it again.",
+        return await rich_reply(
+            message,
+            f"{EmojiTag.ERROR} <b>Invalid filename detected.</b> Please rename and re-upload.",
             reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
-    # Start downloading - use async state manager
     if not await set_downloading(user_id, True):
-        # This should not happen since we checked is_user_busy above
         config.user_ids[user_id] = True
-        queue_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
-        )
-        await message.reply_text(
-            "I have added your file in queue to download",
-            reply_markup=queue_button,
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
         config.download_queue.put(message)
         return
 
     timer = Timer()
-
-    # Display name only -- kept separate from the path so a hostile name cannot
-    # break message formatting or be mistaken for a real location.
     fi_encoded = os.path.basename(dest_path)
     msg = None
+    start_time = time.time()
 
-    async def progress_bar(current, total, start_time=time.time()):
+    async def progress_bar(current, total):
         nonlocal msg
-        # Check for cancellation
         if user_id in config.cancel_requested:
             config.cancel_requested.discard(user_id)
             raise StopTransmission()
@@ -477,100 +581,105 @@ async def download(message, queued: bool = False):
         if not (timer.can_send() and total and msg):
             return
 
-        config.time_left = 0
         pct = current * 100 / total
-        bar_len = 30
+        bar_len = 16
         ticks = int(pct / (100 / bar_len))
         bar = "█" * ticks + "░" * (bar_len - ticks)
 
         elapsed = time.time() - start_time
         speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
-        config.time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
+        time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
 
-        text = (
-            f"⏬ **Downloading: {fi_encoded}**\n\n"
-            f"📊 Progress: {pct:.1f}%\n"
-            f"⚡ Speed: {speed:.1f} MB/s\n"
-            f"⏱️ Remaining: {config.time_left:.1f}s\n"
-            f"📦 Size: {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
-            f"{bar}\n\n"
-            f"Please wait while I process your file…"
+        progress_card = (
+            f"{EmojiTag.DOWNLOAD} {rich_heading('Downloading File', level=2)}\n"
+            f"<b>File:</b> <code>{rich_esc(fi_encoded)}</code>\n"
+            f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
+            + rich_kv_table([
+                ("Transferred", f"<code>{_fmt_size(current)} / {_fmt_size(total)}</code>"),
+                ("Speed", f"<code>{speed:.2f} MB/s</code>"),
+                ("ETA", f"<code>{time_left:.1f}s</code>"),
+                ("Elapsed", f"<code>{elapsed:.1f}s</code>"),
+            ])
         )
 
-        cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
         try:
-            await msg.edit_text(text, reply_markup=cancel_markup)
-        except Exception as e:
-            print(e)
+            await rich_edit(msg, progress_card, reply_markup=cancel_markup)
+        except Exception:
+            pass
 
     cancelled = False
     try:
-        msg = await message.reply_text("Downloading started", reply_parameters=ReplyParameters(message_id=message.id))
+        msg = await rich_reply(
+            message,
+            f"{EmojiTag.DOWNLOAD} <b>Starting download:</b> <code>{rich_esc(fi_encoded)}</code>…",
+            reply_markup=cancel_markup,
+        )
         file_path = await asyncio.wait_for(
             message.download(file_name=dest_path, progress=progress_bar),
-            timeout=1500  # 25 minutes auto-cancel
+            timeout=1500,
         )
         await update_stats(user_id, "files_sent")
-        
-        if file_path and is_compressed(file_path):
-            filename_only = os.path.basename(file_path)
-            dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else size
-            _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
-            total_size_used = max_storage - remaining_storage
+
+        dl_size = os.path.getsize(file_path) if file_path and os.path.exists(file_path) else size
+        _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
+        used_now = max_storage - remaining_storage_now
+        filename_only = os.path.basename(file_path) if file_path else fi_encoded
+
+        summary_table = rich_kv_table([
+            ("File Name", f"<code>{rich_esc(filename_only)}</code>"),
+            ("File Size", f"<code>{_fmt_size(dl_size)}</code>"),
+            ("Used Storage", f"<code>{_fmt_size(used_now)}</code>"),
+            ("Available", f"<code>{_fmt_size(remaining_storage_now)}</code>"),
+        ])
+
+        if file_path and await is_compressed(file_path):
             cb_data = f"unzip|{filename_only}"
-            if len(cb_data.encode('utf-8')) > 64:
+            if len(cb_data.encode("utf-8")) > 64:
                 cb_data = f"unzip|{filename_only[-50:]}"
             uncompress_btn = InlineKeyboardMarkup([
-                [InlineKeyboardButton("uncompress", callback_data=cb_data),
-                 InlineKeyboardButton("dismiss", callback_data="dismiss")]
+                [
+                    InlineKeyboardButton("🗜️ Extract Archive", callback_data=cb_data, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.EXTRACT),
+                    InlineKeyboardButton("🗂️ My Files", callback_data="my_files", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.FILE),
+                ],
+                [
+                    InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE),
+                ]
             ])
-            await msg.edit_text(
-                f"✅ **Finished downloading**\n"
-                f"📄 `{filename_only}` — {_fmt_size(dl_size)}\n"
-                f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage)}\n"
-                f"/my_files to see your files\n\n"
-                f"🗜️ **Compressed file detected!**\n"
-                f"Would you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
-                reply_markup=uncompress_btn
+            await rich_edit(
+                msg,
+                f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+                f"{summary_table}\n\n"
+                f"{rich_note('📦 <b>Compressed archive detected!</b> Would you like to inspect or extract its contents?')}",
+                reply_markup=uncompress_btn,
             )
         else:
-            filename_only = os.path.basename(file_path) if file_path else "file"
-            dl_size = os.path.getsize(file_path) if file_path and os.path.exists(file_path) else size
-            _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
-            total_size_used = max_storage - remaining_storage
-            await msg.edit_text(
-                f"✅ **Finished downloading**\n"
-                f"📄 `{filename_only}` — {_fmt_size(dl_size)}\n"
-                f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage)}\n"
-                f"/my_files to see your files"
+            await rich_edit(
+                msg,
+                f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+                f"{summary_table}\n\n"
+                f"<i>Use <code>/my_files</code> to view all files or <code>/fzip</code> to compress.</i>",
+                reply_markup=file_buttons,
             )
 
         await _sleep_after_download(dl_size, queued=queued)
     except asyncio.TimeoutError:
         cancelled = True
         if msg:
-            await msg.edit_text("❌ **Download timed out**\n\nThis file took more than 25 minutes and was auto-cancelled to free the queue.")
+            await rich_edit(msg, f"{EmojiTag.ERROR} <b>Download timed out.</b> (25-minute cap exceeded)")
     except StopTransmission:
         cancelled = True
         if msg:
-            await msg.edit_text("❌ **Download cancelled**\n\nYour download has been stopped.")
+            await rich_edit(msg, f"{EmojiTag.CANCEL} <b>Download cancelled by user.</b>")
     except Exception as e:
-        error_text = f"Download failed: {e}\nPlease resend this file"
         if msg:
-            await msg.edit_text(error_text)
-        else:
-            await message.reply_text(error_text, reply_parameters=ReplyParameters(message_id=message.id))
+            await rich_edit(msg, f"{EmojiTag.ERROR} <b>Download failed:</b> <code>{rich_esc(e)}</code>")
 
     await set_downloading(user_id, False)
     config.user_ids.pop(user_id, None)
     await clear_cancel(user_id)
 
-    if cancelled:
-        # Clean up partially downloaded file
-        pass  # Don't call timeout on cancel — just stop
 
-
-# ─── Link Download ────────────────────────────────────────────────────────────
+# ─── Direct Link Downloader ──────────────────────────────────────────────────
 
 async def link_download(message, queued: bool = False):
     user_id = message.from_user.id
@@ -580,18 +689,17 @@ async def link_download(message, queued: bool = False):
         user_queue_count += 1
 
     if user_queue_count >= 40:
-        return await message.reply_text(
-            "You can only have 40 files in the queue at a time. Please wait for some files to finish.",
+        return await rich_reply(
+            message,
+            f"{EmojiTag.WARNING} <b>Queue limit reached.</b> Maximum 40 files in queue.",
             reply_markup=common_buttons,
-            reply_to_message_id=message.id,
         )
 
-    # Rate limiting (bypassed for queued links)
     if not queued and not rate_limiter.is_allowed(user_id):
-        return await message.reply_text(
-            "You are sending links too frequently. Please wait before sending more links.",
+        return await rich_reply(
+            message,
+            f"{EmojiTag.WARNING} <b>Sending links too frequently.</b> Please slow down.",
             reply_markup=common_buttons,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
 
     link = message.text
@@ -601,198 +709,167 @@ async def link_download(message, queued: bool = False):
     os.makedirs(user_dir, exist_ok=True)
     _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
 
-    # Pre-flight HEAD check using safe_download's validation (SSRF + size + redirects)
     try:
         declared_length, final_url = safe_head(link, max_bytes=remaining_storage)
     except SSRFBlocked as e:
-        return await message.reply_text(
-            f"❌ Blocked: {e}",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_reply(message, f"{EmojiTag.ERROR} <b>Blocked:</b> <code>{rich_esc(e)}</code>")
     except DownloadTooLarge as e:
-        return await message.reply_text(
-            f"❌ {e}",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_reply(message, f"{EmojiTag.ERROR} <b>File too large:</b> <code>{rich_esc(e)}</code>")
     except (DownloadFailed, RedirectLimitExceeded) as e:
-        return await message.reply_text(
-            f"Download failed: {e}",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_reply(message, f"{EmojiTag.ERROR} <b>Link verification failed:</b> <code>{rich_esc(e)}</code>")
 
-    # Use the declared length for queue decision and progress reporting
     content_length = declared_length if declared_length is not None else 0
     if content_length and content_length > remaining_storage:
-        return await message.reply_text(
-            "Not enough storage space.",
-            reply_parameters=ReplyParameters(message_id=message.id),
+        return await rich_reply(
+            message,
+            f"{EmojiTag.ERROR} <b>Not enough storage quota.</b> Required: <code>{_fmt_size(content_length)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
         )
 
-    if user_id in config.downloading_users:
+    if await is_user_busy(user_id):
         config.user_ids[user_id] = True
-        queue_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
-        )
-        await message.reply_text(
-            "I have added your link in queue to download",
+        queue_button = InlineKeyboardMarkup([
+            [InlineKeyboardButton("📊 Check Queue Status", callback_data="status", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.STATS)]
+        ])
+        await rich_reply(
+            message,
+            f"{EmojiTag.CLOCK} <b>Link added to download queue.</b>\nIt will start processing automatically.",
             reply_markup=queue_button,
-            reply_parameters=ReplyParameters(message_id=message.id),
         )
         config.download_queue.put(message)
         return
 
-    # SECURITY (Z-20): the URL's last path segment is untrusted. It cannot contain
-    # "/", but it can be "..", exceed NAME_MAX, carry a query string or control
-    # characters, or silently overwrite an existing file. Contain it and make it
-    # unique so concurrent jobs cannot target the same path (Z-12).
     raw_filename = link.split("?")[0].split("#")[0].split("/")[-1]
     try:
         file_path = resolve_in_user_dir(user_dir, raw_filename, fallback="download")
     except UnsafePathError:
-        return await message.reply_text(
-            "❌ Could not derive a safe filename from that URL.",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_reply(message, f"{EmojiTag.ERROR} <b>Could not derive safe filename from URL.</b>")
+
     filename = os.path.basename(file_path)
 
-    msg_obj = await message.reply_text(
-        f"Downloading {filename}\nFile size: {content_length or 'unknown'} bytes\nStarting download",
-        reply_parameters=ReplyParameters(message_id=message.id),
+    msg_obj = await rich_reply(
+        message,
+        f"{EmojiTag.DOWNLOAD} <b>Initializing link download:</b> <code>{rich_esc(filename)}</code>…",
+        reply_markup=cancel_markup,
     )
 
     if not await set_downloading(user_id, True):
-        # Should not happen since we checked above, but fall back to queue
         config.user_ids[user_id] = True
-        queue_button = InlineKeyboardMarkup(
-            [[InlineKeyboardButton("📊 Check your queue", callback_data="bhad")]]
-        )
-        await message.reply_text(
-            "I have added your link in queue to download",
-            reply_markup=queue_button,
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
         config.download_queue.put(message)
         return
 
     config.user_ids[user_id] = True
     start_time = time.time()
-
     timer = Timer()
 
-    async def progress_bar(current, total, start_time, msg, fi_encoded):
-        # Check for cancellation
+    async def progress_bar(current, total):
         if await is_cancel_requested(user_id):
             await clear_cancel(user_id)
             raise asyncio.CancelledError()
 
-        if not (timer.can_send() and total and msg):
+        if not (timer.can_send() and total and msg_obj):
             return
 
-        config.time_left = 0
         pct = current * 100 / total
-        bar_len = 30
+        bar_len = 16
         ticks = int(pct / (100 / bar_len))
         bar = "█" * ticks + "░" * (bar_len - ticks)
 
         elapsed = time.time() - start_time
         speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
-        config.time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
+        time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
 
-        text = (
-            f"⏬ **Downloading: {fi_encoded}**\n\n"
-            f"📊 Progress: {pct:.1f}%\n"
-            f"⚡ Speed: {speed:.1f} MB/s\n"
-            f"⏱️ Remaining: {config.time_left:.1f}s\n"
-            f"📦 Size: {current/(1024*1024):.1f}/{total/(1024*1024):.1f} MB\n"
-            f"{bar}\n\n"
-            f"Please wait while I process your file..."
+        progress_card = (
+            f"{EmojiTag.DOWNLOAD} {rich_heading('Downloading via Link', level=2)}\n"
+            f"<b>File:</b> <code>{rich_esc(filename)}</code>\n"
+            f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
+            + rich_kv_table([
+                ("Transferred", f"<code>{_fmt_size(current)} / {_fmt_size(total)}</code>"),
+                ("Speed", f"<code>{speed:.2f} MB/s</code>"),
+                ("ETA", f"<code>{time_left:.1f}s</code>"),
+                ("Elapsed", f"<code>{elapsed:.1f}s</code>"),
+            ])
         )
 
-        cancel_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]])
         try:
-            await msg.edit_text(text, reply_markup=cancel_markup)
-        except Exception as e:
-            print(e)
+            await rich_edit(msg_obj, progress_card, reply_markup=cancel_markup)
+        except Exception:
+            pass
 
     try:
         await safe_download(
             link,
             file_path,
             max_bytes=max(remaining_storage, config.MAX_EXTRACT_BYTES),
-            progress_callback=lambda c, t: asyncio.create_task(progress_bar(c, t, start_time, msg_obj, filename)),
+            progress_callback=lambda c, t: asyncio.create_task(progress_bar(c, t)),
         )
     except SSRFBlocked as e:
         await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
-        return await message.reply_text(
-            f"❌ Blocked: {e}",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_edit(msg_obj, f"{EmojiTag.ERROR} <b>Blocked:</b> <code>{rich_esc(e)}</code>")
     except DownloadTooLarge as e:
         await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
-        return await message.reply_text(
-            f"❌ {e}",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_edit(msg_obj, f"{EmojiTag.ERROR} <b>File exceeds storage limits:</b> <code>{rich_esc(e)}</code>")
     except (DownloadFailed, RedirectLimitExceeded) as e:
         await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
-        return await message.reply_text(
-            f"Download failed: {e}",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
+        return await rich_edit(msg_obj, f"{EmojiTag.ERROR} <b>Download failed:</b> <code>{rich_esc(e)}</code>")
     except asyncio.CancelledError:
-        # Already handled in progress_bar
-        return
+        await set_downloading(user_id, False)
+        config.user_ids.pop(user_id, None)
+        return await rich_edit(msg_obj, f"{EmojiTag.CANCEL} <b>Download cancelled by user.</b>")
     except asyncio.TimeoutError:
         await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
-        if 'msg_obj' in dir():
-            await msg_obj.edit_text("❌ **Download timed out**\n\nThis file took more than 25 minutes and was auto-cancelled to free the queue.")
-        return
+        return await rich_edit(msg_obj, f"{EmojiTag.ERROR} <b>Download timed out (25-minute limit exceeded).</b>")
     except Exception as e:
         await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
-        await message.reply_text(str(e), reply_parameters=ReplyParameters(message_id=message.id))
-        return
+        return await rich_edit(msg_obj, f"{EmojiTag.ERROR} <b>Error:</b> <code>{rich_esc(e)}</code>")
 
-    if is_compressed(file_path):
-        filename_only = os.path.basename(file_path)
-        dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
-        _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
-        total_size_used = max_storage - remaining_storage_now
+    dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
+    _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
+    used_now = max_storage - remaining_storage_now
+    filename_only = os.path.basename(file_path)
+
+    summary_table = rich_kv_table([
+        ("File Name", f"<code>{rich_esc(filename_only)}</code>"),
+        ("File Size", f"<code>{_fmt_size(dl_size)}</code>"),
+        ("Used Storage", f"<code>{_fmt_size(used_now)}</code>"),
+        ("Available", f"<code>{_fmt_size(remaining_storage_now)}</code>"),
+    ])
+
+    if await is_compressed(file_path):
         cb_data = f"unzip|{filename_only}"
-        if len(cb_data.encode('utf-8')) > 64:
+        if len(cb_data.encode("utf-8")) > 64:
             cb_data = f"unzip|{filename_only[-50:]}"
         uncompress_btn = InlineKeyboardMarkup([
-            [InlineKeyboardButton("uncompress", callback_data=cb_data),
-             InlineKeyboardButton("dismiss", callback_data="dismiss")]
+            [
+                InlineKeyboardButton("🗜️ Extract Archive", callback_data=cb_data, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.EXTRACT),
+                InlineKeyboardButton("🗂️ My Files", callback_data="my_files", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.FILE),
+            ],
+            [
+                InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE),
+            ]
         ])
-        await msg_obj.edit_text(
-            f"✅ **Downloaded successfully**\n"
-            f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
-            f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
-            f"/my_files to check all your files\n\n"
-            f"🗜️ **Compressed file detected!**\n"
-            f"Would you like to uncompress it and receive the files? (only if uncompressed file/files size not more than 2 GB)",
-            reply_markup=uncompress_btn
+        await rich_edit(
+            msg_obj,
+            f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+            f"{summary_table}\n\n"
+            f"{rich_note('📦 <b>Compressed archive detected!</b> Would you like to extract it?')}",
+            reply_markup=uncompress_btn,
         )
     else:
-        dl_size = os.path.getsize(file_path) if os.path.exists(file_path) else content_length
-        _, remaining_storage_now, _ = get_file_size_info(user_dir, max_storage)
-        total_size_used = max_storage - remaining_storage_now
-        await msg_obj.edit_text(
-            f"✅ **Downloaded successfully**\n"
-            f"📄 `{filename}` — {_fmt_size(dl_size)}\n"
-            f"💾 Used: {_fmt_size(total_size_used)} / Available: {_fmt_size(remaining_storage_now)}\n"
-            f"/my_files to check all your files"
+        await rich_edit(
+            msg_obj,
+            f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+            f"{summary_table}\n\n"
+            f"<i>Use <code>/my_files</code> to view all files or <code>/fzip</code> to compress.</i>",
+            reply_markup=file_buttons,
         )
 
-    await _sleep_after_download(
-        os.path.getsize(file_path) if os.path.exists(file_path) else content_length,
-        queued,
-    )
+    await _sleep_after_download(dl_size, queued)
+    await set_downloading(user_id, False)
     config.downloading_users.discard(user_id)
     config.user_ids.pop(user_id, None)
     config.cancel_requested.discard(user_id)

@@ -1,134 +1,220 @@
+"""plugins/basic_commands.py — Basic Commands and Status Dashboard with Bot API 10.2 & 10.3 Rich UI."""
+
 import config
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyParameters
-from tools import get_user_status, get_file_size_info, get_text, set_user_lang
-from plugins.ui_components import home_buttons, common_buttons
-from stats_manager import get_user_stats
 from config import collection
+from pyrogram import Client, filters
+from pyrogram.types import CallbackQuery, Message, ReplyParameters
+from stats_manager import get_user_stats
+from tools import get_file_size_info, get_text, get_user_status, set_user_lang
+from utils.emoji import EmojiTag
+from utils.rich_ui import (
+    rich_details,
+    rich_edit,
+    rich_heading,
+    rich_kv_table,
+    rich_note,
+    rich_reply,
+    rich_send,
+)
+from plugins.ui_components import (
+    back_buttons,
+    cancel_all_markup,
+    common_buttons,
+    home_buttons,
+    lang_markup,
+)
 
 
-# ─── Basic Commands ───────────────────────────────────────────────────────────
+# ─── Start & Home ─────────────────────────────────────────────────────────────
 
 @Client.on_message(filters.private & filters.command("start"))
 async def start_command(client: Client, message: Message):
     text = get_text(collection, message.from_user.id, "start_msg")
-    await message.reply_text(
+    await rich_reply(
+        message,
         text,
         reply_markup=home_buttons,
+        client=client,
     )
 
+
+@Client.on_callback_query(filters.regex(r"^home$"))
+async def home_callback(client: Client, callback_query: CallbackQuery):
+    text = get_text(collection, callback_query.from_user.id, "start_msg")
+    await rich_edit(
+        callback_query,
+        text,
+        reply_markup=home_buttons,
+        client=client,
+    )
+
+
+# ─── Language Commands ────────────────────────────────────────────────────────
 
 @Client.on_message(filters.private & filters.command("lang"))
 async def lang_command(client: Client, message: Message):
     user_id = message.from_user.id
     lang_text = get_text(collection, user_id, "choose_lang")
-    btn_en = get_text(collection, user_id, "lang_btn_en")
-    btn_fa = get_text(collection, user_id, "lang_btn_fa")
-    
-    markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton(btn_en, callback_data="setlang_en")],
-        [InlineKeyboardButton(btn_fa, callback_data="setlang_fa")]
-    ])
-    await message.reply_text(lang_text, reply_markup=markup)
+    await rich_reply(message, lang_text, reply_markup=lang_markup, client=client)
+
+
+@Client.on_callback_query(filters.regex(r"^lang_menu$"))
+async def lang_menu_callback(client: Client, callback_query: CallbackQuery):
+    user_id = callback_query.from_user.id
+    lang_text = get_text(collection, user_id, "choose_lang")
+    await rich_edit(callback_query, lang_text, reply_markup=lang_markup, client=client)
 
 
 @Client.on_callback_query(filters.regex(r"^setlang_(en|fa)$"))
-async def set_lang_handler(client: Client, callback_query):
+async def set_lang_handler(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     lang_code = callback_query.matches[0].group(1)
     set_user_lang(collection, user_id, lang_code)
-    
+
     success_msg = get_text(collection, user_id, "lang_set")
-    await callback_query.edit_message_text(success_msg, reply_markup=home_buttons)
+    await rich_edit(callback_query, success_msg, reply_markup=home_buttons, client=client)
+
+
+# ─── Help & Documentation ─────────────────────────────────────────────────────
+
+def _build_help_html(user_id: int) -> str:
+    """Build the rich help guide with collapsible categories."""
+    return (
+        f"{EmojiTag.HELP} {rich_heading('Help & Guide', level=1)}\n"
+        f"{rich_note('Complete guide on file management, archive compression, and cloud storage.', expandable=True)}\n\n"
+        + rich_details(
+            "⚡ Basic Commands",
+            "• <code>/start</code> — Open the main dashboard and menu\n"
+            "• <code>/status</code> — View your storage usage & lifetime stats\n"
+            "• <code>/help</code> — Show this documentation guide\n"
+            "• <code>/lang</code> — Switch bot language (English / فارسی)",
+            open=True,
+        )
+        + "\n\n"
+        + rich_details(
+            "📂 File Management",
+            "• <code>/my_files</code> — View all your uploaded files in a table\n"
+            "• <code>/del &lt;number&gt;</code> — Delete a specific file by its table index\n"
+            "• <code>/clear</code> — Remove all files currently in your storage",
+            open=False,
+        )
+        + "\n\n"
+        + rich_details(
+            "🗜️ Archive & Security",
+            "• <code>/fzip</code> — Pack your uploaded files into a ZIP archive\n"
+            "• <code>/unzip</code> — Inspect or extract archives in your storage\n"
+            "• Choose between standard ZIP or password-protected AES encryption",
+            open=False,
+        )
+        + "\n\n"
+        + rich_details(
+            "☁️ Large Cloud Uploads (>2 GB)",
+            "• Telegram restricts bot uploads to 2.00 GB maximum.\n"
+            "• Archives exceeding 2.00 GB are automatically uploaded to high-speed NuLoader cloud with direct download links.",
+            open=False,
+        )
+        + "\n\n"
+        + rich_details(
+            "💾 Storage Quotas & Limits",
+            "• <b>Single File Limit:</b> <code>2.00 GB</code>\n"
+            "• <b>Total Storage Quota:</b> <code>4.50 GB</code>\n"
+            "• <b>Active Workers:</b> Multi-threaded parallel processing",
+            open=False,
+        )
+    )
 
 
 @Client.on_message(filters.private & filters.command("help"))
 async def help_command(client: Client, message: Message):
-    help_text = (
-        "📚 **File Zipper Bot Help Guide**\n\n"
-        "🤖 I can help you compress and manage files easily!\n\n"
-        "📋 **Available Commands:**\n"
-        "<blockquote>🏠 /start - Return to main menu</blockquote>\n"
-        "<blockquote>📂 /my_files - View your uploaded files</blockquote>\n"
-        "<blockquote>🗑️ /clear - Remove all your files</blockquote>\n"
-        "<blockquote>🔐 /fzip - Create a ZIP archive</blockquote>\n"
-        "<blockquote>📊 /status - View your usage statistics</blockquote>\n"
-        "<blockquote>❔ /help - Show this help guide</blockquote>\n\n"
-        "📤 **How to Use:**\n"
-        "<blockquote>1. Send me any files or download links</blockquote>\n"
-        "<blockquote>2. Use /fzip when ready to create ZIP</blockquote>\n"
-        "<blockquote>3. Choose password protection if needed</blockquote>\n"
-        "<blockquote>4. Download your compressed file</blockquote>\n\n"
-        "💾 **Storage Limits:**\n"
-        "<blockquote>• Maximum file size: 2.0 GB</blockquote>\n"
-        "<blockquote>• Total storage: 4.5 GB</blockquote>\n\n"
-        "📞 **Need Help?**\n"
-        "<blockquote>Join our support channel @nub_coder_s</blockquote>\n"
-        "<blockquote>Join main channel @nub_coders</blockquote>\n\n"
-        "🚀 Happy compressing!"
-    )
-    await message.reply_text(
-        help_text,
+    help_html = _build_help_html(message.from_user.id)
+    await rich_reply(
+        message,
+        help_html,
         reply_markup=common_buttons,
-        reply_parameters=ReplyParameters(message_id=message.id),
+        client=client,
     )
 
 
-# ─── Status Commands ─────────────────────────────────────────────────────────
+@Client.on_callback_query(filters.regex(r"^help$"))
+async def help_callback(client: Client, callback_query: CallbackQuery):
+    help_html = _build_help_html(callback_query.from_user.id)
+    await rich_edit(
+        callback_query,
+        help_html,
+        reply_markup=common_buttons,
+        client=client,
+    )
 
-async def _build_status_message(user_id):
-    """Build a status text string and appropriate buttons for the given user."""
+
+# ─── Status & Dashboard ───────────────────────────────────────────────────────
+
+async def _build_status_html_and_markup(user_id: int):
+    """Build a rich status card with stats table, storage quota table, and active task indicators."""
     user_stats = await get_user_stats(user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
     _, max_storage, max_file_size = get_user_status(collection, user_id)
     total_size, remaining_storage, files = get_file_size_info(user_dir, max_storage)
 
-    text = (
-        f"📊 **Your Statistics**\n\n"
-        f"📥 Files Processed: {user_stats['files_sent']}\n"
-        f"🔒 Password-Protected ZIPs: {user_stats['zip_with_pass']}\n"
-        f"📦 Regular ZIPs: {user_stats['zip_without_pass']}\n"
-        f"☁️ External Uploads: {user_stats['external_uploads']}\n\n"
-        f"💾 **Storage Information**\n"
-        f"📦 Used Storage: {total_size / (1024**3):.2f} GB\n"
-        f"📊 Available Storage: {remaining_storage / (1024**3):.2f} GB\n"
-        f"📁 Total Files: {len(files)}\n\n"
-        f"⚡ **File Size Limit:** {max_file_size / (1024**3):.1f} GB"
-    )
+    # 1. Statistics Table
+    stats_pairs = [
+        ("Files Processed", f"<code>{user_stats['files_sent']}</code>"),
+        ("Password ZIPs", f"<code>{user_stats['zip_with_pass']}</code>"),
+        ("Regular ZIPs", f"<code>{user_stats['zip_without_pass']}</code>"),
+        ("Cloud Uploads", f"<code>{user_stats['external_uploads']}</code>"),
+    ]
+    stats_table = rich_kv_table(stats_pairs, headers=["Metric", "Count"])
 
-    # Show activity info and cancel button if user has an active task
+    # 2. Storage Table
+    used_gb = total_size / (1024 ** 3)
+    free_gb = remaining_storage / (1024 ** 3)
+    quota_gb = max_storage / (1024 ** 3)
+    limit_gb = max_file_size / (1024 ** 3)
+
+    storage_pairs = [
+        ("Used Storage", f"<code>{used_gb:.2f} GB</code>"),
+        ("Available", f"<code>{free_gb:.2f} GB</code>"),
+        ("Total Quota", f"<code>{quota_gb:.2f} GB</code>"),
+        ("Files in Storage", f"<code>{len(files)}</code>"),
+        ("Max File Size", f"<code>{limit_gb:.1f} GB</code>"),
+    ]
+    storage_table = rich_kv_table(storage_pairs, headers=["Resource", "Allocation"])
+
+    # Build full card HTML
+    parts = [
+        f"{EmojiTag.STATS} {rich_heading('User Dashboard & Quota', level=1)}",
+        f"<b>📊 Lifetime Statistics</b>",
+        stats_table,
+        f"\n<b>💾 Storage Allocation</b>",
+        storage_table,
+    ]
+
     markup = home_buttons
+
+    # Active task detection
     if user_id in config.downloading_users or user_id in config.zipping_users or user_id in config.uploading_users:
         if user_id in config.downloading_users:
-            text += "\n\n🔄 **Status:** Downloading a file…"
+            status_text = f"{EmojiTag.DOWNLOAD} <b>Status:</b> Downloading a file…"
         elif user_id in config.zipping_users:
-            text += "\n\n🔄 **Status:** Compressing files…"
-        elif user_id in config.uploading_users:
-            text += "\n\n🔄 **Status:** Uploading file…"
+            status_text = f"{EmojiTag.COMPRESS} <b>Status:</b> Compressing files…"
+        else:
+            status_text = f"{EmojiTag.UPLOAD} <b>Status:</b> Uploading file…"
 
-        markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton("🛑 Cancel All Tasks", callback_data="cancel_all")],
-            [InlineKeyboardButton("🏠 Home", callback_data="home")],
-        ])
+        parts.append(f"\n{rich_note(status_text)}")
+        markup = cancel_all_markup
     elif user_id in config.user_ids:
-        # User has queued items
-        text += "\n\n⏳ **Status:** Your files are in queue"
-        markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton("🛑 Cancel All Tasks", callback_data="cancel_all")],
-            [InlineKeyboardButton("🏠 Home", callback_data="home")],
-        ])
+        parts.append(f"\n{rich_note(f'{EmojiTag.CLOCK} <b>Status:</b> Your file(s) are queued')}")
+        markup = cancel_all_markup
 
-    return text, markup
+    return "\n".join(parts), markup
 
 
 @Client.on_callback_query(filters.regex(r"^status$"))
-async def status_handler(client: Client, callback_query):
-    text, markup = await _build_status_message(callback_query.from_user.id)
-    await callback_query.edit_message_text(text, reply_markup=markup)
+async def status_callback_handler(client: Client, callback_query: CallbackQuery):
+    html_text, markup = await _build_status_html_and_markup(callback_query.from_user.id)
+    await rich_edit(callback_query, html_text, reply_markup=markup, client=client)
 
 
 @Client.on_message(filters.private & filters.command("status"))
-async def user_status(client: Client, message: Message):
-    text, markup = await _build_status_message(message.from_user.id)
-    await message.reply_text(text, reply_markup=markup, reply_parameters=ReplyParameters(message_id=message.id))
-
+async def user_status_command(client: Client, message: Message):
+    html_text, markup = await _build_status_html_and_markup(message.from_user.id)
+    await rich_reply(message, html_text, reply_markup=markup, client=client)
