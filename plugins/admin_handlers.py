@@ -23,6 +23,7 @@ from rate_limiter import (
     broadcast_state_lock,
     wait_broadcast_slot,
 )
+from plugins.ui_components import home_buttons
 from tools import is_admin
 from utils.emoji import Emoji, EmojiTag
 from utils.rich_ui import (
@@ -65,7 +66,7 @@ async def ping_handler(client: Client, message: Message):
     diag_table = rich_kv_table(diag_pairs, headers=["System Diagnostic", "Status"])
 
     text = (
-        f"{EmojiTag.PING} {rich_heading('System Diagnostic & Latency', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.PING} System Diagnostic & Latency', level=1)}\n"
         f"{diag_table}"
     )
 
@@ -141,9 +142,9 @@ async def _show_broadcast_settings(client: Client, target):
     settings_table = rich_kv_table(bcast_pairs, headers=["Broadcast Parameter", "Setting"])
 
     text = (
-        f"{EmojiTag.BROADCAST} {rich_heading('Broadcast Control Center', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.BROADCAST} Broadcast Control Center', level=1)}\n"
         f"{settings_table}\n\n"
-        f"{rich_note('Configure filters, delivery mode, or tap <b>Start Broadcast</b> to dispatch messages safely.')}"
+        f"<i>Configure filters, delivery mode, or tap <b>Start Broadcast</b> to dispatch messages safely.</i>"
     )
 
     btns = [
@@ -212,7 +213,7 @@ async def bcast_add_include(client: Client, callback_query: CallbackQuery):
     _set_input_mode(callback_query.from_user.id, "include")
     await rich_edit(
         callback_query,
-        f"{EmojiTag.USER} {rich_heading('Add to Include List', level=2)}\n\n" + _ID_PROMPT.format(list_name="include"),
+        f"{rich_heading(f'{EmojiTag.USER} Add to Include List', level=2)}\n\n" + _ID_PROMPT.format(list_name="include"),
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton("🔙 Back to Settings", callback_data="bcast_back", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.BACK)]
         ]),
@@ -228,7 +229,7 @@ async def bcast_add_exclude(client: Client, callback_query: CallbackQuery):
     _set_input_mode(callback_query.from_user.id, "exclude")
     await rich_edit(
         callback_query,
-        f"{EmojiTag.TRASH} {rich_heading('Add to Exclude List', level=2)}\n\n" + _ID_PROMPT.format(list_name="exclude"),
+        f"{rich_heading(f'{EmojiTag.TRASH} Add to Exclude List', level=2)}\n\n" + _ID_PROMPT.format(list_name="exclude"),
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton("🔙 Back to Settings", callback_data="bcast_back", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.BACK)]
         ]),
@@ -348,7 +349,7 @@ async def bcast_start(client: Client, callback_query: CallbackQuery):
         total = len(target_users)
         await rich_edit(
             callback_query,
-            f"{EmojiTag.ROCKET} {rich_heading('Dispatching Broadcast', level=2)}\n\n"
+            f"{rich_heading(f'{EmojiTag.ROCKET} Dispatching Broadcast', level=2)}\n\n"
             f"Target Audience: <code>{total} user(s)</code>\n"
             f"Mode: <code>{'Forward' if forward else 'Direct Copy'}</code>",
             client=client,
@@ -395,7 +396,7 @@ async def bcast_start(client: Client, callback_query: CallbackQuery):
                 try:
                     await rich_edit(
                         callback_query,
-                        f"{EmojiTag.BROADCAST} {rich_heading('Broadcasting in Progress', level=2)}\n"
+                        f"{rich_heading(f'{EmojiTag.BROADCAST} Broadcasting in Progress', level=2)}\n"
                         f"{progress_table}",
                         client=client,
                     )
@@ -409,7 +410,7 @@ async def bcast_start(client: Client, callback_query: CallbackQuery):
         ])
         await rich_edit(
             callback_query,
-            f"{EmojiTag.SUCCESS} {rich_heading('Broadcast Completed', level=1)}\n"
+            f"{rich_heading(f'{EmojiTag.SUCCESS} Broadcast Completed', level=1)}\n"
             f"{summary_table}",
             reply_markup=home_buttons,
             client=client,
@@ -569,7 +570,7 @@ async def stats_handler(client: Client, message: Message):
     overall_table = rich_kv_table(overall_pairs, headers=["All-Time Totals", "Metrics"])
 
     text = (
-        f"{EmojiTag.STATS} {rich_heading('Global Bot Usage Statistics', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.STATS} Global Bot Usage Statistics', level=1)}\n"
         f"{today_table}\n\n"
         f"{overall_table}"
     )

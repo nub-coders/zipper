@@ -80,8 +80,8 @@ async def set_lang_handler(client: Client, callback_query: CallbackQuery):
 def _build_help_html(user_id: int) -> str:
     """Build the rich help guide with collapsible categories."""
     return (
-        f"{EmojiTag.HELP} {rich_heading('Help & Guide', level=1)}\n"
-        f"{rich_note('Complete guide on file management, archive compression, and cloud storage.', expandable=True)}\n\n"
+        f"{rich_heading(f'{EmojiTag.HELP} Help & Documentation', level=1)}\n"
+        f"{rich_note('Complete guide on file management, archive compression, and cloud storage.')}\n\n"
         + rich_details(
             "⚡ Basic Commands",
             "• <code>/start</code> — Open the main dashboard and menu\n"
@@ -179,18 +179,16 @@ async def _build_status_html_and_markup(user_id: int):
     ]
     storage_table = rich_kv_table(storage_pairs, headers=["Resource", "Allocation"])
 
-    # Build full card HTML
     parts = [
-        f"{EmojiTag.STATS} {rich_heading('User Dashboard & Quota', level=1)}",
-        f"<b>📊 Lifetime Statistics</b>",
+        rich_heading(f"{EmojiTag.STATS} User Dashboard & Quota", level=1),
+        "<b>📊 Lifetime Statistics</b>",
         stats_table,
-        f"\n<b>💾 Storage Allocation</b>",
+        "\n<b>💾 Storage Allocation</b>",
         storage_table,
     ]
 
     markup = home_buttons
 
-    # Active task detection
     if user_id in config.downloading_users or user_id in config.zipping_users or user_id in config.uploading_users:
         if user_id in config.downloading_users:
             status_text = f"{EmojiTag.DOWNLOAD} <b>Status:</b> Downloading a file…"

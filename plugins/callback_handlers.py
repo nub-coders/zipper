@@ -82,7 +82,7 @@ async def without_pass(client: Client, callback_query: CallbackQuery):
 
     await rich_edit(
         callback_query,
-        f"{EmojiTag.ZIP} {rich_heading('Creating Regular ZIP Archive', level=2)}\n\n"
+        f"{rich_heading(f'{EmojiTag.ZIP} Creating Regular ZIP Archive', level=2)}\n\n"
         f"• Starting fast compression process\n"
         f"• Please provide a name for your ZIP file in chat",
         client=client,
@@ -102,7 +102,7 @@ async def with_pass(client: Client, callback_query: CallbackQuery):
 
     await rich_edit(
         callback_query,
-        f"{EmojiTag.LOCK} {rich_heading('Creating Protected ZIP Archive', level=2)}\n\n"
+        f"{rich_heading(f'{EmojiTag.LOCK} Creating Protected ZIP Archive', level=2)}\n\n"
         f"• Starting secure encryption process\n"
         f"• Please provide a name for your ZIP file\n"
         f"• You'll be asked for a password next",
@@ -124,7 +124,7 @@ async def cancel_task(client: Client, callback_query: CallbackQuery):
         try:
             await rich_edit(
                 callback_query,
-                f"{EmojiTag.CANCEL} {rich_heading('Cancellation Requested', level=2)}\n\n"
+                f"{rich_heading(f'{EmojiTag.CANCEL} Cancellation Requested', level=2)}\n\n"
                 f"The active operation will be stopped shortly.",
                 reply_markup=None,
                 client=client,
@@ -157,12 +157,12 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
     if (user_id in config.downloading_users or user_id in config.zipping_users
             or user_id in config.uploading_users):
         msg_text = (
-            f"{EmojiTag.CANCEL} {rich_heading('Cancellation In Progress', level=2)}\n\n"
+            f"{rich_heading(f'{EmojiTag.CANCEL} Cancellation In Progress', level=2)}\n\n"
             f"The active operation and <code>{removed}</code> queued task(s) will be stopped."
         )
     else:
         msg_text = (
-            f"{EmojiTag.SUCCESS} {rich_heading('Queue Cleared', level=2)}\n\n"
+            f"{rich_heading(f'{EmojiTag.SUCCESS} Queue Cleared', level=2)}\n\n"
             f"Removed <code>{removed}</code> file(s) from the download queue."
         )
 
@@ -271,7 +271,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                 bar = "█" * ticks + "░" * (bar_len - ticks)
 
                 text = (
-                    f"{EmojiTag.UPLOAD} {rich_heading('Uploading Archive to Telegram', level=2)}\n"
+                    f"{rich_heading(f'{EmojiTag.UPLOAD} Uploading Archive to Telegram', level=2)}\n"
                     f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
                     + rich_kv_table([
                         ("Transferred", f"<code>{current / (1024*1024):.2f} MB / {total / (1024*1024):.2f} MB</code>"),
@@ -293,8 +293,8 @@ async def create_zip(client, callback_query, pass_protect=None):
                 )
                 await rich_edit(
                     msg,
-                    f"{EmojiTag.SUCCESS} {rich_heading('Archive Uploaded Successfully', level=1)}\n\n"
-                    f"{rich_note('Your compressed archive has been sent above.<br>Join our support community: @nub_coder_s')}",
+                    f"{rich_heading(f'{EmojiTag.SUCCESS} Archive Uploaded Successfully', level=1)}\n\n"
+                    f"<i>Your compressed archive has been sent above.<br>Join our support community: @nub_coder_s</i>",
                     reply_markup=home_buttons,
                     client=client,
                 )
@@ -302,7 +302,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                 cancelled = True
                 await rich_edit(
                     msg,
-                    f"{EmojiTag.CANCEL} {rich_heading('Upload Cancelled', level=2)}\n\nYour upload was cancelled.",
+                    f"{rich_heading(f'{EmojiTag.CANCEL} Upload Cancelled', level=2)}\n\nYour upload was cancelled.",
                     reply_markup=home_buttons,
                     client=client,
                 )
@@ -419,7 +419,7 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
     ])
 
     text = (
-        f"{EmojiTag.EXTRACT} {rich_heading('Archive Inspection', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.EXTRACT} Archive Inspection', level=1)}\n"
         f"{metadata_table}\n\n"
         f"<b>📋 Contained Files (Preview):</b>\n"
         f"{files_inside_table}\n\n"
@@ -544,7 +544,7 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
                 speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
                 eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
                 text = (
-                    f"{EmojiTag.UPLOAD} {rich_heading(f'Sending Extracted File ({fidx}/{len(result.files)})', level=2)}\n"
+                    f"{rich_heading(f'{EmojiTag.UPLOAD} Sending Extracted File ({fidx}/{len(result.files)})', level=2)}\n"
                     f"<b>File:</b> <code>{rich_esc(fname)}</code>\n"
                     f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
                     + rich_kv_table([
@@ -570,8 +570,8 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
 
         await rich_edit(
             status_msg,
-            f"{EmojiTag.SUCCESS} {rich_heading('Extraction Complete', level=1)}\n\n"
-            f"{rich_note('All files extracted and uploaded to chat successfully.')}",
+            f"{rich_heading(f'{EmojiTag.SUCCESS} Extraction Complete', level=1)}\n\n"
+            f"<i>All files extracted and uploaded to chat successfully.</i>",
             reply_markup=home_buttons,
             client=client,
         )

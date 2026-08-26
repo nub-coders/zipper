@@ -208,15 +208,12 @@ async def zip_files_command(client: Client, message: Message):
     total_bytes = sum(os.path.getsize(os.path.join(user_dir, f)) for f in files)
 
     html_content = (
-        f"{EmojiTag.LOCK} {rich_heading('ZIP Archive Creation', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.LOCK} ZIP Archive Creation', level=1)}\n"
         f"<b>Files to bundle:</b> <code>{len(files)}</code>\n"
         f"<b>Total uncompressed size:</b> <code>{_fmt_size(total_bytes)}</code>\n\n"
-        + rich_note(
-            "<b>Select your ZIP security preference:</b>\n"
-            "• <b>Protected ZIP:</b> Encrypted with custom password\n"
-            "• <b>Regular ZIP:</b> Standard fast archive without password",
-            expandable=False,
-        )
+        f"<b>Select your ZIP security preference:</b>\n"
+        f"• <b>Protected ZIP:</b> Encrypted with custom password\n"
+        f"• <b>Regular ZIP:</b> Standard fast archive without password"
     )
     await rich_reply(message, html_content, reply_markup=pass_button, client=client)
 
@@ -247,15 +244,12 @@ async def zip_files_callback(client: Client, callback_query: CallbackQuery):
     total_bytes = sum(os.path.getsize(os.path.join(user_dir, f)) for f in files)
 
     html_content = (
-        f"{EmojiTag.LOCK} {rich_heading('ZIP Archive Creation', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.LOCK} ZIP Archive Creation', level=1)}\n"
         f"<b>Files to bundle:</b> <code>{len(files)}</code>\n"
         f"<b>Total uncompressed size:</b> <code>{_fmt_size(total_bytes)}</code>\n\n"
-        + rich_note(
-            "<b>Select your ZIP security preference:</b>\n"
-            "• <b>Protected ZIP:</b> Encrypted with custom password\n"
-            "• <b>Regular ZIP:</b> Standard fast archive without password",
-            expandable=False,
-        )
+        f"<b>Select your ZIP security preference:</b>\n"
+        f"• <b>Protected ZIP:</b> Encrypted with custom password\n"
+        f"• <b>Regular ZIP:</b> Standard fast archive without password"
     )
     await rich_edit(callback_query, html_content, reply_markup=pass_button, client=client)
 
@@ -316,7 +310,7 @@ async def unzip_command(client: Client, message: Message):
 
     await rich_reply(
         message,
-        f"{EmojiTag.EXTRACT} {rich_heading('Select Archive to Extract', level=2)}\n\n"
+        f"{rich_heading(f'{EmojiTag.EXTRACT} Select Archive to Extract', level=2)}\n\n"
         f"Select a compressed archive from your storage below:",
         reply_markup=markup,
         client=client,
@@ -413,8 +407,9 @@ async def list_files(client, message):
 
     if not files:
         msg_text = (
-            f"{EmojiTag.FOLDER} {rich_heading('Your Storage Directory', level=2)}\n\n"
-            f"{rich_note('Your storage is currently empty. Send any document, photo, video, or direct HTTP link to get started!')}"
+            f"{rich_heading(f'{EmojiTag.FOLDER} Your Storage Directory', level=1)}\n\n"
+            f"Your storage is currently empty.\n\n"
+            f"<i>Send any document, photo, video, or direct HTTP link to get started!</i>"
         )
         return await rich_reply(message, msg_text, reply_markup=nofile_buttons, client=client)
 
@@ -445,10 +440,12 @@ async def list_files(client, message):
     summary_table = rich_kv_table(summary_pairs, headers=["Storage Overview", "Value"])
 
     content = (
-        f"{EmojiTag.FOLDER} {rich_heading('Your Files in Storage', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.FOLDER} Your Files in Storage', level=1)}\n"
         f"{files_table}\n\n"
         f"{summary_table}\n\n"
-        f"{rich_note('💡 <b>Quick Tips:</b><br>• Use <code>/del &lt;number&gt;</code> to delete a specific file<br>• Click <b>Compress Files</b> to pack into a ZIP archive')}"
+        f"💡 <b>Quick Tips:</b>\n"
+        f"• Use <code>/del &lt;number&gt;</code> to delete a specific file\n"
+        f"• Click <b>Compress Files</b> to pack into a ZIP archive"
     )
 
     await rich_reply(message, content, reply_markup=file_buttons, client=client)
@@ -591,7 +588,7 @@ async def download(message, queued: bool = False):
         time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
 
         progress_card = (
-            f"{EmojiTag.DOWNLOAD} {rich_heading('Downloading File', level=2)}\n"
+            f"{rich_heading(f'{EmojiTag.DOWNLOAD} Downloading File', level=2)}\n"
             f"<b>File:</b> <code>{rich_esc(fi_encoded)}</code>\n"
             f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
             + rich_kv_table([
@@ -647,15 +644,15 @@ async def download(message, queued: bool = False):
             ])
             await rich_edit(
                 msg,
-                f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+                f"{rich_heading(f'{EmojiTag.SUCCESS} Download Complete', level=2)}\n"
                 f"{summary_table}\n\n"
-                f"{rich_note('📦 <b>Compressed archive detected!</b> Would you like to inspect or extract its contents?')}",
+                f"<i>📦 Compressed archive detected! Inspect or extract its contents below:</i>",
                 reply_markup=uncompress_btn,
             )
         else:
             await rich_edit(
                 msg,
-                f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+                f"{rich_heading(f'{EmojiTag.SUCCESS} Download Complete', level=2)}\n"
                 f"{summary_table}\n\n"
                 f"<i>Use <code>/my_files</code> to view all files or <code>/fzip</code> to compress.</i>",
                 reply_markup=file_buttons,
@@ -779,7 +776,7 @@ async def link_download(message, queued: bool = False):
         time_left = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
 
         progress_card = (
-            f"{EmojiTag.DOWNLOAD} {rich_heading('Downloading via Link', level=2)}\n"
+            f"{rich_heading(f'{EmojiTag.DOWNLOAD} Downloading via Link', level=2)}\n"
             f"<b>File:</b> <code>{rich_esc(filename)}</code>\n"
             f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
             + rich_kv_table([
@@ -854,15 +851,15 @@ async def link_download(message, queued: bool = False):
         ])
         await rich_edit(
             msg_obj,
-            f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+            f"{rich_heading(f'{EmojiTag.SUCCESS} Download Complete', level=2)}\n"
             f"{summary_table}\n\n"
-            f"{rich_note('📦 <b>Compressed archive detected!</b> Would you like to extract it?')}",
+            f"<i>📦 Compressed archive detected! Inspect or extract its contents below:</i>",
             reply_markup=uncompress_btn,
         )
     else:
         await rich_edit(
             msg_obj,
-            f"{EmojiTag.SUCCESS} {rich_heading('Download Complete', level=2)}\n"
+            f"{rich_heading(f'{EmojiTag.SUCCESS} Download Complete', level=2)}\n"
             f"{summary_table}\n\n"
             f"<i>Use <code>/my_files</code> to view all files or <code>/fzip</code> to compress.</i>",
             reply_markup=file_buttons,

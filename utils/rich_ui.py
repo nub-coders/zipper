@@ -7,7 +7,7 @@ Shared, reusable builders and safe senders for native Telegram Rich Blocks:
   - <blockquote expandable> expandable blockquotes for security notes / guides
   - <tg-button url="..."> native rich text buttons
   - <tg-emoji emoji-id="..."> custom/premium emoji glyphs
-  - InputRichMessage server-side parsing
+  - InputRichMessage server-side parsing with newline & whitespace preservation
   - send_rich_message_draft / RichDraft for live animated streaming progress
   - Monospace grid table fallback (<pre>┌──┬──┐</pre>) and standard HTML fallback
 
@@ -147,11 +147,45 @@ def rich_details(summary: str, body: str, open: bool = False) -> str:
 # ── Plain-Text & Fallback Handlers ──────────────────────────────────────────
 
 def _normalize_html(html_text: str) -> str:
-    """Normalize HTML for Telegram API & InputRichMessage."""
+    """Format and normalize HTML for Telegram InputRichMessage.
+    
+    Converts plain text newlines into <br/> so Telegram's server-side HTML parser
+    does not collapse multiple lines of text/bullets into a single horizontal paragraph,
+    while preserving <pre> and <table> block structures.
+    """
     if not html_text:
         return ""
     text = str(html_text)
-    return re.sub(r'href=([^\s">]+)', r'href="\1"', text)
+    text = re.sub(r'href=([^\s">]+)', r'href="\1"', text)
+
+    # Protect <pre> and <table> blocks from newline conversion
+    placeholders = {}
+    def _save_block(m):
+        key = f"__PROTECTED_BLOCK_{len(placeholders)}__"
+        placeholders[key] = m.group(0)
+        return key
+
+    text = re.sub(
+        r'(<pre\b[^>]*>.*?</pre>|<table\b[^>]*>.*?</table>)',
+        _save_block,
+        text,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+
+    # Convert newlines to <br/>
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = text.replace("\n", "<br/>")
+
+    # Clean up redundant <br/> tags around block boundaries
+    block_tags = "h[1-6]|blockquote|details|summary|p|div|ul|ol|li|table|thead|tbody|tr|th|td|pre"
+    text = re.sub(r'(<(?::' + block_tags + r')\b[^>]*>)(?:\s*<br\s*/?>)+', r'\1', text, flags=re.IGNORECASE)
+    text = re.sub(r'(?:<br\s*/?>\s*)+(</(?:' + block_tags + r')\b[^>]*>)', r'\1', text, flags=re.IGNORECASE)
+
+    # Restore protected blocks
+    for key, val in placeholders.items():
+        text = text.replace(key, val)
+
+    return text
 
 
 def _render_monospace_grid_table(table_html: str) -> str:
@@ -209,6 +243,7 @@ def _plain_fallback(html_text: str) -> str:
     """Standard Telegram HTML fallback for clients that don't render rich tags natively.
     
     Transforms:
+      - <br/> / <br> -> \n
       - <table> -> clean monospace grid table in <pre>
       - <details><summary> -> <blockquote><b>Summary</b>\nBody</blockquote>
       - <h1>-<h6> -> <b>...</b>
@@ -217,7 +252,8 @@ def _plain_fallback(html_text: str) -> str:
     """
     if not html_text:
         return ""
-    text = _normalize_html(html_text)
+    text = str(html_text)
+    text = re.sub(r'href=([^\s">]+)', r'href="\1"', text)
 
     # 1. Convert <details><summary> -> <blockquote>
     def _replace_details(m):
@@ -241,7 +277,10 @@ def _plain_fallback(html_text: str) -> str:
     # 4. Convert <tg-button> -> <a>
     text = re.sub(r'<tg-button\s+url="([^"]*)">(.*?)</tg-button>', r'<a href="\1">\2</a>', text, flags=re.DOTALL | re.IGNORECASE)
 
-    # 5. Convert <table> -> Monospace Grid Box Table
+    # 5. Convert <br/> -> \n
+    text = re.sub(r'<br\s*/?>', '\n', text, flags=re.IGNORECASE)
+
+    # 6. Convert <table> -> Monospace Grid Box Table
     def _replace_table(m):
         return _render_monospace_grid_table(m.group(0))
 
@@ -599,14 +638,7 @@ async def ephemeral_delete(message, *, client=None) -> bool:
 # ── Streaming Drafts ────────────────────────────────────────────────────────
 
 class RichDraft:
-    """Streaming progress via send_rich_message_draft with final persistent send.
-    
-    Usage:
-        async with RichDraft(client, chat_id) as draft:
-            await draft.update(rich_heading("Downloading...") + "...")
-            ...
-            await draft.finish(final_html, reply_markup=kb)
-    """
+    """Streaming progress via send_rich_message_draft with final persistent send."""
 
     __slots__ = (
         "client", "chat_id", "message_thread_id", "draft_id",

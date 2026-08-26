@@ -183,3 +183,27 @@ def test_rich_to_plain():
     assert "<table>" not in plain
     assert "Title" in plain
     assert "Cell1" in plain
+
+
+def test_normalize_html_newline_preservation():
+    """Test that _normalize_html converts \n to <br/> outside <table> and <pre>."""
+    from utils.rich_ui import _normalize_html
+
+    sample = (
+        "<b>Section:</b>\n"
+        "• Item 1\n"
+        "• Item 2\n\n"
+        "<table><tr><th>H</th></tr><tr><td>D</td></tr></table>\n\n"
+        "<pre>Line A\nLine B</pre>"
+    )
+    normalized = _normalize_html(sample)
+    assert "<b>Section:</b><br/>• Item 1<br/>• Item 2" in normalized
+    assert "<table><tr><th>H</th></tr><tr><td>D</td></tr></table>" in normalized
+    assert "<pre>Line A\nLine B</pre>" in normalized
+
+
+def test_heading_with_emoji():
+    """Test that custom emojis inside rich_heading are placed correctly inside the <h1> tag."""
+    h = rich_heading(f"{EmojiTag.ARCHIVE} File Zipper Bot", level=1)
+    assert h.startswith("<h1><tg-emoji")
+    assert "File Zipper Bot</h1>" in h

@@ -109,7 +109,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
 
     async def fail(reason, detail=None):
         text = (
-            f"{EmojiTag.ERROR} {rich_heading('Upload Failed', level=2)}\n\n"
+            f"{rich_heading(f'{EmojiTag.ERROR} Upload Failed', level=2)}\n\n"
             f"{reason}"
         )
         if detail is not None:
@@ -131,7 +131,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
     if file_size > NULOADER_MAX_BYTES:
         return await rich_edit(
             message,
-            f"{EmojiTag.ERROR} {rich_heading('File Too Large', level=2)}\n\n"
+            f"{rich_heading(f'{EmojiTag.ERROR} File Too Large', level=2)}\n\n"
             f"Archive is <code>{_fmt(file_size)}</code>, which exceeds the maximum cloud limit of <code>{_fmt(NULOADER_MAX_BYTES)}</code>.",
             reply_markup=home_buttons,
         )
@@ -151,14 +151,14 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
         await clear_cancel(user_id)
         await rich_edit(
             message,
-            f"{EmojiTag.CANCEL} {rich_heading('Upload Cancelled', level=2)}\n\nYour upload has been stopped.",
+            f"{rich_heading(f'{EmojiTag.CANCEL} Upload Cancelled', level=2)}\n\nYour upload has been stopped.",
             reply_markup=home_buttons,
         )
 
     try:
         await rich_edit(
             message,
-            f"{EmojiTag.CLOUD} {rich_heading('Uploading to Cloud', level=2)}\n\nConnecting to NuLoader high-speed storage…",
+            f"{rich_heading(f'{EmojiTag.CLOUD} Uploading to Cloud', level=2)}\n\nConnecting to NuLoader high-speed storage…",
             reply_markup=cancel_markup,
         )
     except Exception:
@@ -176,7 +176,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
         bar = "█" * ticks + "░" * (bar_len - ticks)
 
         progress_card = (
-            f"{EmojiTag.CLOUD} {rich_heading('Uploading to Cloud', level=2)}\n"
+            f"{rich_heading(f'{EmojiTag.CLOUD} Uploading to Cloud', level=2)}\n"
             f"<b>File:</b> <code>{rich_esc(filename)}</code>\n"
             f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
             + rich_kv_table([
@@ -244,9 +244,9 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
 
         await rich_edit(
             message,
-            f"{EmojiTag.SUCCESS} {rich_heading('Uploaded to Cloud Storage', level=1)}\n"
+            f"{rich_heading(f'{EmojiTag.SUCCESS} Uploaded to Cloud Storage', level=1)}\n"
             f"{success_table}\n\n"
-            f"{rich_note('Telegram limits bot uploads to 2.00 GB. Your archive is hosted securely on our cloud storage with direct high-speed download access.')}",
+            f"<i>Telegram limits bot uploads to 2.00 GB. Your archive is hosted securely on our cloud storage with direct high-speed download access.</i>",
             reply_markup=InlineKeyboardMarkup([
                 [InlineKeyboardButton("⬇️ Download Archive", url=link, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.DOWNLOAD)],
                 [InlineKeyboardButton("💬 Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.LINK)],

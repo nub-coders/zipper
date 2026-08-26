@@ -215,7 +215,7 @@ def get_queue_status(user_id):
     else:
         note = rich_note(f"{EmojiTag.INFO} You have no files in queue.")
 
-    return f"{EmojiTag.STATS} {rich_heading('Download Queue Monitor', level=2)}\n{table}\n\n{note}"
+    return f"{rich_heading(f'{EmojiTag.STATS} Download Queue Monitor', level=2)}\n{table}\n\n{note}"
 
 
 # ─── ZIP Creation ─────────────────────────────────────────────────────────────
@@ -348,7 +348,7 @@ async def create_zip_file(client, callback_query, pass_protect=None):
     summary_table = rich_kv_table(summary_pairs, headers=["Compression Result", "Value"])
 
     result_text = (
-        f"{EmojiTag.SUCCESS} {rich_heading('ZIP Created Successfully!', level=1)}\n"
+        f"{rich_heading(f'{EmojiTag.SUCCESS} ZIP Created Successfully!', level=1)}\n"
         f"{summary_table}"
     )
     await rich_edit(message, result_text)
@@ -411,8 +411,8 @@ async def upload_to_gofile(callback_query, zip_filename, message):
         ])
         await rich_edit(
             message,
-            f"{EmojiTag.CLOUD} {rich_heading('Uploaded to Cloud Storage', level=1)}\n\n"
-            f"{rich_note('File exceeds Telegram 2.00 GB limit. Access your archive via the cloud download link below.')}",
+            f"{rich_heading(f'{EmojiTag.CLOUD} Uploaded to Cloud Storage', level=1)}\n\n"
+            f"<i>File exceeds Telegram 2.00 GB limit. Access your archive via the cloud download link below.</i>",
             reply_markup=download_button,
         )
     except Exception as e:
