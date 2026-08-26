@@ -199,7 +199,7 @@ async def handle_media(client: Client, message: Message):
     & ~filters.command([
         "start", "help", "my_files", "clear", "del", "fzip", "unzip",
         "status", "rst", "users", "set", "ad", "get", "broadcast",
-        "fbroadcast", "reboot", "skip", "ping", "stats",
+        "reboot", "skip", "ping", "stats",
     ])
 )
 async def handle_links(client: Client, message: Message):

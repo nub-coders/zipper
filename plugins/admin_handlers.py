@@ -179,20 +179,6 @@ async def broadcast_command_handler(client: Client, message: Message):
     await _show_broadcast_settings(client, message)
 
 
-@Client.on_message(filters.private & filters.command("fbroadcast"))
-async def fbroadcast_command_handler(client: Client, message: Message):
-    if not is_admin(message.from_user.id):
-        return
-
-    if not message.reply_to_message:
-        return await message.reply_text(
-            "Reply to the message you want to forward-broadcast.",
-            reply_parameters=ReplyParameters(message_id=message.id),
-        )
-
-    await _arm_broadcast(message, forward=True)
-    await _show_broadcast_settings(client, message)
-
 
 # ─── Callback Handlers for Broadcast Settings ───────────────────────────────
 
