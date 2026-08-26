@@ -113,11 +113,11 @@ class UserStateManager:
         """Mark cancellation request. Returns True if there was an operation to cancel."""
         async with self._lock:
             state = self._states.get(user_id)
-            if not state:
-                return False
+            if state is None:
+                state = UserState(user_id=user_id)
+                self._states[user_id] = state
             was_busy = state.downloading or state.zipping or state.uploading or state.extracting
-            if was_busy:
-                state.cancel_requested = True
+            state.cancel_requested = True
             return was_busy
 
     async def clear_cancel(self, user_id: int):
@@ -230,11 +230,16 @@ async def _sync_sets_from_manager():
     global downloading_users, zipping_users, uploading_users, extracting_users, cancel_requested
     manager = get_state_manager()
     async with manager._lock:
-        downloading_users = {uid for uid, s in manager._states.items() if s.downloading}
-        zipping_users = {uid for uid, s in manager._states.items() if s.zipping}
-        uploading_users = {uid for uid, s in manager._states.items() if s.uploading}
-        extracting_users = {uid for uid, s in manager._states.items() if s.extracting}
-        cancel_requested = {uid for uid, s in manager._states.items() if s.cancel_requested}
+        downloading_users.clear()
+        downloading_users.update(uid for uid, s in manager._states.items() if s.downloading)
+        zipping_users.clear()
+        zipping_users.update(uid for uid, s in manager._states.items() if s.zipping)
+        uploading_users.clear()
+        uploading_users.update(uid for uid, s in manager._states.items() if s.uploading)
+        extracting_users.clear()
+        extracting_users.update(uid for uid, s in manager._states.items() if s.extracting)
+        cancel_requested.clear()
+        cancel_requested.update(uid for uid, s in manager._states.items() if s.cancel_requested)
 
 
 async def set_downloading(user_id: int, busy: bool = True) -> bool:
@@ -317,3 +322,15 @@ async def get_total_queue_size() -> int:
 async def get_next_fair_user() -> Optional[int]:
     manager = get_state_manager()
     return await manager.get_next_fair_user()
+
+
+async def clear_user_state(user_id: int):
+    """Reset all state flags and queues for a user."""
+    manager = get_state_manager()
+    async with manager._lock:
+        manager._states.pop(user_id, None)
+        try:
+            manager._fair_queue.remove(user_id)
+        except ValueError:
+            pass
+    await _sync_sets_from_manager()

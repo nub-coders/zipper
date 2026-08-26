@@ -24,7 +24,7 @@ from rate_limiter import (
     broadcast_state_lock,
     wait_broadcast_slot,
 )
-from tools import is_admin
+from tools import get_admin_ids, is_admin
 from utils.emoji import Emoji, EmojiTag
 from utils.rich_ui import (
     rich_details,
@@ -43,66 +43,76 @@ from utils.rich_ui import (
 async def ping_handler(client: Client, message: Message):
     import config as cfg
     start = time.time()
-    reply = await rich_reply(message, f"{EmojiTag.PING} <b>Measuring latency…</b>", client=client)
-    latency = (time.time() - start) * 1000
-
-    uptime_secs = int(time.time() - cfg.START_TIME)
-    d, rem = divmod(uptime_secs, 86400)
-    h, rem = divmod(rem, 3600)
-    m, s = divmod(rem, 60)
-    uptime_str = (
-        (f"{d}d " if d else "") +
-        (f"{h}h " if h else "") +
-        (f"{m}m " if m else "") +
-        f"{s}s"
+    sent_msg = await rich_reply(
+        message,
+        f"{EmojiTag.REFRESH} <b>Measuring latency…</b>",
+        client=client,
     )
+    latency_ms = (time.time() - start) * 1000
 
-    diag_pairs = [
-        ("Response Latency", f"<code>{latency:.2f} ms</code>"),
+    uptime_str = "Operational"
+    try:
+        with open("/proc/uptime", "r") as f:
+            uptime_seconds = float(f.readline().split()[0])
+            hours, remainder = divmod(int(uptime_seconds), 3600)
+            minutes, seconds = divmod(remainder, 60)
+            uptime_str = f"{hours}h {minutes}m {seconds}s"
+    except Exception:
+        pass
+
+    rows = [
+        ("Network Latency", f"<code>{latency_ms:.1f} ms</code>"),
         ("System Uptime", f"<code>{uptime_str}</code>"),
-        ("API Architecture", "<code>Bot API 10.3 / Kurigram</code>"),
-        ("Service Status", "<code>Operational ✅</code>"),
+        ("Queue Depth", f"<code>{cfg.download_queue.qsize()}</code>"),
+        ("Active Workers", f"<code>{len(cfg.downloading_users | cfg.zipping_users | cfg.uploading_users)}</code>"),
     ]
-    diag_table = rich_kv_table(diag_pairs, headers=["System Diagnostic", "Status"])
+    diag_table = rich_kv_table(rows, headers=["Diagnostic Probe", "Measurement"])
 
-    text = (
-        f"{rich_heading(f'{EmojiTag.PING} System Diagnostic & Latency', level=1)}\n"
+    html_content = (
+        f"{rich_heading(f'{EmojiTag.PING} System Diagnostics & Latency', level=1)}\n"
         f"{diag_table}"
     )
+    await rich_edit(sent_msg, html_content, client=client)
 
-    await rich_edit(reply, text, client=client)
 
+# ─── Admin Skip Command ──────────────────────────────────────────────────────
 
 @Client.on_message(filters.private & filters.command("skip"))
-async def skip_handler(client: Client, message: Message):
+async def skip_command_handler(client: Client, message: Message):
     if is_admin(message.from_user.id):
-        await rich_reply(
+        return await rich_reply(
             message,
             f"{EmojiTag.INFO} <b>Admin command received:</b> Task skipped.",
             client=client,
         )
 
 
-# ─── Broadcast State ────────────────────────────────────────────────────────
+# ─── Broadcast State (Per-Admin) ─────────────────────────────────────────────
 
-_broadcast_state = {
-    "payload": None,
-    "include_sender_name": False,
-}
+_broadcast_states: dict[int, dict] = {}
 
 
-async def _reset_broadcast_state():
+def _get_admin_broadcast_state(admin_id: int) -> dict:
+    if admin_id not in _broadcast_states:
+        _broadcast_states[admin_id] = {
+            "payload": None,
+            "include_sender_name": False,
+        }
+    return _broadcast_states[admin_id]
+
+
+async def _reset_broadcast_state(admin_id: int):
     async with broadcast_state_lock():
-        _broadcast_state["payload"] = None
-        _broadcast_state["include_sender_name"] = False
+        _broadcast_states.pop(admin_id, None)
 
 
 # ─── Broadcast Settings UI ──────────────────────────────────────────────────
 
-async def _show_broadcast_settings(client: Client, target):
+async def _show_broadcast_settings(client: Client, target, admin_id: int):
     async with broadcast_state_lock():
-        include_sender = _broadcast_state["include_sender_name"]
-        has_payload = _broadcast_state["payload"] is not None
+        state = _get_admin_broadcast_state(admin_id)
+        include_sender = state["include_sender_name"]
+        has_payload = state["payload"] is not None
 
     total_users = collection.count_documents({"user_id": {"$exists": True}})
 
@@ -158,33 +168,37 @@ async def _show_broadcast_settings(client: Client, target):
         await rich_reply(target, text, reply_markup=markup, client=client)
 
 
-async def _arm_broadcast(message: Message):
+async def _arm_broadcast(admin_id: int, message: Message):
     async with broadcast_state_lock():
-        _broadcast_state["payload"] = message.reply_to_message
+        state = _get_admin_broadcast_state(admin_id)
+        state["payload"] = message.reply_to_message
 
 
 @Client.on_message(filters.private & filters.command("broadcast"))
 async def broadcast_command_handler(client: Client, message: Message):
-    if not is_admin(message.from_user.id):
+    admin_id = message.from_user.id
+    if not is_admin(admin_id):
         return
 
     if message.reply_to_message:
-        await _arm_broadcast(message)
+        await _arm_broadcast(admin_id, message)
 
-    await _show_broadcast_settings(client, message)
+    await _show_broadcast_settings(client, message, admin_id)
 
 
 @Client.on_callback_query(filters.regex(r"^bcast_toggle_sender$"))
 async def bcast_toggle_sender(client: Client, callback_query: CallbackQuery):
-    if not is_admin(callback_query.from_user.id):
+    admin_id = callback_query.from_user.id
+    if not is_admin(admin_id):
         return await callback_query.answer("Admin only.", show_alert=True)
 
     async with broadcast_state_lock():
-        _broadcast_state["include_sender_name"] = not _broadcast_state["include_sender_name"]
-        val = _broadcast_state["include_sender_name"]
+        state = _get_admin_broadcast_state(admin_id)
+        state["include_sender_name"] = not state["include_sender_name"]
+        val = state["include_sender_name"]
 
     await callback_query.answer(f"Include Sender Name: {val}")
-    await _show_broadcast_settings(client, callback_query)
+    await _show_broadcast_settings(client, callback_query, admin_id)
 
 
 def _fetch_stored_user_ids() -> list[int]:
@@ -197,12 +211,14 @@ def _fetch_stored_user_ids() -> list[int]:
 
 @Client.on_callback_query(filters.regex(r"^bcast_start$"))
 async def bcast_start(client: Client, callback_query: CallbackQuery):
-    if not is_admin(callback_query.from_user.id):
+    admin_id = callback_query.from_user.id
+    if not is_admin(admin_id):
         return await callback_query.answer("Admin only.", show_alert=True)
 
     async with broadcast_state_lock():
-        payload = _broadcast_state["payload"]
-        include_sender = _broadcast_state["include_sender_name"]
+        state = _get_admin_broadcast_state(admin_id)
+        payload = state["payload"]
+        include_sender = state["include_sender_name"]
 
     if payload is None:
         return await callback_query.answer(
@@ -299,9 +315,10 @@ async def bcast_start(client: Client, callback_query: CallbackQuery):
 
 @Client.on_callback_query(filters.regex(r"^bcast_close$"))
 async def bcast_close(client: Client, callback_query: CallbackQuery):
-    if not is_admin(callback_query.from_user.id):
+    admin_id = callback_query.from_user.id
+    if not is_admin(admin_id):
         return await callback_query.answer("Admin only.", show_alert=True)
-    await _reset_broadcast_state()
+    await _reset_broadcast_state(admin_id)
     try:
         await callback_query.message.delete()
     except Exception:
@@ -324,17 +341,21 @@ async def list_users(client: Client, message: Message):
     if not is_admin(message.from_user.id):
         return
 
-    user_ids_list = [str(u["user_id"]) for u in collection.find({}, {"user_id": 1})]
-    if not user_ids_list:
+    total_users = collection.count_documents({"user_id": {"$exists": True}})
+    if total_users == 0:
         return await rich_reply(message, f"{EmojiTag.INFO} <b>No users found in database.</b>", client=client)
 
-    user_list = "\n".join(user_ids_list) + f"\n\nTotal registered users: {len(user_ids_list)}"
-    for i in range(0, len(user_list), 4000):
-        await rich_reply(
-            message,
-            f"<code>{rich_esc(user_list[i:i + 4000])}</code>",
-            client=client,
-        )
+    summary_pairs = [
+        ("Total Registered Users", f"<code>{total_users}</code>"),
+        ("Admin Count", f"<code>{len(get_admin_ids())}</code>"),
+    ]
+    summary_table = rich_kv_table(summary_pairs, headers=["Metric", "Value"])
+    msg_text = (
+        f"{rich_heading(f'{EmojiTag.MEMBERS} User Management Overview', level=1)}\n"
+        f"{summary_table}\n\n"
+        f"<i>For privacy and performance protection, individual user IDs are not dumped. Use <code>/stats</code> to view platform engagement.</i>"
+    )
+    await rich_reply(message, msg_text, client=client)
 
 
 @Client.on_message(filters.private & filters.command("stats"))

@@ -155,11 +155,12 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
     for item in new_queue_items:
         config.download_queue.put(item)
 
+    await request_cancel(user_id)
     config.cancel_requested.add(user_id)
     config.user_ids.pop(user_id, None)
 
-    if (user_id in config.downloading_users or user_id in config.zipping_users
-            or user_id in config.uploading_users):
+    is_busy = await is_user_busy(user_id)
+    if is_busy:
         msg_text = (
             f"{rich_heading(f'{EmojiTag.CANCEL} Cancellation In Progress', level=2)}\n\n"
             f"The active operation and <code>{removed}</code> queued task(s) will be stopped."
@@ -423,6 +424,9 @@ async def create_zip(client, callback_query, pass_protect=None):
 async def uncompress_preview(client: Client, callback_query: CallbackQuery):
     """Step 1: Show the rich file listing inside the archive before extracting."""
     user_id = callback_query.from_user.id
+    if not extract_limiter.is_allowed(user_id):
+        return await callback_query.answer("⏳ Too many extraction requests. Please wait a moment.", show_alert=True)
+
     data = callback_query.data
     filename_end = data.split("|", 1)[1]
     user_dir = f"{config.ggg}/zipper/{user_id}"
@@ -454,16 +458,19 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
 
     entries = []
     current = {}
-    for line in listing.splitlines():
+    lines = listing.splitlines()
+    for line in lines[:10000]:
         line = line.strip()
         if line.startswith("----------"):
             if current:
                 entries.append(current)
+                if len(entries) >= 2000:
+                    break
             current = {}
         elif " = " in line:
             key, _, val = line.partition(" = ")
             current[key.strip()] = val.strip()
-    if current:
+    if current and len(entries) < 2000:
         entries.append(current)
 
     table_rows = []
@@ -592,8 +599,8 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
         else:
             status_msg = callback_query.message
 
-        try:
-            with tempfile.TemporaryDirectory() as tmpdir:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            try:
                 result = await extract_archive(
                     target_file,
                     tmpdir,
@@ -602,75 +609,77 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
                     max_entries=config.MAX_EXTRACT_ENTRIES,
                     timeout=config.MAX_EXTRACT_SECONDS,
                 )
-        except ArchiveTooLarge as e:
-            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>{rich_esc(e)}</b>", client=client)
-        except ArchiveTimeout:
-            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Extraction timed out.</b>", client=client)
-        except ArchiveFailed as e:
-            msg_fail = "Incorrect password or unsupported archive format." if is_encrypted else str(e)
-            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Failed to extract:</b> <code>{rich_esc(msg_fail)}</code>", client=client)
+            except ArchiveTooLarge as e:
+                return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>{rich_esc(e)}</b>", client=client)
+            except ArchiveTimeout:
+                return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Extraction timed out.</b>", client=client)
+            except ArchiveFailed as e:
+                msg_fail = "Incorrect password or unsupported archive format." if is_encrypted else str(e)
+                return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Failed to extract:</b> <code>{rich_esc(msg_fail)}</code>", client=client)
 
-        if not result.files:
-            return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>No extractable files found in archive.</b>", client=client)
+            if not result.files:
+                return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>No extractable files found in archive.</b>", client=client)
 
-        await rich_edit(status_msg, f"{EmojiTag.UPLOAD} <b>Sending {len(result.files)} extracted file(s)…</b>", client=client)
+            await rich_edit(status_msg, f"{EmojiTag.UPLOAD} <b>Sending {len(result.files)} extracted file(s)…</b>", client=client)
 
-        upload_timer = Timer()
+            upload_timer = Timer()
 
-        for idx, ext_file in enumerate(result.files, 1):
-            file_name_only = os.path.basename(ext_file)
-            file_size = os.path.getsize(ext_file)
+            for idx, ext_file in enumerate(result.files, 1):
+                file_name_only = os.path.basename(ext_file)
+                if not os.path.exists(ext_file):
+                    continue
+                file_size = os.path.getsize(ext_file)
 
-            if file_size > config.MAX_EXTRACT_BYTES:
-                await rich_reply(callback_query.message, f"{EmojiTag.WARNING} Skipping <code>{rich_esc(file_name_only)}</code> (exceeds size limit).")
-                continue
+                if file_size > config.MAX_EXTRACT_BYTES:
+                    await rich_reply(callback_query.message, f"{EmojiTag.WARNING} Skipping <code>{rich_esc(file_name_only)}</code> (exceeds size limit).")
+                    continue
 
-            upload_start = time.time()
+                upload_start = time.time()
 
-            async def upload_progress(current, total, fname=file_name_only, fidx=idx, start=upload_start):
-                if await is_cancel_requested(user_id):
-                    await clear_cancel(user_id)
-                    return
-                if not upload_timer.can_send() or not total:
-                    return
-                pct = current * 100 / total
-                bar_len = 16
-                ticks = int(pct / (100 / bar_len))
-                bar = "█" * ticks + "░" * (bar_len - ticks)
-                elapsed = time.time() - start
-                speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
-                eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
-                text = (
-                    f"{rich_heading(f'{EmojiTag.UPLOAD} Sending Extracted File ({fidx}/{len(result.files)})', level=2)}\n"
-                    f"<b>File:</b> <code>{rich_esc(fname)}</code>\n"
-                    f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
-                    + rich_kv_table([
-                        ("Size", f"<code>{current/(1024*1024):.1f} / {total/(1024*1024):.1f} MB</code>"),
-                        ("Speed", f"<code>{speed:.2f} MB/s</code>"),
-                        ("ETA", f"<code>{eta:.0f}s</code>"),
-                    ])
-                )
+                async def upload_progress(current, total, fname=file_name_only, fidx=idx, start=upload_start):
+                    if await is_cancel_requested(user_id):
+                        await clear_cancel(user_id)
+                        return
+                    if not upload_timer.can_send() or not total:
+                        return
+                    pct = current * 100 / total
+                    bar_len = 16
+                    ticks = int(pct / (100 / bar_len))
+                    bar = "█" * ticks + "░" * (bar_len - ticks)
+                    elapsed = time.time() - start
+                    speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
+                    eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
+                    text = (
+                        f"{rich_heading(f'{EmojiTag.UPLOAD} Sending Extracted File ({fidx}/{len(result.files)})', level=2)}\n"
+                        f"<b>File:</b> <code>{rich_esc(fname)}</code>\n"
+                        f"<b>Progress:</b> <code>[{bar}] {pct:.1f}%</code>\n\n"
+                        + rich_kv_table([
+                            ("Size", f"<code>{current/(1024*1024):.1f} / {total/(1024*1024):.1f} MB</code>"),
+                            ("Speed", f"<code>{speed:.2f} MB/s</code>"),
+                            ("ETA", f"<code>{eta:.0f}s</code>"),
+                        ])
+                    )
+                    try:
+                        await rich_edit(status_msg, text, client=client)
+                    except Exception:
+                        pass
+
                 try:
-                    await rich_edit(status_msg, text, client=client)
+                    await client.send_document(
+                        callback_query.message.chat.id,
+                        ext_file,
+                        caption=f"Extracted: {file_name_only}",
+                        progress=upload_progress,
+                    )
                 except Exception:
-                    pass
+                    await rich_reply(callback_query.message, f"{EmojiTag.ERROR} Failed to send <code>{rich_esc(file_name_only)}</code>")
 
-            try:
-                await client.send_document(
-                    callback_query.message.chat.id,
-                    ext_file,
-                    caption=f"Extracted: {file_name_only}",
-                    progress=upload_progress,
-                )
-            except Exception:
-                await rich_reply(callback_query.message, f"{EmojiTag.ERROR} Failed to send <code>{rich_esc(file_name_only)}</code>")
-
-        await rich_edit(
-            status_msg,
-            f"{rich_heading(f'{EmojiTag.SUCCESS} Extraction Complete', level=1)}\n\n"
-            f"<i>All files extracted and uploaded to chat successfully.</i>",
-            reply_markup=home_buttons,
-            client=client,
-        )
+            await rich_edit(
+                status_msg,
+                f"{rich_heading(f'{EmojiTag.SUCCESS} Extraction Complete', level=1)}\n\n"
+                f"<i>All files extracted and uploaded to chat successfully.</i>",
+                reply_markup=home_buttons,
+                client=client,
+            )
     finally:
         await set_extracting(user_id, False)

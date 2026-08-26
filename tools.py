@@ -1,3 +1,4 @@
+import asyncio
 import os
 import shutil
 import time
@@ -42,20 +43,14 @@ async def is_user_on_chat(client: Client, user_id: int) -> bool:
 
 # ─── Admin Utilities ──────────────────────────────────────────────────────────
 
-def _get_admin_file_path():
-    """Return the absolute path to admin.txt."""
-    return os.path.join(os.getcwd(), "admin.txt")
-
-
 def get_admin_ids():
-    """Get list of admin IDs from ADMIN_IDS env var, with fallback to admin.txt."""
+    """Get list of admin IDs from ADMIN_IDS env var."""
     env = os.getenv("ADMIN_IDS", "").strip()
     if env:
-        return [int(x.strip()) for x in env.split(",") if x.strip()]
-    admin_file = _get_admin_file_path()
-    if os.path.exists(admin_file):
-        with open(admin_file, "r") as f:
-            return [int(line.strip()) for line in f if line.strip()]
+        try:
+            return [int(x.strip()) for x in env.split(",") if x.strip()]
+        except ValueError:
+            return []
     return []
 
 
@@ -143,10 +138,27 @@ def get_file_size_info(user_dir, max_storage):
         os.makedirs(user_dir, exist_ok=True)
         return 0, max_storage, []
 
-    files = os.listdir(user_dir)
-    total_size = sum(os.path.getsize(os.path.join(user_dir, f)) for f in files)
-    remaining = max_storage - total_size
-    return total_size, remaining, files
+    files = sorted(os.listdir(user_dir))
+    total_size = 0
+    valid_files = []
+    for f in files:
+        f_path = os.path.join(user_dir, f)
+        try:
+            if os.path.isfile(f_path):
+                total_size += os.path.getsize(f_path)
+                valid_files.append(f)
+            elif os.path.isdir(f_path):
+                for root, _, dirfiles in os.walk(f_path):
+                    for df in dirfiles:
+                        df_path = os.path.join(root, df)
+                        if os.path.isfile(df_path):
+                            total_size += os.path.getsize(df_path)
+                valid_files.append(f)
+        except OSError:
+            continue
+
+    remaining = max(0, max_storage - total_size)
+    return total_size, remaining, valid_files
 
 
 def cleanup_user_directory(user_dir):
@@ -158,12 +170,12 @@ def cleanup_user_directory(user_dir):
 
 async def handle_clear_files(user_id, reply_markup=None):
     """Handle clearing all files for a user. Returns a status message string."""
-    user_path = os.path.join("zipper", str(user_id))
-    if os.path.exists(user_path):
-        shutil.rmtree(user_path, ignore_errors=True)
-        os.makedirs(user_path, exist_ok=True)
-        return "All files and directories in your storage have been cleared."
-    return "Your storage directory is currently empty."
+    import config
+    user_dir = f"{config.ggg}/zipper/{user_id}"
+    if os.path.exists(user_dir):
+        cleanup_user_directory(user_dir)
+        return "All files in your storage directory have been permanently deleted."
+    return "Your storage directory is already empty."
 
 
 # ─── Timer (progress bar throttle) ───────────────────────────────────────────
@@ -171,9 +183,9 @@ async def handle_clear_files(user_id, reply_markup=None):
 class Timer:
     """Simple timer to throttle progress-bar edits."""
 
-    def __init__(self, time_between=2):
+    def __init__(self, time_between=2, interval_seconds=None):
         self.start_time = time.time()
-        self.time_between = time_between
+        self.time_between = interval_seconds if interval_seconds is not None else time_between
 
     def can_send(self):
         now = time.time()
@@ -317,19 +329,24 @@ async def create_zip_file(client, callback_query, pass_protect=None):
             size_bytes /= 1024
         return f"{size_bytes:.2f} TB"
 
+    def _sync_compress_password(paths, prefixes, out_zip, pw):
+        import pyminizip
+        pyminizip.compress_multiple(paths, prefixes, out_zip, pw, 4)
+
+    def _sync_compress_standard(paths, out_zip):
+        import zipfile
+        with zipfile.ZipFile(out_zip, "w", zipfile.ZIP_DEFLATED, compresslevel=5) as zipf:
+            for fpath in paths:
+                zipf.write(fpath, os.path.basename(fpath))
+
+    file_paths = [os.path.join(user_dir, fn) for fn in files]
+
     try:
         if pass_protect and password:
-            file_paths = [os.path.join(user_dir, fn) for fn in files]
             prefixes = [""] * len(files)
-            pyminizip.compress_multiple(file_paths, prefixes, zip_filename, password, 4)
+            await asyncio.to_thread(_sync_compress_password, file_paths, prefixes, zip_filename, password)
         else:
-            with zipfile.ZipFile(zip_filename, "w", zipfile.ZIP_DEFLATED, compresslevel=5) as zipf:
-                for i, fn in enumerate(files, 1):
-                    zipf.write(os.path.join(user_dir, fn), os.path.basename(fn))
-                    try:
-                        await rich_edit(message, f"{EmojiTag.COMPRESS} <b>Compressing:</b> <code>{rich_esc(fn)}</code> ({i}/{len(files)})…")
-                    except Exception:
-                        pass
+            await asyncio.to_thread(_sync_compress_standard, file_paths, zip_filename)
     except Exception as e:
         await rich_edit(message, f"{EmojiTag.ERROR} <b>Error creating ZIP:</b> <code>{rich_esc(e)}</code>")
         return None, message
@@ -365,7 +382,8 @@ async def upload_to_gofile(callback_query, zip_filename, message):
         from stats_manager import update_stats
         await update_stats(callback_query.from_user.id, "external_uploads")
 
-        async with aiohttp.ClientSession() as session:
+        timeout = aiohttp.ClientTimeout(total=900, connect=30)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with session.get("https://api.gofile.io/servers") as resp:
                 if resp.status != 200:
                     return await rich_reply(
@@ -373,7 +391,7 @@ async def upload_to_gofile(callback_query, zip_filename, message):
                         f"{EmojiTag.ERROR} <b>Failed to get gofile server.</b>",
                     )
                 data = await resp.json()
-                server = data["data"]["servers"][0]["name"]
+                server = data.get("data", {}).get("servers", [{}])[0].get("name")
 
             if not server:
                 return await rich_reply(

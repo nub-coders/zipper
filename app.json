@@ -1,20 +1,26 @@
 {
   "name": "File Zipper Bot",
-  "description": "A Telegram bot that compresses, manages, and uncompresses files.",
+  "description": "High-performance asynchronous Telegram bot for compressing, extracting, downloading, and cloud-uploading files.",
   "repository": "https://github.com/nub-coders/zipper",
   "logo": "https://www.herokucdn.com/deploy/button.svg",
-  "keywords": ["telegram", "bot", "zip", "file-manager", "python"],
+  "keywords": ["telegram", "bot", "zip", "7zip", "file-manager", "python", "asyncio"],
   "buildpacks": [
     { "url": "https://github.com/heroku/heroku-buildpack-apt" },
     { "url": "heroku/python" }
   ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "eco"
+    }
+  },
   "env": {
     "API_ID": {
-      "description": "Your Telegram API ID from my.telegram.org",
+      "description": "Your Telegram API ID from https://my.telegram.org",
       "required": true
     },
     "API_HASH": {
-      "description": "Your Telegram API Hash from my.telegram.org",
+      "description": "Your Telegram API Hash from https://my.telegram.org",
       "required": true
     },
     "BOT_TOKEN": {
@@ -22,15 +28,54 @@
       "required": true
     },
     "BOT_USERNAME": {
-      "description": "Your bot's username (without @)",
+      "description": "Your bot's username (without @ prefix)",
       "required": true
+    },
+    "ADMIN_IDS": {
+      "description": "Comma-separated Telegram user IDs of administrators with access to /broadcast, /stats, /users, /skip, and /reboot",
+      "required": false
     },
     "MONGO_URL": {
       "description": "MongoDB connection URI (optional — leave blank to use in-memory storage that resets on restart)",
       "required": false
     },
     "FORCE_SUBSCRIBE": {
-      "description": "Require users to join the support channels before using the bot",
+      "description": "Require users to join support channels before using the bot",
+      "value": "false",
+      "required": false
+    },
+    "MAX_DOWNLOAD_BYTES": {
+      "description": "Maximum allowed download size in bytes per file (default: 2147483648 = 2 GB)",
+      "value": "2147483648",
+      "required": false
+    },
+    "MAX_EXTRACT_BYTES": {
+      "description": "Maximum total uncompressed extraction size in bytes (default: 1073741824 = 1 GB)",
+      "value": "1073741824",
+      "required": false
+    },
+    "MAX_EXTRACT_ENTRIES": {
+      "description": "Maximum number of files allowed in an extracted archive (default: 2000)",
+      "value": "2000",
+      "required": false
+    },
+    "MAX_EXTRACT_SECONDS": {
+      "description": "Maximum extraction execution timeout in seconds (default: 600)",
+      "value": "600",
+      "required": false
+    },
+    "NULOADER_API_URL": {
+      "description": "NuLoader API endpoint for uploading files exceeding the 2 GB Telegram limit",
+      "value": "https://files.nubcoders.com",
+      "required": false
+    },
+    "NULOADER_API_KEY": {
+      "description": "API key for NuLoader cloud storage upload",
+      "required": false
+    },
+    "NULOADER_EXPIRY_MODE": {
+      "description": "Retention/expiry mode on NuLoader (e.g., days_7, downloads_5)",
+      "value": "days_7",
       "required": false
     }
   },

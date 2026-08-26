@@ -26,6 +26,7 @@ MONGO_URL = os.getenv("MONGO_URL", "")
 MAX_EXTRACT_BYTES = int(os.getenv("MAX_EXTRACT_BYTES", 1024 * 1024 * 1024))
 MAX_EXTRACT_ENTRIES = int(os.getenv("MAX_EXTRACT_ENTRIES", 2000))
 MAX_EXTRACT_SECONDS = int(os.getenv("MAX_EXTRACT_SECONDS", 600))
+MAX_DOWNLOAD_BYTES = int(os.getenv("MAX_DOWNLOAD_BYTES", 2 * 1024 * 1024 * 1024))
 
 # ── NuLoader Cloud Storage ────────────────────────────────────────────────────
 NULOADER_API_URL = os.getenv("NULOADER_API_URL", "https://files.nubcoders.com").rstrip("/")

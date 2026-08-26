@@ -6,6 +6,7 @@ from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, Message, ReplyParameters
 from stats_manager import get_user_stats
 from tools import get_file_size_info, get_text, get_user_status, set_user_lang
+from user_state import get_busy_reason, is_user_busy
 from utils.emoji import EmojiTag
 from utils.rich_ui import (
     rich_details,
@@ -189,11 +190,15 @@ async def _build_status_html_and_markup(user_id: int):
 
     markup = home_buttons
 
-    if user_id in config.downloading_users or user_id in config.zipping_users or user_id in config.uploading_users:
-        if user_id in config.downloading_users:
+    is_busy = await is_user_busy(user_id)
+    if is_busy:
+        reason = await get_busy_reason(user_id)
+        if reason == "downloading":
             status_text = f"{EmojiTag.DOWNLOAD} <b>Status:</b> Downloading a file…"
-        elif user_id in config.zipping_users:
+        elif reason == "zipping":
             status_text = f"{EmojiTag.COMPRESS} <b>Status:</b> Compressing files…"
+        elif reason == "extracting":
+            status_text = f"{EmojiTag.ZIP} <b>Status:</b> Extracting files…"
         else:
             status_text = f"{EmojiTag.UPLOAD} <b>Status:</b> Uploading file…"
 

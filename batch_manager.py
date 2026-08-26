@@ -114,6 +114,8 @@ def _get_filename(message: Message, user_id: int) -> str:
         return raw or f"download_{user_id}_{ts}"
     return f"file_{user_id}_{ts}"
 
+MAX_BATCH_QUEUE = 20
+
 
 @dataclass
 class UserDownloadBatch:
@@ -130,6 +132,7 @@ class UserDownloadBatch:
     is_running: bool = False
     lock: asyncio.Lock = field(default_factory=asyncio.Lock)
     last_progress_info: dict = field(default_factory=dict)
+    last_relocate_time: float = 0.0
 
 
 _batches: Dict[int, UserDownloadBatch] = {}
@@ -169,14 +172,14 @@ def _build_progress_card(
     else:
         filename = "Processing…"
 
-    pct = (current * 100 / total) if total else 0
-    bar_len = 16
-    ticks = int(pct / (100 / bar_len)) if total else 0
+    bar_len = 14
+    pct = (current / total * 100) if total > 0 else 0
+    ticks = int(pct / (100 / bar_len)) if bar_len > 0 else 0
     bar = "█" * ticks + "░" * (bar_len - ticks)
 
     rows = [
-        ("Current File", f"<code>{rich_esc(filename[:24] + '...' if len(filename) > 27 else filename)}</code>"),
-        ("File Progress", f"<code>{_fmt_size(current)} / {_fmt_size(total)}</code>" if total else "<code>Calculating…</code>"),
+        ("Current File", f"<code>{rich_esc(filename[:20] + '...' if len(filename) > 23 else filename)}</code>"),
+        ("File Transfer", f"<code>{_fmt_size(current)} / {_fmt_size(total)}</code>"),
         ("Files Downloaded", f"<code>{batch.downloaded_count} / {total_files}</code>"),
         ("Remaining in Queue", f"<code>{remaining_in_queue} file(s)</code>"),
     ]
@@ -194,7 +197,12 @@ def _build_progress_card(
 
 
 async def _relocate_status_message_to_bottom(batch: UserDownloadBatch):
-    """Delete the previous bot status message and send a new one at the bottom of the chat."""
+    """Delete the previous bot status message and send a new one at the bottom of the chat, throttled to prevent FloodWait."""
+    now = time.time()
+    if now - batch.last_relocate_time < 2.0:
+        return
+    batch.last_relocate_time = now
+
     old_msg = batch.status_msg
     batch.status_msg = None
 
@@ -236,13 +244,23 @@ async def enqueue_media_message(client: Client, message: Message):
         text = f"{EmojiTag.LOCK} <b>Membership Required</b>\n\nYou must join @nub_coders and @nub_coder_s to use this bot."
         return await rich_send(client, chat_id, text, reply_markup=button)
 
-    if user_id in config.zipping_users or user_id in config.uploading_users:
-        reason = "compressing" if user_id in config.zipping_users else "uploading"
+    if not rate_limiter.is_allowed(user_id):
         return await rich_send(
             client,
             chat_id,
-            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send files after the current process finishes.",
+            f"{EmojiTag.CLOCK} <b>Rate limit exceeded.</b>\nPlease slow down.",
         )
+
+    is_busy = await is_user_busy(user_id)
+    if is_busy:
+        from user_state import get_busy_reason
+        reason = await get_busy_reason(user_id)
+        if reason in ("zipping", "uploading", "extracting"):
+            return await rich_send(
+                client,
+                chat_id,
+                f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send files after the current process finishes.",
+            )
 
     size, enforce_limit = _get_media_size(message)
     _, max_storage, max_file_size = get_user_status(collection, user_id)
@@ -258,23 +276,29 @@ async def enqueue_media_message(client: Client, message: Message):
             f"{EmojiTag.ERROR} <b>File exceeds limit.</b> Maximum single file size is <code>{size_gb:.1f} GB</code>.",
         )
 
-    if size > remaining_storage:
-        return await rich_send(
-            client,
-            chat_id,
-            f"{EmojiTag.ERROR} <b>Not enough storage quota remaining.</b>\nRequired: <code>{_fmt_size(size)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
-        )
-
     batch = await get_user_batch(user_id, chat_id, client)
     async with batch.lock:
+        if len(batch.queue) >= MAX_BATCH_QUEUE:
+            return await rich_send(
+                client,
+                chat_id,
+                f"{EmojiTag.ERROR} <b>Batch queue full (max {MAX_BATCH_QUEUE} files).</b>\nPlease wait for the current batch to complete.",
+            )
+
+        pending_bytes = sum(_get_media_size(m)[0] for m in batch.queue)
+        if size + pending_bytes > remaining_storage:
+            return await rich_send(
+                client,
+                chat_id,
+                f"{EmojiTag.ERROR} <b>Not enough storage quota remaining.</b>\nRequired: <code>{_fmt_size(size + pending_bytes)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
+            )
+
         batch.queue.append(message)
         batch.total_in_batch = batch.downloaded_count + (1 if batch.active_msg else 0) + len(batch.queue)
 
         if batch.is_running:
-            # Active download already running -> relocate status card to bottom after new message
             await _relocate_status_message_to_bottom(batch)
         else:
-            # No active download -> refresh 1.0s debounce timer
             if batch.debounce_task and not batch.debounce_task.done():
                 batch.debounce_task.cancel()
             batch.debounce_task = asyncio.create_task(_debounce_worker_trigger(batch, 1.0))
@@ -294,13 +318,23 @@ async def enqueue_link_message(client: Client, message: Message):
         text = f"{EmojiTag.LOCK} <b>Membership Required</b>\n\nYou must join @nub_coders and @nub_coder_s to use this bot."
         return await rich_send(client, chat_id, text, reply_markup=button)
 
-    if user_id in config.zipping_users or user_id in config.uploading_users:
-        reason = "compressing" if user_id in config.zipping_users else "uploading"
+    if not rate_limiter.is_allowed(user_id):
         return await rich_send(
             client,
             chat_id,
-            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send links after the current process finishes.",
+            f"{EmojiTag.CLOCK} <b>Rate limit exceeded.</b>\nPlease slow down.",
         )
+
+    is_busy = await is_user_busy(user_id)
+    if is_busy:
+        from user_state import get_busy_reason
+        reason = await get_busy_reason(user_id)
+        if reason in ("zipping", "uploading", "extracting"):
+            return await rich_send(
+                client,
+                chat_id,
+                f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send links after the current process finishes.",
+            )
 
     _, max_storage, _ = get_user_status(collection, user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
@@ -317,15 +351,24 @@ async def enqueue_link_message(client: Client, message: Message):
         return await rich_send(client, chat_id, f"{EmojiTag.ERROR} <b>Link verification failed:</b> <code>{rich_esc(e)}</code>")
 
     content_length = declared_length if declared_length is not None else 0
-    if content_length and content_length > remaining_storage:
-        return await rich_send(
-            client,
-            chat_id,
-            f"{EmojiTag.ERROR} <b>Not enough storage quota.</b> Required: <code>{_fmt_size(content_length)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
-        )
 
     batch = await get_user_batch(user_id, chat_id, client)
     async with batch.lock:
+        if len(batch.queue) >= MAX_BATCH_QUEUE:
+            return await rich_send(
+                client,
+                chat_id,
+                f"{EmojiTag.ERROR} <b>Batch queue full (max {MAX_BATCH_QUEUE} files).</b>\nPlease wait for the current batch to complete.",
+            )
+
+        pending_bytes = sum(_get_media_size(m)[0] for m in batch.queue)
+        if (content_length + pending_bytes) > remaining_storage:
+            return await rich_send(
+                client,
+                chat_id,
+                f"{EmojiTag.ERROR} <b>Not enough storage quota.</b> Required: <code>{_fmt_size(content_length + pending_bytes)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
+            )
+
         batch.queue.append(message)
         batch.total_in_batch = batch.downloaded_count + (1 if batch.active_msg else 0) + len(batch.queue)
 
@@ -360,19 +403,11 @@ async def _process_batch(batch: UserDownloadBatch):
     await set_downloading(user_id, True)
     config.user_ids[user_id] = True
 
-    # Send initial status card after the latest message (no reply parameter)
-    if not batch.status_msg:
-        card = _build_progress_card(batch)
-        cancel_markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
-        ])
-        batch.status_msg = await rich_send(client, chat_id, card, reply_markup=cancel_markup)
-
+    _, max_storage, _ = get_user_status(collection, user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
-    _, max_storage, _ = get_user_status(collection, user_id)
 
-    timer = Timer(time_between=2.0)
+    status_timer = Timer(time_between=3.0)
     cancelled = False
 
     try:
@@ -388,33 +423,36 @@ async def _process_batch(batch: UserDownloadBatch):
                 batch.active_msg = batch.queue.pop(0)
 
             msg = batch.active_msg
-            start_time = time.time()
+            file_start_time = time.time()
 
             async def progress_bar(current, total):
                 if await is_cancel_requested(user_id):
-                    raise StopTransmission()
+                    raise StopTransmission
 
-                if not timer.can_send() or not total:
-                    return
-
-                elapsed = time.time() - start_time
-                speed = current / (elapsed * 1024 * 1024) if elapsed > 0 else 0
-                eta = (total - current) / (speed * 1024 * 1024) if speed > 0 else 0
+                elapsed = time.time() - file_start_time
+                speed = current / elapsed if elapsed > 0 else 0
+                eta = (total - current) / speed if speed > 0 else 0
 
                 batch.last_progress_info = {
                     "current": current,
                     "total": total,
-                    "speed": speed,
+                    "speed": speed / (1024 * 1024),
                     "eta": eta,
                     "elapsed": elapsed,
                 }
 
-                card = _build_progress_card(batch, current, total, speed, eta, elapsed)
-                cancel_markup = InlineKeyboardMarkup([
-                    [InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
-                ])
-
-                if batch.status_msg:
+                if status_timer.can_send() and batch.status_msg:
+                    card = _build_progress_card(
+                        batch,
+                        current=current,
+                        total=total,
+                        speed=speed / (1024 * 1024),
+                        eta=eta,
+                        elapsed=elapsed,
+                    )
+                    cancel_markup = InlineKeyboardMarkup([
+                        [InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
+                    ])
                     try:
                         await rich_edit(batch.status_msg, card, reply_markup=cancel_markup, client=client)
                     except Exception:
@@ -425,12 +463,15 @@ async def _process_batch(batch: UserDownloadBatch):
                 if msg.text and msg.text.startswith("http"):
                     link = msg.text.strip()
                     _, rem_storage, _ = get_file_size_info(user_dir, max_storage)
+                    if rem_storage <= 0:
+                        raise DownloadTooLarge("No remaining storage quota")
                     raw_filename = link.split("?")[0].split("#")[0].split("/")[-1] or "download"
                     dest_path = resolve_in_user_dir(user_dir, raw_filename, fallback="download")
+                    max_allowed = min(rem_storage, config.MAX_DOWNLOAD_BYTES)
                     await safe_download(
                         link,
                         dest_path,
-                        max_bytes=max(rem_storage, config.MAX_EXTRACT_BYTES),
+                        max_bytes=max_allowed,
                         progress_callback=lambda c, t: asyncio.create_task(progress_bar(c, t)),
                     )
                 # Media Telegram File

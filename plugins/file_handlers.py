@@ -3,6 +3,7 @@
 import asyncio
 import os
 import random
+import shutil
 import time
 
 import config
@@ -46,6 +47,7 @@ from tools import (
 )
 from user_state import (
     clear_cancel,
+    get_busy_reason,
     is_cancel_requested,
     is_user_busy,
     request_cancel,
@@ -124,7 +126,7 @@ async def list_files_callback(client: Client, callback_query: CallbackQuery):
 
 @Client.on_message(filters.private & filters.command("del"))
 async def delete_file(client: Client, message: Message):
-    user_id = str(message.from_user.id)
+    user_id = message.from_user.id
     user_dir = f"{config.ggg}/zipper/{user_id}"
 
     try:
@@ -145,17 +147,28 @@ async def delete_file(client: Client, message: Message):
             client=client,
         )
 
-    files = os.listdir(user_dir)
+    files = sorted(os.listdir(user_dir))
     if 0 <= file_number < len(files):
         target = os.path.join(user_dir, files[file_number])
         deleted_name = files[file_number]
-        os.remove(target)
-        return await rich_reply(
-            message,
-            f"{EmojiTag.SUCCESS} <b>File deleted successfully!</b>\n\n🗑️ Removed: <code>{rich_esc(deleted_name)}</code>",
-            reply_markup=file_buttons,
-            client=client,
-        )
+        try:
+            if os.path.isdir(target):
+                shutil.rmtree(target, ignore_errors=True)
+            else:
+                os.remove(target)
+            return await rich_reply(
+                message,
+                f"{EmojiTag.SUCCESS} <b>File deleted successfully!</b>\n\n🗑️ Removed: <code>{rich_esc(deleted_name)}</code>",
+                reply_markup=file_buttons,
+                client=client,
+            )
+        except OSError as e:
+            return await rich_reply(
+                message,
+                f"{EmojiTag.ERROR} <b>Failed to delete:</b> <code>{rich_esc(e)}</code>",
+                reply_markup=file_buttons,
+                client=client,
+            )
 
     return await rich_reply(
         message,
@@ -186,8 +199,8 @@ async def clear_files_callback(client: Client, callback_query: CallbackQuery):
 @Client.on_message(filters.private & filters.command("fzip"))
 async def zip_files_command(client: Client, message: Message):
     user_id = message.from_user.id
-    if user_id in config.downloading_users or user_id in config.uploading_users:
-        reason = "downloading" if user_id in config.downloading_users else "uploading"
+    if await is_user_busy(user_id):
+        reason = await get_busy_reason(user_id)
         return await rich_reply(
             message,
             f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nYou can zip your files once it finishes.",
@@ -222,8 +235,8 @@ async def zip_files_command(client: Client, message: Message):
 @Client.on_callback_query(filters.regex(r"^fzip$"))
 async def zip_files_callback(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
-    if user_id in config.downloading_users or user_id in config.uploading_users:
-        reason = "downloading" if user_id in config.downloading_users else "uploading"
+    if await is_user_busy(user_id):
+        reason = await get_busy_reason(user_id)
         return await rich_edit(
             callback_query,
             f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nYou can zip your files once it finishes.",
@@ -259,13 +272,8 @@ async def zip_files_callback(client: Client, callback_query: CallbackQuery):
 async def unzip_command(client: Client, message: Message):
     user_id = message.from_user.id
 
-    if user_id in config.downloading_users or user_id in config.zipping_users or user_id in config.uploading_users:
-        if user_id in config.downloading_users:
-            reason = "downloading"
-        elif user_id in config.zipping_users:
-            reason = "compressing"
-        else:
-            reason = "uploading"
+    if await is_user_busy(user_id):
+        reason = await get_busy_reason(user_id)
         return await rich_reply(
             message,
             f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nYou can use <code>/unzip</code> once it finishes.",
@@ -776,10 +784,11 @@ async def link_download(message, queued: bool = False):
             pass
 
     try:
+        max_allowed = min(remaining_storage, config.MAX_DOWNLOAD_BYTES)
         await safe_download(
             link,
             file_path,
-            max_bytes=max(remaining_storage, config.MAX_EXTRACT_BYTES),
+            max_bytes=max_allowed,
             progress_callback=lambda c, t: asyncio.create_task(progress_bar(c, t)),
         )
     except SSRFBlocked as e:

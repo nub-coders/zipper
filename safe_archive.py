@@ -52,8 +52,9 @@ _POLL_INTERVAL = 0.25
 # case. The post-extraction check still enforces the hard limit exactly.
 _OVERSHOOT_ALLOWANCE = 256 * 1024 * 1024
 
-# Concurrency ceiling: extraction is CPU- and disk-heavy, and callbacks were
-# previously unthrottled, so a user could spawn unbounded parallel `7z x`.
+MAX_LIST_BYTES = 2 * 1024 * 1024              # 2 MiB ceiling on raw 7z listing output
+
+# Concurrency ceiling: extraction and listing are CPU- and disk-heavy
 _EXTRACT_SLOTS = asyncio.Semaphore(2)
 # A no-password placeholder. Must not contain a NUL byte (execve rejects those)
 # and must be something a real archive is vanishingly unlikely to use. An empty
@@ -212,7 +213,7 @@ async def extract_archive(
     async with _EXTRACT_SLOTS:
         proc = await asyncio.create_subprocess_exec(
             "7z", "x", f"-o{dest_dir}", f"-p{pw}", "-y",
-            "-bso0", "-bse0", "-bsp0",
+            "-mmt=2", "-bso0", "-bse0", "-bsp0",
             archive_path,
             stdin=asyncio.subprocess.DEVNULL,   # never block on a prompt
             stdout=asyncio.subprocess.DEVNULL,
@@ -261,25 +262,29 @@ async def extract_archive(
 
 
 async def list_archive(archive_path: str, *, timeout: float = 60.0) -> tuple[str, bool]:
-    """Return (raw 7z listing, exited_ok) without blocking the event loop."""
-    proc = await asyncio.create_subprocess_exec(
-        "7z", "l", "-slt", f"-p{_NO_PASSWORD}", archive_path,
-        stdin=asyncio.subprocess.DEVNULL,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.STDOUT,
-    )
-    try:
-        out, _ = await asyncio.wait_for(proc.communicate(), timeout=timeout)
-    except asyncio.TimeoutError:
+    """Return (raw 7z listing, exited_ok) without blocking the event loop or exhausting memory."""
+    async with _EXTRACT_SLOTS:
+        proc = await asyncio.create_subprocess_exec(
+            "7z", "l", "-slt", "-mmt=2", f"-p{_NO_PASSWORD}", archive_path,
+            stdin=asyncio.subprocess.DEVNULL,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,
+        )
         try:
-            proc.kill()
-        except ProcessLookupError:
-            pass
-        await proc.wait()
-        raise ArchiveTimeout("listing timed out")
-    return out.decode("utf-8", "replace"), proc.returncode == 0
+            out, _ = await asyncio.wait_for(proc.communicate(), timeout=timeout)
+        except asyncio.TimeoutError:
+            try:
+                proc.kill()
+            except ProcessLookupError:
+                pass
+            await proc.wait()
+            raise ArchiveTimeout("listing timed out")
+
+        if len(out) > MAX_LIST_BYTES:
+            out = out[:MAX_LIST_BYTES]
+        return out.decode("utf-8", "replace"), proc.returncode == 0
 
 
 def looks_encrypted(listing: str) -> bool:
     """Detect encryption from a 7z listing."""
-    return "Encrypted = +" in listing or "Wrong password" in listing
+    return "Encrypted = +" in listing or "Wrong password" in listing or "Characteristics = Encrypted" in listing
