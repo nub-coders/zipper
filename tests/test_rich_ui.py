@@ -220,3 +220,92 @@ def test_nuloader_envelope_modes():
 
     preamble_5dl, _, _ = _build_envelope("test.zip", "downloads_5")
     assert b'name="expiry_mode"\r\n\r\ndownloads_5\r\n' in preamble_5dl
+
+
+def test_batch_manager_progress_card():
+    """Test progress card formatting with batch metrics (completed/total/queued)."""
+    from batch_manager import UserDownloadBatch, _build_progress_card
+    from unittest.mock import MagicMock
+
+    mock_client = MagicMock()
+    mock_msg = MagicMock()
+    mock_msg.document.file_name = "archive.tar.gz"
+    mock_msg.document.file_size = 100 * 1024 * 1024
+    mock_msg.photo = None
+    mock_msg.video = None
+    mock_msg.audio = None
+    mock_msg.voice = None
+    mock_msg.video_note = None
+    mock_msg.sticker = None
+    mock_msg.animation = None
+    mock_msg.text = None
+
+    batch = UserDownloadBatch(
+        user_id=12345,
+        chat_id=12345,
+        client=mock_client,
+        active_msg=mock_msg,
+        queue=[MagicMock(), MagicMock()],  # 2 queued
+        downloaded_count=2,  # 2 already downloaded
+        total_in_batch=5,    # 2 downloaded + 1 active + 2 queued = 5
+    )
+
+    card = _build_progress_card(
+        batch,
+        current=50 * 1024 * 1024,
+        total=100 * 1024 * 1024,
+        speed=5.25,
+        eta=9.5,
+    )
+
+    assert "Downloading Files (3/5)" in card
+    assert "archive.tar.gz" in card
+    assert "50.00 MB / 100.00 MB" in card
+    assert "2 / 5" in card
+    assert "2 file(s)" in card
+    assert "5.25 MB/s" in card
+    assert "50.0%" in card
+
+
+@pytest.mark.asyncio
+async def test_batch_manager_relocation():
+    """Test that _relocate_status_message_to_bottom deletes previous status message and sends new one."""
+    from batch_manager import UserDownloadBatch, _relocate_status_message_to_bottom
+    from unittest.mock import AsyncMock, MagicMock
+
+    mock_client = MagicMock()
+    mock_client.send_message = AsyncMock(return_value=MagicMock(id=999))
+
+    old_status = MagicMock(id=100)
+    old_status.delete = AsyncMock()
+
+    batch = UserDownloadBatch(
+        user_id=12345,
+        chat_id=12345,
+        client=mock_client,
+        status_msg=old_status,
+        last_progress_info={"current": 1024, "total": 2048, "speed": 1.0, "eta": 1.0, "elapsed": 1.0},
+    )
+
+    await _relocate_status_message_to_bottom(batch)
+
+    # Old status message must be deleted
+    old_status.delete.assert_awaited_once()
+    # New message must be created
+    assert batch.status_msg is not None
+    assert batch.status_msg.id == 999
+
+
+@pytest.mark.asyncio
+async def test_batch_manager_cancellation():
+    """Test cancel_user_batch clearing queue and cancelling timers."""
+    from batch_manager import cancel_user_batch, get_user_batch
+    from unittest.mock import MagicMock
+
+    mock_client = MagicMock()
+    batch = await get_user_batch(99999, 99999, mock_client)
+    batch.queue.extend([MagicMock(), MagicMock(), MagicMock()])
+    assert len(batch.queue) == 3
+
+    await cancel_user_batch(99999)
+    assert len(batch.queue) == 0

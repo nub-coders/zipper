@@ -117,6 +117,8 @@ async def with_pass(client: Client, callback_query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^cancel_task$"))
 async def cancel_task(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
+    from batch_manager import cancel_user_batch
+    await cancel_user_batch(user_id)
 
     if await is_user_busy(user_id):
         await request_cancel(user_id)
@@ -138,6 +140,8 @@ async def cancel_task(client: Client, callback_query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^cancel_all$"))
 async def cancel_all(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
+    from batch_manager import cancel_user_batch
+    await cancel_user_batch(user_id)
 
     removed = 0
     new_queue_items = []

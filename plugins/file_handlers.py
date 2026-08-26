@@ -35,6 +35,7 @@ from safe_download import (
     safe_head,
 )
 from safe_paths import UnsafePathError, resolve_in_user_dir
+from batch_manager import enqueue_link_message, enqueue_media_message
 from stats_manager import update_stats
 from tools import (
     Timer,
@@ -325,16 +326,7 @@ async def unzip_command(client: Client, message: Message):
        | filters.voice | filters.video_note | filters.sticker | filters.animation)
 )
 async def handle_media(client: Client, message: Message):
-    user_id = message.from_user.id
-    if user_id in config.zipping_users or user_id in config.uploading_users:
-        reason = "compressing" if user_id in config.zipping_users else "uploading"
-        return await rich_reply(
-            message,
-            f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send files after the current process finishes.",
-            reply_markup=cancel_markup,
-            client=client,
-        )
-    await download(message)
+    await enqueue_media_message(client, message)
 
 
 @Client.on_message(
@@ -348,16 +340,7 @@ async def handle_media(client: Client, message: Message):
 )
 async def handle_links(client: Client, message: Message):
     if message.text.startswith("http"):
-        user_id = message.from_user.id
-        if user_id in config.zipping_users or user_id in config.uploading_users:
-            reason = "compressing" if user_id in config.zipping_users else "uploading"
-            return await rich_reply(
-                message,
-                f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send links after the current process finishes.",
-                reply_markup=cancel_markup,
-                client=client,
-            )
-        await link_download(message)
+        await enqueue_link_message(client, message)
 
 
 # ─── Queue Processor ─────────────────────────────────────────────────────────
