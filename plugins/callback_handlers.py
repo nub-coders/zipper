@@ -307,7 +307,100 @@ async def create_zip(client, callback_query, pass_protect=None):
                     client=client,
                 )
         else:
-            await upload_to_nuloader(callback_query, zip_filename, message)
+            # File exceeds Telegram's 2.00 GB limit: present interactive upload method options
+            def _fmt_size(size_bytes):
+                for unit in ("B", "KB", "MB", "GB"):
+                    if size_bytes < 1024:
+                        return f"{size_bytes:.2f} {unit}"
+                    size_bytes /= 1024
+                return f"{size_bytes:.2f} TB"
+
+            choice_table = rich_kv_table([
+                ("Archive Name", f"<code>{rich_esc(os.path.basename(zip_filename))}</code>"),
+                ("Archive Size", f"<code>{_fmt_size(file_size)}</code>"),
+                ("Telegram Limit", "<code>2.00 GB</code>"),
+            ], headers=["Archive Info", "Value"])
+
+            choice_text = (
+                f"{rich_heading(f'{EmojiTag.CLOUD} Cloud Upload Required', level=1)}\n"
+                f"{choice_table}\n\n"
+                f"<i>Telegram restricts bot uploads to 2.00 GB.<br>"
+                f"Please choose your preferred cloud hosting & retention option:</i>"
+            )
+
+            upload_buttons = [
+                [
+                    InlineKeyboardButton(
+                        "🌐 NuLoader: 7 Days (Unlimited)",
+                        callback_data="upopt_days_7",
+                        style=ButtonStyle.PRIMARY,
+                        icon_custom_emoji_id=Emoji.CLOUD,
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "⚡ NuLoader: 5 Downloads Max",
+                        callback_data="upopt_downloads_5",
+                        style=ButtonStyle.SUCCESS,
+                        icon_custom_emoji_id=Emoji.PING,
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "☁️ GoFile.io Mirror",
+                        callback_data="upopt_gofile",
+                        style=ButtonStyle.DEFAULT,
+                        icon_custom_emoji_id=Emoji.LINK,
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🛑 Cancel",
+                        callback_data="cancel_task",
+                        style=ButtonStyle.DANGER,
+                        icon_custom_emoji_id=Emoji.CANCEL,
+                    )
+                ],
+            ]
+
+            upload_choice_markup = InlineKeyboardMarkup(upload_buttons)
+
+            try:
+                await rich_edit(msg, choice_text, reply_markup=upload_choice_markup, client=client)
+            except Exception:
+                pass
+
+            try:
+                cb = await client.listen.CallbackQuery(
+                    filters.user(user_id) & filters.regex(r"^(upopt_|cancel_task)"),
+                    timeout=180,
+                )
+                try:
+                    await cb.answer()
+                except Exception:
+                    pass
+
+                choice = cb.data
+                if choice == "cancel_task":
+                    await rich_edit(
+                        msg,
+                        f"{rich_heading(f'{EmojiTag.CANCEL} Upload Cancelled', level=2)}\n\nYour upload was cancelled.",
+                        reply_markup=home_buttons,
+                        client=client,
+                    )
+                    return
+                elif choice == "upopt_downloads_5":
+                    await upload_to_nuloader(callback_query, zip_filename, msg, expiry_mode="downloads_5")
+                elif choice == "upopt_gofile":
+                    from tools import upload_to_gofile
+                    await upload_to_gofile(callback_query, zip_filename, msg)
+                else:  # upopt_days_7
+                    await upload_to_nuloader(callback_query, zip_filename, msg, expiry_mode="days_7")
+
+            except asyncio.TimeoutError:
+                # Timeout fallback: proceed with default configured mode
+                default_mode = getattr(config, "NULOADER_EXPIRY_MODE", "days_7") or "days_7"
+                await upload_to_nuloader(callback_query, zip_filename, msg, expiry_mode=default_mode)
     finally:
         await set_uploading(user_id, False)
         await clear_cancel(user_id)

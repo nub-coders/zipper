@@ -207,3 +207,16 @@ def test_heading_with_emoji():
     h = rich_heading(f"{EmojiTag.ARCHIVE} File Zipper Bot", level=1)
     assert h.startswith("<h1><tg-emoji")
     assert "File Zipper Bot</h1>" in h
+
+
+def test_nuloader_envelope_modes():
+    """Test that _build_envelope in nuloader_upload properly embeds different expiry modes."""
+    from nuloader_upload import _build_envelope
+
+    preamble_7d, epilogue_7d, content_type_7d = _build_envelope("test.zip", "days_7")
+    assert b'name="expiry_mode"\r\n\r\ndays_7\r\n' in preamble_7d
+    assert b'filename="test.zip"' in preamble_7d
+    assert "multipart/form-data; boundary=" in content_type_7d
+
+    preamble_5dl, _, _ = _build_envelope("test.zip", "downloads_5")
+    assert b'name="expiry_mode"\r\n\r\ndownloads_5\r\n' in preamble_5dl

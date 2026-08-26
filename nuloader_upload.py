@@ -103,9 +103,10 @@ async def _stream_body(
     yield epilogue
 
 
-async def upload_to_nuloader(callback_query, zip_filename, message):
+async def upload_to_nuloader(callback_query, zip_filename, message, expiry_mode=None):
     """Upload a >2GB archive to NuLoader and reply with the download link."""
     user_id = callback_query.from_user.id
+    mode = expiry_mode if expiry_mode in ("days_7", "downloads_5") else EXPIRY_MODE
 
     async def fail(reason, detail=None):
         text = (
@@ -137,7 +138,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
         )
 
     filename = os.path.basename(zip_filename)
-    preamble, epilogue, content_type = _build_envelope(filename, EXPIRY_MODE)
+    preamble, epilogue, content_type = _build_envelope(filename, mode)
     content_length = len(preamble) + file_size + len(epilogue)
 
     timer = Timer()
@@ -231,7 +232,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
 
         expiry_desc = (
             "7 days (unlimited downloads)"
-            if EXPIRY_MODE == "days_7"
+            if mode == "days_7"
             else "5 downloads (30 days hard cap)"
         )
 

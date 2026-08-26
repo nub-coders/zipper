@@ -27,6 +27,11 @@ MAX_EXTRACT_BYTES = int(os.getenv("MAX_EXTRACT_BYTES", 1024 * 1024 * 1024))
 MAX_EXTRACT_ENTRIES = int(os.getenv("MAX_EXTRACT_ENTRIES", 2000))
 MAX_EXTRACT_SECONDS = int(os.getenv("MAX_EXTRACT_SECONDS", 600))
 
+# ── NuLoader Cloud Storage ────────────────────────────────────────────────────
+NULOADER_API_URL = os.getenv("NULOADER_API_URL", "https://files.nubcoders.com").rstrip("/")
+NULOADER_API_KEY = os.getenv("NULOADER_API_KEY", "")
+NULOADER_EXPIRY_MODE = os.getenv("NULOADER_EXPIRY_MODE", "days_7")
+
 
 def _init_collection():
     if not MONGO_URL:
