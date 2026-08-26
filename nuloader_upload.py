@@ -43,9 +43,18 @@ EXPIRY_MODE = os.getenv("NULOADER_EXPIRY_MODE", "days_7")
 # server would rather than hanging on a connection that is already dead.
 UPLOAD_TIMEOUT_SECONDS = 1800
 
+# The API key travels in a header, so a plaintext endpoint would leak it to
+# anyone on the path. Loopback is exempt so a developer can point this at a
+# local instance.
+_LOCAL_PREFIXES = ("http://127.0.0.1", "http://localhost", "http://[::1]")
+
 
 class UploadCancelled(Exception):
     """Raised inside the body generator when the user presses Cancel."""
+
+
+class UploadTruncated(Exception):
+    """Raised when the archive no longer matches the size that was declared."""
 
 
 def _fmt(size_bytes):
@@ -55,6 +64,19 @@ def _fmt(size_bytes):
             return f"{size_bytes:.2f} {unit}"
         size_bytes /= 1024
     return f"{size_bytes:.2f} TB"
+
+
+def _md_code(value):
+    """Make a value safe to sit inside a Markdown code span.
+
+    Pyrogram parses these messages as Markdown, so a backtick in a
+    user-controlled filename closes the span early and everything after it is
+    parsed as markup. Verified against ``pyrogram.parser.markdown``: a file
+    named ``x`[CLICK HERE](https://evil.example)`.zip`` makes the bot emit a
+    real MessageEntityTextUrl -- i.e. a clickable attacker-chosen link inside
+    the bot's own trusted message. Backslashes go too, since they escape.
+    """
+    return str(value).replace("\\", "_").replace("`", "_")
 
 
 def _safe_field(value):
@@ -81,30 +103,38 @@ def _build_envelope(filename, expiry_mode):
     return preamble, epilogue, f"multipart/form-data; boundary={boundary}"
 
 
-async def _stream_body(path, preamble, epilogue, total, user_id, on_progress, cancel_state):
+async def _stream_body(path, preamble, epilogue, total, user_id, on_progress, state):
     """Yield the multipart body, reporting progress and honouring cancellation.
+
+    Exactly ``total`` file bytes are emitted, no matter what the file does after
+    its size was measured. That matters because Content-Length is already on the
+    wire: under-delivering leaves the server waiting for bytes that never arrive
+    until the 30 minute timeout expires, and the user's upload lock is held for
+    that entire time. A file that shrank is reported as UploadTruncated instead;
+    a file that grew is simply cut at the declared length.
 
     The read runs in a worker thread: a multi-GB synchronous read on the event
     loop would stall every other user's task for the duration.
 
-    ``cancel_state`` is set before raising because aiohttp catches whatever a
-    body generator raises and re-raises it as a ClientConnectionError; the flag
-    is the only thing that survives to tell "user cancelled" apart from "the
-    network died".
+    ``state`` flags are set before raising because aiohttp catches whatever a
+    body generator raises and re-raises it as a ClientConnectionError, so the
+    flag is the only thing that survives to tell these cases apart from a
+    genuine network failure.
     """
     yield preamble
-    sent = 0
+    remaining = total
     with open(path, "rb") as fh:
-        while True:
+        while remaining > 0:
             if await is_cancel_requested(user_id):
-                cancel_state["cancelled"] = True
+                state["cancelled"] = True
                 raise UploadCancelled()
-            chunk = await asyncio.to_thread(fh.read, CHUNK_SIZE)
+            chunk = await asyncio.to_thread(fh.read, min(CHUNK_SIZE, remaining))
             if not chunk:
-                break
+                state["truncated"] = True
+                raise UploadTruncated()
             yield chunk
-            sent += len(chunk)
-            await on_progress(sent, total)
+            remaining -= len(chunk)
+            await on_progress(total - remaining, total)
     yield epilogue
 
 
@@ -120,30 +150,31 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
         [[InlineKeyboardButton("Join @nub_coder_s", url="https://t.me/nub_coder_s")]]
     )
 
+    async def fail(reason):
+        return await message.edit_text(
+            f"❌ **Upload failed**\n\n{reason}", reply_markup=home_buttons
+        )
+
     if not API_KEY:
         # Not configured: keep the previous behaviour rather than failing.
         from tools import upload_to_gofile
 
         return await upload_to_gofile(callback_query, zip_filename, message)
 
+    if not API_URL.startswith("https://") and not API_URL.startswith(_LOCAL_PREFIXES):
+        # Refuse rather than put the API key on the wire in plaintext.
+        return await fail("Storage endpoint is not HTTPS, so the upload was not attempted.")
+
     try:
         file_size = os.path.getsize(zip_filename)
     except OSError as exc:
-        return await message.edit_text(f"❌ **Upload failed**\n\nArchive is gone: `{exc}`")
+        return await fail(f"Archive is gone: `{_md_code(exc)}`")
 
     if file_size > NULOADER_MAX_BYTES:
         return await message.edit_text(
             "❌ **Too large to host**\n\n"
             f"Archive is `{_fmt(file_size)}`, over the `{_fmt(NULOADER_MAX_BYTES)}` limit."
         )
-
-    try:
-        from stats_manager import update_stats
-
-        await update_stats(user_id, "external_uploads")
-    except Exception:
-        # Statistics are best-effort and must never block the upload.
-        pass
 
     filename = os.path.basename(zip_filename)
     preamble, epilogue, content_type = _build_envelope(filename, EXPIRY_MODE)
@@ -153,7 +184,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
 
     timer = Timer()
     started = time.time()
-    cancel_state = {"cancelled": False}
+    state = {"cancelled": False, "truncated": False}
     cancel_markup = InlineKeyboardMarkup(
         [[InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task")]]
     )
@@ -194,7 +225,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
             pass
 
     body = _stream_body(
-        zip_filename, preamble, epilogue, file_size, user_id, on_progress, cancel_state
+        zip_filename, preamble, epilogue, file_size, user_id, on_progress, state
     )
 
     try:
@@ -211,23 +242,32 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
             ) as resp:
                 payload = {}
                 try:
-                    payload = await resp.json(content_type=None)
+                    parsed = await resp.json(content_type=None)
+                    # A bare `null` body decodes to None, and a non-object body
+                    # to a list/str; neither has .get().
+                    if isinstance(parsed, dict):
+                        payload = parsed
                 except Exception:
                     pass
 
                 if resp.status != 201:
                     # NuLoader's error envelope is {"error": ..., "message": ...}.
                     reason = payload.get("message") or f"HTTP {resp.status}"
-                    return await message.edit_text(
-                        f"❌ **Upload failed**\n\n`{reason}`", reply_markup=home_buttons
-                    )
+                    return await fail(f"`{_md_code(reason)}`")
 
         link = payload.get("download_page_url")
         if not link:
-            return await message.edit_text(
-                "❌ **Upload failed**\n\nServer returned no download link.",
-                reply_markup=home_buttons,
-            )
+            return await fail("Server returned no download link.")
+
+        # Counted only now: incrementing before the transfer inflated
+        # external_uploads with every failure and cancellation.
+        try:
+            from stats_manager import update_stats
+
+            await update_stats(user_id, "external_uploads")
+        except Exception:
+            # Statistics are best-effort and must never mask a successful upload.
+            pass
 
         expiry_note = (
             "Expires in 7 days."
@@ -236,7 +276,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
         )
         await message.edit_text(
             "✅ **Uploaded to cloud**\n\n"
-            f"`{filename}` is `{_fmt(file_size)}` — over Telegram's 2 GB limit, "
+            f"`{_md_code(filename)}` is `{_fmt(file_size)}` — over Telegram's 2 GB limit, "
             "so here is a download link instead.\n\n"
             f"_{expiry_note}_",
             reply_markup=InlineKeyboardMarkup(
@@ -246,22 +286,16 @@ async def upload_to_nuloader(callback_query, zip_filename, message):
                 ]
             ),
         )
-    except UploadCancelled:
-        await report_cancelled()
     except asyncio.TimeoutError:
-        await message.edit_text(
-            "❌ **Upload timed out**\n\nThe connection was too slow to finish in time.",
-            reply_markup=home_buttons,
-        )
+        await fail("The connection was too slow to finish in time.")
     except Exception as exc:
-        # A cancellation surfaces here as a ClientConnectionError wrapping
-        # UploadCancelled, so the flag is checked before treating this as a
-        # genuine failure.
-        if cancel_state["cancelled"]:
+        # aiohttp re-raises anything a body generator throws as a
+        # ClientConnectionError, so `except UploadCancelled` here would be dead
+        # code -- the flags are what actually distinguish these cases.
+        if state["cancelled"]:
             return await report_cancelled()
+        if state["truncated"]:
+            return await fail("The archive changed on disk while it was uploading.")
         # Logged in full server-side; the user gets no internal detail.
         print(f"NuLoader upload failed: {type(exc).__name__}: {exc}")
-        await message.edit_text(
-            "❌ **Upload failed**\n\nCould not reach the storage server. Please try again.",
-            reply_markup=home_buttons,
-        )
+        await fail("Could not reach the storage server. Please try again.")
