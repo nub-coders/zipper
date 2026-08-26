@@ -82,38 +82,19 @@ def store_user(collection, user_id):
     collection.update_one({"user_id": user_id}, {"$setOnInsert": user_data}, upsert=True)
 
 
-
-def store_userr(collection, user_id):
-    """Store user with timestamp set 6 hours in the past (unverified state)."""
-    timestamp = int(time.time()) - 21600
-    collection.update_one(
-        {"user_id": user_id},
-        {"$set": {"user_id": user_id, "timestamp": timestamp}},
-        upsert=True,
-    )
-
-
 def get_user_status(collection, user_id):
-    """Get user verification status and storage / file-size limits.
+    """Get user storage and file-size limits.
 
     Returns:
         (is_verified, max_storage_bytes, max_file_size_bytes)
     """
-    current_time = int(time.time())
     user_data = collection.find_one({"user_id": user_id})
 
     if not user_data:
         # Auto-register the user so they exist in DB
         store_user(collection, user_id)
 
-    if user_data:
-        stored_time = user_data.get("timestamp", 0)
-        time_diff = current_time - stored_time
-
-        if time_diff < 21600:  # Verified / elite user (within 6 h)
-            return True, int(4.5 * 1024**3), 2 * 1024**3  # 4.5 GB, 2 GB
-
-    return False, 2 * 1024**3, 2 * 1024**3  # 2 GB, 2 GB
+    return True, int(4.5 * 1024**3), 2 * 1024**3  # 4.5 GB storage, 2 GB single file size limit
 
 
 def get_user_lang(collection, user_id):

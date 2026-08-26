@@ -220,8 +220,8 @@ async def callback_clear(client: Client, callback_query: CallbackQuery):
 async def callback_home(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     if not collection.find_one({"user_id": user_id}):
-        from tools import store_userr
-        store_userr(collection, user_id)
+        from tools import store_user
+        store_user(collection, user_id)
 
     await callback_query.edit_message_text(
         "Hello! This is the File-to-ZIP bot.\n"
