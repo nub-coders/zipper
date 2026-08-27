@@ -114,7 +114,35 @@ def _get_filename(message: Message, user_id: int) -> str:
         return raw or f"download_{user_id}_{ts}"
     return f"file_{user_id}_{ts}"
 
-MAX_BATCH_QUEUE = 20
+MAX_BATCH_QUEUE = int(os.getenv("MAX_BATCH_QUEUE", 20))
+WARNING_COOLDOWN_SECONDS = 5.0
+
+_user_warning_times: Dict[tuple[int, str], float] = {}
+_warning_lock = asyncio.Lock()
+
+
+async def _send_throttled_warning(
+    client: Client,
+    chat_id: int,
+    user_id: int,
+    warning_type: str,
+    text: str,
+    cooldown: float = WARNING_COOLDOWN_SECONDS,
+    reply_markup=None,
+) -> Optional[Message]:
+    """Send a warning message with cooldown throttling to prevent spamming on rapid/album uploads."""
+    now = time.time()
+    key = (user_id, warning_type)
+    async with _warning_lock:
+        last_time = _user_warning_times.get(key, 0.0)
+        if now - last_time < cooldown:
+            return None
+        _user_warning_times[key] = now
+
+    try:
+        return await rich_send(client, chat_id, text, reply_markup=reply_markup)
+    except Exception:
+        return None
 
 
 @dataclass
@@ -242,12 +270,14 @@ async def enqueue_media_message(client: Client, message: Message):
             [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
         ])
         text = f"{EmojiTag.LOCK} <b>Membership Required</b>\n\nYou must join @nub_coders and @nub_coder_s to use this bot."
-        return await rich_send(client, chat_id, text, reply_markup=button)
+        return await _send_throttled_warning(client, chat_id, user_id, "membership", text, reply_markup=button)
 
     if not rate_limiter.is_allowed(user_id):
-        return await rich_send(
+        return await _send_throttled_warning(
             client,
             chat_id,
+            user_id,
+            "rate_limit",
             f"{EmojiTag.CLOCK} <b>Rate limit exceeded.</b>\nPlease slow down.",
         )
 
@@ -256,9 +286,11 @@ async def enqueue_media_message(client: Client, message: Message):
         from user_state import get_busy_reason
         reason = await get_busy_reason(user_id)
         if reason in ("zipping", "uploading", "extracting"):
-            return await rich_send(
+            return await _send_throttled_warning(
                 client,
                 chat_id,
+                user_id,
+                f"busy_{reason}",
                 f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send files after the current process finishes.",
             )
 
@@ -270,26 +302,32 @@ async def enqueue_media_message(client: Client, message: Message):
 
     if enforce_limit and size > max_file_size:
         size_gb = max_file_size / (1024 ** 3)
-        return await rich_send(
+        return await _send_throttled_warning(
             client,
             chat_id,
+            user_id,
+            "file_size",
             f"{EmojiTag.ERROR} <b>File exceeds limit.</b> Maximum single file size is <code>{size_gb:.1f} GB</code>.",
         )
 
     batch = await get_user_batch(user_id, chat_id, client)
     async with batch.lock:
         if len(batch.queue) >= MAX_BATCH_QUEUE:
-            return await rich_send(
+            return await _send_throttled_warning(
                 client,
                 chat_id,
+                user_id,
+                "queue_full",
                 f"{EmojiTag.ERROR} <b>Batch queue full (max {MAX_BATCH_QUEUE} files).</b>\nPlease wait for the current batch to complete.",
             )
 
         pending_bytes = sum(_get_media_size(m)[0] for m in batch.queue)
         if size + pending_bytes > remaining_storage:
-            return await rich_send(
+            return await _send_throttled_warning(
                 client,
                 chat_id,
+                user_id,
+                "storage_quota",
                 f"{EmojiTag.ERROR} <b>Not enough storage quota remaining.</b>\nRequired: <code>{_fmt_size(size + pending_bytes)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
             )
 
@@ -316,12 +354,14 @@ async def enqueue_link_message(client: Client, message: Message):
             [InlineKeyboardButton("Join Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.LINK)],
         ])
         text = f"{EmojiTag.LOCK} <b>Membership Required</b>\n\nYou must join @nub_coders and @nub_coder_s to use this bot."
-        return await rich_send(client, chat_id, text, reply_markup=button)
+        return await _send_throttled_warning(client, chat_id, user_id, "membership", text, reply_markup=button)
 
     if not rate_limiter.is_allowed(user_id):
-        return await rich_send(
+        return await _send_throttled_warning(
             client,
             chat_id,
+            user_id,
+            "rate_limit",
             f"{EmojiTag.CLOCK} <b>Rate limit exceeded.</b>\nPlease slow down.",
         )
 
@@ -330,9 +370,11 @@ async def enqueue_link_message(client: Client, message: Message):
         from user_state import get_busy_reason
         reason = await get_busy_reason(user_id)
         if reason in ("zipping", "uploading", "extracting"):
-            return await rich_send(
+            return await _send_throttled_warning(
                 client,
                 chat_id,
+                user_id,
+                f"busy_{reason}",
                 f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send links after the current process finishes.",
             )
 
@@ -344,28 +386,32 @@ async def enqueue_link_message(client: Client, message: Message):
     try:
         declared_length, final_url = safe_head(link, max_bytes=remaining_storage)
     except SSRFBlocked as e:
-        return await rich_send(client, chat_id, f"{EmojiTag.ERROR} <b>Blocked:</b> <code>{rich_esc(e)}</code>")
+        return await _send_throttled_warning(client, chat_id, user_id, "ssrf", f"{EmojiTag.ERROR} <b>Blocked:</b> <code>{rich_esc(e)}</code>")
     except DownloadTooLarge as e:
-        return await rich_send(client, chat_id, f"{EmojiTag.ERROR} <b>File too large:</b> <code>{rich_esc(e)}</code>")
+        return await _send_throttled_warning(client, chat_id, user_id, "link_size", f"{EmojiTag.ERROR} <b>File too large:</b> <code>{rich_esc(e)}</code>")
     except (DownloadFailed, RedirectLimitExceeded) as e:
-        return await rich_send(client, chat_id, f"{EmojiTag.ERROR} <b>Link verification failed:</b> <code>{rich_esc(e)}</code>")
+        return await _send_throttled_warning(client, chat_id, user_id, "link_verify", f"{EmojiTag.ERROR} <b>Link verification failed:</b> <code>{rich_esc(e)}</code>")
 
     content_length = declared_length if declared_length is not None else 0
 
     batch = await get_user_batch(user_id, chat_id, client)
     async with batch.lock:
         if len(batch.queue) >= MAX_BATCH_QUEUE:
-            return await rich_send(
+            return await _send_throttled_warning(
                 client,
                 chat_id,
+                user_id,
+                "queue_full",
                 f"{EmojiTag.ERROR} <b>Batch queue full (max {MAX_BATCH_QUEUE} files).</b>\nPlease wait for the current batch to complete.",
             )
 
         pending_bytes = sum(_get_media_size(m)[0] for m in batch.queue)
         if (content_length + pending_bytes) > remaining_storage:
-            return await rich_send(
+            return await _send_throttled_warning(
                 client,
                 chat_id,
+                user_id,
+                "storage_quota",
                 f"{EmojiTag.ERROR} <b>Not enough storage quota.</b> Required: <code>{_fmt_size(content_length + pending_bytes)}</code> | Available: <code>{_fmt_size(remaining_storage)}</code>",
             )
 

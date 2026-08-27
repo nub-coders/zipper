@@ -82,3 +82,54 @@ async def test_batch_queue_length_limit():
     # Queue must not grow beyond MAX_BATCH_QUEUE
     assert len(batch.queue) == MAX_BATCH_QUEUE
     await cancel_user_batch(uid)
+
+
+@pytest.mark.asyncio
+async def test_batch_queue_throttled_warning():
+    """Verify that multiple overflow messages only trigger a single warning within the cooldown window."""
+    uid = 77777
+    mock_client = MagicMock()
+    mock_client.send_message = AsyncMock()
+
+    batch = await get_user_batch(uid, uid, mock_client)
+    batch.queue.clear()
+
+    # Fill queue to MAX_BATCH_QUEUE
+    for i in range(MAX_BATCH_QUEUE):
+        mock_item = MagicMock()
+        mock_item.document.file_name = f"f_{i}.txt"
+        mock_item.document.file_size = 100
+        mock_item.photo = None
+        mock_item.video = None
+        mock_item.audio = None
+        mock_item.voice = None
+        mock_item.video_note = None
+        mock_item.sticker = None
+        mock_item.animation = None
+        batch.queue.append(mock_item)
+
+    with patch("batch_manager.is_user_on_chat", return_value=True), \
+         patch("batch_manager.is_user_busy", return_value=False), \
+         patch("batch_manager.rich_send", new_callable=AsyncMock) as mock_rich_send:
+
+        # Send 5 excess messages in rapid succession
+        for k in range(5):
+            extra_msg = MagicMock()
+            extra_msg.from_user.id = uid
+            extra_msg.chat.id = uid
+            extra_msg.document.file_name = f"overflow_{k}.txt"
+            extra_msg.document.file_size = 100
+            extra_msg.photo = None
+            extra_msg.video = None
+            extra_msg.audio = None
+            extra_msg.voice = None
+            extra_msg.video_note = None
+            extra_msg.sticker = None
+            extra_msg.animation = None
+            await enqueue_media_message(mock_client, extra_msg)
+
+        # Must only call rich_send ONCE for the burst
+        assert mock_rich_send.call_count == 1
+
+    await cancel_user_batch(uid)
+
