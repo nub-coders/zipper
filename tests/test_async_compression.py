@@ -80,4 +80,5 @@ async def test_async_zip_compression(tmp_path):
 
     assert zip_path is not None
     assert os.path.exists(zip_path)
+    assert os.path.basename(zip_path) == "test_archive.zip"
     assert zip_path.endswith(".zip")

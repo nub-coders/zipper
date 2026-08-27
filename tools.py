@@ -286,7 +286,7 @@ async def create_zip_file(client, callback_query, pass_protect=None):
 
     try:
         zip_filename = resolve_in_user_dir(
-            user_dir, file_name, fallback="archive", force_suffix=".zip"
+            user_dir, file_name, unique=False, fallback="archive", force_suffix=".zip"
         )
     except UnsafePathError:
         await rich_reply(
