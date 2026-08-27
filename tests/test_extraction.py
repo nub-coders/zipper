@@ -20,11 +20,40 @@ from safe_archive import (
 from rate_limiter import extract_limiter
 
 
+from tools import is_compressed, has_archive_magic
+
+
 def test_looks_encrypted_detection():
     """Verify encrypted archive detection patterns."""
     assert looks_encrypted("Encrypted = +") is True
     assert looks_encrypted("Characteristics = Encrypted") is True
+    assert looks_encrypted("Cannot open encrypted archive. Wrong password?") is True
     assert looks_encrypted("Normal file listing without lock") is False
+
+
+@pytest.mark.asyncio
+async def test_is_compressed_detection(tmp_path):
+    """Verify is_compressed accurately identifies zip, archive extensions, and rejects normal files."""
+    # 1. Real zip file
+    zip_file = str(tmp_path / "valid.zip")
+    with zipfile.ZipFile(zip_file, "w") as zf:
+        zf.writestr("test.txt", "content")
+    assert has_archive_magic(zip_file) is True
+    assert await is_compressed(zip_file) is True
+
+    # 2. Text file
+    txt_file = str(tmp_path / "plain.txt")
+    with open(txt_file, "w") as f:
+        f.write("Just some text")
+    assert has_archive_magic(txt_file) is False
+    assert await is_compressed(txt_file) is False
+
+    # 3. Archive with extension
+    rar_file = str(tmp_path / "sample.rar")
+    with open(rar_file, "wb") as f:
+        f.write(b"Rar!\x1a\x07\x00data")
+    assert has_archive_magic(rar_file) is True
+    assert await is_compressed(rar_file) is True
 
 
 @pytest.mark.asyncio

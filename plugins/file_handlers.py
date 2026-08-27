@@ -87,17 +87,17 @@ def _fmt_size(size_bytes: int) -> str:
 def _detect_file_badge(filename: str) -> str:
     """Return an icon badge for the file type."""
     lower = filename.lower()
-    if lower.endswith((".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz")):
+    if lower.endswith((".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".tgz", ".tbz2", ".txz", ".zst", ".iso", ".cab", ".arj", ".lzh", ".apk", ".jar", ".deb", ".rpm", ".cbz", ".cbr")):
         return f"{EmojiTag.ZIP} ZIP"
-    elif lower.endswith((".mp4", ".mkv", ".mov", ".avi", ".webm")):
+    elif lower.endswith((".mp4", ".mkv", ".mov", ".avi", ".webm", ".flv", ".vob", ".wmv")):
         return f"{EmojiTag.VIDEO} Video"
-    elif lower.endswith((".mp3", ".flac", ".ogg", ".wav", ".m4a")):
+    elif lower.endswith((".mp3", ".flac", ".ogg", ".wav", ".m4a", ".aac", ".opus", ".wma")):
         return f"{EmojiTag.AUDIO} Audio"
-    elif lower.endswith((".jpg", ".jpeg", ".png", ".webp", ".gif")):
+    elif lower.endswith((".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".svg", ".ico", ".tiff")):
         return f"{EmojiTag.IMAGE} Image"
-    elif lower.endswith((".py", ".js", ".html", ".css", ".json", ".sh", ".c", ".cpp")):
+    elif lower.endswith((".py", ".js", ".html", ".css", ".json", ".sh", ".c", ".cpp", ".rs", ".go", ".java", ".ts", ".php", ".rb")):
         return f"{EmojiTag.CODE} Code"
-    elif lower.endswith((".pdf", ".docx", ".doc", ".txt")):
+    elif lower.endswith((".pdf", ".docx", ".doc", ".txt", ".rtf", ".odt", ".epub")):
         return f"{EmojiTag.DOCUMENT} Doc"
     return f"{EmojiTag.FILE} File"
 
@@ -290,9 +290,59 @@ async def unzip_command(client: Client, message: Message):
             client=client,
         )
 
-    files = os.listdir(user_dir)
-    compressed_files = []
+    files = [f for f in sorted(os.listdir(user_dir)) if os.path.isfile(os.path.join(user_dir, f))]
+    if not files:
+        return await rich_reply(
+            message,
+            f"{EmojiTag.INFO} <b>Your directory is empty.</b> Send me a compressed file first.",
+            reply_markup=nofile_buttons,
+            client=client,
+        )
 
+    # Check if a specific file index or name was passed: e.g. /unzip 1 or /unzip archive.zip
+    text_parts = message.text.strip().split(maxsplit=1) if message.text else []
+    if len(text_parts) > 1 and text_parts[1].strip():
+        arg = text_parts[1].strip()
+        matched_file = None
+        # Try as 1-based index from /my_files
+        try:
+            idx = int(arg) - 1
+            if 0 <= idx < len(files):
+                target = files[idx]
+                if await is_compressed(os.path.join(user_dir, target)):
+                    matched_file = target
+        except ValueError:
+            pass
+
+        # Try as exact filename or suffix match
+        if not matched_file:
+            for f in files:
+                if f == arg or f.endswith(arg):
+                    if await is_compressed(os.path.join(user_dir, f)):
+                        matched_file = f
+                        break
+
+        if matched_file:
+            cb_data = f"unzip|{matched_file}"
+            if len(cb_data.encode("utf-8")) > 64:
+                cb_data = f"unzip|{matched_file[-50:]}"
+            markup = InlineKeyboardMarkup([
+                [
+                    InlineKeyboardButton(f"📦 Inspect {matched_file}", callback_data=cb_data, style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.ZIP)
+                ],
+                [
+                    InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE)
+                ]
+            ])
+            return await rich_reply(
+                message,
+                f"{rich_heading(f'{EmojiTag.EXTRACT} Archive Selected', level=2)}\n\n"
+                f"Selected: <code>{rich_esc(matched_file)}</code>\n\nClick below to inspect and extract contents:",
+                reply_markup=markup,
+                client=client,
+            )
+
+    compressed_files = []
     for f in files:
         if await is_compressed(os.path.join(user_dir, f)):
             compressed_files.append(f)

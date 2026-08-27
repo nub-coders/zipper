@@ -287,4 +287,14 @@ async def list_archive(archive_path: str, *, timeout: float = 60.0) -> tuple[str
 
 def looks_encrypted(listing: str) -> bool:
     """Detect encryption from a 7z listing."""
-    return "Encrypted = +" in listing or "Wrong password" in listing or "Characteristics = Encrypted" in listing
+    if not listing:
+        return False
+    lowered = listing.lower()
+    return (
+        "encrypted = +" in lowered
+        or "wrong password" in lowered
+        or "characteristics = encrypted" in lowered
+        or "cannot open encrypted archive" in lowered
+        or "enter password" in lowered
+        or "is encrypted" in lowered
+    )

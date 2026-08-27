@@ -121,10 +121,59 @@ def get_text(collection, user_id, text_key):
 
 # ─── File / Directory Utilities ───────────────────────────────────────────────
 
-async def is_compressed(file_path):
-    """Check if a file is a compressed archive using 7z listing."""
-    if not os.path.exists(file_path):
+ARCHIVE_EXTENSIONS = (
+    ".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".tgz", ".tbz2",
+    ".txz", ".zst", ".iso", ".cab", ".arj", ".lzh", ".apk", ".jar", ".deb",
+    ".rpm", ".cbz", ".cbr", ".001",
+)
+
+ARCHIVE_MAGIC_SIGNATURES = (
+    (0, b"PK\x03\x04"),          # ZIP
+    (0, b"PK\x05\x06"),          # Empty ZIP
+    (0, b"PK\x07\x08"),          # Spanned ZIP
+    (0, b"7z\xbc\xaf\x27\x1c"),  # 7-Zip
+    (0, b"Rar!\x1a\x07\x00"),    # RAR 4
+    (0, b"Rar!\x1a\x07\x01\x00"),# RAR 5
+    (0, b"\x1f\x8b"),            # GZIP
+    (0, b"BZh"),                 # BZIP2
+    (0, b"\xfd7zXZ\x00"),        # XZ
+    (0, b"\x28\xb5\x2f\xfd"),    # Zstandard
+)
+
+
+def has_archive_magic(file_path: str) -> bool:
+    """Fast check for archive magic signatures in file header."""
+    try:
+        with open(file_path, "rb") as f:
+            header = f.read(512)
+            if not header:
+                return False
+            for offset, magic in ARCHIVE_MAGIC_SIGNATURES:
+                if len(header) >= offset + len(magic) and header[offset:offset + len(magic)] == magic:
+                    return True
+            # TAR POSIX ustar magic check at offset 257
+            if len(header) >= 262 and header[257:262] == b"ustar":
+                return True
+    except Exception:
+        pass
+    return False
+
+
+async def is_compressed(file_path: str) -> bool:
+    """Check if a file is a compressed archive using magic bytes, extension, or 7z listing."""
+    if not file_path or not os.path.exists(file_path) or not os.path.isfile(file_path):
         return False
+
+    # 1. Instant check via magic bytes header (0ms, non-blocking)
+    if has_archive_magic(file_path):
+        return True
+
+    # 2. Check known archive file extension
+    lower_path = file_path.lower()
+    if lower_path.endswith(ARCHIVE_EXTENSIONS):
+        return True
+
+    # 3. Fallback to 7z listing for unusual or extensionless archives
     try:
         listing, _ = await list_archive(file_path)
         return looks_encrypted(listing) or "Path =" in listing
