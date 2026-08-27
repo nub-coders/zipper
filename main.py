@@ -3,7 +3,6 @@ import os
 import config
 from config import API_HASH, API_ID, BOT_TOKEN, FORCE_SUBSCRIBE
 from convopyro import Conversation
-from plugins.file_handlers import process_queues
 from pyrogram import Client, StopPropagation, idle
 from pyrogram.enums import ButtonStyle
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
@@ -70,19 +69,12 @@ app.add_handler(MessageHandler(check_membership_middleware), group=-1)
 app.add_handler(CallbackQueryHandler(check_membership_middleware), group=-1)
 
 
-async def start_background_tasks():
-    """Start background tasks after bot initialization."""
-    print("Bot components initialized…")
-    print("Starting queue processing…")
-    asyncio.create_task(process_queues())
-    print("Queue processing started…")
-    print("Zipper Bot started successfully with Bot API 10.2 & 10.3 Rich UI!")
-
-
 async def main():
     print("Bot starting with Smart Plugins and Bot API 10.3 UI…")
     await app.start()
-    await start_background_tasks()
+    # Downloads are driven per user by batch_manager, which spawns its own worker
+    # task on demand; there is no central queue poller to start here.
+    print("Zipper Bot started successfully with Bot API 10.2 & 10.3 Rich UI!")
     await idle()
     await app.stop()
 

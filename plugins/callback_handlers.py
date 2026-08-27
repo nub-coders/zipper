@@ -141,19 +141,8 @@ async def cancel_task(client: Client, callback_query: CallbackQuery):
 async def cancel_all(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     from batch_manager import cancel_user_batch
-    await cancel_user_batch(user_id)
 
-    removed = 0
-    new_queue_items = []
-    while not config.download_queue.empty():
-        item = config.download_queue.get()
-        if item.from_user.id == user_id:
-            removed += 1
-        else:
-            new_queue_items.append(item)
-
-    for item in new_queue_items:
-        config.download_queue.put(item)
+    removed = await cancel_user_batch(user_id)
 
     await request_cancel(user_id)
     config.cancel_requested.add(user_id)
@@ -181,17 +170,18 @@ async def cancel_all(client: Client, callback_query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^cancel_download$"))
 async def cancel_download(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
-    if user_id in config.user_ids:
-        new_items = []
-        while not config.download_queue.empty():
-            item = config.download_queue.get()
-            if item.from_user.id != user_id:
-                new_items.append(item)
-        for item in new_items:
-            config.download_queue.put(item)
+    from batch_manager import cancel_user_batch
 
-        config.user_ids.pop(user_id, None)
-        await rich_edit(callback_query, f"{EmojiTag.CANCEL} <b>Download cancelled.</b>", reply_markup=home_buttons, client=client)
+    if user_id in config.user_ids or await is_user_busy(user_id):
+        removed = await cancel_user_batch(user_id)
+        # Signal the running worker instead of only dropping the queue, so the
+        # in-flight transfer actually stops.
+        await request_cancel(user_id)
+
+        text = f"{EmojiTag.CANCEL} <b>Download cancelled.</b>"
+        if removed:
+            text += f"\n\nRemoved <code>{removed}</code> queued file(s)."
+        await rich_edit(callback_query, text, reply_markup=home_buttons, client=client)
     else:
         await rich_edit(callback_query, f"{EmojiTag.INFO} <b>No ongoing download to cancel.</b>", reply_markup=home_buttons, client=client)
 

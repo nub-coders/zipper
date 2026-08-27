@@ -9,7 +9,7 @@ import urllib.parse
 from dataclasses import dataclass
 
 import aiohttp
-import requests
+from aiohttp.resolver import DefaultResolver
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Configuration
@@ -65,8 +65,16 @@ _BLOCKED_HOSTNAMES = {
 # Allowed schemes for user downloads.
 _ALLOWED_SCHEMES = {"http", "https"}
 
+# Explicit ports a user-supplied URL may target. Without this, a routable IP is
+# enough to reach internal services that merely happen to be listening on a
+# public interface (Redis 6379, SMTP 25, Elasticsearch 9200, …).
+_ALLOWED_PORTS = {80, 443}
+
 # Max redirects to follow
 _MAX_REDIRECTS = 10
+
+_REDIRECT_STATUSES = (301, 302, 303, 307, 308)
+_REQUEST_HEADERS = {"User-Agent": "ZipperBot/1.0"}
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -116,13 +124,63 @@ def _is_blocked_ip(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> bool:
     return False
 
 
+def _is_blocked_address(ip_str: str) -> bool:
+    """Blocklist check for a raw address string; unparseable input is refused."""
+    try:
+        ip = ipaddress.ip_address(ip_str.split("%")[0])
+    except ValueError:
+        return True
+    return _is_blocked_ip(ip)
+
+
+class SSRFGuardedResolver(DefaultResolver):
+    """Resolver that re-checks every address in the answer aiohttp is about to use.
+
+    Validating the URL up front is not sufficient on its own: the pre-flight
+    check and the connection each performed their own DNS lookup, so an
+    attacker-controlled nameserver answering with a short TTL could return a
+    public address for the check and an internal one for the connect (DNS
+    rebinding). aiohttp connects only to addresses this resolver hands back, so
+    filtering here closes that window. The original hostname is preserved in the
+    result, which keeps TLS SNI and the Host header intact.
+    """
+
+    async def resolve(self, host: str, port: int = 0, family: int = socket.AF_INET):
+        if _is_blocked_hostname(host):
+            raise SSRFBlocked(f"hostname {host!r} is blocked")
+
+        infos = await super().resolve(host, port, family)
+        allowed = [info for info in infos if not _is_blocked_address(info["host"])]
+        if not allowed:
+            raise SSRFBlocked(f"host {host!r} resolves only to blocked addresses")
+        return allowed
+
+
+def _guarded_session(timeout: aiohttp.ClientTimeout) -> aiohttp.ClientSession:
+    """Build a session whose every connection attempt passes the SSRF blocklist."""
+    connector = aiohttp.TCPConnector(resolver=SSRFGuardedResolver(), use_dns_cache=False)
+    return aiohttp.ClientSession(timeout=timeout, connector=connector)
+
+
 async def _validate_url_target(url: str, timeout: float = HEAD_TIMEOUT) -> urllib.parse.ParseResult:
-    """Validate scheme, host, and resolved IP addresses against SSRF blocklists."""
+    """Pre-flight validation of scheme, port, host, and resolved addresses.
+
+    This rejects hostile URLs early so the user gets a clear error, but it is not
+    the last line of defence — ``SSRFGuardedResolver`` re-checks the addresses at
+    connect time.
+    """
     parsed = urllib.parse.urlparse(url)
     if parsed.scheme.lower() not in _ALLOWED_SCHEMES:
         raise DownloadFailed(f"scheme {parsed.scheme!r} not allowed")
     if not parsed.netloc or not parsed.hostname:
         raise DownloadFailed("no host in URL")
+
+    try:
+        port = parsed.port
+    except ValueError:
+        raise DownloadFailed("invalid port in URL")
+    if port is not None and port not in _ALLOWED_PORTS:
+        raise SSRFBlocked(f"port {port} not allowed")
 
     host = parsed.hostname.strip("[]")
     if _is_blocked_hostname(host):
@@ -143,42 +201,6 @@ async def _validate_url_target(url: str, timeout: float = HEAD_TIMEOUT) -> urlli
             timeout=timeout,
         )
     except Exception as e:
-        raise DownloadFailed(f"DNS resolution failed for {host!r}: {e}")
-
-    for info in infos:
-        ip_str = info[4][0]
-        try:
-            ip = ipaddress.ip_address(ip_str)
-        except ValueError:
-            continue
-        if _is_blocked_ip(ip):
-            raise SSRFBlocked(f"host {host!r} resolves to blocked address {ip}")
-
-    return parsed
-
-
-def _validate_url_target_sync(url: str, timeout: float = HEAD_TIMEOUT) -> urllib.parse.ParseResult:
-    """Synchronous validation of scheme, host, and resolved IP addresses against SSRF blocklists."""
-    parsed = urllib.parse.urlparse(url)
-    if parsed.scheme.lower() not in _ALLOWED_SCHEMES:
-        raise DownloadFailed(f"scheme {parsed.scheme!r} not allowed")
-    if not parsed.netloc or not parsed.hostname:
-        raise DownloadFailed("no host in URL")
-
-    host = parsed.hostname.strip("[]")
-    if _is_blocked_hostname(host):
-        raise SSRFBlocked(f"hostname {host!r} is blocked")
-
-    try:
-        ip = ipaddress.ip_address(host)
-        if _is_blocked_ip(ip):
-            raise SSRFBlocked(f"host {host!r} is a blocked IP address")
-    except ValueError:
-        pass
-
-    try:
-        infos = socket.getaddrinfo(host, None, type=socket.SOCK_STREAM)
-    except socket.gaierror as e:
         raise DownloadFailed(f"DNS resolution failed for {host!r}: {e}")
 
     for info in infos:
@@ -215,7 +237,8 @@ async def safe_download(
     """
     Download `url` to `dest_path` under strict SSRF, redirect, and size constraints.
 
-    - Validates scheme, host, and DNS on every redirect hop.
+    - Validates scheme, port, host, and DNS on every redirect hop, and re-checks
+      the resolved addresses at connect time via ``SSRFGuardedResolver``.
     - Uses allow_redirects=False so no unverified redirects can occur.
     - Streams the body, enforcing `max_bytes` during the read loop.
     - On any failure, cleans up the partial file.
@@ -224,7 +247,7 @@ async def safe_download(
     redirect_count = 0
     client_timeout = aiohttp.ClientTimeout(total=get_timeout, connect=head_timeout)
 
-    async with aiohttp.ClientSession(timeout=client_timeout) as session:
+    async with _guarded_session(client_timeout) as session:
         while redirect_count <= _MAX_REDIRECTS:
             await _validate_url_target(current_url, timeout=head_timeout)
 
@@ -232,13 +255,15 @@ async def safe_download(
                 resp = await session.get(
                     current_url,
                     allow_redirects=False,
-                    headers={"User-Agent": "ZipperBot/1.0"},
+                    headers=_REQUEST_HEADERS,
                 )
+            except SSRFBlocked:
+                raise
             except Exception as e:
                 raise DownloadFailed(f"HTTP request failed: {e}")
 
             # Check for redirect status
-            if resp.status in (301, 302, 303, 307, 308):
+            if resp.status in _REDIRECT_STATUSES:
                 resp.close()
                 redirect_count += 1
                 if redirect_count > _MAX_REDIRECTS:
@@ -297,51 +322,64 @@ async def safe_download(
     raise RedirectLimitExceeded("too many redirects")
 
 
-def safe_head(url: str, *, timeout: float = HEAD_TIMEOUT, max_bytes: int = MAX_DOWNLOAD_BYTES) -> tuple[int | None, str]:
+async def safe_head(
+    url: str,
+    *,
+    timeout: float = HEAD_TIMEOUT,
+    max_bytes: int = MAX_DOWNLOAD_BYTES,
+) -> tuple[int | None, str]:
     """
     Perform a safe HEAD pre-check with manual hop-by-hop redirect verification.
 
     Returns (content_length, final_url). Raises SafeDownloadError on any problem.
+    Shares the SSRF-guarded connector with :func:`safe_download` so both paths
+    enforce the same blocklist at connect time.
     """
     current_url = url
     redirect_count = 0
+    client_timeout = aiohttp.ClientTimeout(total=timeout, connect=timeout)
 
-    session = requests.Session()
-    try:
+    async with _guarded_session(client_timeout) as session:
         while redirect_count <= _MAX_REDIRECTS:
-            _validate_url_target_sync(current_url, timeout=timeout)
+            await _validate_url_target(current_url, timeout=timeout)
 
             try:
-                resp = session.head(
+                resp = await session.head(
                     current_url,
-                    timeout=timeout,
                     allow_redirects=False,
-                    headers={"User-Agent": "ZipperBot/1.0"},
+                    headers=_REQUEST_HEADERS,
                 )
-            except requests.RequestException as e:
+            except SSRFBlocked:
+                raise
+            except Exception as e:
                 raise DownloadFailed(f"HEAD request failed: {e}")
 
-            if resp.status_code in (301, 302, 303, 307, 308):
-                redirect_count += 1
-                if redirect_count > _MAX_REDIRECTS:
-                    raise RedirectLimitExceeded("too many redirects")
-                location = resp.headers.get("Location")
-                if not location:
-                    raise DownloadFailed("redirect without Location header")
-                current_url = urllib.parse.urljoin(current_url, location)
-                continue
+            try:
+                if resp.status in _REDIRECT_STATUSES:
+                    redirect_count += 1
+                    if redirect_count > _MAX_REDIRECTS:
+                        raise RedirectLimitExceeded("too many redirects")
+                    location = resp.headers.get("Location")
+                    if not location:
+                        raise DownloadFailed("redirect without Location header")
+                    current_url = urllib.parse.urljoin(current_url, location)
+                    continue
 
-            if resp.status_code != 200:
-                # Some servers return 405 Method Not Allowed on HEAD; fallback is safe
-                pass
+                # Only a successful response describes the body. Servers that
+                # answer 405/404 to HEAD still send a Content-Length for their
+                # error page, which must not be mistaken for the file size.
+                declared = None
+                if resp.status in (200, 206):
+                    content_length = resp.headers.get("Content-Length")
+                    declared = int(content_length) if content_length and content_length.isdigit() else None
 
-            content_length = resp.headers.get("content-length")
-            declared = int(content_length) if content_length and content_length.isdigit() else None
-            if declared is not None and declared > max_bytes:
-                raise DownloadTooLarge(f"declared size {declared} exceeds limit {max_bytes}")
+                if declared is not None and declared > max_bytes:
+                    raise DownloadTooLarge(f"declared size {declared} exceeds limit {max_bytes}")
 
-            return declared, current_url
-    finally:
-        session.close()
+                return declared, current_url
+            finally:
+                resp.close()
+
+    raise RedirectLimitExceeded("too many redirects")
 
     raise RedirectLimitExceeded("too many redirects")

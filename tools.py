@@ -249,16 +249,11 @@ class Timer:
 def get_queue_status(user_id):
     """Build a rich formatted queue-status string."""
     import config
+    from batch_manager import pending_queue_counts
 
-    pending_tasks = list(config.download_queue.queue)
-    active_users = len(config.downloading_users | config.zipping_users | config.uploading_users)
+    queue_size, user_task_counts = pending_queue_counts()
     active_task_users = config.downloading_users | config.zipping_users | config.uploading_users
-    queue_size = len(pending_tasks)
-
-    user_task_counts = {}
-    for t in pending_tasks:
-        uid = t.from_user.id
-        user_task_counts[uid] = user_task_counts.get(uid, 0) + 1
+    active_users = len(active_task_users)
 
     queue_pairs = [
         ("Active Workers", f"<code>{active_users} user(s)</code>"),

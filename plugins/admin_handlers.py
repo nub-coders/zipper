@@ -42,6 +42,7 @@ from utils.rich_ui import (
 @Client.on_message(filters.private & filters.command("ping"))
 async def ping_handler(client: Client, message: Message):
     import config as cfg
+    from batch_manager import pending_queue_counts
     start = time.time()
     sent_msg = await rich_reply(
         message,
@@ -63,7 +64,7 @@ async def ping_handler(client: Client, message: Message):
     rows = [
         ("Network Latency", f"<code>{latency_ms:.1f} ms</code>"),
         ("System Uptime", f"<code>{uptime_str}</code>"),
-        ("Queue Depth", f"<code>{cfg.download_queue.qsize()}</code>"),
+        ("Queue Depth", f"<code>{pending_queue_counts()[0]}</code>"),
         ("Active Workers", f"<code>{len(cfg.downloading_users | cfg.zipping_users | cfg.uploading_users)}</code>"),
     ]
     diag_table = rich_kv_table(rows, headers=["Diagnostic Probe", "Measurement"])
@@ -385,7 +386,8 @@ async def stats_handler(client: Client, message: Message):
                 today_stats[key] += s.get(key, 0)
 
     import config as cfg
-    queue_size = cfg.download_queue.qsize()
+    from batch_manager import pending_queue_counts
+    queue_size, _ = pending_queue_counts()
     active_uids = cfg.downloading_users | cfg.zipping_users | cfg.uploading_users
 
     today_pairs = [

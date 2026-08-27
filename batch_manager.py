@@ -154,6 +154,7 @@ class UserDownloadBatch:
     active_msg: Optional[Message] = None
     status_msg: Optional[Message] = None
     downloaded_count: int = 0
+    failed_count: int = 0
     total_in_batch: int = 0
     debounce_task: Optional[asyncio.Task] = None
     worker_task: Optional[asyncio.Task] = None
@@ -189,8 +190,10 @@ def _build_progress_card(
     eta: float = 0,
     elapsed: float = 0,
 ) -> str:
-    active_idx = batch.downloaded_count + 1
-    total_files = batch.total_in_batch or (batch.downloaded_count + (1 if batch.active_msg else 0) + len(batch.queue))
+    active_idx = batch.downloaded_count + batch.failed_count + 1
+    total_files = batch.total_in_batch or (
+        batch.downloaded_count + batch.failed_count + (1 if batch.active_msg else 0) + len(batch.queue)
+    )
     remaining_in_queue = len(batch.queue)
 
     if batch.active_msg:
@@ -215,6 +218,8 @@ def _build_progress_card(
         ("Files Downloaded", f"<code>{batch.downloaded_count} / {total_files}</code>"),
         ("Remaining in Queue", f"<code>{remaining_in_queue} file(s)</code>"),
     ]
+    if batch.failed_count:
+        rows.append(("Failed", f"<code>{batch.failed_count} file(s)</code>"))
     if speed > 0:
         rows.append(("Transfer Speed", f"<code>{speed:.2f} MB/s</code>"))
     if eta > 0:
@@ -336,7 +341,9 @@ async def enqueue_media_message(client: Client, message: Message):
             )
 
         batch.queue.append(message)
-        batch.total_in_batch = batch.downloaded_count + (1 if batch.active_msg else 0) + len(batch.queue)
+        batch.total_in_batch = (
+            batch.downloaded_count + batch.failed_count + (1 if batch.active_msg else 0) + len(batch.queue)
+        )
 
         if batch.is_running:
             await _relocate_status_message_to_bottom(batch)
@@ -388,7 +395,7 @@ async def enqueue_link_message(client: Client, message: Message):
     _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
 
     try:
-        declared_length, final_url = safe_head(link, max_bytes=remaining_storage)
+        declared_length, final_url = await safe_head(link, max_bytes=remaining_storage)
     except SSRFBlocked as e:
         return await _send_throttled_warning(client, chat_id, user_id, "ssrf", f"{EmojiTag.ERROR} <b>Blocked:</b> <code>{rich_esc(e)}</code>")
     except DownloadTooLarge as e:
@@ -420,7 +427,9 @@ async def enqueue_link_message(client: Client, message: Message):
             )
 
         batch.queue.append(message)
-        batch.total_in_batch = batch.downloaded_count + (1 if batch.active_msg else 0) + len(batch.queue)
+        batch.total_in_batch = (
+            batch.downloaded_count + batch.failed_count + (1 if batch.active_msg else 0) + len(batch.queue)
+        )
 
         if batch.is_running:
             await _relocate_status_message_to_bottom(batch)
@@ -441,8 +450,39 @@ async def _debounce_worker_trigger(batch: UserDownloadBatch, delay: float = 1.0)
             return
         batch.is_running = True
         batch.downloaded_count = 0
+        batch.failed_count = 0
         batch.total_in_batch = len(batch.queue)
         batch.worker_task = asyncio.create_task(_process_batch(batch))
+        batch.worker_task.add_done_callback(_log_worker_result)
+
+
+def _log_worker_result(task: asyncio.Task) -> None:
+    """Surface crashes from the detached batch worker instead of swallowing them."""
+    if task.cancelled():
+        return
+    exc = task.exception()
+    if exc is not None:
+        print(f"Batch worker crashed: {exc!r}")
+
+
+async def _deliver_final_card(
+    client: Client,
+    chat_id: int,
+    status_msg: Optional[Message],
+    text: str,
+    reply_markup=None,
+) -> None:
+    """Edit the batch status card in place, falling back to a fresh message."""
+    if status_msg:
+        try:
+            await rich_edit(status_msg, text, reply_markup=reply_markup, client=client)
+            return
+        except Exception:
+            pass
+    try:
+        await rich_send(client, chat_id, text, reply_markup=reply_markup)
+    except Exception as e:
+        print(f"Failed to deliver final batch card to {chat_id}: {e}")
 
 
 async def _process_batch(batch: UserDownloadBatch):
@@ -450,21 +490,27 @@ async def _process_batch(batch: UserDownloadBatch):
     chat_id = batch.chat_id
     client = batch.client
 
+    user_dir = f"{config.ggg}/zipper/{user_id}"
+    status_timer = Timer(time_between=3.0)
+    cancelled = False
+    max_storage = 0
+    fatal_error: Optional[str] = None
+
+    # Once the busy flag is set, every path below has to reach the `finally` that
+    # clears it. Setup work (a blocking Mongo read, makedirs, the first status
+    # edit) used to run outside the try, so a failure there left the user
+    # permanently marked as downloading with no way to recover.
     await set_downloading(user_id, True)
     config.user_ids[user_id] = True
 
-    _, max_storage, _ = get_user_status(collection, user_id)
-    user_dir = f"{config.ggg}/zipper/{user_id}"
-    os.makedirs(user_dir, exist_ok=True)
-
-    # Immediately show the initial status card so the user gets instant feedback
-    if not batch.status_msg:
-        await _relocate_status_message_to_bottom(batch, force=True)
-
-    status_timer = Timer(time_between=3.0)
-    cancelled = False
-
     try:
+        _, max_storage, _ = get_user_status(collection, user_id)
+        os.makedirs(user_dir, exist_ok=True)
+
+        # Immediately show the initial status card so the user gets instant feedback
+        if not batch.status_msg:
+            await _relocate_status_message_to_bottom(batch, force=True)
+
         while True:
             if await is_cancel_requested(user_id):
                 cancelled = True
@@ -550,11 +596,16 @@ async def _process_batch(batch: UserDownloadBatch):
                 cancelled = True
                 break
             except Exception as e:
+                # A failed item must not be counted as downloaded, otherwise the
+                # completion card reports it as a success.
                 print(f"Error downloading batch item: {e}")
-                batch.downloaded_count += 1
+                batch.failed_count += 1
 
     except (StopTransmission, asyncio.CancelledError):
         cancelled = True
+    except Exception as e:
+        fatal_error = str(e)
+        print(f"Batch aborted for user {user_id}: {e!r}")
     finally:
         await set_downloading(user_id, False)
         config.user_ids.pop(user_id, None)
@@ -565,68 +616,94 @@ async def _process_batch(batch: UserDownloadBatch):
             batch.active_msg = None
             batch.queue.clear()
             final_count = batch.downloaded_count
+            final_failed = batch.failed_count
             status_msg = batch.status_msg
             batch.status_msg = None
             batch.downloaded_count = 0
+            batch.failed_count = 0
             batch.total_in_batch = 0
 
         if cancelled:
-            cancel_card = (
+            final_card = (
                 f"{rich_heading(f'{EmojiTag.CANCEL} Download Cancelled', level=2)}\n\n"
                 f"Batch download was cancelled by user."
             )
-            if status_msg:
-                try:
-                    await rich_edit(
-                        status_msg,
-                        cancel_card,
-                        reply_markup=home_buttons,
-                        client=client,
-                    )
-                except Exception:
-                    await rich_send(client, chat_id, cancel_card, reply_markup=home_buttons)
-            else:
-                await rich_send(client, chat_id, cancel_card, reply_markup=home_buttons)
-        elif final_count > 0:
+            final_markup = home_buttons
+        elif final_count or final_failed:
             total_size, remaining_storage, files = get_file_size_info(user_dir, max_storage)
             used_gb = total_size / (1024 ** 3)
             free_gb = remaining_storage / (1024 ** 3)
 
-            summary_table = rich_kv_table([
-                ("Downloaded in Batch", f"<code>{final_count} file(s)</code>"),
+            rows = [("Downloaded in Batch", f"<code>{final_count} file(s)</code>")]
+            if final_failed:
+                rows.append(("Failed", f"<code>{final_failed} file(s)</code>"))
+            rows += [
                 ("Total Files in Storage", f"<code>{len(files)}</code>"),
                 ("Used Storage", f"<code>{used_gb:.2f} GB</code>"),
                 ("Available Storage", f"<code>{free_gb:.2f} GB</code>"),
-            ], headers=["Batch Result", "Details"])
+            ]
+            summary_table = rich_kv_table(rows, headers=["Batch Result", "Details"])
 
-            completion_text = (
-                f"{rich_heading(f'{EmojiTag.SUCCESS} Batch Download Complete', level=1)}\n"
-                f"{summary_table}\n\n"
-                f"<i>All <code>{final_count}</code> file(s) downloaded and stored successfully.<br>"
-                f"Use <b>Compress Files</b> to pack them into a ZIP archive.</i>"
-            )
-            if status_msg:
-                try:
-                    await rich_edit(
-                        status_msg,
-                        completion_text,
-                        reply_markup=file_buttons,
-                        client=client,
-                    )
-                except Exception:
-                    await rich_send(client, chat_id, completion_text, reply_markup=file_buttons)
+            if final_failed and not final_count:
+                heading = rich_heading(f"{EmojiTag.ERROR} Batch Download Failed", level=1)
+                footer = (
+                    f"<i>None of the <code>{final_failed}</code> file(s) could be downloaded.<br>"
+                    f"Please check the files or links and try again.</i>"
+                )
+            elif final_failed:
+                heading = rich_heading(f"{EmojiTag.WARNING} Batch Finished With Errors", level=1)
+                footer = (
+                    f"<i><code>{final_count}</code> file(s) stored, "
+                    f"<code>{final_failed}</code> failed.<br>"
+                    f"Use <b>Compress Files</b> to pack the stored files into a ZIP archive.</i>"
+                )
             else:
-                await rich_send(client, chat_id, completion_text, reply_markup=file_buttons)
+                heading = rich_heading(f"{EmojiTag.SUCCESS} Batch Download Complete", level=1)
+                footer = (
+                    f"<i>All <code>{final_count}</code> file(s) downloaded and stored successfully.<br>"
+                    f"Use <b>Compress Files</b> to pack them into a ZIP archive.</i>"
+                )
+
+            final_card = f"{heading}\n{summary_table}\n\n{footer}"
+            final_markup = file_buttons if final_count else home_buttons
+        elif fatal_error:
+            final_card = (
+                f"{rich_heading(f'{EmojiTag.ERROR} Batch Download Failed', level=2)}\n\n"
+                f"The batch could not be started: <code>{rich_esc(fatal_error)}</code>"
+            )
+            final_markup = home_buttons
+        else:
+            final_card = None
+            final_markup = None
+
+        if final_card:
+            await _deliver_final_card(client, chat_id, status_msg, final_card, final_markup)
 
 
-async def cancel_user_batch(user_id: int):
-    """Abort an active user batch and clear its queue."""
+async def cancel_user_batch(user_id: int) -> int:
+    """Abort an active user batch and clear its queue.
+
+    Returns the number of queued items that were dropped.
+    """
     async with _batches_lock:
         batch = _batches.get(user_id)
     if not batch:
-        return
+        return 0
 
     async with batch.lock:
         if batch.debounce_task and not batch.debounce_task.done():
             batch.debounce_task.cancel()
+        removed = len(batch.queue)
         batch.queue.clear()
+        return removed
+
+
+def pending_queue_counts() -> tuple[int, Dict[int, int]]:
+    """Return (total queued files, {user_id: queued files}) across all batches.
+
+    Only list lengths are read and there is no await point, so the snapshot is
+    consistent within a single event-loop step and needs no lock. This keeps the
+    function callable from the synchronous status/diagnostic helpers.
+    """
+    per_user = {uid: len(batch.queue) for uid, batch in _batches.items() if batch.queue}
+    return sum(per_user.values()), per_user
