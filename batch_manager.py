@@ -195,8 +195,12 @@ def _build_progress_card(
 
     if batch.active_msg:
         filename = _get_filename(batch.active_msg, batch.user_id)
+        if total == 0:
+            total, _ = _get_media_size(batch.active_msg)
     elif batch.queue:
         filename = _get_filename(batch.queue[0], batch.user_id)
+        if total == 0:
+            total, _ = _get_media_size(batch.queue[0])
     else:
         filename = "Processing…"
 
@@ -224,10 +228,10 @@ def _build_progress_card(
     return card
 
 
-async def _relocate_status_message_to_bottom(batch: UserDownloadBatch):
+async def _relocate_status_message_to_bottom(batch: UserDownloadBatch, force: bool = False):
     """Delete the previous bot status message and send a new one at the bottom of the chat, throttled to prevent FloodWait."""
     now = time.time()
-    if now - batch.last_relocate_time < 2.0:
+    if not force and batch.status_msg and (now - batch.last_relocate_time < 2.0):
         return
     batch.last_relocate_time = now
 
@@ -453,6 +457,10 @@ async def _process_batch(batch: UserDownloadBatch):
     user_dir = f"{config.ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
 
+    # Immediately show the initial status card so the user gets instant feedback
+    if not batch.status_msg:
+        await _relocate_status_message_to_bottom(batch, force=True)
+
     status_timer = Timer(time_between=3.0)
     cancelled = False
 
@@ -487,7 +495,7 @@ async def _process_batch(batch: UserDownloadBatch):
                     "elapsed": elapsed,
                 }
 
-                if status_timer.can_send() and batch.status_msg:
+                if status_timer.can_send():
                     card = _build_progress_card(
                         batch,
                         current=current,
@@ -499,10 +507,17 @@ async def _process_batch(batch: UserDownloadBatch):
                     cancel_markup = InlineKeyboardMarkup([
                         [InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
                     ])
-                    try:
-                        await rich_edit(batch.status_msg, card, reply_markup=cancel_markup, client=client)
-                    except Exception:
-                        pass
+                    if batch.status_msg:
+                        try:
+                            await rich_edit(batch.status_msg, card, reply_markup=cancel_markup, client=client)
+                        except Exception:
+                            pass
+                    else:
+                        try:
+                            new_status = await rich_send(client, chat_id, card, reply_markup=cancel_markup)
+                            batch.status_msg = new_status
+                        except Exception:
+                            pass
 
             try:
                 # Direct URL link
@@ -556,17 +571,22 @@ async def _process_batch(batch: UserDownloadBatch):
             batch.total_in_batch = 0
 
         if cancelled:
+            cancel_card = (
+                f"{rich_heading(f'{EmojiTag.CANCEL} Download Cancelled', level=2)}\n\n"
+                f"Batch download was cancelled by user."
+            )
             if status_msg:
                 try:
                     await rich_edit(
                         status_msg,
-                        f"{rich_heading(f'{EmojiTag.CANCEL} Download Cancelled', level=2)}\n\n"
-                        f"Batch download was cancelled by user.",
+                        cancel_card,
                         reply_markup=home_buttons,
                         client=client,
                     )
                 except Exception:
-                    pass
+                    await rich_send(client, chat_id, cancel_card, reply_markup=home_buttons)
+            else:
+                await rich_send(client, chat_id, cancel_card, reply_markup=home_buttons)
         elif final_count > 0:
             total_size, remaining_storage, files = get_file_size_info(user_dir, max_storage)
             used_gb = total_size / (1024 ** 3)
@@ -595,6 +615,8 @@ async def _process_batch(batch: UserDownloadBatch):
                     )
                 except Exception:
                     await rich_send(client, chat_id, completion_text, reply_markup=file_buttons)
+            else:
+                await rich_send(client, chat_id, completion_text, reply_markup=file_buttons)
 
 
 async def cancel_user_batch(user_id: int):

@@ -133,3 +133,66 @@ async def test_batch_queue_throttled_warning():
 
     await cancel_user_batch(uid)
 
+
+@pytest.mark.asyncio
+async def test_batch_initial_status_and_completion():
+    """Verify that batch processing immediately sends the status card and sends completion even if status_msg was absent."""
+    from batch_manager import _process_batch
+    uid = 88888
+    mock_client = MagicMock()
+    mock_client.send_message = AsyncMock()
+
+    batch = await get_user_batch(uid, uid, mock_client)
+    batch.queue.clear()
+    batch.status_msg = None
+
+    mock_msg = MagicMock()
+    mock_msg.from_user.id = uid
+    mock_msg.chat.id = uid
+    mock_msg.text = None
+    mock_msg.document.file_name = "sample.txt"
+    mock_msg.document.file_size = 500
+    mock_msg.photo = None
+    mock_msg.video = None
+    mock_msg.audio = None
+    mock_msg.voice = None
+    mock_msg.video_note = None
+    mock_msg.sticker = None
+    mock_msg.animation = None
+    mock_msg.download = AsyncMock(return_value="/tmp/sample.txt")
+
+    batch.queue.append(mock_msg)
+    batch.total_in_batch = 1
+
+    sent_messages = []
+    edited_messages = []
+
+    async def fake_rich_send(client, chat_id, text, reply_markup=None):
+        m = MagicMock()
+        m.chat.id = chat_id
+        m.text = text
+        sent_messages.append(m)
+        return m
+
+    async def fake_rich_edit(msg, text, reply_markup=None, client=None):
+        m = MagicMock()
+        m.text = text
+        edited_messages.append(m)
+        return m
+
+    with patch("batch_manager.rich_send", side_effect=fake_rich_send), \
+         patch("batch_manager.rich_edit", side_effect=fake_rich_edit), \
+         patch("batch_manager.update_stats", new_callable=AsyncMock), \
+         patch("batch_manager.get_user_status", return_value=(True, 4 * 1024**3, 2 * 1024**3)), \
+         patch("batch_manager.get_file_size_info", return_value=(500, 4 * 1024**3 - 500, ["sample.txt"])):
+
+        await _process_batch(batch)
+
+    # Initial status was sent via rich_send, and completion was updated via rich_edit
+    assert len(sent_messages) == 1
+    assert "Downloading Files" in sent_messages[0].text
+    assert len(edited_messages) >= 1
+    assert any("Batch Download Complete" in m.text for m in edited_messages)
+    await cancel_user_batch(uid)
+
+
