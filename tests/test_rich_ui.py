@@ -10,6 +10,7 @@ from utils.rich_ui import (
     _plain_fallback,
     _render_monospace_grid_table,
     rich_button,
+    rich_button_row,
     rich_details,
     rich_esc,
     rich_heading,
@@ -35,7 +36,19 @@ def test_rich_builders():
     assert exp_note == "<blockquote expandable>Expandable tip</blockquote>"
 
     btn = rich_button("Download", "https://example.com/file.zip")
-    assert btn == '<tg-button url="https://example.com/file.zip">Download</tg-button>'
+    assert btn == '<tg-button type="url" url="https://example.com/file.zip">Download</tg-button>'
+
+    cb_btn = rich_button("Del", callback_data="delfile|a.zip", style="danger")
+    assert cb_btn == '<tg-button type="callback_data" style="danger" data="delfile|a.zip">Del</tg-button>'
+
+    copy_btn = rich_button("Copy Link", copy_text="https://t.me/x")
+    assert copy_btn == '<tg-button type="copy_text" text="https://t.me/x">Copy Link</tg-button>'
+
+    with pytest.raises(ValueError):
+        rich_button("Broken")
+
+    row = rich_button_row(cb_btn, copy_btn, align="right")
+    assert row == f'<tg-button-row align="right">{cb_btn}{copy_btn}</tg-button-row>'
 
     det = rich_details("Commands", "• /start\n• /help", open=True)
     assert det == "<details open><summary>Commands</summary>• /start\n• /help</details>"

@@ -6,6 +6,8 @@ Shared, reusable builders and safe senders for native Telegram Rich Blocks:
   - <details><summary> collapsible dropdown sections
   - <blockquote expandable> expandable blockquotes for security notes / guides
   - <tg-button url="..."> native rich text buttons
+  - <tg-button type="callback_data" data="..."> in-text callback buttons (usable in <td>)
+  - <tg-button-row align="..."> grouped rows of rich text buttons
   - <tg-emoji emoji-id="..."> custom/premium emoji glyphs
   - InputRichMessage server-side parsing with newline & whitespace preservation
   - send_rich_message_draft / RichDraft for live animated streaming progress
@@ -34,6 +36,7 @@ __all__ = [
     "rich_note",
     "rich_table",
     "rich_button",
+    "rich_button_row",
     "rich_details",
     "rich_kv_table",
     "rich_code",
@@ -59,7 +62,7 @@ _RICH_ONLY_TAGS = (
     "h1", "h2", "h3", "h4", "h5", "h6",
     "table", "thead", "tbody", "tr", "th", "td",
     "details", "summary", "mark", "sub", "sup",
-    "tg-button", "button",
+    "tg-button", "tg-button-row", "button",
 )
 _BLOCK_BREAK_RE = re.compile(
     r"</(?:h[1-6]|tr|details|summary|blockquote|table|pre)>", re.I
@@ -70,7 +73,7 @@ _EMOJI_TAG_RE = re.compile(
 )
 _ANY_TAG_RE = re.compile(r"<[^>]+>")
 _RICH_TAGS_RE = re.compile(
-    r"</?(?:h[1-6]|table|thead|tbody|tr|th|td|details|summary|mark|sub|sup|tg-button|button)\b", re.I
+    r"</?(?:h[1-6]|table|thead|tbody|tr|th|td|details|summary|mark|sub|sup|tg-button|tg-button-row|button)\b", re.I
 )
 
 
@@ -90,6 +93,18 @@ def rich_esc(value: Any) -> str:
     return _html.escape(str(value), quote=False)
 
 
+def _attr(value: Any) -> str:
+    """Escape a value for use inside a double-quoted HTML attribute.
+
+    rich_esc() leaves quotes alone, which is fine for body text but would let a
+    filename containing a double quote close the attribute early and inject
+    further attributes into the tag.
+    """
+    if value is None:
+        return ""
+    return _html.escape(str(value), quote=True)
+
+
 def rich_heading(text: str, level: int = 1) -> str:
     """<h1>-<h6> title / section header."""
     level = max(1, min(6, int(level)))
@@ -107,9 +122,38 @@ def rich_code(value: Any) -> str:
     return f"<code>{rich_esc(value)}</code>"
 
 
-def rich_button(text: str, url: str) -> str:
-    """Native Rich Message inline button (<tg-button url="...">) for Telegram Bot API 10.3+."""
-    return f'<tg-button url="{rich_esc(url)}">{text}</tg-button>'
+def rich_button(
+    text: str,
+    url: str | None = None,
+    *,
+    callback_data: str | None = None,
+    copy_text: str | None = None,
+    style: str | None = None,
+) -> str:
+    """Native Rich Message inline button (<tg-button>) for Telegram Bot API 10.3+.
+
+    Exactly one of url / callback_data / copy_text picks the button type. The
+    callback form is the only way to get a tappable action *inside* a table cell:
+    reply-keyboard buttons can only be attached below a message, but a rich-text
+    button is part of the message body and so may live in a <td>.
+
+    `style` maps to Telegram's button styles: default, primary, success, danger.
+    """
+    style_attr = f' style="{_attr(style)}"' if style else ""
+    if callback_data is not None:
+        return f'<tg-button type="callback_data"{style_attr} data="{_attr(callback_data)}">{text}</tg-button>'
+    if copy_text is not None:
+        return f'<tg-button type="copy_text"{style_attr} text="{_attr(copy_text)}">{text}</tg-button>'
+    if url is None:
+        raise ValueError("rich_button() needs one of url, callback_data or copy_text")
+    return f'<tg-button type="url"{style_attr} url="{_attr(url)}">{text}</tg-button>'
+
+
+def rich_button_row(*buttons: str, align: str | None = None) -> str:
+    """Group rich_button() results onto one row (<tg-button-row>)."""
+    align_attr = f' align="{_attr(align)}"' if align else ""
+    inner = "".join(b for b in buttons if b)
+    return f"<tg-button-row{align_attr}>{inner}</tg-button-row>"
 
 
 def rich_table(headers: Sequence[str] | None, rows: Iterable[Sequence[Any]], border: int = 1) -> str:
@@ -248,7 +292,9 @@ def _plain_fallback(html_text: str) -> str:
       - <details><summary> -> <blockquote><b>Summary</b>\nBody</blockquote>
       - <h1>-<h6> -> <b>...</b>
       - <mark> -> <b>...</b>
-      - <tg-button url="..."> -> <a href="...">...</a>
+      - <tg-button type="url"> -> <a href="...">...</a>
+      - <tg-button type="callback_data"|"copy_text"> -> <b>label</b> (no plain equivalent)
+      - <tg-button-row> -> unwrapped
     """
     if not html_text:
         return ""
@@ -274,8 +320,18 @@ def _plain_fallback(html_text: str) -> str:
     # 3. Convert <mark> -> <b>
     text = re.sub(r'<mark>(.*?)</mark>', r'<b>\1</b>', text, flags=re.DOTALL | re.IGNORECASE)
 
-    # 4. Convert <tg-button> -> <a>
-    text = re.sub(r'<tg-button\s+url="([^"]*)">(.*?)</tg-button>', r'<a href="\1">\2</a>', text, flags=re.DOTALL | re.IGNORECASE)
+    # 4. Convert <tg-button> -> <a> (url) or bold label (callback / copy_text)
+    def _replace_button(m):
+        attrs, label = m.group(1), m.group(2)
+        url_match = re.search(r'\burl="([^"]*)"', attrs, flags=re.IGNORECASE)
+        if url_match:
+            return f'<a href="{url_match.group(1)}">{label}</a>'
+        # A callback button cannot survive as standard HTML. Emit the label so the
+        # row still reads sensibly instead of a link that goes nowhere.
+        return f"<b>{label}</b>"
+
+    text = re.sub(r'<tg-button\b([^>]*)>(.*?)</tg-button>', _replace_button, text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r'</?tg-button-row\b[^>]*>', '', text, flags=re.IGNORECASE)
 
     # 5. Convert <br/> -> \n
     text = re.sub(r'<br\s*/?>', '\n', text, flags=re.IGNORECASE)
