@@ -115,7 +115,7 @@ async def _show_broadcast_settings(client: Client, target, admin_id: int):
         include_sender = state["include_sender_name"]
         has_payload = state["payload"] is not None
 
-    total_users = collection.count_documents({"user_id": {"$exists": True}})
+    total_users = await asyncio.to_thread(_count_stored_users)
 
     bcast_pairs = [
         ("Message Payload", "<code>✅ Configured</code>" if has_payload else "<code>❌ Not Set (Reply to a message with /broadcast)</code>"),
@@ -202,12 +202,23 @@ async def bcast_toggle_sender(client: Client, callback_query: CallbackQuery):
     await _show_broadcast_settings(client, callback_query, admin_id)
 
 
+# The Mongo driver is synchronous, so every query below is run through
+# asyncio.to_thread by its caller to keep the event loop responsive.
+
 def _fetch_stored_user_ids() -> list[int]:
     return [
         u["user_id"]
         for u in collection.find({}, {"user_id": 1})
         if isinstance(u.get("user_id"), int)
     ]
+
+
+def _count_stored_users() -> int:
+    return collection.count_documents({"user_id": {"$exists": True}})
+
+
+def _fetch_user_stat_docs() -> list[dict]:
+    return list(collection.find({}, {"stats": 1, "user_id": 1}))
 
 
 @Client.on_callback_query(filters.regex(r"^bcast_start$"))
@@ -342,7 +353,7 @@ async def list_users(client: Client, message: Message):
     if not is_admin(message.from_user.id):
         return
 
-    total_users = collection.count_documents({"user_id": {"$exists": True}})
+    total_users = await asyncio.to_thread(_count_stored_users)
     if total_users == 0:
         return await rich_reply(message, f"{EmojiTag.INFO} <b>No users found in database.</b>", client=client)
 
@@ -367,8 +378,8 @@ async def stats_handler(client: Client, message: Message):
     today = datetime.now().date()
     day_start_ts = int(time.mktime(today.timetuple()))
 
-    all_users = list(collection.find({}, {"stats": 1, "user_id": 1}))
-    total_users = collection.count_documents({"user_id": {"$exists": True}})
+    all_users = await asyncio.to_thread(_fetch_user_stat_docs)
+    total_users = await asyncio.to_thread(_count_stored_users)
 
     overall = {"files_sent": 0, "zip_with_pass": 0, "zip_without_pass": 0, "external_uploads": 0}
     today_stats = {"files_sent": 0, "zip_with_pass": 0, "zip_without_pass": 0, "external_uploads": 0}

@@ -304,7 +304,7 @@ async def enqueue_media_message(client: Client, message: Message):
             )
 
     size, enforce_limit = _get_media_size(message)
-    _, max_storage, max_file_size = get_user_status(collection, user_id)
+    _, max_storage, max_file_size = await get_user_status(collection, user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
     _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
@@ -389,7 +389,7 @@ async def enqueue_link_message(client: Client, message: Message):
                 f"{EmojiTag.CLOCK} <b>Please wait</b>\n\nYour file is currently {reason}.\nPlease send links after the current process finishes.",
             )
 
-    _, max_storage, _ = get_user_status(collection, user_id)
+    _, max_storage, _ = await get_user_status(collection, user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
     _, remaining_storage, _ = get_file_size_info(user_dir, max_storage)
@@ -504,7 +504,7 @@ async def _process_batch(batch: UserDownloadBatch):
     config.user_ids[user_id] = True
 
     try:
-        _, max_storage, _ = get_user_status(collection, user_id)
+        _, max_storage, _ = await get_user_status(collection, user_id)
         os.makedirs(user_dir, exist_ok=True)
 
         # Immediately show the initial status card so the user gets instant feedback
@@ -579,7 +579,10 @@ async def _process_batch(batch: UserDownloadBatch):
                         link,
                         dest_path,
                         max_bytes=max_allowed,
-                        progress_callback=lambda c, t: asyncio.create_task(progress_bar(c, t)),
+                        # Passed directly, not wrapped in create_task: the callback
+                        # must be awaited by the download loop so the
+                        # StopTransmission it raises on cancel actually aborts it.
+                        progress_callback=progress_bar,
                     )
                 # Media Telegram File
                 else:

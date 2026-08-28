@@ -62,7 +62,10 @@ def is_admin(user_id):
 # ─── User Management ─────────────────────────────────────────────────────────
 
 def store_user(collection, user_id):
-    """Store user in database with current timestamp and initialised stats."""
+    """Store user in database with current timestamp and initialised stats.
+
+    Blocking; call via ``asyncio.to_thread`` from async code.
+    """
     current_time = int(time.time())
     user_data = {
         "user_id": user_id,
@@ -79,12 +82,7 @@ def store_user(collection, user_id):
     collection.update_one({"user_id": user_id}, {"$setOnInsert": user_data}, upsert=True)
 
 
-def get_user_status(collection, user_id):
-    """Get user storage and file-size limits.
-
-    Returns:
-        (is_verified, max_storage_bytes, max_file_size_bytes)
-    """
+def _get_user_status_blocking(collection, user_id):
     user_data = collection.find_one({"user_id": user_id})
 
     if not user_data:
@@ -93,27 +91,40 @@ def get_user_status(collection, user_id):
     return True, int(4.5 * 1024**3), 2 * 1024**3
 
 
-def get_user_lang(collection, user_id):
+async def get_user_status(collection, user_id):
+    """Get user storage and file-size limits.
+
+    Returns:
+        (is_verified, max_storage_bytes, max_file_size_bytes)
+
+    The driver is synchronous, so the query runs in a worker thread; a slow or
+    unreachable Mongo would otherwise stall every other task on the event loop.
+    """
+    return await asyncio.to_thread(_get_user_status_blocking, collection, user_id)
+
+
+async def get_user_lang(collection, user_id):
     """Get the user's language preference from the database."""
-    user = collection.find_one({"user_id": user_id})
+    user = await asyncio.to_thread(collection.find_one, {"user_id": user_id})
     if user and "lang" in user:
         return user["lang"]
     return "en"
 
 
-def set_user_lang(collection, user_id, lang_code):
+async def set_user_lang(collection, user_id, lang_code):
     """Update the user's language preference."""
-    collection.update_one(
+    await asyncio.to_thread(
+        collection.update_one,
         {"user_id": user_id},
         {"$set": {"lang": lang_code}},
         upsert=True,
     )
 
 
-def get_text(collection, user_id, text_key):
+async def get_text(collection, user_id, text_key):
     """Fetch a translated string based on the user's language."""
     from i18n import TEXTS
-    lang = get_user_lang(collection, user_id)
+    lang = await get_user_lang(collection, user_id)
     if lang not in TEXTS:
         lang = "en"
     return TEXTS[lang].get(text_key, TEXTS["en"].get(text_key, text_key))

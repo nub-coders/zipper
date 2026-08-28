@@ -30,7 +30,7 @@ from plugins.ui_components import (
 
 @Client.on_message(filters.private & filters.command("start"))
 async def start_command(client: Client, message: Message):
-    text = get_text(collection, message.from_user.id, "start_msg")
+    text = await get_text(collection, message.from_user.id, "start_msg")
     await rich_reply(
         message,
         text,
@@ -41,7 +41,7 @@ async def start_command(client: Client, message: Message):
 
 @Client.on_callback_query(filters.regex(r"^home$"))
 async def home_callback(client: Client, callback_query: CallbackQuery):
-    text = get_text(collection, callback_query.from_user.id, "start_msg")
+    text = await get_text(collection, callback_query.from_user.id, "start_msg")
     await rich_edit(
         callback_query,
         text,
@@ -55,14 +55,14 @@ async def home_callback(client: Client, callback_query: CallbackQuery):
 @Client.on_message(filters.private & filters.command("lang"))
 async def lang_command(client: Client, message: Message):
     user_id = message.from_user.id
-    lang_text = get_text(collection, user_id, "choose_lang")
+    lang_text = await get_text(collection, user_id, "choose_lang")
     await rich_reply(message, lang_text, reply_markup=lang_markup, client=client)
 
 
 @Client.on_callback_query(filters.regex(r"^lang_menu$"))
 async def lang_menu_callback(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
-    lang_text = get_text(collection, user_id, "choose_lang")
+    lang_text = await get_text(collection, user_id, "choose_lang")
     await rich_edit(callback_query, lang_text, reply_markup=lang_markup, client=client)
 
 
@@ -70,9 +70,9 @@ async def lang_menu_callback(client: Client, callback_query: CallbackQuery):
 async def set_lang_handler(client: Client, callback_query: CallbackQuery):
     user_id = callback_query.from_user.id
     lang_code = callback_query.matches[0].group(1)
-    set_user_lang(collection, user_id, lang_code)
+    await set_user_lang(collection, user_id, lang_code)
 
-    success_msg = get_text(collection, user_id, "lang_set")
+    success_msg = await get_text(collection, user_id, "lang_set")
     await rich_edit(callback_query, success_msg, reply_markup=home_buttons, client=client)
 
 
@@ -153,7 +153,7 @@ async def _build_status_html_and_markup(user_id: int):
     """Build a rich status card with stats table, storage quota table, and active task indicators."""
     user_stats = await get_user_stats(user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
-    _, max_storage, max_file_size = get_user_status(collection, user_id)
+    _, max_storage, max_file_size = await get_user_status(collection, user_id)
     total_size, remaining_storage, files = get_file_size_info(user_dir, max_storage)
 
     # 1. Statistics Table

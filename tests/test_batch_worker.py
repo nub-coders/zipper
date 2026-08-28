@@ -56,7 +56,7 @@ async def _run_batch(uid, tmp_path, queue, max_storage=10 * 1024 * 1024):
         delivered["text"] = text
 
     with patch.object(config, "ggg", str(tmp_path)), \
-         patch("batch_manager.get_user_status", return_value=(0, max_storage, 0)), \
+         patch("batch_manager.get_user_status", new=AsyncMock(return_value=(0, max_storage, 0))), \
          patch("batch_manager.update_stats", new=AsyncMock()), \
          patch("batch_manager._relocate_status_message_to_bottom", new=AsyncMock()), \
          patch("batch_manager._deliver_final_card", new=_capture):
@@ -86,7 +86,7 @@ async def test_setup_failure_releases_busy_flag(tmp_path):
         delivered["text"] = text
 
     with patch.object(config, "ggg", str(tmp_path)), \
-         patch("batch_manager.get_user_status", side_effect=RuntimeError("mongo down")), \
+         patch("batch_manager.get_user_status", new=AsyncMock(side_effect=RuntimeError("mongo down"))), \
          patch("batch_manager._relocate_status_message_to_bottom", new=AsyncMock()), \
          patch("batch_manager._deliver_final_card", new=_capture):
         await _process_batch(batch)

@@ -376,7 +376,7 @@ async def list_files(client, message):
         text = f"{EmojiTag.LOCK} <b>Membership Required</b>\n\nYou must join @nub_coders and @nub_coder_s to use this bot."
         return await rich_reply(message, text, reply_markup=button, client=client)
 
-    _, max_storage, _ = get_user_status(collection, user_id)
+    _, max_storage, _ = await get_user_status(collection, user_id)
     user_dir = f"{config.ggg}/zipper/{user_id}"
     os.makedirs(user_dir, exist_ok=True)
 

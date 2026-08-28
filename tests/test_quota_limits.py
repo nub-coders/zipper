@@ -75,7 +75,7 @@ async def test_batch_queue_length_limit():
     extra_msg.document.file_name = "overflow.txt"
     extra_msg.document.file_size = 100
 
-    with patch("plugins.file_handlers.get_user_status", return_value=(True, 4 * 1024**3, 2 * 1024**3)):
+    with patch("plugins.file_handlers.get_user_status", new=AsyncMock(return_value=(True, 4 * 1024**3, 2 * 1024**3))):
         with patch("plugins.file_handlers.is_user_on_chat", return_value=True):
             await enqueue_media_message(mock_client, extra_msg)
 
@@ -183,7 +183,7 @@ async def test_batch_initial_status_and_completion():
     with patch("batch_manager.rich_send", side_effect=fake_rich_send), \
          patch("batch_manager.rich_edit", side_effect=fake_rich_edit), \
          patch("batch_manager.update_stats", new_callable=AsyncMock), \
-         patch("batch_manager.get_user_status", return_value=(True, 4 * 1024**3, 2 * 1024**3)), \
+         patch("batch_manager.get_user_status", new=AsyncMock(return_value=(True, 4 * 1024**3, 2 * 1024**3))), \
          patch("batch_manager.get_file_size_info", return_value=(500, 4 * 1024**3 - 500, ["sample.txt"])):
 
         await _process_batch(batch)

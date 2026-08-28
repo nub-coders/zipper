@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import asyncio
+import inspect
 import ipaddress
 import socket
+import time
 import urllib.parse
 from dataclasses import dataclass
 
@@ -19,6 +21,11 @@ MAX_DOWNLOAD_BYTES = 2 * 1024 * 1024 * 1024  # 2 GiB
 HEAD_TIMEOUT = 10
 GET_TIMEOUT = 1500
 CHUNK_SIZE = 8192
+
+# A 2 GiB transfer is ~262k chunks; reporting every chunk would flood whatever
+# UI sits behind the callback. Report on whichever of these fires first.
+PROGRESS_INTERVAL_BYTES = 1024 * 1024
+PROGRESS_INTERVAL_SECONDS = 1.0
 
 # Networks that MUST NEVER be reached by a user-supplied URL.
 # Includes localhost, RFC1918, cloud metadata, Docker bridge, CGNAT, link-local, IPv4-mapped IPv6, etc.
@@ -225,6 +232,18 @@ class DownloadResult:
     content_length: int
 
 
+async def _emit_progress(progress_callback, current: int, total: int) -> None:
+    """Invoke a sync or async ``(current, total)`` progress callback.
+
+    The callback is awaited inline rather than spawned as a task so that an
+    exception it raises (e.g. pyrogram's ``StopTransmission`` used to signal a
+    user cancellation) propagates into the download loop and aborts the transfer.
+    """
+    result = progress_callback(current, total)
+    if inspect.isawaitable(result):
+        await result
+
+
 async def safe_download(
     url: str,
     dest_path: str,
@@ -287,6 +306,8 @@ async def safe_download(
 
             # Stream body
             written = 0
+            reported_bytes = 0
+            reported_at = 0.0
             try:
                 with open(dest_path, "wb") as f:
                     async for chunk in resp.content.iter_chunked(CHUNK_SIZE):
@@ -303,9 +324,22 @@ async def safe_download(
                             raise DownloadTooLarge(f"download exceeded {max_bytes} bytes (got {written})")
                         f.write(chunk)
                         if progress_callback:
-                            total = declared_length or written
-                            await progress_callback(written, total)
-            except Exception:
+                            now = time.monotonic()
+                            if (
+                                written - reported_bytes >= PROGRESS_INTERVAL_BYTES
+                                or now - reported_at >= PROGRESS_INTERVAL_SECONDS
+                            ):
+                                reported_bytes = written
+                                reported_at = now
+                                await _emit_progress(progress_callback, written, declared_length or written)
+                if progress_callback and written != reported_bytes:
+                    # Throttling can swallow the last chunks; emit the true final
+                    # size so the caller never ends up stuck below 100%.
+                    await _emit_progress(progress_callback, written, declared_length or written)
+            except BaseException:
+                # BaseException rather than Exception: a cancelled task raises
+                # CancelledError, and a partial file left on disk would keep
+                # counting against the user's storage quota.
                 resp.close()
                 try:
                     import os
