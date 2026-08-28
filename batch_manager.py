@@ -259,7 +259,7 @@ async def _relocate_status_message_to_bottom(batch: UserDownloadBatch, force: bo
         elapsed=info.get("elapsed", 0),
     )
     cancel_markup = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
+        [InlineKeyboardButton("Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
     ])
     try:
         new_msg = await rich_send(batch.client, batch.chat_id, card, reply_markup=cancel_markup)
@@ -551,7 +551,7 @@ async def _process_batch(batch: UserDownloadBatch):
                         elapsed=elapsed,
                     )
                     cancel_markup = InlineKeyboardMarkup([
-                        [InlineKeyboardButton("🛑 Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
+                        [InlineKeyboardButton("Cancel", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]
                     ])
                     if batch.status_msg:
                         try:

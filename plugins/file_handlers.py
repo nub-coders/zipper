@@ -290,10 +290,10 @@ async def unzip_command(client: Client, message: Message):
                 cb_data = f"unzip|{matched_file[-50:]}"
             markup = InlineKeyboardMarkup([
                 [
-                    InlineKeyboardButton(f"📦 Inspect {matched_file}", callback_data=cb_data, style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.ZIP)
+                    InlineKeyboardButton(f"Inspect {matched_file}", callback_data=cb_data, style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.ZIP)
                 ],
                 [
-                    InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE)
+                    InlineKeyboardButton("Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE)
                 ]
             ])
             return await rich_reply(
@@ -323,10 +323,10 @@ async def unzip_command(client: Client, message: Message):
         if len(cb_data.encode("utf-8")) > 64:
             cb_data = f"unzip|{f[-50:]}"
         buttons.append([
-            InlineKeyboardButton(f"📦 {f}", callback_data=cb_data, style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.ZIP)
+            InlineKeyboardButton(f"{f}", callback_data=cb_data, style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.ZIP)
         ])
 
-    buttons.append([InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE)])
+    buttons.append([InlineKeyboardButton("Dismiss", callback_data="dismiss", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.CLOSE)])
     markup = InlineKeyboardMarkup(buttons)
 
     await rich_reply(

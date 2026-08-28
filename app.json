@@ -77,6 +77,10 @@
       "description": "Retention/expiry mode on NuLoader (e.g., days_7, downloads_5)",
       "value": "days_7",
       "required": false
+    },
+    "SEVENZIP_BINARY": {
+      "description": "Absolute path to the 7z executable (optional — only needed if auto-detection fails on an unusual host)",
+      "required": false
     }
   },
   "stack": "heroku-24"

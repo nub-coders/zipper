@@ -479,8 +479,8 @@ async def upload_to_gofile(callback_query, zip_filename, message):
             link = text[start_idx:end_idx]
 
         download_button = InlineKeyboardMarkup([
-            [InlineKeyboardButton("⬇️ Download File", url=link, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.DOWNLOAD)],
-            [InlineKeyboardButton("🏠 Main Menu", callback_data="home", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.HOME)],
+            [InlineKeyboardButton("Download File", url=link, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.DOWNLOAD)],
+            [InlineKeyboardButton("Main Menu", callback_data="home", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.HOME)],
         ])
         await rich_edit(
             message,

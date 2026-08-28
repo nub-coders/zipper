@@ -26,6 +26,7 @@ from safe_archive import (
     ArchiveError,
     ArchiveFailed,
     ArchiveTimeout,
+    ArchiveToolMissing,
     ArchiveTooLarge,
     collect_safe_files,
     extract_archive,
@@ -326,7 +327,7 @@ async def create_zip(client, callback_query, pass_protect=None):
             upload_buttons = [
                 [
                     InlineKeyboardButton(
-                        "🌐 NuLoader: 7 Days (Unlimited)",
+                        "NuLoader: 7 Days (Unlimited)",
                         callback_data="upopt_days_7",
                         style=ButtonStyle.PRIMARY,
                         icon_custom_emoji_id=Emoji.CLOUD,
@@ -334,7 +335,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                 ],
                 [
                     InlineKeyboardButton(
-                        "⚡ NuLoader: 5 Downloads Max",
+                        "NuLoader: 5 Downloads Max",
                         callback_data="upopt_downloads_5",
                         style=ButtonStyle.SUCCESS,
                         icon_custom_emoji_id=Emoji.PING,
@@ -342,7 +343,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                 ],
                 [
                     InlineKeyboardButton(
-                        "☁️ GoFile.io Mirror",
+                        "GoFile.io Mirror",
                         callback_data="upopt_gofile",
                         style=ButtonStyle.DEFAULT,
                         icon_custom_emoji_id=Emoji.LINK,
@@ -350,7 +351,7 @@ async def create_zip(client, callback_query, pass_protect=None):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🛑 Cancel",
+                        "Cancel",
                         callback_data="cancel_task",
                         style=ButtonStyle.DANGER,
                         icon_custom_emoji_id=Emoji.CANCEL,
@@ -441,6 +442,8 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
         listing, exited_ok = await list_archive(target_file)
     except ArchiveTimeout:
         return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Archive listing timed out.</b>", client=client)
+    except ArchiveToolMissing as e:
+        return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Archive tooling unavailable:</b> <code>{rich_esc(e)}</code>", client=client)
     except ArchiveFailed as e:
         return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Failed to list archive:</b> <code>{rich_esc(e)}</code>", client=client)
 
@@ -507,8 +510,8 @@ async def uncompress_preview(client: Client, callback_query: CallbackQuery):
 
     markup = InlineKeyboardMarkup([
         [
-            InlineKeyboardButton("✅ Extract Files", callback_data=cb_confirm, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.EXTRACT),
-            InlineKeyboardButton("❌ Dismiss", callback_data="dismiss", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CLOSE),
+            InlineKeyboardButton("Extract Files", callback_data=cb_confirm, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.EXTRACT),
+            InlineKeyboardButton("Dismiss", callback_data="dismiss", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CLOSE),
         ]
     ])
 
@@ -568,6 +571,8 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
         try:
             listing, _ = await list_archive(target_file)
             is_encrypted = looks_encrypted(listing)
+        except ArchiveToolMissing as e:
+            return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Archive tooling unavailable:</b> <code>{rich_esc(e)}</code>", client=client)
         except (ArchiveTimeout, ArchiveFailed) as e:
             return await rich_edit(callback_query, f"{EmojiTag.ERROR} <b>Failed to inspect archive:</b> <code>{rich_esc(e)}</code>", client=client)
 
@@ -603,6 +608,10 @@ async def uncompress_callback(client: Client, callback_query: CallbackQuery):
                 return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>{rich_esc(e)}</b>", client=client)
             except ArchiveTimeout:
                 return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Extraction timed out.</b>", client=client)
+            except ArchiveToolMissing as e:
+                # Must precede ArchiveFailed: an encrypted archive would
+                # otherwise blame the password for a missing 7z runtime.
+                return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Archive tooling unavailable:</b> <code>{rich_esc(e)}</code>", client=client)
             except ArchiveFailed as e:
                 msg_fail = "Incorrect password or unsupported archive format." if is_encrypted else str(e)
                 return await rich_edit(status_msg, f"{EmojiTag.ERROR} <b>Failed to extract:</b> <code>{rich_esc(msg_fail)}</code>", client=client)

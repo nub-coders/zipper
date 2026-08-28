@@ -146,7 +146,7 @@ async def _show_broadcast_settings(client: Client, target, admin_id: int):
         ],
         [
             InlineKeyboardButton(
-                "🚀 START BROADCAST",
+                "START BROADCAST",
                 callback_data="bcast_start",
                 style=ButtonStyle.PRIMARY,
                 icon_custom_emoji_id=Emoji.ROCKET,
@@ -154,7 +154,7 @@ async def _show_broadcast_settings(client: Client, target, admin_id: int):
         ],
         [
             InlineKeyboardButton(
-                "✖️ Close Menu",
+                "Close Menu",
                 callback_data="bcast_close",
                 style=ButtonStyle.DANGER,
                 icon_custom_emoji_id=Emoji.CLOSE,

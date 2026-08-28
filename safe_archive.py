@@ -33,7 +33,9 @@ from __future__ import annotations
 
 import asyncio
 import os
+import shutil
 import stat
+import subprocess
 from dataclasses import dataclass, field
 
 from safe_paths import is_within
@@ -61,6 +63,117 @@ _EXTRACT_SLOTS = asyncio.Semaphore(2)
 # password would render as a bare `-p`, which makes 7z prompt interactively.
 _NO_PASSWORD = "\x01-zipper-no-password-\x01"
 
+# ── 7z runtime discovery ──────────────────────────────────────────────────────
+# On Debian 12+ / Ubuntu 24.04 the `7z` on PATH is not a binary, it is a wrapper:
+#
+#     #! /bin/sh
+#     exec /usr/lib/7zip/7z "$@"
+#
+# That target path is hardcoded and absolute. Under a relocated apt install --
+# notably the Heroku apt buildpack, which unpacks everything below /app/.apt --
+# the wrapper is reachable but its target is not, so `sh` cannot exec and exits
+# 127. The user saw that as "Failed to extract: 7z exited with 127", which reads
+# exactly like a corrupt archive. So: find an executable that genuinely runs,
+# call it by absolute path, and name the failure when nothing works.
+_EXEC_NOT_FOUND = 127
+
+# Ordered by format coverage. 7za and 7zr handle progressively fewer formats, so
+# they are last-resort fallbacks rather than preferences.
+_SEVENZIP_NAMES = ("7zz", "7z", "7za", "7zr")
+
+# Real binaries the distro wrappers delegate to, checked directly to sidestep a
+# wrapper whose hardcoded path does not resolve.
+_SEVENZIP_LIB_DIRS = (
+    "/usr/lib/7zip",
+    "/usr/libexec/p7zip",
+    "/usr/lib/p7zip",
+    "/usr/local/lib/7zip",
+)
+
+_sevenzip_path: str | None = None
+_sevenzip_lock = asyncio.Lock()
+
+
+def _sevenzip_candidates() -> list[str]:
+    """Absolute paths worth probing, most preferred first."""
+    candidates: list[str] = []
+
+    override = os.getenv("SEVENZIP_BINARY", "").strip()
+    if override:
+        candidates.append(override)
+
+    for name in _SEVENZIP_NAMES:
+        found = shutil.which(name)
+        if found:
+            candidates.append(found)
+
+    # The apt buildpack rewrites PATH but not the wrappers' internal paths, so
+    # look for the relocated copies explicitly.
+    prefixes = ["", os.path.join(os.getenv("HOME", "/app"), ".apt"), "/app/.apt"]
+    for prefix in prefixes:
+        for lib_dir in _SEVENZIP_LIB_DIRS:
+            for name in _SEVENZIP_NAMES:
+                candidates.append(os.path.join(prefix + lib_dir, name))
+
+    seen = set()
+    unique = []
+    for candidate in candidates:
+        if candidate not in seen:
+            seen.add(candidate)
+            unique.append(candidate)
+    return unique
+
+
+def _probe_sevenzip(candidate: str) -> bool:
+    """True if `candidate` actually executes and identifies itself as 7-Zip.
+
+    Exit status alone is not enough: a wrapper that cannot exec its target still
+    "runs" and returns 127, so the banner is what proves a working runtime.
+    """
+    try:
+        proc = subprocess.run(
+            [candidate],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return False
+    if proc.returncode == _EXEC_NOT_FOUND:
+        return False
+    return b"7-Zip" in proc.stdout or b"7-Zip" in proc.stderr
+
+
+def _find_sevenzip_blocking() -> str | None:
+    for candidate in _sevenzip_candidates():
+        if _probe_sevenzip(candidate):
+            return candidate
+    return None
+
+
+async def sevenzip_path() -> str:
+    """Return the absolute path of a working 7z executable, resolved once.
+
+    Raises ArchiveToolMissing when no candidate runs.
+    """
+    global _sevenzip_path
+    if _sevenzip_path:
+        return _sevenzip_path
+
+    async with _sevenzip_lock:
+        if _sevenzip_path:
+            return _sevenzip_path
+        # Probing spawns processes, so keep it off the event loop.
+        found = await asyncio.to_thread(_find_sevenzip_blocking)
+        if not found:
+            raise ArchiveToolMissing(
+                "The 7z runtime is missing or cannot start on this host. "
+                "Install the '7zip' package, or point SEVENZIP_BINARY at the executable."
+            )
+        _sevenzip_path = found
+        print(f"7z runtime resolved: {found}")
+        return _sevenzip_path
+
 
 class ArchiveError(Exception):
     """Base class for extraction failures that are safe to show a user."""
@@ -76,6 +189,15 @@ class ArchiveTimeout(ArchiveError):
 
 class ArchiveFailed(ArchiveError):
     """7z exited non-zero: corrupt, unsupported, or wrong password."""
+
+
+class ArchiveToolMissing(ArchiveFailed):
+    """No working 7z runtime could be found.
+
+    Subclasses ArchiveFailed so existing handlers still catch it, but callers
+    that care can report it separately -- an environment problem must not be
+    reported to the user as "incorrect password or corrupt archive".
+    """
 
 
 @dataclass
@@ -209,10 +331,11 @@ async def extract_archive(
     # With stdin at DEVNULL that is an immediate EOF rather than a hang, but a
     # placeholder keeps the intent explicit and the failure mode clean.
     pw = password if password else _NO_PASSWORD
+    sevenzip = await sevenzip_path()
 
     async with _EXTRACT_SLOTS:
         proc = await asyncio.create_subprocess_exec(
-            "7z", "x", f"-o{dest_dir}", f"-p{pw}", "-y",
+            sevenzip, "x", f"-o{dest_dir}", f"-p{pw}", "-y",
             "-mmt=2", "-bso0", "-bse0", "-bsp0",
             archive_path,
             stdin=asyncio.subprocess.DEVNULL,   # never block on a prompt
@@ -246,6 +369,13 @@ async def extract_archive(
     if kill_reason:
         raise ArchiveTooLarge(kill_reason)
 
+    if proc.returncode == _EXEC_NOT_FOUND:
+        # The resolved executable stopped working mid-flight (a wrapper whose
+        # target went away). Re-resolve on the next call rather than caching it.
+        global _sevenzip_path
+        _sevenzip_path = None
+        raise ArchiveToolMissing(f"{sevenzip} could not be executed")
+
     if proc.returncode != 0:
         raise ArchiveFailed(f"7z exited with {proc.returncode}")
 
@@ -263,9 +393,10 @@ async def extract_archive(
 
 async def list_archive(archive_path: str, *, timeout: float = 60.0) -> tuple[str, bool]:
     """Return (raw 7z listing, exited_ok) without blocking the event loop or exhausting memory."""
+    sevenzip = await sevenzip_path()
     async with _EXTRACT_SLOTS:
         proc = await asyncio.create_subprocess_exec(
-            "7z", "l", "-slt", "-mmt=2", f"-p{_NO_PASSWORD}", archive_path,
+            sevenzip, "l", "-slt", "-mmt=2", f"-p{_NO_PASSWORD}", archive_path,
             stdin=asyncio.subprocess.DEVNULL,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.STDOUT,
@@ -282,6 +413,10 @@ async def list_archive(archive_path: str, *, timeout: float = 60.0) -> tuple[str
 
         if len(out) > MAX_LIST_BYTES:
             out = out[:MAX_LIST_BYTES]
+        if proc.returncode == _EXEC_NOT_FOUND:
+            global _sevenzip_path
+            _sevenzip_path = None
+            raise ArchiveToolMissing(f"{sevenzip} could not be executed")
         return out.decode("utf-8", "replace"), proc.returncode == 0
 
 

@@ -145,7 +145,7 @@ async def upload_to_nuloader(callback_query, zip_filename, message, expiry_mode=
     started = time.time()
     state = {"cancelled": False, "truncated": False}
     cancel_markup = InlineKeyboardMarkup(
-        [[InlineKeyboardButton("🛑 Cancel Upload", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]]
+        [[InlineKeyboardButton("Cancel Upload", callback_data="cancel_task", style=ButtonStyle.DANGER, icon_custom_emoji_id=Emoji.CANCEL)]]
     )
 
     async def report_cancelled():
@@ -249,9 +249,9 @@ async def upload_to_nuloader(callback_query, zip_filename, message, expiry_mode=
             f"{success_table}\n\n"
             f"<i>Telegram limits bot uploads to 2.00 GB. Your archive is hosted securely on our cloud storage with direct high-speed download access.</i>",
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("⬇️ Download Archive", url=link, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.DOWNLOAD)],
-                [InlineKeyboardButton("💬 Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.LINK)],
-                [InlineKeyboardButton("🏠 Main Menu", callback_data="home", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.HOME)],
+                [InlineKeyboardButton("Download Archive", url=link, style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.DOWNLOAD)],
+                [InlineKeyboardButton("Support Channel", url="https://t.me/nub_coder_s", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.LINK)],
+                [InlineKeyboardButton("Main Menu", callback_data="home", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.HOME)],
             ]),
         )
     except asyncio.TimeoutError:
