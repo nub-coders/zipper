@@ -51,9 +51,10 @@ class Emoji:
     UPLOAD         = 5913236481220022288   # 📤  TgAndroidIcons
     COMPRESS       = 5877316724830768997   # 🗜️  TgAndroidIcons
     EXTRACT        = 5877468380125990242   # 📦  TgAndroidIcons
+    UNZIP          = 5785058280397082578   # 📂  open folder, used on the Actions unzip button
     HOME           = 5967822972931542886   # 🏠  TgAndroidIcons
     BACK           = 5877629862306385808   # ◀️  TgAndroidIcons
-    NEXT           = 5877468380125990242   # ➡️  TgAndroidIcons
+    NEXT           = 5884123981706956210   # ➡️  TgAndroidIcons
     CLOSE          = 5778527486270770928   # ❌  TgAndroidIcons
     HELP           = 5879785854284599288   # ❓  TgAndroidIcons
     LANG           = 5879585266426973039   # 🌐  TgAndroidIcons
@@ -141,6 +142,7 @@ class EmojiTag:
     UPLOAD         = f'<tg-emoji emoji-id="{Emoji.UPLOAD}">📤</tg-emoji>'
     COMPRESS       = f'<tg-emoji emoji-id="{Emoji.COMPRESS}">🗜️</tg-emoji>'
     EXTRACT        = f'<tg-emoji emoji-id="{Emoji.EXTRACT}">📦</tg-emoji>'
+    UNZIP          = f'<tg-emoji emoji-id="{Emoji.UNZIP}">📂</tg-emoji>'
     HOME           = f'<tg-emoji emoji-id="{Emoji.HOME}">🏠</tg-emoji>'
     BACK           = f'<tg-emoji emoji-id="{Emoji.BACK}">◀️</tg-emoji>'
     NEXT           = f'<tg-emoji emoji-id="{Emoji.NEXT}">➡️</tg-emoji>'
