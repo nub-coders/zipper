@@ -44,6 +44,16 @@
       "value": "false",
       "required": false
     },
+    "SUPPORT_GROUP": {
+      "description": "Telegram support group URL or @username for users seeking help",
+      "value": "https://t.me/nub_coder_s",
+      "required": false
+    },
+    "SUPPORT_CHANNEL": {
+      "description": "Telegram updates channel URL or @username",
+      "value": "https://t.me/nub_coders",
+      "required": false
+    },
     "MAX_DOWNLOAD_BYTES": {
       "description": "Maximum allowed download size in bytes per file (default: 2147483648 = 2 GB)",
       "value": "2147483648",

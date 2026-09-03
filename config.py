@@ -11,6 +11,32 @@ BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 BOT_USERNAME = os.getenv("BOT_USERNAME", "")
 FORCE_SUBSCRIBE = os.getenv("FORCE_SUBSCRIBE", "true").lower() == "true"
 
+# ── Support & Community ────────────────────────────────────────────────────────
+def _normalize_tg_url(value: str, default: str) -> str:
+    raw = (value or "").strip()
+    if not raw:
+        return default
+    if raw.startswith("http://") or raw.startswith("https://"):
+        return raw
+    if raw.startswith("@"):
+        return f"https://t.me/{raw[1:]}"
+    return f"https://t.me/{raw}"
+
+
+def get_tg_handle(url: str, default: str = "@nub_coder_s") -> str:
+    if not url:
+        return default
+    if "t.me/+" in url or "t.me/joinchat/" in url:
+        return "Join Group"
+    if "t.me/" in url:
+        handle = url.rstrip("/").split("t.me/")[-1]
+        return f"@{handle}" if handle else default
+    return default
+
+
+SUPPORT_GROUP = _normalize_tg_url(os.getenv("SUPPORT_GROUP", ""), "https://t.me/nub_coder_s")
+SUPPORT_CHANNEL = _normalize_tg_url(os.getenv("SUPPORT_CHANNEL", ""), "https://t.me/nub_coders")
+
 # ── Storage backend ───────────────────────────────────────────────────────────
 # MongoDB is optional. When MONGO_URL is unset or unreachable we fall back to an
 # in-memory collection so the bot can run without any database. In-memory data

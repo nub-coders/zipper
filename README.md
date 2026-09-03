@@ -59,6 +59,8 @@ docker compose up --build -d
 | `BOT_USERNAME` | ✅ | Bot username (without @) |
 | `MONGO_URL` | ❌ | MongoDB connection URI. If unset, the bot uses in-memory storage (data is not persisted across restarts) |
 | `FORCE_SUBSCRIBE` | ❌ | Require users to join the support channels before use (default `true`) |
+| `SUPPORT_GROUP` | ❌ | Telegram support group URL or @username (default `https://t.me/nub_coder_s`) |
+| `SUPPORT_CHANNEL` | ❌ | Telegram updates channel URL or @username (default `https://t.me/nub_coders`) |
 
 ---
 
@@ -73,7 +75,8 @@ docker compose up --build -d
 
 ## Support 💬
 
-- Channel: [@nub_coder_s](https://t.me/nub_coder_s)
+- Support Group: [@nub_coder_s](https://t.me/nub_coder_s)
+- Updates Channel: [@nub_coders](https://t.me/nub_coders)
 - Bot: [@FILEs_COMPRESSOR_BOT](https://t.me/FILEs_COMPRESSOR_BOT)
 
 ## License

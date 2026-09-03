@@ -1,5 +1,6 @@
 """plugins/ui_components.py — Modern, Styled Inline Keyboards with Bot API 10.3 Button Styles and Custom Emoji Icons."""
 
+import config
 from pyrogram.enums import ButtonStyle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from utils.emoji import Emoji
@@ -10,6 +11,20 @@ help_button = InlineKeyboardButton(
     callback_data="help",
     style=ButtonStyle.PRIMARY,
     icon_custom_emoji_id=Emoji.HELP,
+)
+
+support_button = InlineKeyboardButton(
+    "Support Group",
+    url=config.SUPPORT_GROUP,
+    style=ButtonStyle.PRIMARY,
+    icon_custom_emoji_id=Emoji.USERS,
+)
+
+channel_button = InlineKeyboardButton(
+    "Updates Channel",
+    url=config.SUPPORT_CHANNEL,
+    style=ButtonStyle.DEFAULT,
+    icon_custom_emoji_id=Emoji.LINK,
 )
 
 home_button = InlineKeyboardButton(
@@ -40,6 +55,22 @@ home_buttons = InlineKeyboardMarkup([
     ],
     [
         help_button,
+        support_button,
+    ],
+])
+
+help_buttons = InlineKeyboardMarkup([
+    [
+        support_button,
+        channel_button,
+    ],
+    [
+        InlineKeyboardButton("My Files", callback_data="my_files", style=ButtonStyle.SUCCESS, icon_custom_emoji_id=Emoji.FILE),
+        InlineKeyboardButton("Compress", callback_data="fzip", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.COMPRESS),
+    ],
+    [
+        home_button,
+        InlineKeyboardButton("Language", callback_data="lang_menu", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.LANG),
     ],
 ])
 
@@ -53,7 +84,7 @@ common_buttons = InlineKeyboardMarkup([
         InlineKeyboardButton("Compress", callback_data="fzip", style=ButtonStyle.PRIMARY, icon_custom_emoji_id=Emoji.COMPRESS),
     ],
     [
-        help_button,
+        support_button,
         InlineKeyboardButton("Language", callback_data="lang_menu", style=ButtonStyle.DEFAULT, icon_custom_emoji_id=Emoji.LANG),
     ],
 ])

@@ -21,6 +21,7 @@ from plugins.ui_components import (
     back_buttons,
     cancel_all_markup,
     common_buttons,
+    help_buttons,
     home_buttons,
     lang_markup,
 )
@@ -80,6 +81,8 @@ async def set_lang_handler(client: Client, callback_query: CallbackQuery):
 
 def _build_help_html(user_id: int) -> str:
     """Build the rich help guide with collapsible categories."""
+    group_handle = config.get_tg_handle(config.SUPPORT_GROUP, "@nub_coder_s")
+    channel_handle = config.get_tg_handle(config.SUPPORT_CHANNEL, "@nub_coders")
     return (
         f"{rich_heading(f'{EmojiTag.HELP} Help & Documentation', level=1)}\n"
         f"{rich_note('Complete guide on file management, archive compression, and cloud storage.')}\n\n"
@@ -122,6 +125,14 @@ def _build_help_html(user_id: int) -> str:
             "• <b>Active Workers:</b> Multi-threaded parallel processing",
             open=False,
         )
+        + "\n\n"
+        + rich_details(
+            f"{EmojiTag.USERS} Support & Community",
+            f"• <b>Support Group:</b> <a href=\"{config.SUPPORT_GROUP}\">{group_handle}</a>\n"
+            f"• <b>Updates Channel:</b> <a href=\"{config.SUPPORT_CHANNEL}\">{channel_handle}</a>\n"
+            "• Need help, have questions, or want to report an issue? Join our support group!",
+            open=False,
+        )
     )
 
 
@@ -131,7 +142,7 @@ async def help_command(client: Client, message: Message):
     await rich_reply(
         message,
         help_html,
-        reply_markup=common_buttons,
+        reply_markup=help_buttons,
         client=client,
     )
 
@@ -142,7 +153,7 @@ async def help_callback(client: Client, callback_query: CallbackQuery):
     await rich_edit(
         callback_query,
         help_html,
-        reply_markup=common_buttons,
+        reply_markup=help_buttons,
         client=client,
     )
 

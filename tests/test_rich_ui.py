@@ -163,18 +163,38 @@ def test_ui_components_keyboards():
         cancel_markup,
         common_buttons,
         file_buttons,
+        help_buttons,
         home_buttons,
         lang_markup,
         pass_button,
     )
 
-    for kb in [home_buttons, common_buttons, back_buttons, pass_button, file_buttons, cancel_markup, cancel_all_markup, lang_markup]:
+    for kb in [home_buttons, common_buttons, help_buttons, back_buttons, pass_button, file_buttons, cancel_markup, cancel_all_markup, lang_markup]:
         assert isinstance(kb, InlineKeyboardMarkup)
         assert len(kb.inline_keyboard) > 0
         for row in kb.inline_keyboard:
             for btn in row:
                 assert isinstance(btn, InlineKeyboardButton)
                 assert btn.text != ""
+
+
+def test_help_section_includes_support_group():
+    """Verify help documentation HTML and help keyboard contain the support group."""
+    import config
+    from plugins.basic_commands import _build_help_html
+    from plugins.ui_components import help_buttons
+
+    # 1. Check HTML documentation text
+    html = _build_help_html(12345)
+    assert "Support & Community" in html
+    assert "Support Group" in html
+    assert config.SUPPORT_GROUP in html
+
+    # 2. Check help keyboard has direct support link button
+    buttons = [btn for row in help_buttons.inline_keyboard for btn in row]
+    support_btns = [b for b in buttons if b.text == "Support Group"]
+    assert len(support_btns) == 1
+    assert support_btns[0].url == config.SUPPORT_GROUP
 
 
 def test_i18n_and_templates():
